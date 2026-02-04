@@ -283,10 +283,18 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "custom_header_hYWTt9": {
+      "type": "custom-header",
+      "name": "custom_header",
+      "settings": {
+        "custom_heading_text": "This is custom header"
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "custom_header_hYWTt9"
   ]
 }
