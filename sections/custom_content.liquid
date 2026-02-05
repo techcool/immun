@@ -5,7 +5,7 @@
   <div class="metaobject-display__inner">
     {% if section.settings.metaobject_type != blank %}
       {% assign metaobject_type = section.settings.page_content %}
-      {% assign metaobjects = shop.metaobjects[page_content].values %}
+      {% assign metaobjects = shop.metaobjects['page_content'].values %}
       
       <div class="grid grid--{{ section.settings.columns }}-col-desktop grid--2-col-tablet">
         {% for item in metaobjects %}
