@@ -4,7 +4,7 @@
 <div class="metaobject-display page-width">
   <div class="metaobject-display__inner">
     {% if section.settings.metaobject_type != blank %}
-      {% assign metaobject_type = section.settings.page_content %}
+      {% assign metaobject_type = section.settings.metaobject_type %}
       {% assign metaobjects = shop.metaobjects['page_content'].values %}
       
       <div class="grid grid--{{ section.settings.columns }}-col-desktop grid--2-col-tablet">
@@ -12,11 +12,7 @@
           <div class="grid__item">
             <div class="metaobject-card">
               {% if item.image %}
-                <div class="metaobject-card__image">
-                  <img src="{{ item.image | img_url: '500x' }}" 
-                       alt="{{ item.title | default: item.name }}"
-                       loading="lazy">
-                </div>
+              
               {% endif %}
               
               <div class="metaobject-card__content">
