@@ -1,0 +1,84 @@
+{% comment %} Create new file: sections/metaobject-display.liquid {% endcomment %}
+{{ 'section-metaobject-display.css' | asset_url | stylesheet_tag }}
+
+<div class="metaobject-display page-width">
+  <div class="metaobject-display__inner">
+    {% if section.settings.metaobject_type != blank %}
+      {% assign metaobject_type = section.settings.metaobject_type %}
+      {% assign metaobjects = shop.metaobjects[metaobject_type].values %}
+      
+      <div class="grid grid--{{ section.settings.columns }}-col-desktop grid--2-col-tablet">
+        {% for item in metaobjects %}
+          <div class="grid__item">
+            <div class="metaobject-card">
+              {% if item.image %}
+                <div class="metaobject-card__image">
+                  <img src="{{ item.image | img_url: '500x' }}" 
+                       alt="{{ item.title | default: item.name }}"
+                       loading="lazy">
+                </div>
+              {% endif %}
+              
+              <div class="metaobject-card__content">
+                {% if item.title %}
+                  <h3 class="metaobject-card__title">{{ item.title }}</h3>
+                {% endif %}
+                
+                {% if item.description %}
+                  <div class="metaobject-card__description">
+                    {{ item.description }}
+                  </div>
+                {% endif %}
+                
+                {% if item.price %}
+                  <p class="metaobject-card__price">${{ item.price }}</p>
+                {% endif %}
+                
+                {% if item.button_link %}
+                  <a href="{{ item.button_link }}" class="button button--primary">
+                    {{ item.button_text | default: 'View' }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>Please select a metaobject type in the theme settings.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Metaobject Display",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "metaobject_type",
+      "label": "Metaobject Type",
+      "info": "Enter the metaobject type name (exactly as created)"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Columns on desktop"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Metaobject Display",
+      "settings": {
+        "metaobject_type": "your_metaobject_type"
+      }
+    }
+  ]
+}
+{% endschema %}
