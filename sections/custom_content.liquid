@@ -19,6 +19,13 @@
                 {% if item.title %}
                   <h1 class="metaobject-card__title">{{ item.title }}</h1>
                 {% endif %}
+                {% if item.image %}
+                <div class="metaobject-card__image">
+                  <img src="{{ item.image | img_url: '500x' }}" 
+                       alt="{{ item.title.value | default: item.name }}"
+                       loading="lazy">
+                </div>
+              {% endif %}
                 
                 {% if item.description_new %}
                   <div class="metaobject-card__description">
