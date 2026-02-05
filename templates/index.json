@@ -290,11 +290,20 @@
       "settings": {
         "custom_heading_text": "This is custom header"
       }
+    },
+    "custom_content_tRmGKp": {
+      "type": "custom_content",
+      "name": "Metaobject Display",
+      "settings": {
+        "metaobject_type": "page_content",
+        "columns": 3
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
-    "custom_header_hYWTt9"
+    "custom_header_hYWTt9",
+    "custom_content_tRmGKp"
   ]
 }
