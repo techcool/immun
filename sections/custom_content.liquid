@@ -26,15 +26,6 @@
                   </div>
                 {% endif %}
                 
-                {% if item.price %}
-                  <p class="metaobject-card__price">${{ item.price }}</p>
-                {% endif %}
-                
-                {% if item.button_link %}
-                  <a href="{{ item.button_link }}" class="button button--primary">
-                    {{ item.button_text | default: 'View' }}
-                  </a>
-                {% endif %}
               </div>
             </div>
           </div>
