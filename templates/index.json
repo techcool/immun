@@ -9,6 +9,28 @@
  */
 {
   "sections": {
+    "custom_content_tRmGKp": {
+      "type": "custom_content",
+      "name": "Metaobject Display",
+      "settings": {
+        "metaobject_type": "page_content",
+        "columns": 3
+      }
+    },
+    "custom_header_hYWTt9": {
+      "type": "custom-header",
+      "name": "custom_header",
+      "settings": {
+        "custom_heading_text": "This is custom header"
+      }
+    },
+    "gp_shopify_original_section_605841633652507546": {
+      "type": "gp-section-605841633652507546",
+      "settings": {
+        "section_preload": "true",
+        "checksum": ""
+      }
+    },
     "hero_jVaWmY": {
       "type": "hero",
       "blocks": {
@@ -283,25 +305,11 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
-    },
-    "custom_header_hYWTt9": {
-      "type": "custom-header",
-      "name": "custom_header",
-      "settings": {
-        "custom_heading_text": "This is custom header"
-      }
-    },
-    "custom_content_tRmGKp": {
-      "type": "custom_content",
-      "name": "Metaobject Display",
-      "settings": {
-        "metaobject_type": "page_content",
-        "columns": 3
-      }
     }
   },
   "order": [
     "hero_jVaWmY",
+    "gp_shopify_original_section_605841633652507546",
     "product_list_fa6P9H",
     "custom_header_hYWTt9",
     "custom_content_tRmGKp"
