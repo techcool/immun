@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // HERO
   // =============================
   function startHeroAnimation() {
-    let heroImg = document.querySelector(".heroSec .banner__media img");
+    let heroImg = document.querySelector(".heroSec .hero__media-wrapper img");
     if (!heroImg) return;
 
     gsap.from(heroImg, {
