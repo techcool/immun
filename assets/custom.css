@@ -303,6 +303,20 @@ header-drawer:before {
   height: 80vh !important;
  }
 
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  overflow-x: hidden;
+}
+
 /* Responsive Css Start */
 @media (max-width: 1680px) {
 .heroSec, .page-width, .page-width-desktop {
