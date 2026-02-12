@@ -1,0 +1,197 @@
+{% schema %}
+{
+  "name": "Landing Page Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Left Logo Text",
+      "default": "UN"
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Sandwiched\nSpecial,\nSomething\nStarts"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu"
+    },
+    {
+      "type": "text",
+      "id": "cart_label",
+      "label": "Cart Label",
+      "default": "CART"
+    },
+    {
+      "type": "text",
+      "id": "right_text",
+      "label": "Right Side Text",
+      "default": "D"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing Page Header"
+    }
+  ]
+}
+{% endschema %}
+
+<header class="landing-header">
+  <div class="landing-header__inner">
+
+    <!-- LEFT SIDE -->
+    <div class="landing-header__left">
+      <div class="landing-header__logo">
+        {{ section.settings.logo_text }}
+      </div>
+
+      <div class="landing-header__tagline">
+        {{ section.settings.tagline | newline_to_br }}
+      </div>
+    </div>
+
+    <!-- CENTER NAVIGATION -->
+    <nav class="landing-header__nav">
+      {% if section.settings.menu != blank %}
+        <ul>
+          {% for link in linklists[section.settings.menu].links %}
+            <li>
+              <a href="{{ link.url }}">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </nav>
+
+    <!-- RIGHT SIDE -->
+    <div class="landing-header__right">
+      <a href="{{ routes.cart_url }}" class="landing-header__cart">
+        {{ section.settings.cart_label }}
+        <span class="cart-count">
+          {{ cart.item_count }}
+        </span>
+      </a>
+
+      <div class="landing-header__right-text">
+        {{ section.settings.right_text }}
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<style>
+.landing-header {
+  background: #e9e9e9;
+  padding: 20px 40px;
+  width: 100%;
+}
+
+.landing-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.landing-header__left {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.landing-header__logo {
+  font-size: 90px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.landing-header__tagline {
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.landing-header__nav ul {
+  display: flex;
+  gap: 60px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-header__nav a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  position: relative;
+}
+
+.landing-header__nav a:hover {
+  opacity: 0.7;
+}
+
+.landing-header__right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.landing-header__cart {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+}
+
+.cart-count {
+  margin-left: 6px;
+}
+
+.landing-header__right-text {
+  font-size: 90px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .landing-header__nav ul {
+    gap: 30px;
+  }
+
+  .landing-header__logo,
+  .landing-header__right-text {
+    font-size: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-header__inner {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .landing-header__nav {
+    width: 100%;
+    order: 3;
+  }
+
+  .landing-header__nav ul {
+    justify-content: space-between;
+  }
+
+  .landing-header__logo,
+  .landing-header__right-text {
+    font-size: 42px;
+  }
+
+  .landing-header__tagline {
+    font-size: 14px;
+  }
+}
+</style>
