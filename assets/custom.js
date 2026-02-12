@@ -53,117 +53,52 @@ document.addEventListener("DOMContentLoaded", function () {
   // =============================
   // FIXED HEADER
   // =============================
-//   function setHeaderStart() {
-//     gsap.set(".landing-header", {
-//       y: window.innerHeight - 130,
-//       position: "absolute",
-//       top: "auto",
-//       left: 0,
-//       right: 0,
-//       width: "100%"
-//     });
-//   }
+  function setHeaderStart() {
+    gsap.set(".landing-header", {
+      y: window.innerHeight - 130,
+      position: "absolute",
+      top: "auto",
+      left: 0,
+      right: 0,
+      width: "100%"
+    });
+  }
 
-//   setHeaderStart();
-//   gsap.set(".list-menu", { gap: "10vw" });
-//   gsap.set(".header__heading", { width: "320px" });
+  setHeaderStart();
+  gsap.set(".list-menu", { gap: "10vw" });
+  gsap.set(".header__heading", { width: "320px" });
 
-//   const mm = gsap.matchMedia();
+  const mm = gsap.matchMedia();
 
-//   mm.add("(min-width: 1681px)", () => headerScroll("800px top"));
-//   mm.add("(max-width: 1680px)", () => headerScroll("700px top"));
-//   mm.add("(max-width: 1400px)", () => headerScroll("600px top"));
+  mm.add("(min-width: 1681px)", () => headerScroll("800px top"));
+  mm.add("(max-width: 1680px)", () => headerScroll("700px top"));
+  mm.add("(max-width: 1400px)", () => headerScroll("600px top"));
 
-//   function headerScroll(endValue) {
-//     gsap.to(".landing-header", {
-//       y: 0,
-//       ease: "none",
-//       scrollTrigger: {
-//         trigger: SCROLLER,
-//         scroller: SCROLLER,
-//         start: "top top",
-//         end: endValue,
-//         scrub: true,
+  function headerScroll(endValue) {
+    gsap.to(".landing-header", {
+      y: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: SCROLLER,
+        scroller: SCROLLER,
+        start: "top top",
+        end: endValue,
+        scrub: true,
 
-//         onLeave: () => {
-//           gsap.set(".landing-header", { position: "fixed", top: 0, y: 0, zIndex: 20 });
-//           gsap.to(".list-menu", { gap: "2vw", duration: 0.4, ease: "power2.out" });
-//           gsap.to(".header__heading", { width: "70px", duration: 0.4, ease: "power2.out" });
-//         },
+        onLeave: () => {
+          gsap.set(".landing-header", { position: "fixed", top: 0, y: 0, zIndex: 20 });
+          gsap.to(".list-menu", { gap: "2vw", duration: 0.4, ease: "power2.out" });
+          gsap.to(".header__heading", { width: "70px", duration: 0.4, ease: "power2.out" });
+        },
 
-//         onEnterBack: () => {
-//           setHeaderStart();
-//           gsap.to(".list-menu", { gap: "10vw", duration: 0.4, ease: "power2.out" });
-//           gsap.to(".header__heading", { width: "120px", duration: 0.4, ease: "power2.out" });
-//         }
-//       }
-//     });
-//   }
-
-
-// =============================
-// FIXED HEADER
-// =============================
-function setHeaderStart() {
-  gsap.set(".landing-header", {
-    y: window.innerHeight - 130,
-    position: "absolute",
-    top: "auto",
-    left: 0,
-    right: 0,
-    width: "100%"
-  });
-}
-
-setHeaderStart();
-gsap.set(".list-menu", { gap: "10vw" });
-gsap.set(".header__heading", { width: "320px" });
-
-const mm = gsap.matchMedia();
-
-mm.add("(min-width: 1681px)", () => headerScroll(800));
-mm.add("(max-width: 1680px)", () => headerScroll(700));
-mm.add("(max-width: 1400px)", () => headerScroll(600));
-
-function headerScroll(endValue) {
-
-  gsap.to(".landing-header", {
-    y: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".banner",
-      scroller: SCROLLER,
-      start: "top top",
-      end: "+=" + endValue,
-      scrub: true
-    }
-  });
-
-  // menu animation synced with same scroll
-  gsap.to(".list-menu", {
-    gap: "2vw",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".banner",
-      scroller: SCROLLER,
-      start: "top top",
-      end: "+=" + endValue,
-      scrub: true
-    }
-  });
-
-  gsap.to(".header__heading", {
-    width: "70px",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".banner",
-      scroller: SCROLLER,
-      start: "top top",
-      end: "+=" + endValue,
-      scrub: true
-    }
-  });
-}
+        onEnterBack: () => {
+          setHeaderStart();
+          gsap.to(".list-menu", { gap: "10vw", duration: 0.4, ease: "power2.out" });
+          gsap.to(".header__heading", { width: "120px", duration: 0.4, ease: "power2.out" });
+        }
+      }
+    });
+  }
 
   // =============================
   // HERO
