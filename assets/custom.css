@@ -317,7 +317,7 @@ body {
   overflow-x: hidden;
   font-size: 1.6rem;
 }
-.bakery-container {
+.bakery-container, .container {
     margin: 0 auto;
 }
 
