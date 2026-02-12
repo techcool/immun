@@ -262,7 +262,7 @@
       "type": "bakery-section",
       "name": "Bakery Section",
       "settings": {
-        "bakery-custom_class": "custom-bakery-sec",
+        "bakery-custom_class": "custom-bakery-sec-one",
         "container_padding_top": 60,
         "container_padding_bottom": 60,
         "left_image_bottom": "shopify://shop_images/test02.webp",
@@ -276,14 +276,16 @@
         "title": "BAKERY",
         "title_color": "#000000",
         "description": "Our Bakery collection features an exquisite range of handcrafted breads, pastries, and cookies...",
-        "desc_color": "#333333",
+        "desc_color": "#c8ff01",
         "button_text": "Learn More",
         "button_link": "",
         "button_line_text": "Almond Milk Bread",
         "show_overlay": true,
-        "overlay_color": "rgba(0,0,0,0.5)",
+        "overlay_color": "#878145",
         "section_bg_type": "color",
-        "section_bg_color": "#ffffff"
+        "section_bg_color": "#ffffff",
+        "mask_fill_color": "#c8ff01",
+        "mask_base_color": "#3c2a21"
       }
     },
     "sticky_title_flex_gallery_LxTAnf": {
