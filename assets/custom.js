@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // FIXED HEADER
   // =============================
   function setHeaderStart() {
-    gsap.set(".header-wrapper", {
+    gsap.set(".landing-header", {
       y: window.innerHeight - 130,
       position: "absolute",
       top: "auto",
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
   mm.add("(max-width: 1400px)", () => headerScroll("600px top"));
 
   function headerScroll(endValue) {
-    gsap.to(".header-wrapper", {
+    gsap.to(".landing-header", {
       y: 0,
       ease: "none",
       scrollTrigger: {
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         scrub: true,
 
         onLeave: () => {
-          gsap.set(".header-wrapper", { position: "fixed", top: 0, y: 0, zIndex: 20 });
+          gsap.set(".landing-header", { position: "fixed", top: 0, y: 0, zIndex: 20 });
           gsap.to(".list-menu", { gap: "2vw", duration: 0.4, ease: "power2.out" });
           gsap.to(".header__heading", { width: "70px", duration: 0.4, ease: "power2.out" });
         },
@@ -145,8 +145,8 @@ document.addEventListener("DOMContentLoaded", function () {
         scroller: SCROLLER,
         start: "top-=100 top",
         end: "bottom top",
-        onEnter: () => document.querySelector(".header-wrapper")?.classList.add("header--overlay-active"),
-        onLeaveBack: () => document.querySelector(".header-wrapper")?.classList.remove("header--overlay-active")
+        onEnter: () => document.querySelector(".landing-header")?.classList.add("header--overlay-active"),
+        onLeaveBack: () => document.querySelector(".landing-header")?.classList.remove("header--overlay-active")
       });
     }
 
