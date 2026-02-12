@@ -317,6 +317,10 @@ body {
   overflow-x: hidden;
   font-size: 1.6rem;
 }
+.bakery-container {
+    margin: 0 auto;
+}
+
 
 /* Responsive Css Start */
 @media (max-width: 1680px) {
