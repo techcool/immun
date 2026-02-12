@@ -447,6 +447,56 @@
         "mask_fill_color": "#071342",
         "mask_base_color": "#234922"
       }
+    },
+    "sticky_title_flex_gallery_7kkd8M": {
+      "type": "sticky-title-flex-gallery",
+      "blocks": {
+        "image_CCjFnC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/basic-bread01.webp",
+            "link": ""
+          }
+        },
+        "image_br9kiM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bread-basic-2loaf.webp",
+            "link": ""
+          }
+        },
+        "image_Acy9Mx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bread-chocolate-01.webp",
+            "link": ""
+          }
+        },
+        "image_j9zKNV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/basic-bread01.webp",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_CCjFnC",
+        "image_br9kiM",
+        "image_Acy9Mx",
+        "image_j9zKNV"
+      ],
+      "name": "Sticky Title Flex Gallery",
+      "settings": {
+        "custom_class": "custom-section",
+        "background_color": "#fccbbe",
+        "title_text": "Essentials Collection",
+        "title_color": "#071342",
+        "subtitle_text": "A moist, fluffy bread with a mellow flavor.",
+        "subtitle_color": "#071342",
+        "padding_top_desktop": 100,
+        "padding_bottom_desktop": 100
+      }
     }
   },
   "order": [
@@ -457,6 +507,7 @@
     "sticky_title_flex_gallery_LxTAnf",
     "bakery_section_kekkA7",
     "sticky_title_flex_gallery_yG7rcx",
-    "bakery_section_a87jyU"
+    "bakery_section_a87jyU",
+    "sticky_title_flex_gallery_7kkd8M"
   ]
 }
