@@ -1,0 +1,288 @@
+{% schema %}
+{
+  "name": "Word Rotator Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Word Rotator"
+    },
+    {
+      "type": "textarea",
+      "id": "description_1",
+      "label": "Description Paragraph 1",
+      "default": "UnD is a brand rooted in authentic Japanese culture."
+    },
+    {
+      "type": "textarea",
+      "id": "description_2",
+      "label": "Description Paragraph 2",
+      "default": "It began with the sale of Japanese bread used for sandwiches and now offers a range of products."
+    },
+    {
+      "type": "textarea",
+      "id": "description_3",
+      "label": "Description Paragraph 3",
+      "default": "These are made with carefully selected Japanese ingredients that bring true authenticity."
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS class (optional)"
+    },
+    {
+      "type": "select",
+      "id": "padding",
+      "label": "Section Padding",
+      "default": "py-16",
+      "options": [
+        { "value": "py-8", "label": "Small" },
+        { "value": "py-16", "label": "Medium" },
+        { "value": "py-24", "label": "Large" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "word",
+      "name": "Word Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "word",
+          "label": "Word",
+          "default": "UN PROCESSED"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Word Rotator Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="word-rotator-section {{ section.settings.padding }} {{ section.settings.custom_class }}">
+  <div class="rotator-container page-width">
+    <div class="rotator-grid">
+      
+      <!-- Left Words -->
+      <div class="rotator-left">
+        <div id="word-list" class="word-list">
+          <div id="word-list-inner" class="word-list-inner">
+            {% for block in section.blocks %}
+              {% assign word = block.settings.word %}
+              {% assign word_highlight = word | replace_first: 'UN', '<span class="highlight">UN</span>' %}
+              {% assign word_highlight = word_highlight | replace_first: 'D', '<span class="highlight">D</span>' %}
+              <span class="word-item">
+                {{ word_highlight }}
+              </span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Description (3 Paragraphs) -->
+      <div class="rotator-right">
+        <div class="rotator-description">
+          {% if section.settings.description_1 != blank %}
+            <p>{{ section.settings.description_1 }}</p>
+          {% endif %}
+          {% if section.settings.description_2 != blank %}
+            <p>{{ section.settings.description_2 }}</p>
+          {% endif %}
+          {% if section.settings.description_3 != blank %}
+            <p>{{ section.settings.description_3 }}</p>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.word-rotator-section {
+  min-height: 1000px;
+  height: 100Vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-top: 150px;
+}
+
+.rotator-container {
+  width: 100%;
+}
+
+.rotator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.word-list {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.word-list-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.word-item {
+  display: block;
+  text-align: left;
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1.5;
+  color: #cccccc;
+  padding-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.word-item.current-item {
+  opacity: 1;
+  color: #cccccc;
+  font-size: 2.25rem;
+}
+.word-item span.highlight:first-child(){
+    font-size: 0;
+    transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -webkit-transition: all .3s ease;
+}
+.word-item.current-item span.highlight{
+    font-size: inherit !important;
+}
+.word-item.current-item .highlight {
+  color:rgb(0, 26, 56);
+}
+.word-item.current-item{
+    font-size: 6rem;
+    line-height: 1.5;
+}
+
+.rotator-right {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rotator-description p {
+  font-size: 2.25rem;
+  line-height: 1.5;
+  color: #333;
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  letter-spacing: 0;
+
+}
+
+@media (max-width: 1680px) {
+.word-item{
+  font-size: 4rem;
+}
+.rotator-description p{
+  font-size: 2rem;
+}
+.word-item.current-item{
+    font-size: 5rem;
+}
+}
+@media (max-width: 1440px) {
+.word-item{
+  font-size: 3.5rem;
+}
+.rotator-description p{
+  font-size: 1.5rem;
+}
+.word-item.current-item{
+    font-size: 4.5rem;
+}
+}
+
+
+@media (max-width: 767px) {
+.word-item{
+  font-size: 3rem;
+}
+.rotator-description p{
+  font-size: 2rem;
+}
+.word-item.current-item{
+    font-size: 3.5rem;
+}
+}
+
+
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const list = document.querySelector("#word-list");
+  const listInner = document.querySelector("#word-list-inner");
+  const items = listInner.querySelectorAll(".word-item");
+  if (!items.length) return;
+
+  const itemHeight = items[0].offsetHeight;
+  const totalItems = items.length;
+
+  // container height = 11 items visible
+  list.style.height = (itemHeight * 11) + "px";
+
+  // duplicate for seamless loop
+  listInner.innerHTML += listInner.innerHTML;
+  const allItems = listInner.querySelectorAll(".word-item");
+
+  let currentIndex = 0;
+  const middleIndex = 5; // center position
+
+  function updateHighlight() {
+    allItems.forEach(item => {
+      item.classList.remove("current-item");
+    });
+
+    let highlightedIndex = (currentIndex + middleIndex) % allItems.length;
+    let current = allItems[highlightedIndex];
+    if (current) {
+      current.classList.add("current-item");
+    }
+  }
+
+  function rotateWords() {
+    currentIndex++;
+
+    gsap.to(listInner, {
+      y: -(currentIndex * itemHeight),
+      duration: 0.8,
+      ease: "power2.inOut",
+      onComplete: () => {
+        if (currentIndex >= totalItems) {
+          gsap.set(listInner, { y: 0 });
+          currentIndex = 0;
+        }
+        updateHighlight();
+      }
+    });
+  }
+
+  updateHighlight();
+  setInterval(rotateWords, 2000);
+});
+</script>
