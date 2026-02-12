@@ -353,19 +353,19 @@
         "left_video_top_url": "",
         "right_image_top": "shopify://shop_images/grocery-cartoon-video.webp",
         "right_video_top_url": "",
-        "title": "Merchandise",
+        "title": "Tea & Grocery",
         "title_color": "#c8ff01",
-        "description": "Featuring UnD’s original apparel collection along with a special lineup of exclusive collaboration items. With a design that is both simple and sophisticated, these pieces seamlessly blend into your everyday life and are perfect for any occasion. Enjoy unique, timeless items that will enhance your individuality.",
-        "desc_color": "#071342",
+        "description": "Our grocery collection features a carefully curated selection of Japanese ingredients and foods, including ceremonial grade matcha from Kyoto's Uji region and traditional teas from Kumamoto, all centered around the theme of Drinking Heals. We will continue to add new items, offering fresh ways to enjoy the rich and authentic flavors of Japan in your everyday life. Enjoy exclusive Japanese flavors you can only find here.",
+        "desc_color": "#234922",
         "button_text": "Learn More",
         "button_link": "#",
         "button_line_text": "Almond Milk Bread",
         "show_overlay": true,
-        "overlay_color": "#fccbbe",
+        "overlay_color": "#ddc383",
         "section_bg_type": "color",
-        "section_bg_color": "#ddc383",
-        "mask_fill_color": "#071342",
-        "mask_base_color": "#234922"
+        "section_bg_color": "#8a8445",
+        "mask_fill_color": "#234922",
+        "mask_base_color": "#c8ff01"
       }
     },
     "sticky_title_flex_gallery_yG7rcx": {
