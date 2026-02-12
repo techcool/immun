@@ -342,6 +342,86 @@
       "type": "bakery-section",
       "name": "Bakery Section",
       "settings": {
+        "bakery-custom_class": "custom-bakery-sec-two",
+        "container_padding_top": 60,
+        "container_padding_bottom": 60,
+        "left_image_bottom": "shopify://shop_images/tea-drinking-text.webp",
+        "left_video_bottom_url": "",
+        "right_image_bottom": "shopify://shop_images/grocery-cartoon01.webp",
+        "right_video_bottom_url": "",
+        "left_image_top": "shopify://shop_images/tea-drinking-text.webp",
+        "left_video_top_url": "",
+        "right_image_top": "shopify://shop_images/grocery-cartoon-video.webp",
+        "right_video_top_url": "",
+        "title": "Merchandise",
+        "title_color": "#c8ff01",
+        "description": "Featuring UnD’s original apparel collection along with a special lineup of exclusive collaboration items. With a design that is both simple and sophisticated, these pieces seamlessly blend into your everyday life and are perfect for any occasion. Enjoy unique, timeless items that will enhance your individuality.",
+        "desc_color": "#071342",
+        "button_text": "Learn More",
+        "button_link": "#",
+        "button_line_text": "Almond Milk Bread",
+        "show_overlay": true,
+        "overlay_color": "#fccbbe",
+        "section_bg_type": "color",
+        "section_bg_color": "#ddc383",
+        "mask_fill_color": "#071342",
+        "mask_base_color": "#234922"
+      }
+    },
+    "sticky_title_flex_gallery_yG7rcx": {
+      "type": "sticky-title-flex-gallery",
+      "blocks": {
+        "image_VrjdAf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/basic-bread01.webp",
+            "link": ""
+          }
+        },
+        "image_TLrUw6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bread-basic-2loaf.webp",
+            "link": ""
+          }
+        },
+        "image_wFYGHJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bread-chocolate-01.webp",
+            "link": ""
+          }
+        },
+        "image_hPKt8E": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/basic-bread01.webp",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_VrjdAf",
+        "image_TLrUw6",
+        "image_wFYGHJ",
+        "image_hPKt8E"
+      ],
+      "name": "Sticky Title Flex Gallery",
+      "settings": {
+        "custom_class": "custom-section",
+        "background_color": "#8a8445",
+        "title_text": "Almond Milk Bread & Japanese Pastry",
+        "title_color": "#000000",
+        "subtitle_text": "A moist, fluffy bread with a mellow flavor.",
+        "subtitle_color": "#555555",
+        "padding_top_desktop": 100,
+        "padding_bottom_desktop": 100
+      }
+    },
+    "bakery_section_a87jyU": {
+      "type": "bakery-section",
+      "name": "Bakery Section",
+      "settings": {
         "bakery-custom_class": "custom-bakery-sec-three custom-bakery-sec-one",
         "container_padding_top": 60,
         "container_padding_bottom": 60,
@@ -375,6 +455,8 @@
     "und_dynamic_MwC46R",
     "bakery_section_wdbHAV",
     "sticky_title_flex_gallery_LxTAnf",
-    "bakery_section_kekkA7"
+    "bakery_section_kekkA7",
+    "sticky_title_flex_gallery_yG7rcx",
+    "bakery_section_a87jyU"
   ]
 }
