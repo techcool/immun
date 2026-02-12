@@ -409,11 +409,11 @@
       "name": "Sticky Title Flex Gallery",
       "settings": {
         "custom_class": "custom-section",
-        "background_color": "#8a8445",
-        "title_text": "Almond Milk Bread & Japanese Pastry",
-        "title_color": "#000000",
+        "background_color": "#ddc383",
+        "title_text": "Exceptional Teas & Japanese Ingredients",
+        "title_color": "#234922",
         "subtitle_text": "A moist, fluffy bread with a mellow flavor.",
-        "subtitle_color": "#555555",
+        "subtitle_color": "#234922",
         "padding_top_desktop": 100,
         "padding_bottom_desktop": 100
       }
