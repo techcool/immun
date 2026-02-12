@@ -2,12 +2,22 @@
 <section 
   class="bakery-sec {{ section.settings.bakery-custom_class }}"
   style="
-    {% if section.settings.section_bg_type == 'color' %}background-color: {{ section.settings.section_bg_color }};{% endif %}
-    {% if section.settings.section_bg_type == 'image' and section.settings.section_bg_image != blank %}background-image: url({{ section.settings.section_bg_image | img_url: 'master' }}); background-size: cover; background-position: center;{% endif %}
+    --mask-fill: {{ section.settings.mask_fill_color }};
+    --mask-base: {{ section.settings.mask_base_color }};
+
+    {% if section.settings.section_bg_type == 'color' %}
+      background-color: {{ section.settings.section_bg_color }};
+    {% endif %}
+    {% if section.settings.section_bg_type == 'image' and section.settings.section_bg_image != blank %}
+      background-image: url({{ section.settings.section_bg_image | img_url: 'master' }});
+      background-size: cover;
+      background-position: center;
+    {% endif %}
   "
 >
   <div class="bakery-container page-width"
        style="padding-top: {{ section.settings.container_padding_top }}px; padding-bottom: {{ section.settings.container_padding_bottom }}px;">
+       
        
     <!-- Background bottom layer -->
     <div class="bakery-sec-bottom">
@@ -145,7 +155,19 @@
 
     { "type": "select", "id": "section_bg_type", "label": "Section Background Type", "options": [ { "value": "color", "label": "Color" }, { "value": "image", "label": "Image" } ], "default": "color" },
     { "type": "color", "id": "section_bg_color", "label": "Section Background Color", "default": "#ffffff" },
-    { "type": "image_picker", "id": "section_bg_image", "label": "Section Background Image" }
+    { "type": "image_picker", "id": "section_bg_image", "label": "Section Background Image" },
+    {
+      "type": "color",
+      "id": "mask_fill_color",
+      "label": "Title Mask Fill Color",
+      "default": "#d1a000"
+    },
+    {
+      "type": "color",
+      "id": "mask_base_color",
+      "label": "Title Mask Base Color",
+      "default": "#3c2a21"
+    }
   ],
   "presets": [
     { "name": "Bakery Section", "category": "Custom" }
@@ -157,270 +179,175 @@
 
 
 <style>
-/* Masking effect for bakery title characters */
-.bakery-title .char {
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-image: linear-gradient(to top, #d1a000 0%, #d1a000 var(--fill, 0%), #3c2a21 var(--fill, 0%), #3c2a21 100%);
-}
+    .bakery-sec {
+      position: relative;
+      height: 130vh;
+      background: #8a8445;
+      z-index: 10;
+      overflow: hidden;
+    }
 
-.bakery-sec {
-  position: relative;
-  height: 130vh;
-  background: #8a8445;
-  z-index: 10;
-  overflow: hidden;
-}
+    .bakery-container {
+      position: relative;
+      {% comment %} width: 100%; {% endcomment %}
+      {% comment %} max-width: 1600px; {% endcomment %}
+      height: 100%;
+      {% comment %} margin: 0 auto; {% endcomment %}
+      display: flex;
+    }
+    .bakery-sec-bottom,
+    .bakery-sec-top {
+      position: absolute;
+      top: 0px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
 
-.bakery-container {
-  position: relative;
-  {% comment %} width: 100%; {% endcomment %}
-  {% comment %} max-width: 1600px; {% endcomment %}
-  height: 100%;
-  {% comment %} margin: 0 auto; {% endcomment %}
-  display: flex;
-}
-.bakery-sec-bottom,
-.bakery-sec-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
+    .bakery-row {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+      padding: 9rem 0;
+    }
 
-.bakery-row {
-  display: flex;
-  gap: 2rem;
-  width: 100%;
-  height: 100%;
-  padding: 6rem 0;
-}
+    .bakery-col {
+      flex: 1;
+    }
 
-.bakery-col {
-  flex: 1;
-}
+    .bakery-col-left, .bakery-col-right {
+      height: 90vh;
+    }
+    .bakery-img-wrap, .bakery-col-left .image-wrap, .bakery-col-right .image-wrap{
+      height: 100%
+    }
+    .bakery-col-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
 
-.bakery-col-left, .bakery-col-right {
-  height: 90vh;
-}
-.bakery-img-wrap, .bakery-col-left .image-wrap, .bakery-col-right .image-wrap{
-  height: 100%
-}
-.bakery-col-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-}
+    .bakery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-.bakery-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    .bakery-video {
+      object-fit: cover;
+      max-width: 100%;
+      height: auto;
+    }
 
-.bakery-video {
-  object-fit: cover;
-  max-width: 100%;
-  height: auto;
-}
+    .bakery-title-wrap {
+      position: absolute;
+      top: 85vh;
+      left: 0;
+      max-width: 700px;
+      width: 50%;
+      text-align: left;
+    }
 
-.bakery-title-wrap {
-  position: absolute;
-  top: 85vh;
-  left: 0;
-  max-width: 700px;
-  text-align: left;
-}
+    .bakery-title {
+      {% comment %} font-size: 6vw; {% endcomment %}
+      font-weight: bold;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: #fff;
+    }
 
-.bakery-title {
-  {% comment %} font-size: 6vw; {% endcomment %}
-  font-weight: bold;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  margin: 0;
-  color: #fff;
-}
+    .bakery-desc {
+      color: #fff;
+      font-size: 2rem;
+      line-height: 1.5;
+    }
 
-.bakery-desc {
-  color: #fff;
-  font-size: 2rem;
-  line-height: 1.5;
-}
+    .bakery-btn {
+      display: inline-block;
+      width: 95%;
+      cursor: pointer;
+      margin-top: 1rem;
+      text-decoration: none;
+      color: #fff;
+    }
 
-.bakery-btn {
-  display: inline-block;
-  width: 95%;
-  cursor: pointer;
-  margin-top: 1rem;
-  text-decoration: none;
-  color: #fff;
-}
+    .bakery-btn-grid {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-.bakery-btn-grid {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 0.5rem;
-}
+    .bakery-btn-left,
+    .bakery-btn-right {
+      font-weight: 600;
+      white-space: nowrap;
+    }
 
-.bakery-btn-left,
-.bakery-btn-right {
-  font-weight: 600;
-  white-space: nowrap;
-}
+    .bakery-btn-line {
+      position: relative;
+      height: 1px;
+      background: #000;
+    }
 
-.bakery-btn-line {
-  position: relative;
-  height: 1px;
-  background: #000;
-}
+    .bakery-btn-line-active {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 7px;
+      width: 0;
+      background: #000;
+      transform: translateY(-50%);
+      transition: width 0.5s ease-in-out;
+    }
 
-.bakery-btn-line-active {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  height: 7px;
-  width: 0;
-  background: #000;
-  transform: translateY(-50%);
-  transition: width 0.5s ease-in-out;
-}
+    .bakery-title-wrap:hover .bakery-btn-line-active {
+      width: 100%;
+    }
 
-.bakery-btn:hover .bakery-btn-line-active {
-  width: 100%;
-}
+    .bakery-sec-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ddc383;
+      z-index: -1;
+      display: block !important;
+    }
+    .bakery-sec { height: 120vh; position: relative; }
+    .bakery-sec-top, .bakery-sec-bottom { overflow: hidden; }
+    /* Masking effect for bakery title characters */
+    .bakery-title .char {
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
 
-.bakery-sec-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #ddc383;
-  z-index: -1;
-  display: block !important;
+      background-image: linear-gradient(
+        to top,
+        var(--mask-fill) 0%,
+        var(--mask-fill) var(--fill, 0%),
+        var(--mask-base) var(--fill, 0%),
+        var(--mask-base) 100%
+      );
+    }
+
+@media (max-width: 1680px) {
+.bakery-desc{
+  font-size: 1.875rem;
+}
+}
+@media (max-width: 1440px) {
+.bakery-desc{
+  font-size: 1.5rem;
+}
 }
 </style>
 
-<!-- GSAP Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-{% comment %} <script>
-gsap.registerPlugin(ScrollTrigger);
 
-function initBakeryTitleAnimation(titleEl, triggerEl) {
-  if (!titleEl || titleEl.dataset.charsReady === "true") return;
-  const text = titleEl.textContent;
-  titleEl.innerHTML = "";
-  text.split("").forEach((char) => {
-    const span = document.createElement("span");
-    span.classList.add("char");
-    span.style.display = "inline-block";
-    span.textContent = char;
-    titleEl.appendChild(span);
-  });
-  titleEl.dataset.charsReady = "true";
 
-  gsap.to(titleEl.querySelectorAll(".char"), {
-    y: -50,
-    scale: 1,
-    fontSize: "8vw",
-    stagger: 0.05,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: triggerEl || titleEl,
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-    }
-  });
-}
 
-// Initialize animation for this section
-document.addEventListener('DOMContentLoaded', function() {
-  const sec = document.querySelector('.bakery-sec');
-  if (!sec) return;
-  
-  const top = sec.querySelector(".bakery-sec-top");
-  const bottom = sec.querySelector(".bakery-sec-bottom");
-  const overlay = sec.querySelector(".bakery-sec-overlay");
-  const title = sec.querySelector(".bakery-title");
-
-  // Collapse top
-  gsap.to(top, {
-    height: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: sec,
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-    }
-  });
-
-  // Overlay grow (synced with title animation using the same trigger/range)
-  gsap.set(overlay, { height: 0 });
-  gsap.to(overlay, {
-    height: "100%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: bottom,
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-    }
-  });
-
-  // Pin bottom
-  gsap.to(bottom, {
-    opacity: 1,
-    ease: "none",
-    scrollTrigger: {
-      trigger: sec,
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-      pin: true,
-    }
-  });
-
-  // Per-char animation
-  initBakeryTitleAnimation(title, bottom);
-
-  // Mask fill tied to overlay growth relative to title bounds
-  if (title && overlay) {
-    ScrollTrigger.create({
-      trigger: bottom,
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-      onUpdate: () => {
-        const secRect = sec.getBoundingClientRect();
-        const secHeight = secRect.height;
-        const overlayHeight = overlay.getBoundingClientRect().height;
-        const overlayTop = secHeight - overlayHeight; // overlay grows from bottom
-        const titleRect = title.getBoundingClientRect();
-        const titleTop = titleRect.top - secRect.top;
-        const titleBottom = titleTop + titleRect.height;
-
-        // Start masking when overlay reaches the title's bottom,
-        // complete when overlay reaches the title's top
-        let progress;
-        if (overlayTop >= titleBottom) {
-          progress = 0; // overlay hasn't reached the title bottom yet
-        } else if (overlayTop <= titleTop) {
-          progress = 1; // overlay has reached/passed the title top
-        } else {
-          progress = (titleBottom - overlayTop) / (titleBottom - titleTop);
-        }
-
-        title.style.setProperty('--fill', `${Math.max(0, Math.min(1, progress)) * 100}%`);
-      }
-    });
-  }
-});
-</script> {% endcomment %}
