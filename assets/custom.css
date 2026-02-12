@@ -1,0 +1,410 @@
+@media screen and (min-width: 990px) {
+  .header--middle-left {
+    grid-template-columns: auto 1fr auto !important;
+  }
+  .header--middle-left .header__inline-menu {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+  .homeBlog .grid--3-col-desktop .grid__item {
+        width: calc(25% - var(--grid-desktop-horizontal-spacing) * 2 / 4);
+        max-width: calc(25% - var(--grid-desktop-horizontal-spacing) * 2 / 4);
+    }
+}
+
+/* html, body {
+  scroll-behavior: smooth !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+} */
+
+
+
+/* .header-wrapper {
+  position: relative;   
+  margin-top: 700px;    
+  width: 100%;
+} */
+
+.header__heading-logo-wrapper {
+    max-width: 100px;
+}
+.list-menu__item {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 700;
+}
+sticky-header.header-wrapper {
+  z-index: 999 !important;
+}
+
+.pin-spacer {
+  z-index: 2 !important;
+}
+
+/* -------------------------
+   Bakery Section One
+------------------------- */
+.custom-bakery-sec-one .bakery-col-left .image-wrap {
+  width: 450px;
+  height: 450px;
+  overflow: hidden;
+}
+.custom-bakery-sec-one .bakery-col-left .image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* -------------------------
+   Bakery Section Two
+------------------------- */
+.custom-bakery-sec-two .bakery-title-wrap {
+  left: auto;
+  right: 0;
+  text-align: right;
+}
+.custom-bakery-sec-two .bakery-col-right .bakery-img-wrap,
+.custom-bakery-sec-two .bakery-col-right .bakery-video-wrap {
+  width: 498px;
+  height: 378px;
+  overflow: hidden;
+}
+.custom-bakery-sec-two .bakery-col-right .bakery-img-wrap img,
+.custom-bakery-sec-two .bakery-col-right .bakery-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.custom-bakery-sec-two .bakery-title-wrap {
+  text-align: right;
+}
+.bakery-video {
+  object-fit: cover;
+  max-width: 100%;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* -------------------------
+   Bakery Section Three
+------------------------- */
+.custom-bakery-sec-three .bakery-col-left .image-wrap {
+  width: 450px;
+  height: 450px;
+  overflow: hidden;
+}
+.custom-bakery-sec-three .bakery-col-left .image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.custom-bakery-sec-three .bakery-title-wrap {
+  left: 0;
+  right: auto;
+  text-align: left;
+}
+
+
+ 
+
+
+/*=============== css start ===============*/
+
+
+/*=== b2b service section css start ===*/
+
+/* =========================
+   Section Wrapper
+========================= */
+.b2b-services-section {
+  padding: 4rem 2rem;
+}
+
+
+/* =========================
+   Top Image
+========================= */
+.TopImage {
+  display: block;
+  margin-bottom: 8rem;
+}
+
+.header-image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+/* =========================
+   Flex Layout
+========================= */
+.b2b-services-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .b2b-services-content {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+}
+
+/* =========================
+   Left Column (Sticky)
+========================= */
+.b2b-services-contentLeft {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .b2b-services-contentLeft {
+    width: 30%;
+    position: sticky;
+    top: 2rem;
+    align-self: flex-start;
+  }
+}
+
+.b2b-services-contentLeft h2 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Explore Link */
+.explore-link {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+}
+
+.explore-link::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+  margin-top: 5px;
+}
+
+.explore-link:hover::after {
+  width: 100%;
+}
+
+.link-text {
+  font-size: 1.5rem;
+}
+
+/* =========================
+   Right Column
+========================= */
+.b2b-services-contentRght {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .b2b-services-contentRght {
+    width: 70%;
+  }
+}
+
+.b2b-services-contentRght p {
+    font-size: 2.25rem;
+    line-height: 1.5;
+    color: #333;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+
+
+
+/*=== b2b service section css end ===*/
+
+/*=============== css end ===============*/
+
+
+
+.footer__content-top {
+    position: relative;
+}
+.footer-block:nth-of-type(1) {
+    order: 1;
+    width: 50%;
+    max-width: 50%;
+}
+.footer-block:nth-of-type(2) {
+    order: 2;
+    width: 100%;
+    max-width: 100%;
+}
+.footer-block--newsletter {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.footer-block:nth-of-type(2) .footer-block__heading{
+  font-size: 10vw;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.page-width, .page-width-desktop{
+  width: 94% !important;
+  max-width: 1600px !important;
+  padding-left: 0!important;
+  padding-right: 0 !important;
+}
+.home-collection {
+    margin-top: 50px;
+}
+.title, .blog__title, .b2b-services-contentLeft h2{
+  font-size: 4rem;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+header-drawer:before {
+    content: "";
+    position: absolute;
+    height: 100vh;
+    width: 1px;
+    left: 0;
+    top: 0;
+}
+
+
+/* sticky-header.header-wrapper {
+    top: calc(100vh - 110px);
+    position: absolute;
+    width: 100%;
+} */
+/* header.header {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+} */
+
+.heroSec {
+    padding: 50px;
+    box-sizing: border-box;
+    max-width: 1600px;
+    margin: 40px auto;
+    /* height: 60vh; */
+}
+.word-item span.highlight:first-child{
+  display: none;
+  transition: all .3s ease;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+}
+.word-item.current-item span.highlight:first-child{
+  display: inline-block;
+}
+
+.header-wrapper {
+  background-color: transparent;
+  transition: background-color 0.4s ease;
+}
+
+.header-wrapper.header--overlay-active .header__menu-item, .header-wrapper.header--overlay-active .header__active-menu-item, .header-wrapper.header--overlay-active .header__icon {
+  color: #c8ff01 !important;
+}
+
+
+/* .banner--large:not(.banner--adapt){
+  min-height: 95vh !important;
+  height:  95vh !important;
+} */
+ .heroSec{
+  min-height: unset !important;
+  height: 80vh !important;
+ }
+
+/* Responsive Css Start */
+@media (max-width: 1680px) {
+.heroSec, .page-width, .page-width-desktop {
+    max-width: 90% !important;
+}
+.heroSec {
+    height: 74vh !important;
+}
+.custom-bakery-sec-one .bakery-col-left .image-wrap {
+    width: 350px;
+    height: 350px;
+}
+.custom-bakery-sec-two .bakery-col-right .bakery-img-wrap, .custom-bakery-sec-two .bakery-col-right .bakery-video-wrap {
+    width: 400px;
+    height: 304px;
+}
+.word-item{
+  font-size: 4rem;
+}
+.rotator-description p{
+  font-size: 2rem;
+}
+.bakery-desc{
+  font-size: 1.5rem;
+}
+}
+
+@media (max-width: 1440px) {
+.word-item{
+  font-size: 3rem;
+}
+.bakery-desc{
+  font-size: 1rem;
+}
+.custom-bakery-sec-one .bakery-col-left .image-wrap {
+    width: 280px;
+    height: 280px;
+}
+.custom-bakery-sec-two .bakery-col-right .bakery-img-wrap, .custom-bakery-sec-two .bakery-col-right .bakery-video-wrap {
+    width: 368px;
+    height: 280px;
+}
+.image-gallery-wrap .gallery-image a {
+    height: 700px !important;
+}
+}
+
+@media (max-width: 991px) {
+.image-gallery-wrap .gallery-image a {
+    height: 500px !important;
+}
+.bakery-col-left, .bakery-col-right {
+    height: 500px !important;
+}
+}
+@media (max-width: 767px) {
+.rotator-grid {
+    display: grid;
+    grid-template-columns: 1fr !important;
+}
+.bakery-row, .image-gallery-wrap{
+  flex-flow: column !important;
+}
+.image-gallery-wrap .gallery-image {
+    width: 100% !important;
+}
+.sticky-flex-gallery .sticky-title h2 {
+    font-size: 38px;
+}
+}
