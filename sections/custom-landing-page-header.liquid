@@ -57,7 +57,7 @@
     <!-- CENTER NAVIGATION -->
     <nav class="landing-header__nav">
       {% if section.settings.menu != blank %}
-        <ul>
+        <ul class="list-menu list-menu--inline">
           {% for link in linklists[section.settings.menu].links %}
             <li>
               <a href="{{ link.url }}">
