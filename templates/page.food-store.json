@@ -258,6 +258,34 @@
         "padding": "py-16"
       }
     },
+    "bakery_section_wdbHAV": {
+      "type": "bakery-section",
+      "name": "Bakery Section",
+      "settings": {
+        "bakery-custom_class": "custom-bakery-sec",
+        "container_padding_top": 60,
+        "container_padding_bottom": 60,
+        "left_image_bottom": "shopify://shop_images/test02.webp",
+        "left_video_bottom_url": "",
+        "right_image_bottom": "shopify://shop_images/und-bread.webp",
+        "right_video_bottom_url": "",
+        "left_image_top": "shopify://shop_images/test01.webp",
+        "left_video_top_url": "",
+        "right_image_top": "shopify://shop_images/und-bread01.webp",
+        "right_video_top_url": "",
+        "title": "BAKERY",
+        "title_color": "#000000",
+        "description": "Our Bakery collection features an exquisite range of handcrafted breads, pastries, and cookies...",
+        "desc_color": "#333333",
+        "button_text": "Learn More",
+        "button_link": "",
+        "button_line_text": "Almond Milk Bread",
+        "show_overlay": true,
+        "overlay_color": "rgba(0,0,0,0.5)",
+        "section_bg_type": "color",
+        "section_bg_color": "#ffffff"
+      }
+    },
     "sticky_title_flex_gallery_LxTAnf": {
       "type": "sticky-title-flex-gallery",
       "blocks": {
@@ -313,6 +341,7 @@
     "main",
     "hero_tXfgf8",
     "und_dynamic_MwC46R",
+    "bakery_section_wdbHAV",
     "sticky_title_flex_gallery_LxTAnf"
   ]
 }
