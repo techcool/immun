@@ -79,6 +79,7 @@
           "blocks": {}
         }
       },
+      "disabled": true,
       "settings": {
         "logo_position": "left",
         "menu_position": "left",
@@ -109,10 +110,22 @@
         "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
+    },
+    "custom_landing_page_header_tCwjpa": {
+      "type": "custom-landing-page-header",
+      "name": "Landing Page Header",
+      "settings": {
+        "logo_text": "UN",
+        "tagline": "",
+        "menu": "main-menu",
+        "cart_label": "CART",
+        "right_text": ""
+      }
     }
   },
   "order": [
     "header_announcements_9jGBFp",
-    "header_section"
+    "header_section",
+    "custom_landing_page_header_tCwjpa"
   ]
 }
