@@ -337,6 +337,30 @@
         "padding_top_desktop": 100,
         "padding_bottom_desktop": 100
       }
+    },
+    "bakery_section_kekkA7": {
+      "type": "bakery-section",
+      "name": "Bakery Section",
+      "settings": {
+        "bakery-custom_class": "custom-bakery-sec",
+        "container_padding_top": 60,
+        "container_padding_bottom": 60,
+        "left_video_bottom_url": "",
+        "right_video_bottom_url": "",
+        "left_video_top_url": "",
+        "right_video_top_url": "",
+        "title": "Tea & Grocery",
+        "title_color": "#c8ff01",
+        "description": "Our grocery collection features a carefully curated selection of Japanese ingredients and foods, including ceremonial grade matcha from Kyoto's Uji region and traditional teas from Kumamoto, all centered around the theme of Drinking Heals. We will continue to add new items, offering fresh ways to enjoy the rich and authentic flavors of Japan in your everyday life. Enjoy exclusive Japanese flavors you can only find here.",
+        "desc_color": "#234922",
+        "button_text": "Learn More",
+        "button_link": "#",
+        "button_line_text": "Almond Milk Bread",
+        "show_overlay": true,
+        "overlay_color": "#ddc383",
+        "section_bg_type": "color",
+        "section_bg_color": "#8a8445"
+      }
     }
   },
   "order": [
@@ -344,6 +368,7 @@
     "hero_tXfgf8",
     "und_dynamic_MwC46R",
     "bakery_section_wdbHAV",
-    "sticky_title_flex_gallery_LxTAnf"
+    "sticky_title_flex_gallery_LxTAnf",
+    "bakery_section_kekkA7"
   ]
 }
