@@ -1,512 +1,426 @@
-{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
-
-{%- if section.settings.image_height == 'adapt' and section.settings.image != blank -%}
-  {%- style -%}
-    @media screen and (max-width: 749px) {
-      #Banner-{{ section.id }}::before,
-      #Banner-{{ section.id }} .banner__media::before,
-      #Banner-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
-        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
-        content: '';
-        display: block;
-      }
-    }
-
-    @media screen and (min-width: 750px) {
-      #Banner-{{ section.id }}::before,
-      #Banner-{{ section.id }} .banner__media::before {
-        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
-        content: '';
-        display: block;
-      }
-    }
-  {%- endstyle -%}
-{%- endif -%}
-
-{%- style -%}
-  #Banner-{{ section.id }}::after {
-    opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
-  }
-{%- endstyle -%}
-
-{%- liquid
-  assign full_width = '100vw'
-  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
-
-  if section.settings.image_behavior == 'ambient'
-    assign half_width = '60vw'
-    assign full_width = '120vw'
-    assign stacked_sizes = '(min-width: 750px) 60vw, 120vw'
-    assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
-  elsif section.settings.image_behavior == 'fixed' or section.settings.image_behavior == 'zoom-in'
-    assign half_width = '100vw'
-    assign stacked_sizes = '100vw'
-  else
-    assign half_width = '50vw'
-    assign stacked_sizes = '(min-width: 750px) 50vw, 100vw'
-  endif
-  assign fetch_priority = 'auto'
-  if section.index == 1
-    assign fetch_priority = 'high'
-  endif
--%}
-
-<div
-  id="Banner-{{ section.id }}"
-  class="banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %} {%  if section.settings.banner-custom-class != blank %} {{ section.settings.banner-custom-class }} {% endif %}"
+<!-- bakery-section.liquid -->
+<section 
+  class="bakery-sec {{ section.settings.bakery-custom_class }}"
+  style="
+    {% if section.settings.section_bg_type == 'color' %}background-color: {{ section.settings.section_bg_color }};{% endif %}
+    {% if section.settings.section_bg_type == 'image' and section.settings.section_bg_image != blank %}background-image: url({{ section.settings.section_bg_image | img_url: 'master' }}); background-size: cover; background-position: center;{% endif %}
+  "
 >
-  {%- if section.settings.image != blank -%}
-    <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {%- liquid
-        assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
-        if section.settings.image_2 != blank
-          assign image_class = 'banner__media-image-half'
-        endif
-        if section.settings.image_2 != blank and section.settings.stack_images_on_mobile
-          assign sizes = stacked_sizes
-        elsif section.settings.image_2 != blank
-          assign sizes = half_width
-        else
-          assign sizes = full_width
-        endif
-      -%}
-      {{
-        section.settings.image
-        | image_url: width: 3840
-        | image_tag:
-          width: section.settings.image.width,
-          height: image_height,
-          class: image_class,
-          sizes: sizes,
-          widths: widths,
-          fetchpriority: fetch_priority
-      }}
-    </div>
-  {%- elsif section.settings.image_2 == blank -%}
-    <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-    </div>
-  {%- endif -%}
-  {%- if section.settings.image_2 != blank -%}
-    <div class="banner__media media{% if section.settings.image != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {%- liquid
-        assign image_height_2 = section.settings.image_2.width | divided_by: section.settings.image_2.aspect_ratio
-        if section.settings.image != blank
-          assign image_class_2 = 'banner__media-image-half'
-        endif
-        if section.settings.image != blank and section.settings.stack_images_on_mobile
-          assign sizes = stacked_sizes
-        elsif section.settings.image_2 != blank
-          assign sizes = half_width
-        else
-          assign sizes = full_width
-        endif
-      -%}
-      {{
-        section.settings.image_2
-        | image_url: width: 3840
-        | image_tag:
-          width: section.settings.image_2.width,
-          height: image_height_2,
-          class: image_class_2,
-          sizes: sizes,
-          widths: widths,
-          fetchpriority: fetch_priority
-      }}
-    </div>
-  {%- endif -%}
-  <div class="banner__content banner__content--{{ section.settings.desktop_content_position }} page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'heading' -%}
-            <h2
-              class="banner__heading inline-richtext {{ block.settings.heading_size }}"
-              {{ block.shopify_attributes }}
-            >
-              {{ block.settings.heading }}
-            </h2>
-          {%- when 'text' -%}
-            <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
-              <p>{{ block.settings.text }}</p>
+  <div class="bakery-container page-width"
+       style="padding-top: {{ section.settings.container_padding_top }}px; padding-bottom: {{ section.settings.container_padding_bottom }}px;">
+       
+    <!-- Background bottom layer -->
+    <div class="bakery-sec-bottom">
+      <div class="bakery-row">
+        <!-- Bottom Left -->
+        <div class="bakery-col bakery-col-left">
+          {% if section.settings.left_video_bottom_url != blank %}
+            <div class="bakery-video-wrap">
+              <video class="bakery-video" width="498" height="378" autoplay muted loop playsinline>
+                <source src="{{ section.settings.left_video_bottom_url }}" type="video/mp4">
+              </video>
             </div>
-          {%- when 'buttons' -%}
-            <div
-              class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %}"
-              {{ block.shopify_attributes }}
-            >
-              {%- if block.settings.button_label_1 != blank -%}
-                <a
-                  {% if block.settings.button_link_1 == blank %}
-                    role="link" aria-disabled="true"
-                  {% else %}
-                    href="{{ block.settings.button_link_1 }}"
-                  {% endif %}
-                  class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
-                >
-                  {{- block.settings.button_label_1 | escape -}}
-                </a>
-              {%- endif -%}
-              {%- if block.settings.button_label_2 != blank -%}
-                <a
-                  {% if block.settings.button_link_2 == blank %}
-                    role="link" aria-disabled="true"
-                  {% else %}
-                    href="{{ block.settings.button_link_2 }}"
-                  {% endif %}
-                  class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
-                >
-                  {{- block.settings.button_label_2 | escape -}}
-                </a>
-              {%- endif -%}
+          {% elsif section.settings.left_image_bottom != blank %}
+            <div class="image-wrap">
+              <img src="{{ section.settings.left_image_bottom | img_url: 'master' }}" class="bakery-img"/>
             </div>
-        {%- endcase -%}
-      {%- endfor -%}
+          {% endif %}
+        </div>
+
+        <!-- Bottom Right -->
+        <div class="bakery-col bakery-col-right">
+          {% if section.settings.right_video_bottom_url != blank %}
+            <div class="bakery-video-wrap">
+              <video class="bakery-video" width="498" height="378" autoplay muted loop playsinline>
+                <source src="{{ section.settings.right_video_bottom_url }}" type="video/mp4">
+              </video>
+            </div>
+          {% elsif section.settings.right_image_bottom != blank %}
+            <div class="bakery-img-wrap">
+              <img src="{{ section.settings.right_image_bottom | img_url: 'master' }}" width="498" height="378" class="bakery-img"/>
+            </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
+
+    <!-- Background top layer -->
+    <div class="bakery-sec-top">
+      <div class="bakery-row">
+        <!-- Top Left -->
+        <div class="bakery-col bakery-col-left">
+          {% if section.settings.left_video_top_url != blank %}
+            <div class="bakery-video-wrap">
+              <video class="bakery-video" width="498" height="378" autoplay muted loop playsinline>
+                <source src="{{ section.settings.left_video_top_url }}" type="video/mp4">
+              </video>
+            </div>
+          {% elsif section.settings.left_image_top != blank %}
+            <div class="image-wrap">
+              <img src="{{ section.settings.left_image_top | img_url: 'master' }}" class="bakery-img"/>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Top Right -->
+        <div class="bakery-col bakery-col-right">
+          {% if section.settings.right_video_top_url != blank %}
+            <div class="bakery-video-wrap">
+              <video class="bakery-video" width="498" height="378" autoplay muted loop playsinline>
+                <source src="{{ section.settings.right_video_top_url }}" type="video/mp4">
+              </video>
+            </div>
+          {% elsif section.settings.right_image_top != blank %}
+            <div class="bakery-img-wrap">
+              <img src="{{ section.settings.right_image_top | img_url: 'master' }}" width="498" height="378" class="bakery-img"/>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="bakery-title-wrap">
+      <h2 class="bakery-title" style="color: {{ section.settings.title_color }};">{{ section.settings.title | default: "BAKERY" }}</h2>
+
+      <div class="bakery-desc" style="color: {{ section.settings.desc_color }};">
+        <p>{{ section.settings.description | default: "Our Bakery collection features an exquisite range of handcrafted breads, pastries, and cookies..." }}</p>
+
+        {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+          <a href="{{ section.settings.button_link }}" class="bakery-btn">
+            <span class="bakery-btn-grid">
+              <span class="bakery-btn-left">{{ section.settings.button_text }}</span>
+              {% if section.settings.button_line_text != blank %}
+                <span class="bakery-btn-line">
+                  <span class="bakery-btn-line-active"></span>
+                </span>
+                <span class="bakery-btn-right">{{ section.settings.button_line_text }}</span>
+              {% endif %}
+            </span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
   </div>
-</div>
+
+  {% if section.settings.show_overlay %}
+    <div class="bakery-sec-overlay" style="background-color: {{ section.settings.overlay_color }};"></div>
+  {% endif %}
+</section>
 
 {% schema %}
 {
-  "name": "t:sections.image-banner.name",
+  "name": "Bakery Section",
   "tag": "section",
-  "class": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "t:sections.image-banner.settings.image.label"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_2",
-      "label": "t:sections.image-banner.settings.image_2.label"
-    },
-    {
-      "type": "range",
-      "id": "image_overlay_opacity",
-      "min": 0,
-      "max": 100,
-      "step": 10,
-      "unit": "%",
-      "label": "t:sections.image-banner.settings.image_overlay_opacity.label",
-      "default": 0
-    },
-    {
-      "type": "select",
-      "id": "image_height",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.image-banner.settings.image_height.options__1.label"
-        },
-        {
-          "value": "small",
-          "label": "t:sections.image-banner.settings.image_height.options__2.label"
-        },
-        {
-          "value": "medium",
-          "label": "t:sections.image-banner.settings.image_height.options__3.label"
-        },
-        {
-          "value": "large",
-          "label": "t:sections.image-banner.settings.image_height.options__4.label"
-        }
-      ],
-      "default": "medium",
-      "label": "t:sections.image-banner.settings.image_height.label"
-    },
-    {
-      "type": "select",
-      "id": "image_behavior",
-      "options": [
-        {
-          "value": "none",
-          "label": "t:sections.all.animation.image_behavior.options__1.label"
-        },
-        {
-          "value": "ambient",
-          "label": "t:sections.all.animation.image_behavior.options__2.label"
-        },
-        {
-          "value": "fixed",
-          "label": "t:sections.all.animation.image_behavior.options__3.label"
-        },
-        {
-          "value": "zoom-in",
-          "label": "t:sections.all.animation.image_behavior.options__4.label"
-        }
-      ],
-      "default": "none",
-      "label": "t:sections.all.animation.image_behavior.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.image-banner.settings.content.content"
-    },
-    {
-      "type": "select",
-      "id": "desktop_content_position",
-      "options": [
-        {
-          "value": "top-left",
-          "label": "t:sections.image-banner.settings.desktop_content_position.options__1.label"
-        },
-        {
-          "value": "top-center",
-          "label": "t:sections.image-banner.settings.desktop_content_position.options__2.label"
-        },
-        {
-          "value": "top-right",
-          "label": "t:sections.image-banner.settings.desktop_content_position.options__3.label"
-        },
-        {
-          "value": "middle-left",
-          "label": "t:sections.image-banner.settings.desktop_content_position.options__4.label"
-        },
-        {
-          "value": "middle-center",
-          "label": "t:sections.image-banner.settings.desktop_content_position.options__5.label"
-        },
-        {
-          "value": "middle-right",
-          "label": "t:sections.image-banner.settings.desktop_content_position.options__6.label"
-        },
-        {
-          "value": "bottom-left",
-          "label": "t:sections.image-banner.settings.desktop_content_position.options__7.label"
-        },
-        {
-          "value": "bottom-center",
-          "label": "t:sections.image-banner.settings.desktop_content_position.options__8.label"
-        },
-        {
-          "value": "bottom-right",
-          "label": "t:sections.image-banner.settings.desktop_content_position.options__9.label"
-        }
-      ],
-      "default": "middle-center",
-      "label": "t:sections.image-banner.settings.desktop_content_position.label"
-    },
-    {
-      "type": "select",
-      "id": "desktop_content_alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:sections.image-banner.settings.desktop_content_alignment.options__1.label"
-        },
-        {
-          "value": "center",
-          "label": "t:sections.image-banner.settings.desktop_content_alignment.options__2.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.image-banner.settings.desktop_content_alignment.options__3.label"
-        }
-      ],
-      "default": "center",
-      "label": "t:sections.image-banner.settings.desktop_content_alignment.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_text_box",
-      "default": true,
-      "label": "t:sections.image-banner.settings.show_text_box.label"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.image-banner.settings.mobile.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "stack_images_on_mobile",
-      "default": true,
-      "label": "t:sections.image-banner.settings.stack_images_on_mobile.label"
-    },    
-    {
-      "type": "select",
-      "id": "mobile_content_alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:sections.image-banner.settings.mobile_content_alignment.options__1.label"
-        },
-        {
-          "value": "center",
-          "label": "t:sections.image-banner.settings.mobile_content_alignment.options__2.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.image-banner.settings.mobile_content_alignment.options__3.label"
-        }
-      ],
-      "default": "center",
-      "label": "t:sections.image-banner.settings.mobile_content_alignment.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_text_below",
-      "default": true,
-      "label": "t:sections.image-banner.settings.show_text_below.label"
-    },
-    {
-      "type": "text",
-      "id": "banner-custom-class",
-      "label": "Add custom class"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "heading",
-      "name": "t:sections.image-banner.blocks.heading.name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "default": "t:sections.image-banner.blocks.heading.settings.heading.default",
-          "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
-        },
-        {
-          "type": "select",
-          "id": "heading_size",
-          "options": [
-            {
-              "value": "h2",
-              "label": "t:sections.all.heading_size.options__1.label"
-            },
-            {
-              "value": "h1",
-              "label": "t:sections.all.heading_size.options__2.label"
-            },
-            {
-              "value": "h0",
-              "label": "t:sections.all.heading_size.options__3.label"
-            },
-            {
-              "value": "hxl",
-              "label": "t:sections.all.heading_size.options__4.label"
-            },
-            {
-              "value": "hxxl",
-              "label": "t:sections.all.heading_size.options__5.label"
-            }
-          ],
-          "default": "h1",
-          "label": "t:sections.all.heading_size.label"
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "name": "t:sections.image-banner.blocks.text.name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "text",
-          "default": "t:sections.image-banner.blocks.text.settings.text.default",
-          "label": "t:sections.image-banner.blocks.text.settings.text.label"
-        },
-        {
-          "type": "select",
-          "id": "text_style",
-          "options": [
-            {
-              "value": "body",
-              "label": "t:sections.image-banner.blocks.text.settings.text_style.options__1.label"
-            },
-            {
-              "value": "subtitle",
-              "label": "t:sections.image-banner.blocks.text.settings.text_style.options__2.label"
-            },
-            {
-              "value": "caption-with-letter-spacing",
-              "label": "t:sections.image-banner.blocks.text.settings.text_style.options__3.label"
-            }
-          ],
-          "default": "body",
-          "label": "t:sections.image-banner.blocks.text.settings.text_style.label"
-        }
-      ]
-    },
-    {
-      "type": "buttons",
-      "name": "t:sections.image-banner.blocks.buttons.name",
-      "limit": 1,
-      "settings": [
-        {
-        "type": "header",
-        "content": "t:sections.image-banner.blocks.buttons.settings.header_1.content"
-        },
-        {
-          "type": "text",
-          "id": "button_label_1",
-          "default": "t:sections.image-banner.blocks.buttons.settings.button_label_1.default",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label",
-          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_1.info"
-        },
-        {
-          "type": "url",
-          "id": "button_link_1",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_1.label"
-        },
-        {
-          "type": "checkbox",
-          "id": "button_style_secondary_1",
-          "default": false,
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_1.label"
-        },
-        {
-        "type": "header",
-        "content": "t:sections.image-banner.blocks.buttons.settings.header_2.content"
-        },
-        {
-          "type": "text",
-          "id": "button_label_2",
-          "default": "t:sections.image-banner.blocks.buttons.settings.button_label_2.default",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_2.label",
-          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_2.info"
-        },
-        {
-          "type": "url",
-          "id": "button_link_2",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_2.label"
-        },
-        {
-          "type": "checkbox",
-          "id": "button_style_secondary_2",
-          "default": false,
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_2.label"
-        }
-      ]
-    }
+    { "type": "text", "id": "bakery-custom_class", "label": "Custom CSS Class", "default": "custom-bakery-sec" },
+
+    { "type": "range", "id": "container_padding_top", "label": "Container Padding Top", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 60 },
+    { "type": "range", "id": "container_padding_bottom", "label": "Container Padding Bottom", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 60 },
+
+    { "type": "image_picker", "id": "left_image_bottom", "label": "Left Image Bottom" },
+    { "type": "url", "id": "left_video_bottom_url", "label": "Left Video Bottom URL (MP4 link)" },
+
+    { "type": "image_picker", "id": "right_image_bottom", "label": "Right Image Bottom" },
+    { "type": "url", "id": "right_video_bottom_url", "label": "Right Video Bottom URL (MP4 link)" },
+
+    { "type": "image_picker", "id": "left_image_top", "label": "Left Image Top" },
+    { "type": "url", "id": "left_video_top_url", "label": "Left Video Top URL (MP4 link)" },
+
+    { "type": "image_picker", "id": "right_image_top", "label": "Right Image Top" },
+    { "type": "url", "id": "right_video_top_url", "label": "Right Video Top URL (MP4 link)" },
+
+    { "type": "text", "id": "title", "label": "Title", "default": "BAKERY" },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#000000" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Our Bakery collection features an exquisite range of handcrafted breads, pastries, and cookies..." },
+    { "type": "color", "id": "desc_color", "label": "Description Color", "default": "#333333" },
+
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Learn More" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+    { "type": "text", "id": "button_line_text", "label": "Button Right Text", "default": "Almond Milk Bread" },
+
+    { "type": "checkbox", "id": "show_overlay", "label": "Show Overlay", "default": true },
+    { "type": "color", "id": "overlay_color", "label": "Overlay Background Color", "default": "rgba(0,0,0,0.5)" },
+
+    { "type": "select", "id": "section_bg_type", "label": "Section Background Type", "options": [ { "value": "color", "label": "Color" }, { "value": "image", "label": "Image" } ], "default": "color" },
+    { "type": "color", "id": "section_bg_color", "label": "Section Background Color", "default": "#ffffff" },
+    { "type": "image_picker", "id": "section_bg_image", "label": "Section Background Image" }
   ],
   "presets": [
-    {
-      "name": "t:sections.image-banner.presets.name",
-      "blocks": [
-        {
-          "type": "heading"
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "buttons"
-        }
-      ]
-    }
+    { "name": "Bakery Section", "category": "Custom" }
   ]
 }
 {% endschema %}
+
+
+
+
+<style>
+/* Masking effect for bakery title characters */
+.bakery-title .char {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to top, #d1a000 0%, #d1a000 var(--fill, 0%), #3c2a21 var(--fill, 0%), #3c2a21 100%);
+}
+
+.bakery-sec {
+  position: relative;
+  height: 130vh;
+  background: #8a8445;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.bakery-container {
+  position: relative;
+  {% comment %} width: 100%; {% endcomment %}
+  {% comment %} max-width: 1600px; {% endcomment %}
+  height: 100%;
+  {% comment %} margin: 0 auto; {% endcomment %}
+  display: flex;
+}
+.bakery-sec-bottom,
+.bakery-sec-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bakery-row {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
+  padding: 6rem 0;
+}
+
+.bakery-col {
+  flex: 1;
+}
+
+.bakery-col-left, .bakery-col-right {
+  height: 90vh;
+}
+.bakery-img-wrap, .bakery-col-left .image-wrap, .bakery-col-right .image-wrap{
+  height: 100%
+}
+.bakery-col-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.bakery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bakery-video {
+  object-fit: cover;
+  max-width: 100%;
+  height: auto;
+}
+
+.bakery-title-wrap {
+  position: absolute;
+  top: 85vh;
+  left: 0;
+  max-width: 700px;
+  text-align: left;
+}
+
+.bakery-title {
+  {% comment %} font-size: 6vw; {% endcomment %}
+  font-weight: bold;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #fff;
+}
+
+.bakery-desc {
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1.5;
+}
+
+.bakery-btn {
+  display: inline-block;
+  width: 95%;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-decoration: none;
+  color: #fff;
+}
+
+.bakery-btn-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bakery-btn-left,
+.bakery-btn-right {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.bakery-btn-line {
+  position: relative;
+  height: 1px;
+  background: #000;
+}
+
+.bakery-btn-line-active {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 7px;
+  width: 0;
+  background: #000;
+  transform: translateY(-50%);
+  transition: width 0.5s ease-in-out;
+}
+
+.bakery-btn:hover .bakery-btn-line-active {
+  width: 100%;
+}
+
+.bakery-sec-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ddc383;
+  z-index: -1;
+  display: block !important;
+}
+</style>
+
+<!-- GSAP Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+function initBakeryTitleAnimation(titleEl, triggerEl) {
+  if (!titleEl || titleEl.dataset.charsReady === "true") return;
+  const text = titleEl.textContent;
+  titleEl.innerHTML = "";
+  text.split("").forEach((char) => {
+    const span = document.createElement("span");
+    span.classList.add("char");
+    span.style.display = "inline-block";
+    span.textContent = char;
+    titleEl.appendChild(span);
+  });
+  titleEl.dataset.charsReady = "true";
+
+  gsap.to(titleEl.querySelectorAll(".char"), {
+    y: -50,
+    scale: 1,
+    fontSize: "8vw",
+    stagger: 0.05,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: triggerEl || titleEl,
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+    }
+  });
+}
+
+// Initialize animation for this section
+document.addEventListener('DOMContentLoaded', function() {
+  const sec = document.querySelector('.bakery-sec');
+  if (!sec) return;
+  
+  const top = sec.querySelector(".bakery-sec-top");
+  const bottom = sec.querySelector(".bakery-sec-bottom");
+  const overlay = sec.querySelector(".bakery-sec-overlay");
+  const title = sec.querySelector(".bakery-title");
+
+  // Collapse top
+  gsap.to(top, {
+    height: 0,
+    ease: "none",
+    scrollTrigger: {
+      trigger: sec,
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+    }
+  });
+
+  // Overlay grow (synced with title animation using the same trigger/range)
+  gsap.set(overlay, { height: 0 });
+  gsap.to(overlay, {
+    height: "100%",
+    ease: "none",
+    scrollTrigger: {
+      trigger: bottom,
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+    }
+  });
+
+  // Pin bottom
+  gsap.to(bottom, {
+    opacity: 1,
+    ease: "none",
+    scrollTrigger: {
+      trigger: sec,
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+      pin: true,
+    }
+  });
+
+  // Per-char animation
+  initBakeryTitleAnimation(title, bottom);
+
+  // Mask fill tied to overlay growth relative to title bounds
+  if (title && overlay) {
+    ScrollTrigger.create({
+      trigger: bottom,
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+      onUpdate: () => {
+        const secRect = sec.getBoundingClientRect();
+        const secHeight = secRect.height;
+        const overlayHeight = overlay.getBoundingClientRect().height;
+        const overlayTop = secHeight - overlayHeight; // overlay grows from bottom
+        const titleRect = title.getBoundingClientRect();
+        const titleTop = titleRect.top - secRect.top;
+        const titleBottom = titleTop + titleRect.height;
+
+        // Start masking when overlay reaches the title's bottom,
+        // complete when overlay reaches the title's top
+        let progress;
+        if (overlayTop >= titleBottom) {
+          progress = 0; // overlay hasn't reached the title bottom yet
+        } else if (overlayTop <= titleTop) {
+          progress = 1; // overlay has reached/passed the title top
+        } else {
+          progress = (titleBottom - overlayTop) / (titleBottom - titleTop);
+        }
+
+        title.style.setProperty('--fill', `${Math.max(0, Math.min(1, progress)) * 100}%`);
+      }
+    });
+  }
+});
+</script>
