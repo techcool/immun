@@ -54,33 +54,35 @@
       </div>
     </div>
 
-    <!-- CENTER NAVIGATION -->
-    <nav class="landing-header__nav">
-      {% if section.settings.menu != blank %}
-        <ul class="list-menu list-menu--inline">
-          {% for link in linklists[section.settings.menu].links %}
-            <li>
-              <a href="{{ link.url }}">
-                {{ link.title }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    </nav>
+    <div class="header-right">
+        <!-- CENTER NAVIGATION -->
+        <nav class="landing-header__nav">
+        {% if section.settings.menu != blank %}
+            <ul class="list-menu list-menu--inline">
+            {% for link in linklists[section.settings.menu].links %}
+                <li>
+                <a href="{{ link.url }}">
+                    {{ link.title }}
+                </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        </nav>
 
-    <!-- RIGHT SIDE -->
-    <div class="landing-header__right">
-      <a href="{{ routes.cart_url }}" class="landing-header__cart">
-        {{ section.settings.cart_label }}
-        <span class="cart-count">
-          {{ cart.item_count }}
-        </span>
-      </a>
+        <!-- RIGHT SIDE -->
+        <div class="landing-header__right">
+        <a href="{{ routes.cart_url }}" class="landing-header__cart">
+            {{ section.settings.cart_label }}
+            <span class="cart-count">
+            {{ cart.item_count }}
+            </span>
+        </a>
 
-      <div class="landing-header__right-text">
-        {{ section.settings.right_text }}
-      </div>
+        <div class="landing-header__right-text">
+            {{ section.settings.right_text }}
+        </div>
+        </div>
     </div>
 
   </div>
