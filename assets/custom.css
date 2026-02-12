@@ -304,14 +304,14 @@ header-drawer:before {
  }
 
 
-/* html.lenis,
+html.lenis,
 html.lenis body {
   height: auto;
 }
 
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
-} */
+}
 
 body {
   overflow-x: hidden;
