@@ -392,8 +392,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const SCROLLER = document.body;
-
   // =============================
   // LENIS SETUP (PRO SYNC)
   // =============================
@@ -412,35 +410,39 @@ document.addEventListener("DOMContentLoaded", function () {
   window.scrollTo(0, 0);
   lenis.stop();
 
+  // RAF LOOP
   function raf(time) {
     lenis.raf(time);
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
 
-  // ✅ GSAP + LENIS PERFECT SYNC
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
-
+  // IMPORTANT: LENIS → SCROLLTRIGGER SYNC
   lenis.on("scroll", ScrollTrigger.update);
 
-  ScrollTrigger.scrollerProxy(SCROLLER, {
+  ScrollTrigger.scrollerProxy(document.documentElement, {
     scrollTop(value) {
       if (arguments.length) {
         lenis.scrollTo(value, { immediate: true });
-      } else {
-        return lenis.scroll;
       }
+      return lenis.scroll;
     },
     getBoundingClientRect() {
-      return { top: 0, left: 0, width: innerWidth, height: innerHeight };
+      return {
+        top: 0,
+        left: 0,
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
     },
-    pinType: SCROLLER.style.transform ? "transform" : "fixed"
+    pinType: document.documentElement.style.transform ? "transform" : "fixed"
   });
 
   ScrollTrigger.addEventListener("refresh", () => lenis.update());
+
+  ScrollTrigger.defaults({
+    scroller: document.documentElement
+  });
 
   ScrollTrigger.config({
     ignoreMobileResize: true,
@@ -448,11 +450,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // =============================
-  // HEADER START POSITION
+  // FIXED HEADER
   // =============================
   function setHeaderStart() {
     gsap.set(".landing-header", {
-      y: () => window.innerHeight - 130,
+      y: window.innerHeight - 130,
       position: "absolute",
       top: "auto",
       left: 0,
@@ -462,22 +464,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   setHeaderStart();
+
   gsap.set(".list-menu", { gap: "10vw" });
   gsap.set(".header__heading", { width: "320px" });
 
   const mm = gsap.matchMedia();
 
-  mm.add("(min-width: 1681px)", () => headerScroll("800px top"));
-  mm.add("(max-width: 1680px)", () => headerScroll("700px top"));
-  mm.add("(max-width: 1400px)", () => headerScroll("600px top"));
+  mm.add("(min-width: 1681px)", () => headerScroll("800px"));
+  mm.add("(max-width: 1680px)", () => headerScroll("700px"));
+  mm.add("(max-width: 1400px)", () => headerScroll("600px"));
 
   function headerScroll(endValue) {
+
     gsap.to(".landing-header", {
       y: 0,
       ease: "none",
       scrollTrigger: {
-        trigger: ".banner", // ✅ FIXED
-        scroller: SCROLLER,
+        trigger: document.body,
         start: "top top",
         end: endValue,
         scrub: true,
@@ -526,6 +529,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // HERO
   // =============================
   function startHeroAnimation() {
+
     let heroImg = document.querySelector(".heroSec .hero__media-wrapper img");
     if (!heroImg) return;
 
@@ -545,7 +549,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "none",
         scrollTrigger: {
           trigger: ".banner",
-          scroller: SCROLLER,
           start: "top top",
           end: "bottom top",
           scrub: true
@@ -568,7 +571,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (overlay) {
       ScrollTrigger.create({
         trigger: overlay,
-        scroller: SCROLLER,
         start: "top-=100 top",
         end: "bottom top",
         onEnter: () =>
@@ -585,7 +587,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ease: "none",
       scrollTrigger: {
         trigger: sec,
-        scroller: SCROLLER,
         start: "top top",
         end: "bottom top",
         scrub: true
@@ -599,7 +600,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ease: "none",
       scrollTrigger: {
         trigger: sec,
-        scroller: SCROLLER,
         start: "top top",
         end: "bottom top",
         scrub: true
@@ -611,7 +611,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ease: "none",
       scrollTrigger: {
         trigger: sec,
-        scroller: SCROLLER,
         start: "top top",
         end: "bottom top",
         scrub: true,
@@ -629,6 +628,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const preloader = document.getElementById("preloader");
 
+    window.scrollTo(0, 0);
+    lenis.scrollTo(0, { immediate: true });
+
     if (!preloader) {
       lenis.start();
       ScrollTrigger.refresh(true);
@@ -639,11 +641,11 @@ document.addEventListener("DOMContentLoaded", function () {
     gsap.to("#preloader", {
       y: "-100%",
       duration: 0.8,
+      delay: 0.2,
       ease: "power3.inOut",
       onComplete: () => {
         preloader.style.display = "none";
         lenis.start();
-        lenis.scrollTo(0, { immediate: true });
         ScrollTrigger.refresh(true);
         startHeroAnimation();
       }
