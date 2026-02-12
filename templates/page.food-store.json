@@ -164,10 +164,104 @@
         "padding-block-end": 40,
         "list-custom-class": "heroSec-top"
       }
+    },
+    "und_dynamic_MwC46R": {
+      "type": "und-dynamic",
+      "blocks": {
+        "word_8R8XUM": {
+          "type": "word",
+          "settings": {
+            "word": "UN ITED STATED"
+          }
+        },
+        "word_xzcQ7r": {
+          "type": "word",
+          "settings": {
+            "word": "UN PROCESSED"
+          }
+        },
+        "word_rPzFTV": {
+          "type": "word",
+          "settings": {
+            "word": "UN ADULTERATED"
+          }
+        },
+        "word_tD7Dyb": {
+          "type": "word",
+          "settings": {
+            "word": "UN CONTAMINATED"
+          }
+        },
+        "word_BwQhtE": {
+          "type": "word",
+          "settings": {
+            "word": "UN PROCESSED"
+          }
+        },
+        "word_RPAkAN": {
+          "type": "word",
+          "settings": {
+            "word": "UN ALTERED"
+          }
+        },
+        "word_qQrrig": {
+          "type": "word",
+          "settings": {
+            "word": "UN TOUGHTED"
+          }
+        },
+        "word_XmC8yA": {
+          "type": "word",
+          "settings": {
+            "word": "UN PROCESSED"
+          }
+        },
+        "word_bjzERm": {
+          "type": "word",
+          "settings": {
+            "word": "UN PROCESSED"
+          }
+        },
+        "word_nMbzWA": {
+          "type": "word",
+          "settings": {
+            "word": "UN ITED STATED"
+          }
+        },
+        "word_Ak6t9q": {
+          "type": "word",
+          "settings": {
+            "word": "UN ADULTERATED"
+          }
+        }
+      },
+      "block_order": [
+        "word_8R8XUM",
+        "word_xzcQ7r",
+        "word_rPzFTV",
+        "word_tD7Dyb",
+        "word_BwQhtE",
+        "word_RPAkAN",
+        "word_qQrrig",
+        "word_XmC8yA",
+        "word_bjzERm",
+        "word_nMbzWA",
+        "word_Ak6t9q"
+      ],
+      "name": "Word Rotator Section",
+      "settings": {
+        "heading": "Word Rotator",
+        "description_1": "UnD is a brand rooted in authentic Japanese culture.",
+        "description_2": "It began with the sale of Japanese bread used for sandwiches and now offers a range of products.",
+        "description_3": "These are made with carefully selected Japanese ingredients that bring true authenticity.",
+        "custom_class": "",
+        "padding": "py-16"
+      }
     }
   },
   "order": [
     "main",
-    "hero_tXfgf8"
+    "hero_tXfgf8",
+    "und_dynamic_MwC46R"
   ]
 }
