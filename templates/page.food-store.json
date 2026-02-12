@@ -161,7 +161,8 @@
         "blurred_reflection": false,
         "reflection_opacity": 75,
         "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-end": 40,
+        "list-custom-class": "heroSec"
       }
     }
   },
