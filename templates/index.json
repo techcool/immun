@@ -313,7 +313,7 @@
       "settings": {
         "background_image": "shopify://shop_images/DSC03020.jpg",
         "overlay_color": "#000000",
-        "overlay_opacity": 100,
+        "overlay_opacity": 50,
         "heading": "ERGOHOME",
         "heading_color": "#000000",
         "heading_size": 52,
@@ -332,7 +332,7 @@
         "button1_hover_border": "#000000",
         "button2_text": "Learn More",
         "button2_link": "",
-        "button2_bg_color": "transparent",
+        "button2_bg_color": "rgba(0,0,0,0)",
         "button2_text_color": "#ffffff",
         "button2_border_color": "#ffffff",
         "button2_hover_bg": "#ffffff",
