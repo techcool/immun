@@ -9,28 +9,6 @@
  */
 {
   "sections": {
-    "custom_content_tRmGKp": {
-      "type": "custom_content",
-      "name": "Metaobject Display",
-      "settings": {
-        "metaobject_type": "page_content",
-        "columns": 3
-      }
-    },
-    "custom_header_hYWTt9": {
-      "type": "custom-header",
-      "name": "custom_header",
-      "settings": {
-        "custom_heading_text": "This is custom header"
-      }
-    },
-    "gp_shopify_original_section_605841633652507546": {
-      "type": "gp-section-605841633652507546",
-      "settings": {
-        "section_preload": "true",
-        "checksum": ""
-      }
-    },
     "hero_jVaWmY": {
       "type": "hero",
       "blocks": {
@@ -109,7 +87,15 @@
         "blurred_reflection": false,
         "reflection_opacity": 75,
         "padding-block-start": 100,
-        "padding-block-end": 72
+        "padding-block-end": 72,
+        "list-custom-class": ""
+      }
+    },
+    "gp_shopify_original_section_605841633652507546": {
+      "type": "gp-section-605841633652507546",
+      "settings": {
+        "section_preload": "true",
+        "checksum": ""
       }
     },
     "product_list_fa6P9H": {
@@ -305,6 +291,61 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "custom_header_hYWTt9": {
+      "type": "custom-header",
+      "name": "custom_header",
+      "settings": {
+        "custom_heading_text": "This is custom header"
+      }
+    },
+    "custom_content_tRmGKp": {
+      "type": "custom_content",
+      "name": "Metaobject Display",
+      "settings": {
+        "metaobject_type": "page_content",
+        "columns": 3
+      }
+    },
+    "cta_banner_yeEgrr": {
+      "type": "cta-banner",
+      "name": "CTA Banner",
+      "settings": {
+        "background_image": "shopify://shop_images/DSC03020.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 100,
+        "heading": "ERGOHOME",
+        "heading_color": "#000000",
+        "heading_size": 52,
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "text_color": "#383838",
+        "text_size": 16,
+        "content_alignment": "center",
+        "button_alignment": "center",
+        "button1_text": "Shop Now",
+        "button1_link": "",
+        "button1_bg_color": "#ffffff",
+        "button1_text_color": "#000000",
+        "button1_border_color": "#ffffff",
+        "button1_hover_bg": "#000000",
+        "button1_hover_text": "#ffffff",
+        "button1_hover_border": "#000000",
+        "button2_text": "Learn More",
+        "button2_link": "",
+        "button2_bg_color": "transparent",
+        "button2_text_color": "#ffffff",
+        "button2_border_color": "#ffffff",
+        "button2_hover_bg": "#ffffff",
+        "button2_hover_text": "#000000",
+        "button2_hover_border": "#ffffff",
+        "button_padding_x": 32,
+        "button_padding_y": 14,
+        "button_border_radius": 4,
+        "button_font_size": 14,
+        "button_font_weight": "600",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
     }
   },
   "order": [
@@ -312,6 +353,7 @@
     "gp_shopify_original_section_605841633652507546",
     "product_list_fa6P9H",
     "custom_header_hYWTt9",
-    "custom_content_tRmGKp"
+    "custom_content_tRmGKp",
+    "cta_banner_yeEgrr"
   ]
 }
