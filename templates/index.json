@@ -93,6 +93,7 @@
     },
     "gp_shopify_original_section_605841633652507546": {
       "type": "gp-section-605841633652507546",
+      "disabled": true,
       "settings": {
         "section_preload": "true",
         "checksum": ""
@@ -271,6 +272,7 @@
           ]
         }
       },
+      "disabled": true,
       "name": "Featured collection",
       "settings": {
         "collection": "all",
@@ -294,21 +296,15 @@
     },
     "custom_header_hYWTt9": {
       "type": "custom-header",
+      "disabled": true,
       "name": "custom_header",
       "settings": {
         "custom_heading_text": "This is custom header"
       }
     },
-    "custom_content_tRmGKp": {
-      "type": "custom_content",
-      "name": "Metaobject Display",
-      "settings": {
-        "metaobject_type": "page_content",
-        "columns": 3
-      }
-    },
     "cta_banner_yeEgrr": {
       "type": "cta-banner",
+      "disabled": true,
       "name": "CTA Banner",
       "settings": {
         "background_image": "shopify://shop_images/DSC03020.jpg",
@@ -353,7 +349,6 @@
     "gp_shopify_original_section_605841633652507546",
     "product_list_fa6P9H",
     "custom_header_hYWTt9",
-    "custom_content_tRmGKp",
     "cta_banner_yeEgrr"
   ]
 }

@@ -115,6 +115,7 @@
     },
     "custom_landing_page_header_tCwjpa": {
       "type": "custom-landing-page-header",
+      "disabled": true,
       "name": "Landing Page Header",
       "settings": {
         "logo_text": "UN",
