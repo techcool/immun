@@ -306,7 +306,7 @@
       "type": "cta-section",
       "name": "CTA Banner",
       "settings": {
-        "bg-color": "#e4e4e4",
+        "bg-color": "#e90000",
         "heading": "This is cta section",
         "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi urna, molestie sed pretium vitae,</p>",
         "button-label": "Click Me",
