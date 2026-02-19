@@ -392,3 +392,174 @@ body {
     font-size: 38px;
 }
 }
+
+
+
+/* Test Css Santanu */
+
+/* ============================================
+   CTA BANNER SECTION - GLOBAL STYLES
+   Add this to your theme's base.css or assets folder
+   ============================================ */
+
+.cta-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.cta-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.cta-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cta-placeholder-bg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.cta-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.cta-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.cta-content {
+  max-width: 800px;
+}
+
+/* Content Alignment Variations */
+.cta-align-left {
+  text-align: left;
+  margin-right: auto;
+}
+
+.cta-align-center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-align-right {
+  text-align: right;
+  margin-left: auto;
+}
+
+/* Heading Styles */
+.cta-heading {
+  margin: 0 0 16px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Text Styles */
+.cta-text {
+  margin: 0 0 32px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Button Container */
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Button Alignment Variations */
+.cta-buttons-left {
+  justify-content: flex-start;
+}
+
+.cta-buttons-center {
+  justify-content: center;
+}
+
+.cta-buttons-right {
+  justify-content: flex-end;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 749px) {
+  .cta-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .cta-heading {
+    margin-bottom: 12px;
+  }
+
+  .cta-text {
+    margin-bottom: 24px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta-buttons a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .cta-buttons-left,
+  .cta-buttons-center,
+  .cta-buttons-right {
+    align-items: stretch;
+  }
+}
+
+/* Animation on scroll (optional - requires JS) */
+.cta-section.animate-in .cta-heading,
+.cta-section.animate-in .cta-text,
+.cta-section.animate-in .cta-buttons {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.cta-section.animate-in .cta-text {
+  animation-delay: 0.1s;
+}
+
+.cta-section.animate-in .cta-buttons {
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* End test css */
