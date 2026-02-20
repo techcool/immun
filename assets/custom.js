@@ -384,7 +384,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // RESIZE SAFETY
   // =============================
   let resizeTimer;
-
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
@@ -392,6 +391,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ScrollTrigger.refresh(true);
     }, 300);
   });
+
 
 });
 
