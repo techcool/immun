@@ -1,12 +1,15 @@
-
-
 document.addEventListener("DOMContentLoaded", function () {
+
+  // =============================
+  // GSAP + SCROLLTRIGGER REGISTER
+  // =============================
   gsap.registerPlugin(ScrollTrigger);
 
   const SCROLLER = document.body;
 
+
   // =============================
-  // LENIS SETUP
+  // LENIS SETUP (PRO LEVEL SYNC)
   // =============================
   const lenis = new Lenis({
     duration: 1.1,
@@ -52,17 +55,20 @@ document.addEventListener("DOMContentLoaded", function () {
     fastScrollEnd: true
   });
 
+
+
   // =============================
-  // FIXED HEADER (FINAL FIXED VERSION)
+  // HEADER SECTION (FIXED SYNC VERSION)
   // =============================
 
   function setHeaderStart() {
     gsap.set(".landing-header", {
-      y: window.innerHeight - 130
+      y: window.innerHeight - 130   // Start from bottom
     });
   }
 
   setHeaderStart();
+
   gsap.set(".list-menu", { gap: "10vw" });
   gsap.set(".header__heading", { width: "320px" });
 
@@ -72,9 +78,11 @@ document.addEventListener("DOMContentLoaded", function () {
   mm.add("(max-width: 1680px)", () => headerScroll("700px top"));
   mm.add("(max-width: 1400px)", () => headerScroll("600px top"));
 
+
+
   function headerScroll(endValue) {
 
-    // Always fixed
+    // Always fixed (NO position switching)
     gsap.set(".landing-header", {
       position: "fixed",
       top: 0,
@@ -84,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
       zIndex: 20
     });
 
+    // Header move up same speed
     gsap.to(".landing-header", {
       y: 0,
       ease: "none",
@@ -96,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+    // Menu gap animation synced
     gsap.to(".list-menu", {
       gap: "2vw",
       ease: "none",
@@ -108,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+    // Logo shrink synced
     gsap.to(".header__heading", {
       width: "70px",
       ease: "none",
@@ -121,13 +132,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+
+
   // =============================
-  // HERO
+  // HERO SECTION
   // =============================
   function startHeroAnimation() {
+
     let heroImg = document.querySelector(".heroSec .hero__media-wrapper img");
     if (!heroImg) return;
 
+    // Initial fade in
     gsap.from(heroImg, {
       y: -15,
       scale: 1.2,
@@ -136,24 +151,96 @@ document.addEventListener("DOMContentLoaded", function () {
       ease: "power2.out"
     });
 
-    gsap.fromTo(heroImg, { scale: 1, y: 0 }, {
-      scale: 1.2,
-      y: -50,
+    // Scroll parallax
+    gsap.fromTo(heroImg,
+      { scale: 1, y: 0 },
+      {
+        scale: 1.2,
+        y: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".banner",
+          scroller: SCROLLER,
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      }
+    );
+  }
+
+
+
+  // =============================
+  // BAKERY SECTIONS (UNCHANGED)
+  // =============================
+  document.querySelectorAll(".bakery-sec").forEach((sec) => {
+
+    const top = sec.querySelector(".bakery-sec-top");
+    const bottom = sec.querySelector(".bakery-sec-bottom");
+    const overlay = sec.querySelector(".bakery-sec-overlay");
+    const title = sec.querySelector(".bakery-title");
+    const titleWrap = sec.querySelector(".bakery-title-wrap");
+
+    if (overlay) {
+      ScrollTrigger.create({
+        trigger: overlay,
+        scroller: SCROLLER,
+        start: "top-=100 top",
+        end: "bottom top",
+        onEnter: () => document.querySelector(".landing-header")?.classList.add("header--overlay-active"),
+        onLeaveBack: () => document.querySelector(".landing-header")?.classList.remove("header--overlay-active")
+      });
+    }
+
+    gsap.to(top, {
+      height: 0,
       ease: "none",
       scrollTrigger: {
-        trigger: ".banner",
+        trigger: sec,
         scroller: SCROLLER,
         start: "top top",
         end: "bottom top",
         scrub: true
       }
     });
-  }
+
+    gsap.set(overlay, { height: 0 });
+
+    gsap.to(overlay, {
+      height: "100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: sec,
+        scroller: SCROLLER,
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+
+    gsap.to(bottom, {
+      opacity: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: sec,
+        scroller: SCROLLER,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+  });
+
+
 
   // =============================
   // PRELOADER (UNCHANGED)
   // =============================
-
   function splitLogo(el) {
     let text = el.innerText.trim();
     el.innerHTML = "";
@@ -165,6 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   window.addEventListener("load", () => {
+
     const preloader = document.getElementById("preloader");
 
     window.scrollTo(0, 0);
@@ -178,46 +266,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const logo = preloader.querySelector(".loader-logo");
-    const loaderContent = preloader.querySelector(".loader-content");
-    const logoImg = preloader.querySelector(".proloder-logo img");
 
     if (logo) splitLogo(logo);
 
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    if (logoImg) tl.to(logoImg, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(1.7)" });
-    tl.to(loaderContent, { y: 0, opacity: 1, duration: 1 });
-
-    if (logo) {
-      const letters = logo.querySelectorAll("span");
-      tl.to(logo, { opacity: 1, duration: 0.1 });
-      tl.to(letters, { y: 0, opacity: 1, stagger: 0.08, duration: 0.6 });
-    }
-
-    tl.call(() => {
-      gsap.set(".header__heading", { y: 250, opacity: 1 });
-      gsap.to(".header__heading", { y: 0, opacity: 1, duration: 2, ease: "power3.out" });
-    });
-
     tl.to("#preloader", {
       y: "-100%",
       duration: 0.8,
-      delay: 0.2,
+      delay: 0.5,
       ease: "power3.inOut",
       onComplete: () => {
         preloader.style.display = "none";
-
         lenis.start();
-        lenis.scrollTo(0, { immediate: true });
-
         ScrollTrigger.refresh(true);
         startHeroAnimation();
       }
     });
+
+  });
+
+
+
+  // =============================
+  // RESIZE SAFETY
+  // =============================
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      setHeaderStart();
+      ScrollTrigger.refresh(true);
+    }, 300);
   });
 
 });
-
 
 
 
