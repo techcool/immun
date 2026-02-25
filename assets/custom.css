@@ -321,6 +321,71 @@ body {
     margin: 0 auto;
 }
 
+.heroSec .hero__media-grid, .heroSec .hero__container {
+    height: 100% !important;
+}
+/* Headings */
+.common-font h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.common-font h2 {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.common-font h3 {
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.common-font h4 {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.common-font h5 {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.common-font h6 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Paragraph */
+.common-font p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Lists */
+.common-font ul,
+.common-font ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.common-font li {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Responsive Css Start */
 @media (max-width: 1680px) {
