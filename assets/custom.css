@@ -382,7 +382,7 @@ body {
 }
 
 body, h1, h2, h3, h4, h5, h6, p, ul, li{
-  font-family: 'Neue Haas Grotesk Display Pro';
+  font-family: 'Neue Haas Grotesk Display Pro' !important;
 }
 
 /* Headings */
