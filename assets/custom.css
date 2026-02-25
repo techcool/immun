@@ -1,3 +1,59 @@
+@font-face {
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url('{{ "NeueHaasDisplay-Black.woff2" | file_url }}') format('woff2'),
+       url('{{ "NeueHaasDisplay-Black.woff" | file_url }}') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url('{{ "NeueHaasDisplay-Bold.woff2" | file_url }}') format('woff2'),
+       url('{{ "NeueHaasDisplay-Bold.woff" | file_url }}') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url('{{ "NeueHaasDisplay-Light.woff2" | file_url }}') format('woff2'),
+       url('{{ "NeueHaasDisplay-Light.woff" | file_url }}') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url('{{ "NeueHaasDisplay-Medium.woff2" | file_url }}') format('woff2'),
+       url('{{ "NeueHaasDisplay-Medium.woff" | file_url }}') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url('{{ "NeueHaasDisplay-Roman.woff2" | file_url }}') format('woff2'),
+       url('{{ "NeueHaasDisplay-Roman.woff" | file_url }}') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url('{{ "NeueHaasDisplay-Thin.woff2" | file_url }}') format('woff2'),
+       url('{{ "NeueHaasDisplay-Thin.woff" | file_url }}') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
 @media screen and (min-width: 990px) {
   .header--middle-left {
     grid-template-columns: auto 1fr auto !important;
@@ -324,6 +380,11 @@ body {
 .heroSec .hero__media-grid, .heroSec .hero__container {
     height: 100% !important;
 }
+
+h1, h2, h3, h4, h5, h6, p, ul, li{
+  font-family: 'Neue Haas Grotesk Display Pro';
+}
+
 /* Headings */
 .common-font h1 {
   font-size: 4rem;
