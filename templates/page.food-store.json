@@ -254,7 +254,7 @@
         "description_1": "UnD is a brand rooted in authentic Japanese culture.",
         "description_2": "It began with the sale of Japanese bread used for sandwiches and now offers a range of products.",
         "description_3": "These are made with carefully selected Japanese ingredients that bring true authenticity.",
-        "custom_class": "",
+        "custom_class": "common-font",
         "padding": "py-16"
       }
     },
