@@ -7,14 +7,16 @@
         <a href="{{ section.settings.image_link }}">
           <img 
             src="{{ section.settings.custom_image | image_url: width: 300 }}" 
-            alt="Header Image">
+            alt="{{ section.settings.custom_image.alt | escape }}">
         </a>
       {% else %}
-        {{ shop.name }}
+        <a href="{{ routes.root_url }}">
+          <h2 style="color:#fff;margin:0;">{{ shop.name }}</h2>
+        </a>
       {% endif %}
     </div>
 
-    <!-- CENTER: Menu -->
+    <!-- CENTER: Dynamic Menu -->
     <nav class="custom-header-img__menu">
       {% if section.settings.menu != blank %}
         <ul>
@@ -23,15 +25,13 @@
               <a href="{{ link.url }}">{{ link.title }}</a>
 
               {% if link.links != blank %}
-                <ul class="submenu-img">
+                <div class="submenu-img">
                   {% for childlink in link.links %}
-                    <li>
-                      <a href="{{ childlink.url }}">
-                        {{ childlink.title }}
-                      </a>
-                    </li>
+                    <a href="{{ childlink.url }}">
+                      {{ childlink.title }}
+                    </a>
                   {% endfor %}
-                </ul>
+                </div>
               {% endif %}
 
             </li>
@@ -42,7 +42,12 @@
 
     <!-- RIGHT: Account + Cart -->
     <div class="custom-header-img__icons">
-      <a href="{{ routes.account_url }}">Account</a>
+      {% if shop.customer_accounts_enabled %}
+        <a href="{{ routes.account_url }}">
+          {% if customer %}Account{% else %}Login{% endif %}
+        </a>
+      {% endif %}
+
       <a href="{{ routes.cart_url }}">
         Cart ({{ cart.item_count }})
       </a>
