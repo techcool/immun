@@ -299,6 +299,88 @@
         "padding_bottom": 80,
         "custom_class": ""
       }
+    },
+    "snackable_tested_stats_CAdNUP": {
+      "type": "snackable-tested-stats",
+      "blocks": {
+        "stat_eUH66X": {
+          "type": "stat",
+          "settings": {
+            "number": "95%",
+            "text": "of users take Grüns at least 4-6x per week with 80% taking Grüns daily.*"
+          }
+        },
+        "stat_dGCmUc": {
+          "type": "stat",
+          "settings": {
+            "number": "67%",
+            "text": "experienced better, more regular digestion.*"
+          }
+        },
+        "stat_rKR36U": {
+          "type": "stat",
+          "settings": {
+            "number": "67%",
+            "text": "experienced better, more regular digestion.*"
+          }
+        },
+        "stat_gcPMKW": {
+          "type": "stat",
+          "settings": {
+            "number": "52%",
+            "text": "feel more energized throughout the day.*"
+          }
+        },
+        "quality_Y4RWYU": {
+          "type": "quality",
+          "settings": {
+            "text": "70 Different pesticides"
+          }
+        },
+        "quality_mgJ3XE": {
+          "type": "quality",
+          "settings": {
+            "text": "4 types of heavy metals"
+          }
+        },
+        "quality_AFjJqH": {
+          "type": "quality",
+          "settings": {
+            "text": "16 different contaminants"
+          }
+        },
+        "quality_CqFD3P": {
+          "type": "quality",
+          "settings": {
+            "text": "9 Microbial contaminants"
+          }
+        }
+      },
+      "block_order": [
+        "stat_eUH66X",
+        "stat_dGCmUc",
+        "stat_rKR36U",
+        "stat_gcPMKW",
+        "quality_Y4RWYU",
+        "quality_mgJ3XE",
+        "quality_AFjJqH",
+        "quality_CqFD3P"
+      ],
+      "name": "Snackable Tested Stats",
+      "settings": {
+        "heading": "Snackable, Packable, Tested",
+        "subheading": "We know Grüns is delicious and convenient, but we wanted to understand what happens after the honeymoon. Here's what thousands of customers reported after 3 months of Grüns.",
+        "note": "*In a post purchase survey of 3k+ customers who've been using Grüns daily",
+        "quality_heading": "Quality You Can Trust",
+        "quality_text": "Our gummies are regularly tested for all 21 vitamins & minerals to ensure label claims are accurate and clear of contaminants including:",
+        "bg_color": "#dfe8e2",
+        "inner_bg": "#efe2b6",
+        "heading_color": "#0b6b3a",
+        "number_color": "#0b6b3a",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_class": ""
+      }
     }
   },
   "order": [
@@ -308,6 +390,7 @@
     "press_slider_Fkz4za",
     "find_your_favorite_pYqbb9",
     "health_benefits_FCwzcz",
-    "modern_living_stats_URhcL9"
+    "modern_living_stats_URhcL9",
+    "snackable_tested_stats_CAdNUP"
   ]
 }
