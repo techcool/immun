@@ -75,35 +75,36 @@
 <section class="testimonial-slider {{ section.settings.custom_class }}" 
   style="padding-top:{{ section.settings.padding_top }}px;
          padding-bottom:{{ section.settings.padding_bottom }}px;">
+    <div class="page-width">
+        <div class="slider-wrapper">
+            
+            <div class="slides">
+            {% for block in section.blocks %}
+                <div class="slide" {{ block.shopify_attributes }}>
+                
+                {% if block.settings.subtext != blank %}
+                    <p class="subtext">{{ block.settings.subtext }}</p>
+                {% endif %}
+                
+                {% if block.settings.quote != blank %}
+                    <h2 class="quote">{{ block.settings.quote }}</h2>
+                {% endif %}
 
-  <div class="slider-wrapper">
-    
-    <div class="slides">
-      {% for block in section.blocks %}
-        <div class="slide" {{ block.shopify_attributes }}>
-          
-          {% if block.settings.subtext != blank %}
-            <p class="subtext">{{ block.settings.subtext }}</p>
-          {% endif %}
-          
-          {% if block.settings.quote != blank %}
-            <h2 class="quote">{{ block.settings.quote }}</h2>
-          {% endif %}
-
-          {% if block.settings.logo != blank %}
-            <div class="logo">
-              <img src="{{ block.settings.logo | image_url: width: 300 }}" alt="logo">
+                {% if block.settings.logo != blank %}
+                    <div class="logo">
+                    <img src="{{ block.settings.logo | image_url: width: 300 }}" alt="logo">
+                    </div>
+                {% endif %}
+                </div>
+            {% endfor %}
             </div>
-          {% endif %}
+
+            <button class="nav prev">&#8592;</button>
+            <button class="nav next">&#8594;</button>
+
+            <div class="dots"></div>
+
         </div>
-      {% endfor %}
-    </div>
-
-    <button class="nav prev">&#8592;</button>
-    <button class="nav next">&#8594;</button>
-
-    <div class="dots"></div>
-
   </div>
 </section>
 
