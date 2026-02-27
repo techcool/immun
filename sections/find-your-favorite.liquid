@@ -15,16 +15,22 @@
     },
     {
       "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0a6836"
+    },
+    {
+      "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#f3f3f3"
+      "default": "#f2f2f2"
     },
     {
       "type": "range",
       "id": "padding_top",
       "label": "Padding Top",
       "min": 0,
-      "max": 150,
+      "max": 200,
       "step": 5,
       "unit": "px",
       "default": 80
@@ -34,7 +40,7 @@
       "id": "padding_bottom",
       "label": "Padding Bottom",
       "min": 0,
-      "max": 150,
+      "max": 200,
       "step": 5,
       "unit": "px",
       "default": 80
@@ -53,7 +59,7 @@
         {
           "type": "checkbox",
           "id": "show_badge",
-          "label": "Show New Badge",
+          "label": "Show Badge",
           "default": false
         },
         {
@@ -65,14 +71,20 @@
         {
           "type": "color",
           "id": "gradient_color_1",
-          "label": "Gradient Color 1",
-          "default": "#4CAF50"
+          "label": "Gradient Color Top",
+          "default": "#38a169"
         },
         {
           "type": "color",
           "id": "gradient_color_2",
-          "label": "Gradient Color 2",
-          "default": "#FFC107"
+          "label": "Gradient Color Bottom",
+          "default": "#f6ad55"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#002613"
         }
       ]
     }
@@ -91,9 +103,10 @@
 }
 {% endschema %}
 
-<section class="favorite-section {{ section.settings.custom_class }}"
+<section 
+  class="favorite-section {{ section.settings.custom_class }}"
   style="
-    background: {{ section.settings.bg_color }};
+    background-color: {{ section.settings.bg_color }};
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
   "
@@ -101,16 +114,21 @@
   <div class="page-width">
 
     {% if section.settings.heading != blank %}
-      <h2 class="favorite-heading">
+      <h2 
+        class="favorite-heading"
+        style="color: {{ section.settings.heading_color }};"
+      >
         {{ section.settings.heading }}
       </h2>
     {% endif %}
 
     <div class="favorite-grid">
+
       {% for block in section.blocks %}
         {% assign product = block.settings.product %}
         {% if product %}
-        <div class="favorite-card" 
+        <div 
+          class="favorite-card"
           style="background: linear-gradient(to bottom, {{ block.settings.gradient_color_1 }}, {{ block.settings.gradient_color_2 }});"
           {{ block.shopify_attributes }}
         >
@@ -121,24 +139,30 @@
             </span>
           {% endif %}
 
-          <a href="{{ product.url }}">
+          <a href="{{ product.url }}" class="favorite-link">
             <div class="favorite-image">
               <img 
                 src="{{ product.featured_image | image_url: width: 600 }}" 
-                alt="{{ product.title }}"
+                alt="{{ product.title | escape }}"
                 loading="lazy"
               >
             </div>
-            <h3 class="favorite-title">
-              {{ product.title }}
-            </h3>
           </a>
+
+          <h3 
+            class="favorite-title"
+            style="color: {{ block.settings.title_color }};"
+          >
+            <a href="{{ product.url }}">
+              {{ product.title }}
+            </a>
+          </h3>
 
         </div>
         {% endif %}
       {% endfor %}
-    </div>
 
+    </div>
   </div>
 </section>
 
@@ -148,7 +172,7 @@
 }
 
 .favorite-heading {
-  font-size: 36px;
+  font-size: 38px;
   font-weight: 700;
   margin-bottom: 50px;
 }
@@ -161,17 +185,18 @@
 
 .favorite-card {
   position: relative;
-  padding: 30px 20px;
-  border-radius: 15px;
+  padding: 40px 20px 30px;
+  border-radius: 16px;
   transition: 0.3s ease;
 }
 
 .favorite-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
 }
 
 .favorite-image img {
-  max-width: 200px;
+  max-width: 220px;
+  width: 100%;
   margin: 0 auto 20px;
   display: block;
 }
@@ -179,6 +204,17 @@
 .favorite-title {
   font-size: 18px;
   font-weight: 600;
+  margin-top: 10px;
+}
+
+.favorite-title a {
+  text-decoration: none;
+  color: inherit;
+  transition: 0.3s ease;
+}
+
+.favorite-title a:hover {
+  opacity: 0.7;
 }
 
 .favorite-badge {
@@ -187,26 +223,32 @@
   left: 15px;
   background: #ff9800;
   color: #fff;
-  padding: 6px 12px;
+  padding: 6px 14px;
   font-size: 12px;
   font-weight: 600;
   border-radius: 20px;
 }
 
+.favorite-link {
+  display: block;
+  text-decoration: none;
+}
+
 /* Responsive */
-@media(max-width: 991px) {
+
+@media (max-width: 991px) {
   .favorite-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media(max-width: 576px) {
+@media (max-width: 576px) {
   .favorite-grid {
     grid-template-columns: 1fr;
   }
 
   .favorite-heading {
-    font-size: 26px;
+    font-size: 28px;
   }
 }
 </style>
