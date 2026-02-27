@@ -10,7 +10,7 @@
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <aside
-  class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} {%  if section.settings.list-custom-class != blank %} {{ section.settings.list-custom-class }} {% endif %}"
   style="{% render 'spacing-padding', settings: section.settings %}; --border-bottom-width: {{ section.settings.divider_width }}px;"
 >
   {% liquid
@@ -203,6 +203,11 @@
       "step": 1,
       "unit": "px",
       "default": 15
+    },
+    {
+      "type": "text",
+      "id": "list-custom-class",
+      "label": "Add custom class"
     }
   ],
   "presets": [
