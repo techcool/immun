@@ -160,9 +160,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const nextBtn = slider.querySelector(".next");
 
   const total = slides.length;
-  if (total < 1) return;
+  if (total < 3) return; // minimum 3 for center mode
 
-  let currentIndex = 0;
+  let current = 0;
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.autoplay_speed }} * 1000;
   let interval;
@@ -171,22 +171,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     slides.forEach(slide => slide.classList.remove("active"));
 
-    // center index calculation
-    let centerIndex = (currentIndex + 1) % total;
+    let centerIndex = (current + 1) % total;
     slides[centerIndex].classList.add("active");
 
     const slideWidth = slides[0].offsetWidth;
     slidesContainer.style.transform =
-      `translateX(-${currentIndex * slideWidth}px)`;
+      `translateX(-${current * slideWidth}px)`;
   }
 
   function nextSlide() {
-    currentIndex = (currentIndex + 1) % total;
+    current = (current + 1) % total;
     updateSlider();
   }
 
   function prevSlide() {
-    currentIndex = (currentIndex - 1 + total) % total;
+    current = (current - 1 + total) % total;
     updateSlider();
   }
 
@@ -195,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateSlider();
 
-  if (autoplay && total > 1) {
+  if (autoplay) {
     interval = setInterval(nextSlide, speed);
 
     slider.addEventListener("mouseenter", () => clearInterval(interval));
