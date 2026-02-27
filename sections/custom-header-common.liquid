@@ -1,18 +1,20 @@
 <header class="custom-header-img">
   <div class="custom-header-img__wrapper">
 
-    <!-- LEFT: Custom Image Only -->
+    <!-- LEFT: Logo / Image -->
     <div class="custom-header-img__image">
       {% if section.settings.custom_image != blank %}
-        <a href="{{ section.settings.image_link }}">
+        <a href="{{ section.settings.image_link | default: routes.root_url }}">
           <img 
-            src="{{ section.settings.custom_image | image_url: width: 400 }}" 
-            alt="Header Image">
+            src="{{ section.settings.custom_image | image_url: width: 400 }}"
+            alt="{{ section.settings.custom_image.alt | escape }}"
+            loading="lazy"
+          >
         </a>
       {% endif %}
     </div>
 
-    <!-- CENTER: Dynamic Links -->
+    <!-- CENTER: Dynamic Navigation -->
     <nav class="custom-header-img__menu">
       <ul>
         {% for block in section.blocks %}
@@ -27,13 +29,28 @@
       </ul>
     </nav>
 
-    <!-- RIGHT: Optional Button -->
-    <div class="custom-header-img__icons">
+    <!-- RIGHT: Icons + Optional Button -->
+    <div class="custom-header-img__right">
+
+      {% if section.settings.show_search %}
+        <a href="{{ routes.search_url }}" class="header-icon" aria-label="Search">
+          🔍
+        </a>
+      {% endif %}
+
+      <a href="{{ routes.cart_url }}" class="header-icon cart-icon" aria-label="Cart">
+        🛒
+        {% if cart.item_count > 0 %}
+          <span class="cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+
       {% if section.settings.button_text != blank %}
         <a href="{{ section.settings.button_link }}" class="header-btn">
           {{ section.settings.button_text }}
         </a>
       {% endif %}
+
     </div>
 
   </div>
@@ -49,6 +66,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 }
 
 /* Image */
@@ -71,11 +89,38 @@
   color: #fff;
   font-weight: 500;
   font-size: 15px;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .custom-header-img__menu a:hover {
   color: #0c7c3a;
+}
+
+/* Right Section */
+.custom-header-img__right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Icons */
+.header-icon {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  position: relative;
+}
+
+/* Cart Count */
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: #0c7c3a;
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 20px;
 }
 
 /* Button */
@@ -86,7 +131,7 @@
   text-decoration: none;
   border-radius: 4px;
   font-size: 14px;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .header-btn:hover {
@@ -103,7 +148,7 @@
 @media (max-width: 768px) {
   .custom-header-img__wrapper {
     flex-direction: column;
-    gap: 15px;
+    text-align: center;
   }
 }
 </style>
@@ -121,6 +166,12 @@
       "type": "url",
       "id": "image_link",
       "label": "Image Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show Search Icon",
+      "default": true
     },
     {
       "type": "text",
