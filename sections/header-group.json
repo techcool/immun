@@ -145,12 +145,23 @@
         "custom_menu": "",
         "show_search": true
       }
+    },
+    "custom_header_common_zBfFB8": {
+      "type": "custom-header-common",
+      "name": "Custom Header Image",
+      "settings": {
+        "image_link": "",
+        "show_search": false,
+        "button_text": "",
+        "button_link": ""
+      }
     }
   },
   "order": [
     "header_announcements_9jGBFp",
     "header_section",
     "custom_landing_page_header_tCwjpa",
-    "custom_commonheader_ecrgzV"
+    "custom_commonheader_ecrgzV",
+    "custom_header_common_zBfFB8"
   ]
 }
