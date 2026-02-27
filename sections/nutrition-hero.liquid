@@ -11,15 +11,15 @@
       <div class="nutrition-hero__content">
 
         {% if section.settings.rating_text != blank %}
-          <div class="nutrition-rating">
-            ⭐ {{ section.settings.rating_text }}
+          <div class="nutrition-rating rte">
+            {{ section.settings.rating_text }}
           </div>
         {% endif %}
 
         {% if section.settings.heading != blank %}
-          <h1 class="nutrition-heading">
+          <h2 class="nutrition-heading">
             {{ section.settings.heading }}
-          </h1>
+          </h2>
         {% endif %}
 
         {% if section.settings.description != blank %}
@@ -34,9 +34,8 @@
           </a>
         {% endif %}
 
-        <!-- NEW BUTTON SUB TEXT -->
         {% if section.settings.button_subtext != blank %}
-          <div class="nutrition-button-subtext">
+          <div class="nutrition-button-subtext rte">
             {{ section.settings.button_subtext }}
           </div>
         {% endif %}
@@ -106,7 +105,7 @@
     .nutrition-button-subtext {
       margin-top: 12px;
       font-size: 14px;
-      opacity: 0.8;
+      opacity: 0.85;
     }
 
     .nutrition-hero__image {
@@ -168,10 +167,10 @@
       "label": "Add custom class"
     },
     {
-      "type": "text",
+      "type": "richtext",
       "id": "rating_text",
-      "label": "Rating text",
-      "default": "4.8 stars from 85,000 reviews | 1,000,000+ members"
+      "label": "Rating description",
+      "default": "<p>⭐ 4.8 stars from 85,000 reviews | 1,000,000+ members</p>"
     },
     {
       "type": "textarea",
