@@ -3,13 +3,17 @@
 
     <!-- LEFT: Anchor Links -->
     <div class="manual-header__anchors">
-      {% for block in section.blocks %}
-        {% if block.type == 'anchor' %}
-          <a href="{{ block.settings.link }}" class="manual-anchor">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <a 
+            href="{{ block.settings.link }}" 
+            class="manual-anchor"
+            {{ block.shopify_attributes }}
+          >
             {{ block.settings.text }}
           </a>
-        {% endif %}
-      {% endfor %}
+        {% endfor %}
+      {% endif %}
     </div>
 
     <!-- CENTER: Logo -->
@@ -40,20 +44,25 @@
 .manual-header {
   background: #0c7c3a;
   padding: 15px 40px;
+  position: relative;
+  z-index: 10;
 }
 
 .manual-header__wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 
+/* Anchor Container */
 .manual-header__anchors {
   display: flex;
   gap: 15px;
+  align-items: center;
 }
 
-/* Anchor Style (Button Look) */
+/* Anchor Button Style */
 .manual-anchor {
   border: 2px solid #fff;
   color: #fff;
@@ -61,7 +70,9 @@
   border-radius: 30px;
   text-decoration: none;
   font-weight: 500;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-size: 14px;
 }
 
 .manual-anchor:hover {
@@ -69,10 +80,13 @@
   color: #000;
 }
 
+/* Logo */
 .manual-header__logo img {
   max-height: 45px;
+  display: block;
 }
 
+/* Right Side Icons */
 .manual-header__icons {
   display: flex;
   gap: 20px;
@@ -81,18 +95,41 @@
 .manual-header__icons a {
   color: #fff;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
 }
 
-/* Mobile */
+/* ========================= */
+/* Responsive */
+/* ========================= */
+
+@media (max-width: 1024px) {
+  .manual-header {
+    padding: 15px 20px;
+  }
+}
+
 @media (max-width: 768px) {
+
   .manual-header__wrapper {
     flex-direction: column;
     gap: 15px;
   }
 
   .manual-header__anchors {
-    flex-wrap: wrap;
-    justify-content: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+  }
+
+  .manual-header__anchors::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .manual-header__icons {
+    gap: 15px;
   }
 }
 </style>
