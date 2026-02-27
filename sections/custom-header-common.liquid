@@ -1,4 +1,4 @@
-<header class="custom-header-img {{ section.settings.custom_class }}">
+<header class="custom-header-img color-{{ section.settings.color_scheme }} {{ section.settings.custom_class }}">
   <div class="custom-header-img__wrapper">
 
     <!-- LEFT: Logo -->
@@ -58,13 +58,13 @@
 
 <style>
 .custom-header-img {
-  background: #111;
   padding-top: {{ section.settings.padding_top }}px;
   padding-bottom: {{ section.settings.padding_bottom }}px;
   padding-left: 40px;
   padding-right: 40px;
 }
 
+/* Mobile padding */
 @media (max-width: 768px) {
   .custom-header-img {
     padding-top: {{ section.settings.padding_top_mobile }}px;
@@ -84,6 +84,7 @@
   display: block;
 }
 
+/* Menu */
 .custom-header-img__menu ul {
   list-style: none;
   display: flex;
@@ -94,16 +95,17 @@
 
 .custom-header-img__menu a {
   text-decoration: none;
-  color: #fff;
   font-weight: 500;
   font-size: 15px;
   transition: 0.3s ease;
+  color: inherit;
 }
 
 .custom-header-img__menu a:hover {
-  color: #0c7c3a;
+  opacity: 0.7;
 }
 
+/* Right section */
 .custom-header-img__right {
   display: flex;
   align-items: center;
@@ -111,37 +113,39 @@
 }
 
 .header-icon {
-  color: #fff;
   text-decoration: none;
   font-size: 18px;
   position: relative;
+  color: inherit;
 }
 
 .cart-count {
   position: absolute;
   top: -8px;
   right: -10px;
-  background: #0c7c3a;
-  color: #fff;
   font-size: 11px;
   padding: 2px 6px;
   border-radius: 20px;
+  background: currentColor;
+  color: #fff;
 }
 
+/* Button */
 .header-btn {
-  background: #0c7c3a;
   padding: 8px 18px;
-  color: #fff;
   text-decoration: none;
   border-radius: 4px;
   font-size: 14px;
   transition: 0.3s ease;
+  background: currentColor;
+  color: #fff;
 }
 
 .header-btn:hover {
-  background: #095c2b;
+  opacity: 0.85;
 }
 
+/* Hide menu on tablet */
 @media (max-width: 991px) {
   .custom-header-img__menu {
     display: none;
@@ -153,6 +157,12 @@
 {
   "name": "Custom Header Image",
   "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
     {
       "type": "text",
       "id": "custom_class",
