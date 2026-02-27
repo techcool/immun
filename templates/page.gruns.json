@@ -152,12 +152,77 @@
         "autoplay_speed": 5,
         "bg_color": "#f5f5f5"
       }
+    },
+    "find_your_favorite_pYqbb9": {
+      "type": "find-your-favorite",
+      "blocks": {
+        "product_card_XeDikg": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "show_badge": false,
+            "badge_text": "New!",
+            "gradient_color_1": "#38a169",
+            "gradient_color_2": "#f6ad55",
+            "title_color": "#002613"
+          }
+        },
+        "product_card_qUxL9i": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "show_badge": false,
+            "badge_text": "New!",
+            "gradient_color_1": "#38a169",
+            "gradient_color_2": "#f6ad55",
+            "title_color": "#002613"
+          }
+        },
+        "product_card_MCMkkF": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "show_badge": false,
+            "badge_text": "New!",
+            "gradient_color_1": "#38a169",
+            "gradient_color_2": "#f6ad55",
+            "title_color": "#002613"
+          }
+        },
+        "product_card_mF4zHP": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "show_badge": false,
+            "badge_text": "New!",
+            "gradient_color_1": "#38a169",
+            "gradient_color_2": "#f6ad55",
+            "title_color": "#002613"
+          }
+        }
+      },
+      "block_order": [
+        "product_card_XeDikg",
+        "product_card_qUxL9i",
+        "product_card_MCMkkF",
+        "product_card_mF4zHP"
+      ],
+      "name": "Find Your Favorite",
+      "settings": {
+        "custom_class": "",
+        "heading": "Find Your Favorite",
+        "heading_color": "#0a6836",
+        "bg_color": "#f2f2f2",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
     "main",
     "nutrition_hero_wbz9CE",
     "testimonial_logo_slider_JpeDGt",
-    "press_slider_Fkz4za"
+    "press_slider_Fkz4za",
+    "find_your_favorite_pYqbb9"
   ]
 }
