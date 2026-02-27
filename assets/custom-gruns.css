@@ -92,6 +92,20 @@ nav.custom-header-img__menu ul li a:hover{
     color: var(--green-color);
     border-color:var(--orrange-color);
 }
+.gruns-herosec{
+    background: var(--soft-green)
+}
+
+
+
+
+
+
+
+
+
+
+
 
 .custom-header-img__wrapper, .gruns-herosec .page-width{
     max-width: 1440px !important;
