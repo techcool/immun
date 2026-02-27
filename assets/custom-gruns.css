@@ -93,7 +93,8 @@ nav.custom-header-img__menu ul li a:hover{
     border-color:var(--orrange-color);
 }
 .gruns-herosec{
-    background: var(--soft-green)
+    background: var(--soft-green);
+    font-family: "DM Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 
