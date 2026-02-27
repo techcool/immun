@@ -54,4 +54,10 @@ nav.custom-header-img__menu ul li a{
     color: rgb(var(--color-badge-foreground));
     border-color: rgb(var(--color-badge-foreground));
     transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 22px;
+    line-height: 1;
+    font-size: 14px;
+    font-weight: 500;
 }
