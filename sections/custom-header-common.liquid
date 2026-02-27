@@ -1,16 +1,15 @@
 <header class="custom-header">
   <div class="custom-header-wrapper">
 
-    <!-- LEFT MENU -->
+    <!-- LEFT MENU ITEMS -->
     <nav class="custom-menu">
-      {% assign selected_menu = section.settings.custom_menu %}
-      {% if selected_menu != blank %}
-        {% for link in linklists[selected_menu].links %}
-          <a href="{{ link.url }}" class="menu-link">
-            {{ link.title }}
+      {% for block in section.blocks %}
+        {% if block.type == 'menu_item' %}
+          <a href="{{ block.settings.menu_link }}" class="menu-link">
+            {{ block.settings.menu_text }}
           </a>
-        {% endfor %}
-      {% endif %}
+        {% endif %}
+      {% endfor %}
     </nav>
 
     <!-- CENTER LOGO -->
@@ -26,7 +25,7 @@
       </a>
     </div>
 
-    <!-- RIGHT -->
+    <!-- RIGHT SIDE -->
     <div class="custom-icons">
       <a href="{{ routes.account_url }}">Account</a>
       <a href="{{ routes.cart_url }}">
@@ -51,13 +50,17 @@
 
 .custom-menu {
   display: flex;
-  gap: 25px;
+  gap: 20px;
 }
 
 .menu-link {
   color: #fff;
   text-decoration: none;
   font-weight: 500;
+}
+
+.menu-link:hover {
+  opacity: 0.8;
 }
 
 .custom-logo img {
@@ -75,6 +78,12 @@
   gap: 20px;
 }
 
+.custom-icons a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
 .cart-count {
   background: #fff;
   color: #000;
@@ -82,21 +91,54 @@
   border-radius: 20px;
   font-size: 12px;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .custom-header-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .custom-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
 </style>
 
 {% schema %}
 {
-  "name": "Dynamic Global Header",
+  "name": "Custom Header",
   "settings": [
-    {
-      "type": "link_list",
-      "id": "custom_menu",
-      "label": "Select Menu (Per Page)"
-    },
     {
       "type": "image_picker",
       "id": "custom_logo",
-      "label": "Select Logo (Per Page)"
+      "label": "Upload Logo"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_item",
+      "name": "Menu Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_text",
+          "label": "Menu Text",
+          "default": "Menu"
+        },
+        {
+          "type": "url",
+          "id": "menu_link",
+          "label": "Menu Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Custom Header"
     }
   ]
 }
