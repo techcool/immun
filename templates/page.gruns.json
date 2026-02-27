@@ -221,7 +221,7 @@
       ],
       "name": "Find Your Favorite",
       "settings": {
-        "custom_class": "",
+        "custom_class": "gruns-favoritesec",
         "heading": "Find Your Favorite",
         "heading_color": "#0a6836",
         "bg_color": "#f2f2f2",
