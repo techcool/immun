@@ -1,16 +1,18 @@
 <header class="manual-header">
   <div class="manual-header__wrapper">
 
-    <!-- LEFT MENU -->
-    <nav class="manual-header__menu">
+    <!-- LEFT: Anchor Links -->
+    <div class="manual-header__anchors">
       {% for block in section.blocks %}
-        <a href="{{ block.settings.link }}" class="manual-header__item">
-          {{ block.settings.text }}
-        </a>
+        {% if block.type == 'anchor' %}
+          <a href="{{ block.settings.link }}" class="manual-anchor">
+            {{ block.settings.text }}
+          </a>
+        {% endif %}
       {% endfor %}
-    </nav>
+    </div>
 
-    <!-- CENTER LOGO -->
+    <!-- CENTER: Logo -->
     <div class="manual-header__logo">
       <a href="{{ routes.root_url }}">
         {% if section.settings.logo != blank %}
@@ -23,7 +25,7 @@
       </a>
     </div>
 
-    <!-- RIGHT SIDE -->
+    <!-- RIGHT: Account + Cart -->
     <div class="manual-header__icons">
       <a href="{{ routes.account_url }}">Account</a>
       <a href="{{ routes.cart_url }}">
@@ -46,15 +48,25 @@
   align-items: center;
 }
 
-.manual-header__menu {
+.manual-header__anchors {
   display: flex;
-  gap: 20px;
+  gap: 15px;
 }
 
-.manual-header__item {
+/* Anchor Style (Button Look) */
+.manual-anchor {
+  border: 2px solid #fff;
   color: #fff;
+  padding: 8px 18px;
+  border-radius: 30px;
   text-decoration: none;
   font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.manual-anchor:hover {
+  background: #fff;
+  color: #000;
 }
 
 .manual-header__logo img {
@@ -78,7 +90,7 @@
     gap: 15px;
   }
 
-  .manual-header__menu {
+  .manual-header__anchors {
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -87,7 +99,7 @@
 
 {% schema %}
 {
-  "name": "Manual Header",
+  "name": "Anchor Header",
   "settings": [
     {
       "type": "image_picker",
@@ -97,27 +109,27 @@
   ],
   "blocks": [
     {
-      "type": "menu_item",
-      "name": "Menu Item",
+      "type": "anchor",
+      "name": "Anchor Link",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "Menu Text",
-          "default": "Menu"
+          "label": "Anchor Text",
+          "default": "Button"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Menu Link"
+          "label": "Anchor Link"
         }
       ]
     }
   ],
-  "max_blocks": 20,
+  "max_blocks": 10,
   "presets": [
     {
-      "name": "Manual Header"
+      "name": "Anchor Header"
     }
   ]
 }
