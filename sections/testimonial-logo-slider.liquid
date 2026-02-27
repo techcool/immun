@@ -186,6 +186,39 @@
   .prev{left:10px;}
   .next{right:10px;}
 }
+
+.testimonial-slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonial-slider .slides {
+  display: flex;
+}
+
+.testimonial-slider .slide {
+  flex: 0 0 calc(100% / 3); /* default desktop */
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+
+@media (max-width:1024px){
+  .testimonial-slider .slide {
+    flex: 0 0 calc(100% / 2);
+  }
+}
+
+@media (max-width:768px){
+  .testimonial-slider .slide {
+    flex: 0 0 100%;
+  }
+}
+
+.testimonial-slider .slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
 </style>
 
 
