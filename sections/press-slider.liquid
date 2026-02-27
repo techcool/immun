@@ -21,7 +21,7 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
-      "default": "#f5f5f5"
+      "default": "#f3f4f2"
     }
   ],
   "blocks": [
@@ -51,31 +51,40 @@
 {% endschema %}
 
 <section class="press-slider" style="background: {{ section.settings.bg_color }};">
-  <div class="press-wrapper">
+  <div class="press-container">
+
+    {% if section.blocks.size > 1 %}
+      <button class="nav prev" aria-label="Previous slide">
+        &#8592;
+      </button>
+    {% endif %}
 
     <div class="slides">
       {% for block in section.blocks %}
         <div class="slide" {{ block.shopify_attributes }}>
+          
           {% if block.settings.quote != blank %}
-            <p class="quote">{{ block.settings.quote }}</p>
+            <p class="quote">"{{ block.settings.quote }}"</p>
           {% endif %}
           
           {% if block.settings.logo != blank %}
             <div class="logo">
               <img 
-                src="{{ block.settings.logo | image_url: width: 400 }}" 
-                alt="logo"
+                src="{{ block.settings.logo | image_url: width: 600 }}" 
+                alt="Press logo"
                 loading="lazy"
               >
             </div>
           {% endif %}
+
         </div>
       {% endfor %}
     </div>
 
     {% if section.blocks.size > 1 %}
-      <button class="nav prev">&#8592;</button>
-      <button class="nav next">&#8594;</button>
+      <button class="nav next" aria-label="Next slide">
+        &#8594;
+      </button>
 
       <div class="dots">
         {% for block in section.blocks %}
@@ -89,13 +98,13 @@
 
 <style>
 .press-slider {
-  padding: 80px 20px;
-  text-align: center;
+  padding: 100px 20px;
   position: relative;
+  text-align: center;
 }
 
-.press-wrapper {
-  max-width: 900px;
+.press-container {
+  max-width: 1100px;
   margin: auto;
   position: relative;
 }
@@ -103,11 +112,12 @@
 .slides {
   position: relative;
   overflow: hidden;
+  min-height: 200px;
 }
 
 .slide {
   display: none;
-  animation: fade 0.4s ease-in-out;
+  animation: fade 0.5s ease;
 }
 
 .slide.active {
@@ -115,54 +125,87 @@
 }
 
 .quote {
-  font-size: 18px;
-  margin-bottom: 30px;
-  color: #1f3d2b;
+  font-size: 20px;
   line-height: 1.6;
+  color: #1f3d2b;
+  max-width: 700px;
+  margin: 0 auto 40px;
 }
 
 .logo img {
   max-height: 60px;
+  width: auto;
   object-fit: contain;
+  margin: 0 auto;
 }
 
+/* Navigation Arrows */
 .nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: #ffffff;
-  border: 1px solid #1f3d2b;
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
+  border: 2px solid #1f3d2b;
+  background: transparent;
+  color: #1f3d2b;
   cursor: pointer;
   font-size: 18px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.prev { left: -60px; }
-.next { right: -60px; }
+.nav:hover {
+  background: #1f3d2b;
+  color: #ffffff;
+}
 
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+/* Dots */
 .dots {
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 .dot {
   height: 8px;
   width: 8px;
-  background: #ccc;
+  background: #cfd8d3;
   border-radius: 50%;
   display: inline-block;
-  margin: 0 5px;
+  margin: 0 6px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .dot.active {
   background: #1f3d2b;
 }
 
-@media(max-width: 768px) {
-  .prev { left: 10px; }
-  .next { right: 10px; }
+/* Mobile */
+@media (max-width: 768px) {
+  .press-slider {
+    padding: 70px 20px;
+  }
+
+  .quote {
+    font-size: 16px;
+  }
+
+  .nav {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+  }
 }
 
 @keyframes fade {
@@ -173,6 +216,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+
   const section = document.querySelector(".press-slider");
   if (!section) return;
 
@@ -199,13 +243,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function nextSlide() {
-    let newIndex = (current + 1) % slides.length;
-    showSlide(newIndex);
+    showSlide((current + 1) % slides.length);
   }
 
   function prevSlideFunc() {
-    let newIndex = (current - 1 + slides.length) % slides.length;
-    showSlide(newIndex);
+    showSlide((current - 1 + slides.length) % slides.length);
   }
 
   if (next) next.addEventListener("click", nextSlide);
@@ -223,6 +265,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (autoplay && slides.length > 1) {
     interval = setInterval(nextSlide, speed);
+
+    section.addEventListener("mouseenter", () => clearInterval(interval));
+    section.addEventListener("mouseleave", () => {
+      interval = setInterval(nextSlide, speed);
+    });
   }
+
 });
 </script>
