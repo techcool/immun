@@ -22,7 +22,8 @@
     --payment-terms-background-color: rgb(0 126 64);
 }
 body {
-  font-family: "DM Sans", sans-serif;
+  /* font-family: "DM Sans", sans-serif; */
+  font-family: "DM Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 .gruns-top-header {
     background: #ff8e2c !important;
