@@ -70,5 +70,5 @@ nav.custom-header-img__menu ul li a{
 nav.custom-header-img__menu ul li a:hover{
     background-color:var(--white-color);
     color: var(--green-color);
-    border-color: rgb(var(--orrange-color));
+    border-color: rgb(var(--yellow-color));
 }
