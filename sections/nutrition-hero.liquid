@@ -34,6 +34,13 @@
           </a>
         {% endif %}
 
+        <!-- NEW BUTTON SUB TEXT -->
+        {% if section.settings.button_subtext != blank %}
+          <div class="nutrition-button-subtext">
+            {{ section.settings.button_subtext }}
+          </div>
+        {% endif %}
+
       </div>
 
       <!-- RIGHT IMAGE -->
@@ -43,8 +50,6 @@
             src="{{ section.settings.product_image | image_url: width: 1200 }}"
             alt="{{ section.settings.heading | escape }}"
             loading="lazy"
-            width=""
-            height=""
           >
         {% endif %}
       </div>
@@ -92,6 +97,16 @@
 
     .nutrition-description {
       margin-bottom: 25px;
+    }
+
+    .nutrition-btn {
+      margin-top: 10px;
+    }
+
+    .nutrition-button-subtext {
+      margin-top: 12px;
+      font-size: 14px;
+      opacity: 0.8;
     }
 
     .nutrition-hero__image {
@@ -179,6 +194,11 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "richtext",
+      "id": "button_subtext",
+      "label": "Button sub text (below button)"
     },
     {
       "type": "image_picker",
