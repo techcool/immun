@@ -10,3 +10,10 @@
 body {
   font-family: "DM Sans", sans-serif;
 }
+
+.gruns-top-header{
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 700;
+    color: #0a1c20 !important;
+}
