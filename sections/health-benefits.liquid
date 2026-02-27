@@ -1,0 +1,207 @@
+{% style %}
+.section-{{ section.id }} {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+}
+
+.section-{{ section.id }} .health-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-{{ section.id }} .health-heading {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.section-{{ section.id }} .health-subheading {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 60px;
+}
+
+.section-{{ section.id }} .health-grid {
+  display: grid;
+  grid-template-columns: 1fr 500px 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.section-{{ section.id }} .health-features {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.section-{{ section.id }} .health-item {
+  text-align: center;
+}
+
+.section-{{ section.id }} .health-icon img {
+  width: 40px;
+  margin-bottom: 15px;
+}
+
+.section-{{ section.id }} .health-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.section-{{ section.id }} .health-desc {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.section-{{ section.id }} .health-center img {
+  width: 100%;
+  max-width: 450px;
+}
+
+@media (max-width: 1024px) {
+  .section-{{ section.id }} .health-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-{{ section.id }} .health-center {
+    order: -1;
+  }
+}
+{% endstyle %}
+
+<section class="section-{{ section.id }} {{ section.settings.custom_class }}">
+  <div class="health-wrapper">
+
+    {% if section.settings.heading != blank %}
+      <h2 class="health-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <div class="health-subheading">{{ section.settings.subheading }}</div>
+    {% endif %}
+
+    <div class="health-grid">
+
+      <!-- Left Features -->
+      <div class="health-features">
+        {% for block in section.blocks limit: 2 %}
+          <div class="health-item" {{ block.shopify_attributes }}>
+            {% if block.settings.icon != blank %}
+              <div class="health-icon">
+                <img src="{{ block.settings.icon | image_url }}" alt="">
+              </div>
+            {% endif %}
+            <div class="health-title">{{ block.settings.title }}</div>
+            <div class="health-desc">{{ block.settings.description }}</div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Center Image -->
+      <div class="health-center">
+        {% if section.settings.center_image != blank %}
+          <img src="{{ section.settings.center_image | image_url }}" alt="">
+        {% endif %}
+      </div>
+
+      <!-- Right Features -->
+      <div class="health-features">
+        {% for block in section.blocks offset: 2 %}
+          <div class="health-item" {{ block.shopify_attributes }}>
+            {% if block.settings.icon != blank %}
+              <div class="health-icon">
+                <img src="{{ block.settings.icon | image_url }}" alt="">
+              </div>
+            {% endif %}
+            <div class="health-title">{{ block.settings.title }}</div>
+            <div class="health-desc">{{ block.settings.description }}</div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Health Benefits Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Transform Your Health"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Sub Heading",
+      "default": "Over 35,000 research publications support the ingredients."
+    },
+    {
+      "type": "image_picker",
+      "id": "center_image",
+      "label": "Center Image"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Gut Health"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Add feature description here."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Health Benefits Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
