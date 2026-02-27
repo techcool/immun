@@ -1,10 +1,11 @@
 <header class="custom-header">
   <div class="custom-header-wrapper">
 
-    <!-- LEFT: Navigation Menu -->
+    <!-- LEFT MENU -->
     <nav class="custom-menu">
-      {% if section.settings.custom_menu != blank %}
-        {% for link in linklists[section.settings.custom_menu].links %}
+      {% assign selected_menu = section.settings.custom_menu %}
+      {% if selected_menu != blank %}
+        {% for link in linklists[selected_menu].links %}
           <a href="{{ link.url }}" class="menu-link">
             {{ link.title }}
           </a>
@@ -12,31 +13,24 @@
       {% endif %}
     </nav>
 
-    <!-- CENTER: Logo -->
+    <!-- CENTER LOGO -->
     <div class="custom-logo">
       <a href="{{ routes.root_url }}">
         {% if section.settings.custom_logo != blank %}
           <img 
             src="{{ section.settings.custom_logo | image_url: width: 250 }}" 
-            alt="{{ shop.name }}" 
-          >
+            alt="{{ shop.name }}">
         {% else %}
           <span class="logo-text">{{ shop.name }}</span>
         {% endif %}
       </a>
     </div>
 
-    <!-- RIGHT: Account + Cart -->
+    <!-- RIGHT -->
     <div class="custom-icons">
-      <a href="{{ routes.account_url }}" class="account-link">
-        Account
-      </a>
-
-      <a href="{{ routes.cart_url }}" class="cart-link">
-        Cart
-        <span class="cart-count">
-          {{ cart.item_count }}
-        </span>
+      <a href="{{ routes.account_url }}">Account</a>
+      <a href="{{ routes.cart_url }}">
+        Cart <span class="cart-count">{{ cart.item_count }}</span>
       </a>
     </div>
 
@@ -45,15 +39,14 @@
 
 <style>
 .custom-header {
-  width: 100%;
   background: #0c7c3a;
   padding: 15px 40px;
 }
 
 .custom-header-wrapper {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .custom-menu {
@@ -62,14 +55,9 @@
 }
 
 .menu-link {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   font-weight: 500;
-  position: relative;
-}
-
-.menu-link:hover {
-  opacity: 0.8;
 }
 
 .custom-logo img {
@@ -77,60 +65,38 @@
 }
 
 .logo-text {
-  color: #ffffff;
+  color: #fff;
   font-size: 22px;
   font-weight: bold;
 }
 
 .custom-icons {
   display: flex;
-  align-items: center;
   gap: 20px;
 }
 
-.account-link,
-.cart-link {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
 .cart-count {
-  background: #ffffff;
+  background: #fff;
   color: #000;
-  font-size: 12px;
   padding: 3px 7px;
   border-radius: 20px;
-  margin-left: 5px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .custom-header-wrapper {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .custom-menu {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  font-size: 12px;
 }
 </style>
 
 {% schema %}
 {
-  "name": "Custom Global Header",
+  "name": "Dynamic Global Header",
   "settings": [
     {
       "type": "link_list",
       "id": "custom_menu",
-      "label": "Select Menu"
+      "label": "Select Menu (Per Page)"
     },
     {
       "type": "image_picker",
       "id": "custom_logo",
-      "label": "Upload Logo"
+      "label": "Select Logo (Per Page)"
     }
   ]
 }
