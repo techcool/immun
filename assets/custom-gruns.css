@@ -94,6 +94,6 @@ nav.custom-header-img__menu ul li a:hover{
 }
 
 .custom-header-img__wrapper, .gruns-herosec .page-width{
-    max-width: calc(10% + 1440px);
+    max-width: 1440px;
     margin: 0 auto;
 }
