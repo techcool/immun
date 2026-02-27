@@ -1,7 +1,7 @@
-<header class="custom-header-img">
+<header class="custom-header-img {{ section.settings.custom_class }}">
   <div class="custom-header-img__wrapper">
 
-    <!-- LEFT: Logo / Image -->
+    <!-- LEFT: Logo -->
     <div class="custom-header-img__image">
       {% if section.settings.custom_image != blank %}
         <a href="{{ section.settings.image_link | default: routes.root_url }}">
@@ -14,7 +14,7 @@
       {% endif %}
     </div>
 
-    <!-- CENTER: Dynamic Navigation -->
+    <!-- CENTER: Navigation -->
     <nav class="custom-header-img__menu">
       <ul>
         {% for block in section.blocks %}
@@ -29,7 +29,7 @@
       </ul>
     </nav>
 
-    <!-- RIGHT: Icons + Optional Button -->
+    <!-- RIGHT -->
     <div class="custom-header-img__right">
 
       {% if section.settings.show_search %}
@@ -59,7 +59,17 @@
 <style>
 .custom-header-img {
   background: #111;
-  padding: 18px 40px;
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media (max-width: 768px) {
+  .custom-header-img {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
 }
 
 .custom-header-img__wrapper {
@@ -69,13 +79,11 @@
   gap: 20px;
 }
 
-/* Image */
 .custom-header-img__image img {
   max-height: 60px;
   display: block;
 }
 
-/* Menu */
 .custom-header-img__menu ul {
   list-style: none;
   display: flex;
@@ -96,14 +104,12 @@
   color: #0c7c3a;
 }
 
-/* Right Section */
 .custom-header-img__right {
   display: flex;
   align-items: center;
   gap: 18px;
 }
 
-/* Icons */
 .header-icon {
   color: #fff;
   text-decoration: none;
@@ -111,7 +117,6 @@
   position: relative;
 }
 
-/* Cart Count */
 .cart-count {
   position: absolute;
   top: -8px;
@@ -123,7 +128,6 @@
   border-radius: 20px;
 }
 
-/* Button */
 .header-btn {
   background: #0c7c3a;
   padding: 8px 18px;
@@ -138,17 +142,9 @@
   background: #095c2b;
 }
 
-/* Responsive */
 @media (max-width: 991px) {
   .custom-header-img__menu {
     display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .custom-header-img__wrapper {
-    flex-direction: column;
-    text-align: center;
   }
 }
 </style>
@@ -157,6 +153,11 @@
 {
   "name": "Custom Header Image",
   "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class"
+    },
     {
       "type": "image_picker",
       "id": "custom_image",
@@ -182,6 +183,42 @@
       "type": "url",
       "id": "button_link",
       "label": "Right Button Link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (Desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (Desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 16
     }
   ],
   "blocks": [
