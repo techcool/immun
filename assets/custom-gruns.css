@@ -72,3 +72,19 @@ nav.custom-header-img__menu ul li a:hover{
     color: var(--green-color);
     border-color:var(--orrange-color);
 }
+
+/* Button */
+.header-btn {
+    padding: 7px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: 0.3s ease;
+    background-color: rgb(var(--green-color));
+    color: rgb(var(--yellow-color));
+    border-color: rgb(var(--yellow-color));
+}
+
+.header-btn:hover {
+  opacity: 0.85;
+}
