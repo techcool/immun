@@ -1,32 +1,30 @@
 <header class="custom-header">
-  <div class="custom-header-wrapper">
+  <div class="header-inner">
 
-    <!-- LEFT MENU ITEMS -->
-    <nav class="custom-menu">
+    <!-- LEFT MENU (Manual Blocks) -->
+    <nav class="header-menu">
       {% for block in section.blocks %}
-        {% if block.type == 'menu_item' %}
-          <a href="{{ block.settings.menu_link }}" class="menu-link">
-            {{ block.settings.menu_text }}
-          </a>
-        {% endif %}
+        <a href="{{ block.settings.link }}" class="menu-item">
+          {{ block.settings.text }}
+        </a>
       {% endfor %}
     </nav>
 
     <!-- CENTER LOGO -->
-    <div class="custom-logo">
+    <div class="header-logo">
       <a href="{{ routes.root_url }}">
-        {% if section.settings.custom_logo != blank %}
+        {% if section.settings.logo != blank %}
           <img 
-            src="{{ section.settings.custom_logo | image_url: width: 250 }}" 
+            src="{{ section.settings.logo | image_url: width: 250 }}" 
             alt="{{ shop.name }}">
         {% else %}
-          <span class="logo-text">{{ shop.name }}</span>
+          {{ shop.name }}
         {% endif %}
       </a>
     </div>
 
     <!-- RIGHT SIDE -->
-    <div class="custom-icons">
+    <div class="header-icons">
       <a href="{{ routes.account_url }}">Account</a>
       <a href="{{ routes.cart_url }}">
         Cart <span class="cart-count">{{ cart.item_count }}</span>
@@ -42,46 +40,39 @@
   padding: 15px 40px;
 }
 
-.custom-header-wrapper {
+.header-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.custom-menu {
+.header-menu {
   display: flex;
   gap: 20px;
 }
 
-.menu-link {
+.menu-item {
   color: #fff;
   text-decoration: none;
   font-weight: 500;
 }
 
-.menu-link:hover {
+.menu-item:hover {
   opacity: 0.8;
 }
 
-.custom-logo img {
+.header-logo img {
   max-height: 45px;
 }
 
-.logo-text {
-  color: #fff;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.custom-icons {
+.header-icons {
   display: flex;
   gap: 20px;
 }
 
-.custom-icons a {
+.header-icons a {
   color: #fff;
   text-decoration: none;
-  font-weight: 500;
 }
 
 .cart-count {
@@ -92,14 +83,14 @@
   font-size: 12px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .custom-header-wrapper {
+/* Mobile */
+@media(max-width:768px){
+  .header-inner {
     flex-direction: column;
     gap: 15px;
   }
 
-  .custom-menu {
+  .header-menu {
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -112,30 +103,30 @@
   "settings": [
     {
       "type": "image_picker",
-      "id": "custom_logo",
+      "id": "logo",
       "label": "Upload Logo"
     }
   ],
   "blocks": [
     {
-      "type": "menu_item",
+      "type": "menu",
       "name": "Menu Item",
       "settings": [
         {
           "type": "text",
-          "id": "menu_text",
+          "id": "text",
           "label": "Menu Text",
           "default": "Menu"
         },
         {
           "type": "url",
-          "id": "menu_link",
+          "id": "link",
           "label": "Menu Link"
         }
       ]
     }
   ],
-  "max_blocks": 12,
+  "max_blocks": 15,
   "presets": [
     {
       "name": "Custom Header"
