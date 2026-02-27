@@ -1,9 +1,8 @@
-<section 
-  class="nutrition-hero {{ section.settings.custom_class }}"
-  style="
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-  "
+{% assign section_id = 'section-' | append: section.id %}
+
+<section
+  id="{{ section_id }}"
+  class="nutrition-hero color-{{ section.settings.color_scheme }} {{ section.settings.custom_class }}"
 >
   <div class="page-width">
     <div class="nutrition-hero__wrapper">
@@ -18,56 +17,52 @@
         {% endif %}
 
         {% if section.settings.heading != blank %}
-          <h1 class="nutrition-heading">
+          <h2 class="nutrition-heading">
             {{ section.settings.heading }}
-          </h1>
+          </h2>
         {% endif %}
 
         {% if section.settings.description != blank %}
-          <p class="nutrition-description">
+          <div class="nutrition-description rte">
             {{ section.settings.description }}
-          </p>
+          </div>
         {% endif %}
 
         {% if section.settings.button_text != blank %}
-          <a href="{{ section.settings.button_link }}" class="nutrition-btn">
+          <a href="{{ section.settings.button_link }}" class="button nutrition-btn">
             {{ section.settings.button_text }}
           </a>
-        {% endif %}
-
-        {% if section.settings.guarantee_text != blank %}
-          <div class="nutrition-guarantee">
-            ✔ {{ section.settings.guarantee_text }}
-          </div>
         {% endif %}
 
       </div>
 
       <!-- RIGHT IMAGE -->
       <div class="nutrition-hero__image">
-
         {% if section.settings.product_image != blank %}
-          <img 
+          <img
             src="{{ section.settings.product_image | image_url: width: 1200 }}"
             alt="{{ section.settings.heading | escape }}"
             loading="lazy"
+            width=""
+            height=""
           >
         {% endif %}
-
-        {% if section.settings.badge_text != blank %}
-          <div class="nutrition-badge">
-            {{ section.settings.badge_text }}
-          </div>
-        {% endif %}
-
       </div>
 
     </div>
   </div>
 
   <style>
-    .nutrition-hero {
-      background: #e9f0ec;
+    #{{ section_id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    @media screen and (max-width: 749px) {
+      #{{ section_id }} {
+        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+      }
     }
 
     .nutrition-hero__wrapper {
@@ -79,12 +74,12 @@
 
     .nutrition-hero__content {
       flex: 1;
+      max-width: 600px;
     }
 
     .nutrition-rating {
       font-size: 14px;
       margin-bottom: 15px;
-      color: #1b5e3a;
       font-weight: 600;
     }
 
@@ -96,35 +91,11 @@
     }
 
     .nutrition-description {
-      font-size: 16px;
-      margin-bottom: 30px;
-      color: #444;
-    }
-
-    .nutrition-btn {
-      display: inline-block;
-      background: #0a7d43;
-      color: #fff;
-      padding: 16px 30px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s ease;
-    }
-
-    .nutrition-btn:hover {
-      background: #075a30;
-    }
-
-    .nutrition-guarantee {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #1b5e3a;
+      margin-bottom: 25px;
     }
 
     .nutrition-hero__image {
       flex: 1;
-      position: relative;
     }
 
     .nutrition-hero__image img {
@@ -133,19 +104,6 @@
       display: block;
     }
 
-    .nutrition-badge {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background: #ffd600;
-      color: #000;
-      padding: 8px 16px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    /* Responsive */
     @media screen and (max-width: 990px) {
       .nutrition-hero__wrapper {
         flex-direction: column;
@@ -154,18 +112,6 @@
 
       .nutrition-heading {
         font-size: 32px;
-      }
-
-      .nutrition-hero__image {
-        margin-top: 40px;
-      }
-    }
-
-    /* Mobile Dynamic Padding */
-    @media screen and (max-width: 749px) {
-      .nutrition-hero {
-        padding-top: {{ section.settings.padding_top_mobile }}px !important;
-        padding-bottom: {{ section.settings.padding_bottom_mobile }}px !important;
       }
     }
   </style>
@@ -176,14 +122,40 @@
   "name": "Nutrition Hero",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    },
+    {
       "type": "text",
       "id": "custom_class",
-      "label": "Custom CSS Class"
+      "label": "Add custom class"
     },
     {
       "type": "text",
       "id": "rating_text",
-      "label": "Rating Text",
+      "label": "Rating text",
       "default": "4.8 stars from 85,000 reviews | 1,000,000+ members"
     },
     {
@@ -193,78 +165,25 @@
       "default": "You have nutrition gaps, Grüns fills them"
     },
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "description",
-      "label": "Description",
-      "default": "Comprehensive nutrition with 60+ ingredients to help you feel your best."
+      "label": "Description"
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button Text",
-      "default": "Save 52% + Free Shipping"
+      "label": "Button text",
+      "default": "Shop now"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button Link"
-    },
-    {
-      "type": "text",
-      "id": "guarantee_text",
-      "label": "Guarantee Text",
-      "default": "30 Day Guarantee"
+      "label": "Button link"
     },
     {
       "type": "image_picker",
       "id": "product_image",
-      "label": "Product Image"
-    },
-    {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge Text",
-      "default": "Limited Edition"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 200,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Top (Desktop)",
-      "default": 80
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 200,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Bottom (Desktop)",
-      "default": 80
-    },
-    {
-      "type": "range",
-      "id": "padding_top_mobile",
-      "min": 0,
-      "max": 150,
-      "step": 2,
-      "unit": "px",
-      "label": "Padding Top (Mobile)",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom_mobile",
-      "min": 0,
-      "max": 150,
-      "step": 2,
-      "unit": "px",
-      "label": "Padding Bottom (Mobile)",
-      "default": 40
+      "label": "Product image"
     }
   ],
   "presets": [
