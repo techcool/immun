@@ -30,7 +30,7 @@ body {
   font-family: "DM Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 .gruns-top-header {
-    background: var(--orrange-color);
+    background: var(--orrange-color) !important;
 }
 .gruns-top-header p{
     font-size: 20px;
