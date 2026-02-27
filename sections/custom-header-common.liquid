@@ -1,27 +1,12 @@
-<header class="manual-header">
-  <div class="manual-header__wrapper">
+<header class="custom-header">
+  <div class="custom-header__wrapper">
 
-    <!-- LEFT: Anchor Links -->
-    <div class="manual-header__anchors">
-      {% if section.blocks.size > 0 %}
-        {% for block in section.blocks %}
-          <a 
-            href="{{ block.settings.link }}" 
-            class="manual-anchor"
-            {{ block.shopify_attributes }}
-          >
-            {{ block.settings.text }}
-          </a>
-        {% endfor %}
-      {% endif %}
-    </div>
-
-    <!-- CENTER: Logo -->
-    <div class="manual-header__logo">
+    <!-- LEFT: Logo -->
+    <div class="custom-header__logo">
       <a href="{{ routes.root_url }}">
         {% if section.settings.logo != blank %}
           <img 
-            src="{{ section.settings.logo | image_url: width: 200 }}" 
+            src="{{ section.settings.logo | image_url: width: 250 }}" 
             alt="{{ shop.name }}">
         {% else %}
           {{ shop.name }}
@@ -29,8 +14,36 @@
       </a>
     </div>
 
+    <!-- CENTER: Menu -->
+    <nav class="custom-header__menu">
+      {% if section.settings.menu != blank %}
+        <ul>
+          {% for link in linklists[section.settings.menu].links %}
+            <li>
+              <a href="{{ link.url }}">
+                {{ link.title }}
+              </a>
+
+              {% if link.links != blank %}
+                <ul class="submenu">
+                  {% for childlink in link.links %}
+                    <li>
+                      <a href="{{ childlink.url }}">
+                        {{ childlink.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </nav>
+
     <!-- RIGHT: Account + Cart -->
-    <div class="manual-header__icons">
+    <div class="custom-header__icons">
       <a href="{{ routes.account_url }}">Account</a>
       <a href="{{ routes.cart_url }}">
         Cart ({{ cart.item_count }})
@@ -41,132 +54,108 @@
 </header>
 
 <style>
-.manual-header {
-  background: #0c7c3a;
-  padding: 15px 40px;
+.custom-header {
+  background: #111;
+  padding: 18px 40px;
   position: relative;
-  z-index: 10;
+  z-index: 20;
 }
 
-.manual-header__wrapper {
+.custom-header__wrapper {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-/* Anchor Container */
-.manual-header__anchors {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-/* Anchor Button Style */
-.manual-anchor {
-  border: 2px solid #fff;
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  font-size: 14px;
-}
-
-.manual-anchor:hover {
-  background: #fff;
-  color: #000;
 }
 
 /* Logo */
-.manual-header__logo img {
-  max-height: 45px;
-  display: block;
+.custom-header__logo img {
+  max-height: 50px;
 }
 
-/* Right Side Icons */
-.manual-header__icons {
+/* Menu */
+.custom-header__menu ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.custom-header__menu a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.custom-header__menu a:hover {
+  color: #0c7c3a;
+}
+
+/* Dropdown */
+.custom-header__menu li {
+  position: relative;
+}
+
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #222;
+  padding: 15px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 180px;
+}
+
+.custom-header__menu li:hover .submenu {
+  display: flex;
+}
+
+.submenu a {
+  font-size: 14px;
+}
+
+/* Icons */
+.custom-header__icons {
   display: flex;
   gap: 20px;
 }
 
-.manual-header__icons a {
+.custom-header__icons a {
   color: #fff;
   text-decoration: none;
-  font-weight: 500;
   font-size: 14px;
 }
 
-/* ========================= */
 /* Responsive */
-/* ========================= */
-
-@media (max-width: 1024px) {
-  .manual-header {
-    padding: 15px 20px;
-  }
-}
-
-@media (max-width: 768px) {
-
-  .manual-header__wrapper {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .manual-header__anchors {
-    overflow-x: auto;
-    white-space: nowrap;
-    width: 100%;
-    justify-content: flex-start;
-    padding-bottom: 5px;
-  }
-
-  .manual-header__anchors::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  .manual-header__icons {
-    gap: 15px;
+@media (max-width: 991px) {
+  .custom-header__menu {
+    display: none;
   }
 }
 </style>
 
 {% schema %}
 {
-  "name": "Anchor Header",
+  "name": "Custom Menu Header",
   "settings": [
     {
       "type": "image_picker",
       "id": "logo",
       "label": "Logo"
-    }
-  ],
-  "blocks": [
+    },
     {
-      "type": "anchor",
-      "name": "Anchor Link",
-      "settings": [
-        {
-          "type": "text",
-          "id": "text",
-          "label": "Anchor Text",
-          "default": "Button"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Anchor Link"
-        }
-      ]
+      "type": "link_list",
+      "id": "menu",
+      "label": "Select Menu"
     }
   ],
-  "max_blocks": 10,
   "presets": [
     {
-      "name": "Anchor Header"
+      "name": "Custom Menu Header"
     }
   ]
 }
