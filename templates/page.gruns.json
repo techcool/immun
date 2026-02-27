@@ -109,7 +109,7 @@
       ],
       "name": "Testimonial Logo Slider",
       "settings": {
-        "custom_class": "",
+        "custom_class": "gruns-testimonials",
         "padding_top": 80,
         "padding_bottom": 80,
         "autoplay": true,
