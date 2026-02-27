@@ -177,7 +177,7 @@ p {
 
 
 
-.custom-header-img__wrapper, .gruns-herosec .page-width{
+.custom-header-img__wrapper, .gruns-herosec .page-width, .gruns-testimonials .page-width{
     max-width: 1440px !important;
     margin: 0 auto;
 }
