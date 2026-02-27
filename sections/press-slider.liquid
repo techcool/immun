@@ -41,7 +41,7 @@
 {% endschema %}
 
 <section class="press-slider-center" style="background: {{ section.settings.bg_color }};">
-  <div class="press-wrapper">
+  <div class="container">
 
     {% if section.blocks.size > 1 %}
       <button class="nav prev">&#8592;</button>
@@ -50,16 +50,16 @@
     <div class="slider">
       <div class="slides">
         {% for block in section.blocks %}
-        <div class="slide" {{ block.shopify_attributes }}>
-          {% if block.settings.quote != blank %}
-            <p class="quote">"{{ block.settings.quote }}"</p>
-          {% endif %}
-          {% if block.settings.logo != blank %}
-            <div class="logo">
-              <img src="{{ block.settings.logo | image_url: width: 600 }}" alt="logo">
-            </div>
-          {% endif %}
-        </div>
+          <div class="slide" {{ block.shopify_attributes }}>
+            {% if block.settings.quote != blank %}
+              <p class="quote">"{{ block.settings.quote }}"</p>
+            {% endif %}
+            {% if block.settings.logo != blank %}
+              <div class="logo">
+                <img src="{{ block.settings.logo | image_url: width: 600 }}" alt="logo">
+              </div>
+            {% endif %}
+          </div>
         {% endfor %}
       </div>
     </div>
@@ -78,7 +78,7 @@
   text-align: center;
 }
 
-.press-wrapper {
+.container {
   max-width: 1200px;
   margin: auto;
   display: flex;
@@ -96,7 +96,7 @@
 }
 
 .slide {
-  flex: 0 0 33.333%;
+  flex: 0 0 33.3333%;
   padding: 0 20px;
   opacity: 0.4;
   transform: scale(0.85);
@@ -151,63 +151,60 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  const section = document.querySelector(".press-slider-center");
-  if (!section) return;
+  const slider = document.querySelector(".press-slider-center");
+  if (!slider) return;
 
-  const slidesContainer = section.querySelector(".slides");
-  const slides = section.querySelectorAll(".slide");
-  const prev = section.querySelector(".prev");
-  const next = section.querySelector(".next");
+  const slidesContainer = slider.querySelector(".slides");
+  const slides = slider.querySelectorAll(".slide");
+  const prevBtn = slider.querySelector(".prev");
+  const nextBtn = slider.querySelector(".next");
 
   const total = slides.length;
-  if (total === 0) return;
+  if (total < 1) return;
 
-  let current = 0;
+  let currentIndex = 0;
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.autoplay_speed }} * 1000;
   let interval;
 
   function updateSlider() {
+
     slides.forEach(slide => slide.classList.remove("active"));
 
-    let centerIndex = current + 1;
-    if (centerIndex >= total) centerIndex = 0;
-
+    // center index calculation
+    let centerIndex = (currentIndex + 1) % total;
     slides[centerIndex].classList.add("active");
 
-    const offset = current * (100 / 3);
-    slidesContainer.style.transform = `translateX(-${offset}%)`;
+    const slideWidth = slides[0].offsetWidth;
+    slidesContainer.style.transform =
+      `translateX(-${currentIndex * slideWidth}px)`;
   }
 
   function nextSlide() {
-    current++;
-    if (current > total - 3) {
-      current = 0;
-    }
+    currentIndex = (currentIndex + 1) % total;
     updateSlider();
   }
 
-  function prevSlideFunc() {
-    current--;
-    if (current < 0) {
-      current = total - 3;
-    }
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + total) % total;
     updateSlider();
   }
 
-  if (next) next.addEventListener("click", nextSlide);
-  if (prev) prev.addEventListener("click", prevSlideFunc);
+  if (nextBtn) nextBtn.addEventListener("click", nextSlide);
+  if (prevBtn) prevBtn.addEventListener("click", prevSlide);
 
   updateSlider();
 
   if (autoplay && total > 1) {
     interval = setInterval(nextSlide, speed);
 
-    section.addEventListener("mouseenter", () => clearInterval(interval));
-    section.addEventListener("mouseleave", () => {
+    slider.addEventListener("mouseenter", () => clearInterval(interval));
+    slider.addEventListener("mouseleave", () => {
       interval = setInterval(nextSlide, speed);
     });
   }
+
+  window.addEventListener("resize", updateSlider);
 
 });
 </script>
