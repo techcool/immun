@@ -12,32 +12,18 @@
       {% endif %}
     </div>
 
-    <!-- CENTER: Custom Text Links -->
+    <!-- CENTER: Dynamic Links -->
     <nav class="custom-header-img__menu">
       <ul>
-        {% if section.settings.link_text_1 != blank %}
-          <li>
-            <a href="{{ section.settings.link_url_1 }}">
-              {{ section.settings.link_text_1 }}
-            </a>
-          </li>
-        {% endif %}
-
-        {% if section.settings.link_text_2 != blank %}
-          <li>
-            <a href="{{ section.settings.link_url_2 }}">
-              {{ section.settings.link_text_2 }}
-            </a>
-          </li>
-        {% endif %}
-
-        {% if section.settings.link_text_3 != blank %}
-          <li>
-            <a href="{{ section.settings.link_url_3 }}">
-              {{ section.settings.link_text_3 }}
-            </a>
-          </li>
-        {% endif %}
+        {% for block in section.blocks %}
+          {% if block.type == 'nav_link' %}
+            <li {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.link_url }}">
+                {{ block.settings.link_text }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
       </ul>
     </nav>
 
@@ -124,7 +110,7 @@
 
 {% schema %}
 {
-  "name": "Custom Header Image Only",
+  "name": "Custom Header Image",
   "settings": [
     {
       "type": "image_picker",
@@ -136,40 +122,6 @@
       "id": "image_link",
       "label": "Image Link"
     },
-
-    {
-      "type": "text",
-      "id": "link_text_1",
-      "label": "Menu Text 1"
-    },
-    {
-      "type": "url",
-      "id": "link_url_1",
-      "label": "Menu Link 1"
-    },
-
-    {
-      "type": "text",
-      "id": "link_text_2",
-      "label": "Menu Text 2"
-    },
-    {
-      "type": "url",
-      "id": "link_url_2",
-      "label": "Menu Link 2"
-    },
-
-    {
-      "type": "text",
-      "id": "link_text_3",
-      "label": "Menu Text 3"
-    },
-    {
-      "type": "url",
-      "id": "link_url_3",
-      "label": "Menu Link 3"
-    },
-
     {
       "type": "text",
       "id": "button_text",
@@ -181,9 +133,27 @@
       "label": "Right Button Link"
     }
   ],
+  "blocks": [
+    {
+      "type": "nav_link",
+      "name": "Navigation Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Custom Header Image Only"
+      "name": "Custom Header Image"
     }
   ]
 }
