@@ -160,6 +160,9 @@
           "type": "product_card",
           "settings": {
             "product": "",
+            "custom_image": "shopify://shop_images/ShopTile-OG-Adults_1.png",
+            "custom_title": "Adults Original",
+            "image_alt": "Adults Original",
             "show_badge": false,
             "badge_text": "New!",
             "gradient_color_1": "#38a169",
@@ -171,6 +174,9 @@
           "type": "product_card",
           "settings": {
             "product": "",
+            "custom_image": "shopify://shop_images/ShopTile-OG-Kids_1.png",
+            "custom_title": "Kids Original",
+            "image_alt": "Kids Original",
             "show_badge": false,
             "badge_text": "New!",
             "gradient_color_1": "#38a169",
@@ -182,6 +188,9 @@
           "type": "product_card",
           "settings": {
             "product": "",
+            "custom_image": "shopify://shop_images/ShopTile-MangoLTO-Adults_1.png",
+            "custom_title": "Adults Mango Sorbet",
+            "image_alt": "Adults Mango Sorbet",
             "show_badge": false,
             "badge_text": "New!",
             "gradient_color_1": "#38a169",
@@ -193,6 +202,8 @@
           "type": "product_card",
           "settings": {
             "product": "",
+            "custom_title": "",
+            "image_alt": "Product Image",
             "show_badge": false,
             "badge_text": "New!",
             "gradient_color_1": "#38a169",
