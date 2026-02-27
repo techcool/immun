@@ -32,3 +32,6 @@ nav.custom-header-img__menu {
 .custom-header-img__right {
     order: 3;
 }
+.custom-header-img__image img {
+    max-height: 34px;
+}
