@@ -55,9 +55,9 @@ nav.custom-header-img__menu {
     max-height: 34px;
 }
 nav.custom-header-img__menu ul li a{
-    background-color: var(--green-color);
-    color: var(--yellow-color);
-    border-color: var(--yellow-color);
+    background-color: rgb(var(--green-color));
+    color: rgb(var(--yellow-color));
+    border-color: rgb(var(--yellow-color));
     transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
     border: 1px solid;
     padding: 7px 10px;
@@ -70,5 +70,5 @@ nav.custom-header-img__menu ul li a{
 nav.custom-header-img__menu ul li a:hover{
     background-color: var(--white-color);
     color: var(--green-color);
-    border-color: var(--orrange-color);
+    border-color:var(--orrange-color);
 }
