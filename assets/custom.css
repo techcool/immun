@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+
+
 @font-face {
   font-family: 'Neue Haas Grotesk Display Pro';
   src: url('{{ "NeueHaasDisplay-Black.woff2" | file_url }}') format('woff2'),
@@ -382,7 +386,7 @@ body {
 }
 
 body, h1, h2, h3, h4, h5, h6, p, ul, li{
-  font-family: 'Neue Haas Grotesk Display Pro' !important;
+  font-family: "Oswald", sans-serif;
 }
 
 /* Headings */
