@@ -91,7 +91,7 @@ nav.custom-header-img__menu ul li a:hover{
     border-color:var(--orrange-color);
 }
 
-.custom-header-img__wrapper{
+.custom-header-img__wrapper, .gruns-herosec .page-width{
     max-width: calc(10% + 1440px);
     margin: 0 auto;
 }
