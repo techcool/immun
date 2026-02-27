@@ -57,9 +57,19 @@
           "label": "Select Product"
         },
         {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Upload Custom Image"
+        },
+        {
           "type": "text",
-          "id": "image_title",
-          "label": "Image Title (Alt Text)",
+          "id": "custom_title",
+          "label": "Custom Title"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt Text",
           "default": "Product Image"
         },
         {
@@ -109,7 +119,6 @@
 }
 {% endschema %}
 
-
 <section 
   class="favorite-section {{ section.settings.custom_class }}"
   style="
@@ -121,10 +130,7 @@
   <div class="page-width">
 
     {% if section.settings.heading != blank %}
-      <h2 
-        class="favorite-heading"
-        style="color: {{ section.settings.heading_color }};"
-      >
+      <h2 class="favorite-heading" style="color: {{ section.settings.heading_color }};">
         {{ section.settings.heading }}
       </h2>
     {% endif %}
@@ -133,7 +139,6 @@
 
       {% for block in section.blocks %}
         {% assign product = block.settings.product %}
-        {% if product %}
         <div 
           class="favorite-card"
           style="background: linear-gradient(to bottom, {{ block.settings.gradient_color_1 }}, {{ block.settings.gradient_color_2 }});"
@@ -146,36 +151,51 @@
             </span>
           {% endif %}
 
-          <a href="{{ product.url }}" class="favorite-link">
+          {% assign card_link = product.url %}
+
+          <a href="{{ card_link }}" class="favorite-link">
+
             <div class="favorite-image">
-              <img 
-                src="{{ product.featured_image | image_url: width: 600 }}" 
-                alt="{% if block.settings.image_title != blank %}{{ block.settings.image_title | escape }}{% else %}{{ product.title | append: ' - Buy Online' | escape }}{% endif %}"
-                title="{% if block.settings.image_title != blank %}{{ block.settings.image_title | escape }}{% else %}{{ product.title | escape }}{% endif %}"
-                loading="lazy"
-                width="600"
-                height="600"
-              >
+
+              {% if block.settings.custom_image != blank %}
+                <img 
+                  src="{{ block.settings.custom_image | image_url: width: 600 }}"
+                  alt="{{ block.settings.image_alt | escape }}"
+                  title="{{ block.settings.image_alt | escape }}"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                >
+              {% elsif product %}
+                <img 
+                  src="{{ product.featured_image | image_url: width: 600 }}"
+                  alt="{{ product.title | escape }}"
+                  title="{{ product.title | escape }}"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                >
+              {% endif %}
+
             </div>
           </a>
 
-          <h3 
-            class="favorite-title"
-            style="color: {{ block.settings.title_color }};"
-          >
-            <a href="{{ product.url }}">
-              {{ product.title }}
+          <h3 class="favorite-title" style="color: {{ block.settings.title_color }};">
+            <a href="{{ card_link }}">
+              {% if block.settings.custom_title != blank %}
+                {{ block.settings.custom_title }}
+              {% elsif product %}
+                {{ product.title }}
+              {% endif %}
             </a>
           </h3>
 
         </div>
-        {% endif %}
       {% endfor %}
 
     </div>
   </div>
 </section>
-
 
 <style>
 .favorite-section {
@@ -244,8 +264,6 @@
   display: block;
   text-decoration: none;
 }
-
-/* Responsive */
 
 @media (max-width: 991px) {
   .favorite-grid {
