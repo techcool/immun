@@ -121,7 +121,57 @@ p {
     color: var(--green-color)
 }
 
+/* Wrapper */
+.tooltip-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
 
+/* Tooltip container */
+.tooltip-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 220px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+
+/* Tooltip box */
+.tooltip-content {
+  background: #E6F4E4; /* light green */
+  color: #000;
+  font-size: 12px;
+  line-height: 1.4;
+  border: 1px dashed rgba(10, 39, 4, 0.75);
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Tooltip arrow */
+.tooltip-content::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #E6F4E4 transparent;
+}
+
+/* Show on hover */
+.tooltip-trigger:hover .tooltip-wrapper {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
 
 
 
