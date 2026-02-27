@@ -148,8 +148,29 @@
     },
     "custom_header_common_zBfFB8": {
       "type": "custom-header-common",
+      "blocks": {
+        "nav_link_qMUBWL": {
+          "type": "nav_link",
+          "settings": {
+            "link_text": "Shop Kids",
+            "link_url": "#"
+          }
+        },
+        "nav_link_nxX4ww": {
+          "type": "nav_link",
+          "settings": {
+            "link_text": "Shop Adults",
+            "link_url": "#"
+          }
+        }
+      },
+      "block_order": [
+        "nav_link_qMUBWL",
+        "nav_link_nxX4ww"
+      ],
       "name": "Custom Header Image",
       "settings": {
+        "custom_image": "shopify://shop_images/logo.svg",
         "image_link": "",
         "show_search": false,
         "button_text": "",
