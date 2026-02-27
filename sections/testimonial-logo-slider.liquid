@@ -417,17 +417,17 @@ document.addEventListener("DOMContentLoaded", function(){
     slidesToShow = getSlidesToShow();
     slidesContainer.innerHTML = "";
 
-    // Clone last
+    // Clone last slides
     for(let i = total - slidesToShow; i < total; i++){
       slidesContainer.appendChild(originalSlides[i].cloneNode(true));
     }
 
-    // Original
+    // Original slides
     originalSlides.forEach(slide=>{
       slidesContainer.appendChild(slide.cloneNode(true));
     });
 
-    // Clone first
+    // Clone first slides
     for(let i = 0; i < slidesToShow; i++){
       slidesContainer.appendChild(originalSlides[i].cloneNode(true));
     }
@@ -450,14 +450,23 @@ document.addEventListener("DOMContentLoaded", function(){
     slidesContainer.style.transform =
       `translateX(-${index * slideWidth}px)`;
 
-    // remove active
+    // Remove active
     allSlides.forEach(s => s.classList.remove("active"));
 
-    // ALWAYS middle active when 3 items
-    let centerOffset = Math.floor(slidesToShow / 2);
-    let centerIndex = index + centerOffset;
+    // ---------------------
+    // CENTER ACTIVE FIX
+    // ---------------------
+    let centerIndex;
 
-    if(allSlides[centerIndex]){
+    if (slidesToShow === 1) {
+      centerIndex = index;
+    } else if (slidesToShow === 2) {
+      centerIndex = index + 1;
+    } else {
+      centerIndex = index + 1; // middle of 3
+    }
+
+    if (allSlides[centerIndex]) {
       allSlides[centerIndex].classList.add("active");
     }
 
@@ -478,7 +487,7 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   // ---------------------
-  // Infinite Fix
+  // Infinite Loop Fix
   // ---------------------
   slidesContainer.addEventListener("transitionend", ()=>{
 
@@ -499,18 +508,22 @@ document.addEventListener("DOMContentLoaded", function(){
   // ---------------------
   function createDots(){
     dotsContainer.innerHTML = "";
+
     for(let i = 0; i < total; i++){
       const dot = document.createElement("span");
+
       dot.addEventListener("click", ()=>{
         index = i + slidesToShow;
         update();
       });
+
       dotsContainer.appendChild(dot);
     }
   }
 
   function updateDots(){
     const realIndex = (index - slidesToShow + total) % total;
+
     dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
       dot.classList.toggle("active", i === realIndex);
     });
