@@ -29,23 +29,13 @@
       "type": "slide",
       "name": "Slide",
       "settings": [
-        {
-          "type": "image_picker",
-          "id": "logo",
-          "label": "Logo"
-        },
-        {
-          "type": "textarea",
-          "id": "quote",
-          "label": "Quote"
-        }
+        { "type": "image_picker", "id": "logo", "label": "Logo" },
+        { "type": "textarea", "id": "quote", "label": "Quote" }
       ]
     }
   ],
   "presets": [
-    {
-      "name": "Press Slider Center"
-    }
+    { "name": "Press Slider Center" }
   ]
 }
 {% endschema %}
@@ -53,7 +43,7 @@
 <section class="press-slider-center" style="background: {{ section.settings.bg_color }};">
   <div class="press-wrapper">
 
-    {% if section.blocks.size > 3 %}
+    {% if section.blocks.size > 1 %}
       <button class="nav prev">&#8592;</button>
     {% endif %}
 
@@ -61,23 +51,20 @@
       <div class="slides">
         {% for block in section.blocks %}
         <div class="slide" {{ block.shopify_attributes }}>
-          
           {% if block.settings.quote != blank %}
             <p class="quote">"{{ block.settings.quote }}"</p>
           {% endif %}
-
           {% if block.settings.logo != blank %}
             <div class="logo">
               <img src="{{ block.settings.logo | image_url: width: 600 }}" alt="logo">
             </div>
           {% endif %}
-
         </div>
         {% endfor %}
       </div>
     </div>
 
-    {% if section.blocks.size > 3 %}
+    {% if section.blocks.size > 1 %}
       <button class="nav next">&#8594;</button>
     {% endif %}
 
@@ -96,7 +83,6 @@
   margin: auto;
   display: flex;
   align-items: center;
-  position: relative;
 }
 
 .slider {
@@ -131,7 +117,6 @@
 
 .logo img {
   max-height: 60px;
-  object-fit: contain;
 }
 
 /* Arrows */
@@ -144,6 +129,7 @@
   color: #1f3d2b;
   cursor: pointer;
   font-size: 18px;
+  margin: 0 15px;
   transition: 0.3s;
 }
 
@@ -152,24 +138,12 @@
   color: #fff;
 }
 
-.prev {
-  margin-right: 15px;
-}
-
-.next {
-  margin-left: 15px;
-}
-
 /* Mobile */
 @media (max-width: 768px) {
   .slide {
     flex: 0 0 100%;
     opacity: 1;
     transform: scale(1);
-  }
-
-  .nav {
-    display: none;
   }
 }
 </style>
@@ -186,8 +160,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const next = section.querySelector(".next");
 
   const total = slides.length;
-  let current = total > 2 ? 1 : 0;
+  if (total === 0) return;
 
+  let current = 0;
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.autoplay_speed }} * 1000;
   let interval;
@@ -195,30 +170,27 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateSlider() {
     slides.forEach(slide => slide.classList.remove("active"));
 
-    if (slides[current]) {
-      slides[current].classList.add("active");
-    }
+    let centerIndex = current + 1;
+    if (centerIndex >= total) centerIndex = 0;
 
-    if (total > 3) {
-      const offset = (current - 1) * (100 / 3);
-      slidesContainer.style.transform = `translateX(-${offset}%)`;
-    }
+    slides[centerIndex].classList.add("active");
+
+    const offset = current * (100 / 3);
+    slidesContainer.style.transform = `translateX(-${offset}%)`;
   }
 
   function nextSlide() {
-    if (current < total - 2) {
-      current++;
-    } else {
-      current = 1;
+    current++;
+    if (current > total - 3) {
+      current = 0;
     }
     updateSlider();
   }
 
   function prevSlideFunc() {
-    if (current > 1) {
-      current--;
-    } else {
-      current = total - 2;
+    current--;
+    if (current < 0) {
+      current = total - 3;
     }
     updateSlider();
   }
@@ -228,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateSlider();
 
-  if (autoplay && total > 3) {
+  if (autoplay && total > 1) {
     interval = setInterval(nextSlide, speed);
 
     section.addEventListener("mouseenter", () => clearInterval(interval));
