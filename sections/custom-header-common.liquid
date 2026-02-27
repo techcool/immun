@@ -1,21 +1,21 @@
-<header class="custom-header-2">
-  <div class="custom-header-2__wrapper">
+<header class="custom-header-img">
+  <div class="custom-header-img__wrapper">
 
-    <!-- LEFT: Logo -->
-    <div class="custom-header-2__logo">
-      <a href="{{ routes.root_url }}">
-        {% if section.settings.logo != blank %}
+    <!-- LEFT: Custom Image -->
+    <div class="custom-header-img__image">
+      {% if section.settings.custom_image != blank %}
+        <a href="{{ section.settings.image_link }}">
           <img 
-            src="{{ section.settings.logo | image_url: width: 250 }}" 
-            alt="{{ shop.name }}">
-        {% else %}
-          {{ shop.name }}
-        {% endif %}
-      </a>
+            src="{{ section.settings.custom_image | image_url: width: 300 }}" 
+            alt="Header Image">
+        </a>
+      {% else %}
+        {{ shop.name }}
+      {% endif %}
     </div>
 
     <!-- CENTER: Menu -->
-    <nav class="custom-header-2__menu">
+    <nav class="custom-header-img__menu">
       {% if section.settings.menu != blank %}
         <ul>
           {% for link in linklists[section.settings.menu].links %}
@@ -23,7 +23,7 @@
               <a href="{{ link.url }}">{{ link.title }}</a>
 
               {% if link.links != blank %}
-                <ul class="submenu-2">
+                <ul class="submenu-img">
                   {% for childlink in link.links %}
                     <li>
                       <a href="{{ childlink.url }}">
@@ -41,7 +41,7 @@
     </nav>
 
     <!-- RIGHT: Account + Cart -->
-    <div class="custom-header-2__icons">
+    <div class="custom-header-img__icons">
       <a href="{{ routes.account_url }}">Account</a>
       <a href="{{ routes.cart_url }}">
         Cart ({{ cart.item_count }})
@@ -52,26 +52,27 @@
 </header>
 
 <style>
-.custom-header-2 {
-  background: #222;
+.custom-header-img {
+  background: #111;
   padding: 18px 40px;
   position: relative;
   z-index: 20;
 }
 
-.custom-header-2__wrapper {
+.custom-header-img__wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* Logo */
-.custom-header-2__logo img {
-  max-height: 50px;
+/* Image */
+.custom-header-img__image img {
+  max-height: 55px;
+  display: block;
 }
 
 /* Menu */
-.custom-header-2__menu ul {
+.custom-header-img__menu ul {
   list-style: none;
   display: flex;
   gap: 30px;
@@ -79,7 +80,11 @@
   padding: 0;
 }
 
-.custom-header-2__menu a {
+.custom-header-img__menu li {
+  position: relative;
+}
+
+.custom-header-img__menu a {
   text-decoration: none;
   color: #fff;
   font-weight: 500;
@@ -87,20 +92,16 @@
   transition: 0.3s;
 }
 
-.custom-header-2__menu a:hover {
+.custom-header-img__menu a:hover {
   color: #0c7c3a;
 }
 
 /* Dropdown */
-.custom-header-2__menu li {
-  position: relative;
-}
-
-.submenu-2 {
+.submenu-img {
   position: absolute;
   top: 100%;
   left: 0;
-  background: #333;
+  background: #222;
   padding: 15px;
   display: none;
   flex-direction: column;
@@ -108,21 +109,21 @@
   min-width: 180px;
 }
 
-.custom-header-2__menu li:hover .submenu-2 {
+.custom-header-img__menu li:hover .submenu-img {
   display: flex;
 }
 
-.submenu-2 a {
+.submenu-img a {
   font-size: 14px;
 }
 
 /* Icons */
-.custom-header-2__icons {
+.custom-header-img__icons {
   display: flex;
   gap: 20px;
 }
 
-.custom-header-2__icons a {
+.custom-header-img__icons a {
   color: #fff;
   text-decoration: none;
   font-size: 14px;
@@ -130,20 +131,36 @@
 
 /* Responsive */
 @media (max-width: 991px) {
-  .custom-header-2__menu {
+  .custom-header-img__menu {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-header-img {
+    padding: 15px 20px;
+  }
+
+  .custom-header-img__wrapper {
+    flex-direction: column;
+    gap: 15px;
   }
 }
 </style>
 
 {% schema %}
 {
-  "name": "Custom Menu Header 2",
+  "name": "Custom Header With Image",
   "settings": [
     {
       "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
+      "id": "custom_image",
+      "label": "Upload Header Image"
+    },
+    {
+      "type": "url",
+      "id": "image_link",
+      "label": "Image Link"
     },
     {
       "type": "link_list",
@@ -153,7 +170,7 @@
   ],
   "presets": [
     {
-      "name": "Custom Menu Header 2"
+      "name": "Custom Header With Image"
     }
   ]
 }
