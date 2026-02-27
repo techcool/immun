@@ -1,16 +1,18 @@
 <header class="custom-header">
   <div class="header-inner">
 
-    <!-- LEFT MENU (Manual Blocks) -->
+    <!-- LEFT: Manual Menu Blocks -->
     <nav class="header-menu">
       {% for block in section.blocks %}
-        <a href="{{ block.settings.link }}" class="menu-item">
-          {{ block.settings.text }}
-        </a>
+        {% if block.type == 'menu_item' %}
+          <a href="{{ block.settings.link }}" class="menu-item">
+            {{ block.settings.text }}
+          </a>
+        {% endif %}
       {% endfor %}
     </nav>
 
-    <!-- CENTER LOGO -->
+    <!-- CENTER: Logo -->
     <div class="header-logo">
       <a href="{{ routes.root_url }}">
         {% if section.settings.logo != blank %}
@@ -18,12 +20,12 @@
             src="{{ section.settings.logo | image_url: width: 250 }}" 
             alt="{{ shop.name }}">
         {% else %}
-          {{ shop.name }}
+          <span class="logo-text">{{ shop.name }}</span>
         {% endif %}
       </a>
     </div>
 
-    <!-- RIGHT SIDE -->
+    <!-- RIGHT: Account + Cart -->
     <div class="header-icons">
       <a href="{{ routes.account_url }}">Account</a>
       <a href="{{ routes.cart_url }}">
@@ -52,7 +54,7 @@
 }
 
 .menu-item {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 500;
 }
@@ -65,18 +67,24 @@
   max-height: 45px;
 }
 
+.logo-text {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: bold;
+}
+
 .header-icons {
   display: flex;
   gap: 20px;
 }
 
 .header-icons a {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
 
 .cart-count {
-  background: #fff;
+  background: #ffffff;
   color: #000;
   padding: 3px 7px;
   border-radius: 20px;
@@ -84,7 +92,7 @@
 }
 
 /* Mobile */
-@media(max-width:768px){
+@media (max-width: 768px) {
   .header-inner {
     flex-direction: column;
     gap: 15px;
@@ -104,12 +112,12 @@
     {
       "type": "image_picker",
       "id": "logo",
-      "label": "Upload Logo"
+      "label": "Logo"
     }
   ],
   "blocks": [
     {
-      "type": "menu",
+      "type": "menu_item",
       "name": "Menu Item",
       "settings": [
         {
@@ -126,7 +134,7 @@
       ]
     }
   ],
-  "max_blocks": 15,
+  "max_blocks": 20,
   "presets": [
     {
       "name": "Custom Header"
