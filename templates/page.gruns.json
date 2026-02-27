@@ -48,6 +48,7 @@
         "heading",
         "page-content"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -55,9 +56,26 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "nutrition_hero_wbz9CE": {
+      "type": "nutrition-hero",
+      "name": "Nutrition Hero",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "custom_class": "",
+        "rating_text": "4.8 stars from 85,000 reviews | 1,000,000+ members",
+        "heading": "You have nutrition gaps, Grüns fills them",
+        "description": "",
+        "button_text": "Shop now",
+        "button_link": "",
+        "product_image": "shopify://shop_images/hero_1317ea83-92e6-4452-9e1a-235594dc5a09_1.png"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "nutrition_hero_wbz9CE"
   ]
 }
