@@ -365,6 +365,7 @@ header-drawer:before {
  .heroSec{
   min-height: unset !important;
   height: 80vh !important;
+  padding: 0px;
  }
 
 
