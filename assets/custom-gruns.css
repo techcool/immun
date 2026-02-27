@@ -181,3 +181,6 @@ p {
     max-width: 1440px !important;
     margin: 0 auto;
 }
+.gruns-testimonials .page-width{
+    overflow: hidden;
+}
