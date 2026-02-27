@@ -54,7 +54,8 @@
         "color_scheme": "scheme-1",
         "divider_width": 1,
         "padding-block-start": 15,
-        "padding-block-end": 15
+        "padding-block-end": 15,
+        "list-custom-class": "gruns-top-header"
       }
     },
     "header_section": {
