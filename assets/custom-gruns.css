@@ -90,3 +90,8 @@ nav.custom-header-img__menu ul li a:hover{
     color: var(--green-color);
     border-color:var(--orrange-color);
 }
+
+.custom-header-img__wrapper{
+    max-width: calc(10% + 1440px);
+    margin: 0 auto;
+}
