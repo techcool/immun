@@ -1,78 +1,42 @@
-{% schema %}
-{
-  "name": "Custom Top Header",
-  "settings": [
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color",
-      "default": "#0c7c3a"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
-    },
-    {
-      "type": "url",
-      "id": "adults_link",
-      "label": "Shop Adults Link"
-    },
-    {
-      "type": "url",
-      "id": "kids_link",
-      "label": "Shop Kids Link"
-    },
-    {
-      "type": "text",
-      "id": "adults_text",
-      "label": "Shop Adults Text",
-      "default": "Shop Adults"
-    },
-    {
-      "type": "text",
-      "id": "kids_text",
-      "label": "Shop Kids Text",
-      "default": "Shop Kids"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Custom Top Header"
-    }
-  ]
-}
-{% endschema %}
+<header class="custom-header">
+  <div class="custom-header-wrapper">
 
-<header class="custom-top-header" style="background: {{ section.settings.bg_color }};">
-  <div class="header-wrapper">
-
-    <!-- Left Buttons -->
-    <div class="header-left">
-      <a href="{{ section.settings.adults_link }}" class="header-btn">
-        {{ section.settings.adults_text }}
-      </a>
-      <a href="{{ section.settings.kids_link }}" class="header-btn">
-        {{ section.settings.kids_text }}
-      </a>
-    </div>
-
-    <!-- Center Logo -->
-    <div class="header-center">
-      {% if section.settings.logo != blank %}
-        <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="Logo">
-      {% else %}
-        <h2>{{ shop.name }}</h2>
+    <!-- LEFT: Navigation Menu -->
+    <nav class="custom-menu">
+      {% if section.settings.custom_menu != blank %}
+        {% for link in linklists[section.settings.custom_menu].links %}
+          <a href="{{ link.url }}" class="menu-link">
+            {{ link.title }}
+          </a>
+        {% endfor %}
       {% endif %}
+    </nav>
+
+    <!-- CENTER: Logo -->
+    <div class="custom-logo">
+      <a href="{{ routes.root_url }}">
+        {% if section.settings.custom_logo != blank %}
+          <img 
+            src="{{ section.settings.custom_logo | image_url: width: 250 }}" 
+            alt="{{ shop.name }}" 
+          >
+        {% else %}
+          <span class="logo-text">{{ shop.name }}</span>
+        {% endif %}
+      </a>
     </div>
 
-    <!-- Right Account + Cart -->
-    <div class="header-right">
+    <!-- RIGHT: Account + Cart -->
+    <div class="custom-icons">
       <a href="{{ routes.account_url }}" class="account-link">
         Account
       </a>
+
       <a href="{{ routes.cart_url }}" class="cart-link">
-        🛒
+        Cart
+        <span class="cart-count">
+          {{ cart.item_count }}
+        </span>
       </a>
     </div>
 
@@ -80,51 +44,94 @@
 </header>
 
 <style>
-.custom-top-header {
+.custom-header {
+  width: 100%;
+  background: #0c7c3a;
   padding: 15px 40px;
 }
 
-.header-wrapper {
+.custom-header-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.header-left,
-.header-right {
+.custom-menu {
+  display: flex;
+  gap: 25px;
+}
+
+.menu-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+}
+
+.menu-link:hover {
+  opacity: 0.8;
+}
+
+.custom-logo img {
+  max-height: 45px;
+}
+
+.logo-text {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.custom-icons {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
 
-.header-btn {
-  border: 2px solid #fff;
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-size: 14px;
-  transition: 0.3s ease;
-}
-
-.header-btn:hover {
-  background: #fff;
-  color: #000;
-}
-
-.header-center img {
-  max-height: 40px;
-}
-
-.account-link {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-}
-
+.account-link,
 .cart-link {
-  font-size: 18px;
+  color: #ffffff;
   text-decoration: none;
-  color: #fff;
+  font-weight: 500;
+}
+
+.cart-count {
+  background: #ffffff;
+  color: #000;
+  font-size: 12px;
+  padding: 3px 7px;
+  border-radius: 20px;
+  margin-left: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .custom-header-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .custom-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 </style>
+
+{% schema %}
+{
+  "name": "Custom Global Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "custom_menu",
+      "label": "Select Menu"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_logo",
+      "label": "Upload Logo"
+    }
+  ]
+}
+{% endschema %}

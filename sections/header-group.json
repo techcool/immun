@@ -137,11 +137,20 @@
         "cart_label": "CART",
         "right_text": ""
       }
+    },
+    "custom_commonheader_ecrgzV": {
+      "type": "custom-commonheader",
+      "name": "Custom Common Header",
+      "settings": {
+        "custom_menu": "",
+        "show_search": true
+      }
     }
   },
   "order": [
     "header_announcements_9jGBFp",
     "header_section",
-    "custom_landing_page_header_tCwjpa"
+    "custom_landing_page_header_tCwjpa",
+    "custom_commonheader_ecrgzV"
   ]
 }
