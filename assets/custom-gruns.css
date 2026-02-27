@@ -6,7 +6,21 @@
   font-weight: <weight>;
   font-style: normal;
 } */
-
+root{
+    --color-background: 0, 126, 64;
+    --gradient-background: #007e40;
+    --color-foreground: 255, 204, 46;
+    --color-shadow: 0, 38, 19;
+    --color-button: 0, 38, 19;
+    --color-button-text: 255, 255, 255;
+    --color-secondary-button: 0, 126, 64;
+    --color-secondary-button-text: 255, 204, 46;
+    --color-link: 255, 204, 46;
+    --color-badge-foreground: 255, 204, 46;
+    --color-badge-background: 0, 126, 64;
+    --color-badge-border: 255, 204, 46;
+    --payment-terms-background-color: rgb(0 126 64);
+}
 body {
   font-family: "DM Sans", sans-serif;
 }
@@ -35,3 +49,4 @@ nav.custom-header-img__menu {
 .custom-header-img__image img {
     max-height: 34px;
 }
+
