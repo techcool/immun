@@ -11,8 +11,20 @@
       <div class="nutrition-hero__content">
 
         {% if section.settings.rating_text != blank %}
-          <div class="nutrition-rating rte">
-            {{ section.settings.rating_text }}
+          <div class="nutrition-rating">
+            
+            <div class="nutrition-stars">
+              {% for i in (1..5) %}
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.2 1 5.9L10 15.8l-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L10 1.5z"/>
+                </svg>
+              {% endfor %}
+            </div>
+
+            <div class="nutrition-rating-text rte">
+              {{ section.settings.rating_text }}
+            </div>
+
           </div>
         {% endif %}
 
@@ -80,6 +92,32 @@
       flex: 1;
       max-width: 600px;
     }
+
+    .nutrition-rating {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .nutrition-stars {
+      display: flex;
+      gap: 4px;
+      color: #f5b301;
+    }
+
+    .nutrition-rating-text {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nutrition-heading {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
     .nutrition-description {
       margin-bottom: 25px;
     }
@@ -110,6 +148,13 @@
         text-align: center;
       }
 
+      .nutrition-heading {
+        font-size: 32px;
+      }
+
+      .nutrition-rating {
+        justify-content: center;
+      }
     }
   </style>
 </section>
@@ -153,7 +198,7 @@
       "type": "richtext",
       "id": "rating_text",
       "label": "Rating description",
-      "default": "<p>⭐ 4.8 stars from 85,000 reviews | 1,000,000+ members</p>"
+      "default": "<p>4.8 stars from 85,000 reviews | 1,000,000+ members</p>"
     },
     {
       "type": "textarea",
