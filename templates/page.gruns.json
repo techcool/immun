@@ -74,167 +74,46 @@
         "product_image": "shopify://shop_images/hero_1317ea83-92e6-4452-9e1a-235594dc5a09_1.png"
       }
     },
-    "collection_list_jAyPzm": {
-      "type": "collection-list",
+    "testimonial_logo_slider_JpeDGt": {
+      "type": "testimonial-logo-slider",
       "blocks": {
-        "group_WFyR7j": {
-          "type": "group",
-          "name": "t:names.header",
+        "slide_aHTJj6": {
+          "type": "slide",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "link": "",
-            "open_in_new_tab": false,
-            "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "text_wzPF4g": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<h3>Shop by collection</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 16,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_wzPF4g"
-          ]
+            "quote": "",
+            "subtext": "",
+            "logo": "shopify://shop_images/logo-theskimm_1.png"
+          }
         },
-        "static-collection-card": {
-          "type": "_collection-card",
-          "name": "t:names.collection_card",
-          "static": true,
+        "slide_XG6myx": {
+          "type": "slide",
           "settings": {
-            "placement": "below_image",
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "collection_card_gap": 8,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0
-          },
-          "blocks": {
-            "collection_title_M4CK8Q": {
-              "type": "collection-title",
-              "name": "t:names.collection_title",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "name": "t:names.collection_card_image",
-              "static": true,
-              "settings": {
-                "image_ratio": "adapt",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection_title_M4CK8Q"
-          ]
+            "quote": "",
+            "subtext": "",
+            "logo": "shopify://shop_images/logo-glamour_1.png"
+          }
+        },
+        "slide_xpARyK": {
+          "type": "slide",
+          "settings": {
+            "quote": "",
+            "subtext": "",
+            "logo": "shopify://shop_images/logo-bonappetit_1.png"
+          }
         }
       },
       "block_order": [
-        "group_WFyR7j"
+        "slide_aHTJj6",
+        "slide_XG6myx",
+        "slide_xpARyK"
       ],
-      "name": "t:names.collections_carousel",
+      "name": "Testimonial Logo Slider",
       "settings": {
-        "collection_list": [],
-        "layout_type": "carousel",
-        "carousel_on_mobile": false,
-        "columns": 3,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "bento_gap": 8,
-        "rows_gap": 8,
-        "max_collections": 4,
-        "icons_style": "arrow",
-        "icons_shape": "circle",
-        "section_width": "page-width",
-        "gap": 12,
-        "color_scheme": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "custom_class": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "autoplay": true,
+        "speed": 4000
       }
     },
     "press_slider_Fkz4za": {
@@ -278,7 +157,7 @@
   "order": [
     "main",
     "nutrition_hero_wbz9CE",
-    "collection_list_jAyPzm",
+    "testimonial_logo_slider_JpeDGt",
     "press_slider_Fkz4za"
   ]
 }
