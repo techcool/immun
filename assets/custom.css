@@ -357,7 +357,11 @@ header-drawer:before {
 .header-wrapper.header--overlay-active .header__menu-item, .header-wrapper.header--overlay-active .header__active-menu-item, .header-wrapper.header--overlay-active .header__icon {
   color: #c8ff01 !important;
 }
-
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
  .heroSec{
   min-height: unset !important;
   height: 80vh !important;
