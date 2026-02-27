@@ -189,7 +189,7 @@
 </style>
 
 
-<script>
+{% comment %} <script>
 document.addEventListener("DOMContentLoaded", function(){
 
   const slider = document.querySelector(".testimonial-slider");
@@ -275,60 +275,106 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
 });
-</script>
+</script> {% endcomment %}
 
 
 
-
-{% comment %} <script>
+<script>
 document.addEventListener("DOMContentLoaded", function(){
+
   const slider = document.querySelector(".testimonial-slider");
   if(!slider) return;
 
-  const slides = slider.querySelector(".slides");
-  const slide = slider.querySelectorAll(".slide");
-  const prev = slider.querySelector(".prev");
-  const next = slider.querySelector(".next");
+  const slidesContainer = slider.querySelector(".slides");
+  const slides = slider.querySelectorAll(".slide");
+  const prevBtn = slider.querySelector(".prev");
+  const nextBtn = slider.querySelector(".next");
   const dotsContainer = slider.querySelector(".dots");
 
-  let index = 0;
-  const total = slide.length;
+  let slidesToShow = window.innerWidth <= 768 ? 1 :
+                     window.innerWidth <= 1024 ? 2 : 3;
+
+  let index = slidesToShow;
+  const total = slides.length;
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.speed }};
 
-  function updateSlider(){
-    slides.style.transform = `translateX(-${index * 100}%)`;
-    document.querySelectorAll(".dots span").forEach((dot,i)=>{
-      dot.classList.toggle("active", i === index);
+  // Clone for infinite
+  for(let i = 0; i < slidesToShow; i++){
+    const cloneFirst = slides[i].cloneNode(true);
+    const cloneLast = slides[total - 1 - i].cloneNode(true);
+    slidesContainer.appendChild(cloneFirst);
+    slidesContainer.insertBefore(cloneLast, slidesContainer.firstChild);
+  }
+
+  const allSlides = slider.querySelectorAll(".slide");
+
+  function updateSlider(animate = true){
+    const slideWidth = allSlides[0].offsetWidth;
+    slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
+    slidesContainer.style.transform =
+      `translateX(-${index * slideWidth}px)`;
+
+    allSlides.forEach(slide => slide.classList.remove("active"));
+
+    let centerIndex = index + Math.floor(slidesToShow / 2);
+    if(allSlides[centerIndex])
+      allSlides[centerIndex].classList.add("active");
+
+    updateDots();
+  }
+
+  function updateDots(){
+    const realIndex = (index - slidesToShow + total) % total;
+    dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
+      dot.classList.toggle("active", i === realIndex);
     });
   }
 
   function nextSlide(){
-    index = (index + 1) % total;
+    index++;
     updateSlider();
   }
 
   function prevSlide(){
-    index = (index - 1 + total) % total;
+    index--;
     updateSlider();
   }
 
-  next.addEventListener("click", nextSlide);
-  prev.addEventListener("click", prevSlide);
+  slidesContainer.addEventListener("transitionend", ()=>{
+    if(index >= total + slidesToShow){
+      index = slidesToShow;
+      updateSlider(false);
+    }
+    if(index < slidesToShow){
+      index = total + slidesToShow - 1;
+      updateSlider(false);
+    }
+  });
 
-  for(let i=0;i<total;i++){
+  nextBtn.addEventListener("click", nextSlide);
+  prevBtn.addEventListener("click", prevSlide);
+
+  // Create dots
+  for(let i = 0; i < total; i++){
     const dot = document.createElement("span");
     dot.addEventListener("click", ()=>{
-      index = i;
+      index = i + slidesToShow;
       updateSlider();
     });
     dotsContainer.appendChild(dot);
   }
 
-  updateSlider();
+  updateSlider(false);
 
   if(autoplay){
     setInterval(nextSlide, speed);
   }
+
+  // Recalculate on resize
+  window.addEventListener("resize", ()=>{
+    updateSlider(false);
+  });
+
 });
-</script> {% endcomment %}
+</script>
