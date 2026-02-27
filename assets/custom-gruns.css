@@ -23,3 +23,12 @@ body {
 .gruns-header {
     background: #007e40;
 }
+.custom-header-img__image {
+    order: 2;
+}
+nav.custom-header-img__menu {
+    order: 1;
+}
+.custom-header-img__right {
+    order: 3;
+}
