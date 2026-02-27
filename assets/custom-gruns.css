@@ -51,7 +51,7 @@ nav.custom-header-img__menu {
 }
 nav.custom-header-img__menu ul li a{
     background-color: rgb(var(--color-secondary-button));
-    color: rgb(var(--color-secondary-button-text));
-    border-color: rgb(var(--color-secondary-button-text));
+    color: rgb(var(--color-badge-foreground));
+    border-color: rgb(var(--color-badge-foreground));
     transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
