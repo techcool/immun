@@ -1,35 +1,33 @@
-<header class="custom-header">
-  <div class="header-inner">
+<header class="manual-header">
+  <div class="manual-header__wrapper">
 
-    <!-- LEFT: Manual Menu Blocks -->
-    <nav class="header-menu">
+    <!-- LEFT MENU -->
+    <nav class="manual-header__menu">
       {% for block in section.blocks %}
-        {% if block.type == 'menu_item' %}
-          <a href="{{ block.settings.link }}" class="menu-item">
-            {{ block.settings.text }}
-          </a>
-        {% endif %}
+        <a href="{{ block.settings.link }}" class="manual-header__item">
+          {{ block.settings.text }}
+        </a>
       {% endfor %}
     </nav>
 
-    <!-- CENTER: Logo -->
-    <div class="header-logo">
+    <!-- CENTER LOGO -->
+    <div class="manual-header__logo">
       <a href="{{ routes.root_url }}">
         {% if section.settings.logo != blank %}
           <img 
-            src="{{ section.settings.logo | image_url: width: 250 }}" 
+            src="{{ section.settings.logo | image_url: width: 200 }}" 
             alt="{{ shop.name }}">
         {% else %}
-          <span class="logo-text">{{ shop.name }}</span>
+          {{ shop.name }}
         {% endif %}
       </a>
     </div>
 
-    <!-- RIGHT: Account + Cart -->
-    <div class="header-icons">
+    <!-- RIGHT SIDE -->
+    <div class="manual-header__icons">
       <a href="{{ routes.account_url }}">Account</a>
       <a href="{{ routes.cart_url }}">
-        Cart <span class="cart-count">{{ cart.item_count }}</span>
+        Cart ({{ cart.item_count }})
       </a>
     </div>
 
@@ -37,68 +35,50 @@
 </header>
 
 <style>
-.custom-header {
+.manual-header {
   background: #0c7c3a;
   padding: 15px 40px;
 }
 
-.header-inner {
+.manual-header__wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.header-menu {
+.manual-header__menu {
   display: flex;
   gap: 20px;
 }
 
-.menu-item {
-  color: #ffffff;
+.manual-header__item {
+  color: #fff;
   text-decoration: none;
   font-weight: 500;
 }
 
-.menu-item:hover {
-  opacity: 0.8;
-}
-
-.header-logo img {
+.manual-header__logo img {
   max-height: 45px;
 }
 
-.logo-text {
-  color: #ffffff;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.header-icons {
+.manual-header__icons {
   display: flex;
   gap: 20px;
 }
 
-.header-icons a {
-  color: #ffffff;
+.manual-header__icons a {
+  color: #fff;
   text-decoration: none;
-}
-
-.cart-count {
-  background: #ffffff;
-  color: #000;
-  padding: 3px 7px;
-  border-radius: 20px;
-  font-size: 12px;
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-  .header-inner {
+  .manual-header__wrapper {
     flex-direction: column;
     gap: 15px;
   }
 
-  .header-menu {
+  .manual-header__menu {
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -107,7 +87,7 @@
 
 {% schema %}
 {
-  "name": "Custom Header",
+  "name": "Manual Header",
   "settings": [
     {
       "type": "image_picker",
@@ -137,7 +117,7 @@
   "max_blocks": 20,
   "presets": [
     {
-      "name": "Custom Header"
+      "name": "Manual Header"
     }
   ]
 }
