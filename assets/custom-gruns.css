@@ -111,8 +111,11 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li {
 .nutrition-heading {
     font-size: 44px !important;
     line-height: 48.4px;
+    color: var(--Deep-Forest-Green)
 }
-
+.nutrition-heading strong{
+    color: var(--green-color)
+}
 
 
 
