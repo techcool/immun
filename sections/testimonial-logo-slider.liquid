@@ -109,7 +109,7 @@
 </section>
 
 <style>
-{% comment %} .testimonial-slider {
+.testimonial-slider {
   background:#f7f7f5;
   text-align:center;
   position:relative;
@@ -185,86 +185,13 @@
   .quote{font-size:20px;}
   .prev{left:10px;}
   .next{right:10px;}
-} {% endcomment %}
+} 
 
 
-.testimonial-slider {
-  position: relative;
-  overflow: hidden;
-  background: #f7f7f5;
-}
-
-.slider-wrapper {
-  max-width: 1200px;
-  margin: auto;
-  position: relative;
-}
-
-.slides {
-  display: flex;
-  align-items: center;
-  transition: transform 0.5s ease;
-}
-
-.slide {
-  flex: 0 0 33.33%;
-  padding: 20px;
-  text-align: center;
-  opacity: 0.4;
-  transform: scale(0.85);
-  transition: all 0.4s ease;
-}
 
 .slide.active {
   opacity: 1;
   transform: scale(1);
-}
-
-.quote {
-  font-size: 22px;
-  line-height: 1.4;
-}
-
-.logo img {
-  max-width: 180px;
-  margin: 20px auto 0;
-}
-
-/* arrows */
-.nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-  background: #fff;
-  cursor: pointer;
-  z-index: 5;
-}
-
-.prev { left: 10px; }
-.next { right: 10px; }
-
-/* dots */
-.dots {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.dots span {
-  width: 8px;
-  height: 8px;
-  background: #ccc;
-  display: inline-block;
-  margin: 0 4px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.dots span.active {
-  background: #000;
 }
 
 /* Tablet */
