@@ -122,9 +122,8 @@
 }
 
 .slides {
-  display: flex;
-  align-items: center;
-  will-change: transform;
+  display:flex;
+  transition:transform 0.5s ease;
 }
 
 .slide {
@@ -279,154 +278,8 @@ document.addEventListener("DOMContentLoaded", function(){
 </script> {% endcomment %}
 
 
+
 <script>
-document.addEventListener("DOMContentLoaded", function(){
-
-  const slider = document.querySelector(".testimonial-slider");
-  if(!slider) return;
-
-  const slidesContainer = slider.querySelector(".slides");
-  const prevBtn = slider.querySelector(".prev");
-  const nextBtn = slider.querySelector(".next");
-  const dotsContainer = slider.querySelector(".dots");
-
-  let slides = slider.querySelectorAll(".slide");
-  let total = slides.length;
-
-  let slidesToShow;
-  let centerOffset;
-  let index;
-
-  const autoplay = {{ section.settings.autoplay }};
-  const speed = {{ section.settings.speed }};
-  let autoSlide;
-
-  function getSlidesToShow(){
-    if(window.innerWidth <= 768) return 1;
-    if(window.innerWidth <= 1024) return 2;
-    return 3;
-  }
-
-  function setupCarousel(){
-
-    slidesToShow = getSlidesToShow();
-    centerOffset = Math.floor(slidesToShow / 2);
-
-    slides = slider.querySelectorAll(".slide");
-    total = slides.length;
-
-    index = slidesToShow; // start position after clone
-
-    updatePosition(false);
-    updateActive();
-  }
-
-  function cloneSlides(){
-
-    slides = slider.querySelectorAll(".slide");
-    total = slides.length;
-
-    for(let i = 0; i < slidesToShow; i++){
-      slidesContainer.appendChild(slides[i].cloneNode(true));
-      slidesContainer.insertBefore(
-        slides[total - 1 - i].cloneNode(true),
-        slidesContainer.firstChild
-      );
-    }
-  }
-
-  function updatePosition(animate = true){
-    const slideWidth = slidesContainer.querySelector(".slide").offsetWidth;
-    slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
-    slidesContainer.style.transform =
-      `translateX(-${index * slideWidth}px)`;
-  }
-
-  function updateActive(){
-    slidesContainer.querySelectorAll(".slide").forEach(s => s.classList.remove("active"));
-
-    let activeIndex = index + centerOffset;
-    const allSlides = slidesContainer.querySelectorAll(".slide");
-
-    if(allSlides[activeIndex]){
-      allSlides[activeIndex].classList.add("active");
-    }
-
-    updateDots();
-  }
-
-  function updateDots(){
-    const realIndex = (index - slidesToShow + total) % total;
-    dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
-      dot.classList.toggle("active", i === realIndex);
-    });
-  }
-
-  function nextSlide(){
-    index++;
-    updatePosition();
-    updateActive();
-  }
-
-  function prevSlide(){
-    index--;
-    updatePosition();
-    updateActive();
-  }
-
-  slidesContainer.addEventListener("transitionend", () => {
-    const allSlides = slidesContainer.querySelectorAll(".slide");
-
-    if(index >= total + slidesToShow){
-      index = slidesToShow;
-      updatePosition(false);
-    }
-
-    if(index < slidesToShow){
-      index = total + slidesToShow - 1;
-      updatePosition(false);
-    }
-  });
-
-  // Create dots
-  function createDots(){
-    dotsContainer.innerHTML = "";
-    for(let i=0;i<total;i++){
-      const dot = document.createElement("span");
-      dot.addEventListener("click", ()=>{
-        index = i + slidesToShow;
-        updatePosition();
-        updateActive();
-      });
-      dotsContainer.appendChild(dot);
-    }
-  }
-
-  // INIT
-  slidesToShow = getSlidesToShow();
-  cloneSlides();
-  createDots();
-  setupCarousel();
-
-  nextBtn.addEventListener("click", nextSlide);
-  prevBtn.addEventListener("click", prevSlide);
-
-  if(autoplay){
-    autoSlide = setInterval(nextSlide, speed);
-  }
-
-  window.addEventListener("resize", () => {
-    updatePosition(false);
-    updateActive();
-  });
-
-});
-</script>
-
-
-
-
-{% comment %} <script>
 document.addEventListener("DOMContentLoaded", function(){
 
   const slider = document.querySelector(".testimonial-slider");
@@ -524,4 +377,4 @@ document.addEventListener("DOMContentLoaded", function(){
   });
 
 });
-</script> {% endcomment %}
+</script>
