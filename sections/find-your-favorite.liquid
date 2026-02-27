@@ -4,46 +4,9 @@
   "settings": [
     {
       "type": "text",
-      "id": "custom_class",
-      "label": "Custom Class"
-    },
-    {
-      "type": "text",
       "id": "heading",
       "label": "Section Heading",
       "default": "Find Your Favorite"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading Color",
-      "default": "#0a6836"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color",
-      "default": "#f2f2f2"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Padding Top",
-      "min": 0,
-      "max": 200,
-      "step": 5,
-      "unit": "px",
-      "default": 80
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Padding Bottom",
-      "min": 0,
-      "max": 200,
-      "step": 5,
-      "unit": "px",
-      "default": 80
     }
   ],
   "blocks": [
@@ -70,21 +33,15 @@
         },
         {
           "type": "color",
-          "id": "gradient_color_1",
-          "label": "Gradient Color Top",
+          "id": "gradient_1",
+          "label": "Top Gradient Color",
           "default": "#38a169"
         },
         {
           "type": "color",
-          "id": "gradient_color_2",
-          "label": "Gradient Color Bottom",
+          "id": "gradient_2",
+          "label": "Bottom Gradient Color",
           "default": "#f6ad55"
-        },
-        {
-          "type": "color",
-          "id": "title_color",
-          "label": "Title Color",
-          "default": "#002613"
         }
       ]
     }
@@ -103,24 +60,12 @@
 }
 {% endschema %}
 
-<section 
-  class="favorite-section {{ section.settings.custom_class }}"
-  style="
-    background-color: {{ section.settings.bg_color }};
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-  "
->
+<section class="favorite-wrapper">
   <div class="page-width">
 
-    {% if section.settings.heading != blank %}
-      <h2 
-        class="favorite-heading"
-        style="color: {{ section.settings.heading_color }};"
-      >
-        {{ section.settings.heading }}
-      </h2>
-    {% endif %}
+    <h2 class="favorite-main-title">
+      {{ section.settings.heading }}
+    </h2>
 
     <div class="favorite-grid">
 
@@ -129,7 +74,7 @@
         {% if product %}
         <div 
           class="favorite-card"
-          style="background: linear-gradient(to bottom, {{ block.settings.gradient_color_1 }}, {{ block.settings.gradient_color_2 }});"
+          style="background: linear-gradient(to bottom, {{ block.settings.gradient_1 }}, {{ block.settings.gradient_2 }});"
           {{ block.shopify_attributes }}
         >
 
@@ -139,26 +84,23 @@
             </span>
           {% endif %}
 
-          <a href="{{ product.url }}" class="favorite-link">
-            <div class="favorite-image">
-              <img 
-                src="{{ product.featured_image | image_url: width: 600 }}" 
-                alt="{{ product.title | escape }}"
-                loading="lazy"
-              >
-            </div>
+          <a href="{{ product.url }}" class="favorite-img-wrap">
+            <img 
+              src="{{ product.featured_image | image_url: width: 600 }}"
+              alt="{{ product.title | escape }}"
+              loading="lazy"
+            >
           </a>
 
-          <h3 
-            class="favorite-title"
-            style="color: {{ block.settings.title_color }};"
-          >
-            <a href="{{ product.url }}">
-              {{ product.title }}
-            </a>
-          </h3>
-
         </div>
+
+        <!-- TITLE OUTSIDE CARD (IMPORTANT FIX) -->
+        <div class="favorite-product-title">
+          <a href="{{ product.url }}">
+            {{ product.title }}
+          </a>
+        </div>
+
         {% endif %}
       {% endfor %}
 
@@ -167,26 +109,30 @@
 </section>
 
 <style>
-.favorite-section {
+.favorite-wrapper {
+  background: #efefef;
+  padding: 80px 0;
   text-align: center;
 }
 
-.favorite-heading {
-  font-size: 38px;
+.favorite-main-title {
+  font-size: 40px;
   font-weight: 700;
-  margin-bottom: 50px;
+  color: #137c3f;
+  margin-bottom: 60px;
 }
 
 .favorite-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  gap: 40px;
+  align-items: start;
 }
 
 .favorite-card {
   position: relative;
-  padding: 40px 20px 30px;
   border-radius: 16px;
+  padding: 40px 20px;
   transition: 0.3s ease;
 }
 
@@ -194,27 +140,11 @@
   transform: translateY(-6px);
 }
 
-.favorite-image img {
+.favorite-img-wrap img {
   max-width: 220px;
   width: 100%;
-  margin: 0 auto 20px;
   display: block;
-}
-
-.favorite-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.favorite-title a {
-  text-decoration: none;
-  color: inherit;
-  transition: 0.3s ease;
-}
-
-.favorite-title a:hover {
-  opacity: 0.7;
+  margin: 0 auto;
 }
 
 .favorite-badge {
@@ -229,13 +159,20 @@
   border-radius: 20px;
 }
 
-.favorite-link {
-  display: block;
+/* TITLE FIX */
+.favorite-product-title {
+  margin-top: -15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #002613;
+}
+
+.favorite-product-title a {
   text-decoration: none;
+  color: #002613 !important;
 }
 
 /* Responsive */
-
 @media (max-width: 991px) {
   .favorite-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -247,7 +184,7 @@
     grid-template-columns: 1fr;
   }
 
-  .favorite-heading {
+  .favorite-main-title {
     font-size: 28px;
   }
 }
