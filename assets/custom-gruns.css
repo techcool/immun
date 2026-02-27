@@ -6,7 +6,7 @@
   font-weight: <weight>;
   font-style: normal;
 } */
-root{
+:root{
     --color-background: 0, 126, 64;
     --gradient-background: #007e40;
     --color-foreground: 255, 204, 46;
