@@ -803,3 +803,30 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.querySelectorAll('.tooltip-trigger').forEach(trigger => {
+  trigger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    this.classList.toggle('active');
+  });
+});
+
+document.addEventListener('click', function () {
+  document.querySelectorAll('.tooltip-trigger').forEach(trigger => {
+    trigger.classList.remove('active');
+  });
+});
