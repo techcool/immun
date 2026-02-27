@@ -1,56 +1,53 @@
 <header class="custom-header-img">
   <div class="custom-header-img__wrapper">
 
-    <!-- LEFT: Custom Image -->
+    <!-- LEFT: Custom Image Only -->
     <div class="custom-header-img__image">
       {% if section.settings.custom_image != blank %}
         <a href="{{ section.settings.image_link }}">
           <img 
-            src="{{ section.settings.custom_image | image_url: width: 300 }}" 
-            alt="{{ section.settings.custom_image.alt | escape }}">
-        </a>
-      {% else %}
-        <a href="{{ routes.root_url }}">
-          <h2 style="color:#fff;margin:0;">{{ shop.name }}</h2>
+            src="{{ section.settings.custom_image | image_url: width: 400 }}" 
+            alt="Header Image">
         </a>
       {% endif %}
     </div>
 
-    <!-- CENTER: Dynamic Menu -->
+    <!-- CENTER: Custom Text Links -->
     <nav class="custom-header-img__menu">
-      {% if section.settings.menu != blank %}
-        <ul>
-          {% for link in linklists[section.settings.menu].links %}
-            <li>
-              <a href="{{ link.url }}">{{ link.title }}</a>
+      <ul>
+        {% if section.settings.link_text_1 != blank %}
+          <li>
+            <a href="{{ section.settings.link_url_1 }}">
+              {{ section.settings.link_text_1 }}
+            </a>
+          </li>
+        {% endif %}
 
-              {% if link.links != blank %}
-                <div class="submenu-img">
-                  {% for childlink in link.links %}
-                    <a href="{{ childlink.url }}">
-                      {{ childlink.title }}
-                    </a>
-                  {% endfor %}
-                </div>
-              {% endif %}
+        {% if section.settings.link_text_2 != blank %}
+          <li>
+            <a href="{{ section.settings.link_url_2 }}">
+              {{ section.settings.link_text_2 }}
+            </a>
+          </li>
+        {% endif %}
 
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
+        {% if section.settings.link_text_3 != blank %}
+          <li>
+            <a href="{{ section.settings.link_url_3 }}">
+              {{ section.settings.link_text_3 }}
+            </a>
+          </li>
+        {% endif %}
+      </ul>
     </nav>
 
-    <!-- RIGHT: Account + Cart -->
+    <!-- RIGHT: Optional Button -->
     <div class="custom-header-img__icons">
-      {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}">
-          {% if customer %}Account{% else %}Login{% endif %}
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_link }}" class="header-btn">
+          {{ section.settings.button_text }}
         </a>
       {% endif %}
-
-      <a href="{{ routes.cart_url }}">
-        Cart ({{ cart.item_count }})
-      </a>
     </div>
 
   </div>
@@ -60,8 +57,6 @@
 .custom-header-img {
   background: #111;
   padding: 18px 40px;
-  position: relative;
-  z-index: 20;
 }
 
 .custom-header-img__wrapper {
@@ -72,7 +67,7 @@
 
 /* Image */
 .custom-header-img__image img {
-  max-height: 55px;
+  max-height: 60px;
   display: block;
 }
 
@@ -80,13 +75,9 @@
 .custom-header-img__menu ul {
   list-style: none;
   display: flex;
-  gap: 30px;
+  gap: 35px;
   margin: 0;
   padding: 0;
-}
-
-.custom-header-img__menu li {
-  position: relative;
 }
 
 .custom-header-img__menu a {
@@ -101,37 +92,19 @@
   color: #0c7c3a;
 }
 
-/* Dropdown */
-.submenu-img {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #222;
-  padding: 15px;
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-  min-width: 180px;
-}
-
-.custom-header-img__menu li:hover .submenu-img {
-  display: flex;
-}
-
-.submenu-img a {
-  font-size: 14px;
-}
-
-/* Icons */
-.custom-header-img__icons {
-  display: flex;
-  gap: 20px;
-}
-
-.custom-header-img__icons a {
+/* Button */
+.header-btn {
+  background: #0c7c3a;
+  padding: 8px 18px;
   color: #fff;
   text-decoration: none;
+  border-radius: 4px;
   font-size: 14px;
+  transition: 0.3s;
+}
+
+.header-btn:hover {
+  background: #095c2b;
 }
 
 /* Responsive */
@@ -142,10 +115,6 @@
 }
 
 @media (max-width: 768px) {
-  .custom-header-img {
-    padding: 15px 20px;
-  }
-
   .custom-header-img__wrapper {
     flex-direction: column;
     gap: 15px;
@@ -155,7 +124,7 @@
 
 {% schema %}
 {
-  "name": "Custom Header With Image",
+  "name": "Custom Header Image Only",
   "settings": [
     {
       "type": "image_picker",
@@ -167,15 +136,54 @@
       "id": "image_link",
       "label": "Image Link"
     },
+
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Select Menu"
+      "type": "text",
+      "id": "link_text_1",
+      "label": "Menu Text 1"
+    },
+    {
+      "type": "url",
+      "id": "link_url_1",
+      "label": "Menu Link 1"
+    },
+
+    {
+      "type": "text",
+      "id": "link_text_2",
+      "label": "Menu Text 2"
+    },
+    {
+      "type": "url",
+      "id": "link_url_2",
+      "label": "Menu Link 2"
+    },
+
+    {
+      "type": "text",
+      "id": "link_text_3",
+      "label": "Menu Text 3"
+    },
+    {
+      "type": "url",
+      "id": "link_url_3",
+      "label": "Menu Link 3"
+    },
+
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Right Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Right Button Link"
     }
   ],
   "presets": [
     {
-      "name": "Custom Header With Image"
+      "name": "Custom Header Image Only"
     }
   ]
 }
