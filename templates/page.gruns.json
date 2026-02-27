@@ -280,6 +280,25 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "modern_living_stats_URhcL9": {
+      "type": "modern-living-stats",
+      "disabled": true,
+      "name": "Modern Living Stats",
+      "settings": {
+        "heading": "Modern Living Leaves Our Bodies Deficient",
+        "subheading": "Grüns is the first smart gummy that fills the gaps.",
+        "stat_one_number": "90%",
+        "stat_one_text": "of U.S. adults don’t meet recommended daily nutrient intake—including vitamins and minerals.",
+        "stat_two_number": "61%",
+        "stat_two_text": "of Americans experience weekly digestive issues like bloating, abdominal pain, or irregularity.",
+        "button_label": "Save 52% + Free Shipping",
+        "button_link": "",
+        "bg_color": "#dfeee6",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_class": ""
+      }
     }
   },
   "order": [
@@ -288,6 +307,7 @@
     "testimonial_logo_slider_JpeDGt",
     "press_slider_Fkz4za",
     "find_your_favorite_pYqbb9",
-    "health_benefits_FCwzcz"
+    "health_benefits_FCwzcz",
+    "modern_living_stats_URhcL9"
   ]
 }
