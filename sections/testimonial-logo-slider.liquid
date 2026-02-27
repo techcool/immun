@@ -390,67 +390,72 @@ document.addEventListener("DOMContentLoaded", function(){
   const nextBtn = slider.querySelector(".next");
   const dotsContainer = slider.querySelector(".dots");
 
-  let slides = slider.querySelectorAll(".slide");
-  let total = slides.length;
+  const originalSlides = Array.from(slider.querySelectorAll(".slide"));
+  const total = originalSlides.length;
 
-  let slidesToShow;
-  let index;
+  let slidesToShow = 3;
+  let index = 0;
   let autoplayInterval;
 
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.speed }};
 
-  // -------------------------
-  // Responsive slides count
-  // -------------------------
+  // ---------------------
+  // Responsive
+  // ---------------------
   function getSlidesToShow(){
     if(window.innerWidth <= 768) return 1;
     if(window.innerWidth <= 1024) return 2;
     return 3;
   }
 
-  // -------------------------
-  // Setup Slider (Clones + Reset)
-  // -------------------------
-  function setupSlider(){
+  // ---------------------
+  // Setup
+  // ---------------------
+  function setup(){
 
     slidesToShow = getSlidesToShow();
-
-    // Reset
     slidesContainer.innerHTML = "";
-    slides.forEach(slide => slidesContainer.appendChild(slide));
 
-    // Clone for infinite
+    // Clone last
+    for(let i = total - slidesToShow; i < total; i++){
+      slidesContainer.appendChild(originalSlides[i].cloneNode(true));
+    }
+
+    // Original
+    originalSlides.forEach(slide=>{
+      slidesContainer.appendChild(slide.cloneNode(true));
+    });
+
+    // Clone first
     for(let i = 0; i < slidesToShow; i++){
-      const cloneFirst = slides[i].cloneNode(true);
-      const cloneLast = slides[total - 1 - i].cloneNode(true);
-      slidesContainer.appendChild(cloneFirst);
-      slidesContainer.insertBefore(cloneLast, slidesContainer.firstChild);
+      slidesContainer.appendChild(originalSlides[i].cloneNode(true));
     }
 
     index = slidesToShow;
 
     createDots();
-    updateSlider(false);
+    update(false);
   }
 
-  // -------------------------
-  // Update Slider Position
-  // -------------------------
-  function updateSlider(animate = true){
+  // ---------------------
+  // Update
+  // ---------------------
+  function update(animate = true){
 
     const allSlides = slider.querySelectorAll(".slide");
     const slideWidth = allSlides[0].offsetWidth;
 
-    slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
+    slidesContainer.style.transition = animate ? "0.4s ease" : "none";
     slidesContainer.style.transform =
       `translateX(-${index * slideWidth}px)`;
 
-    // Remove all active
-    allSlides.forEach(slide => slide.classList.remove("active"));
+    // remove active
+    allSlides.forEach(s => s.classList.remove("active"));
 
-    // Center Active (Dynamic)
-    let centerIndex = index + Math.floor((slidesToShow - 1) / 2);
+    // ALWAYS middle active when 3 items
+    let centerOffset = Math.floor(slidesToShow / 2);
+    let centerIndex = index + centerOffset;
 
     if(allSlides[centerIndex]){
       allSlides[centerIndex].classList.add("active");
@@ -459,97 +464,89 @@ document.addEventListener("DOMContentLoaded", function(){
     updateDots();
   }
 
-  // -------------------------
+  // ---------------------
   // Next / Prev
-  // -------------------------
-  function nextSlide(){
+  // ---------------------
+  function next(){
     index++;
-    updateSlider();
+    update();
   }
 
-  function prevSlide(){
+  function prev(){
     index--;
-    updateSlider();
+    update();
   }
 
-  // -------------------------
+  // ---------------------
   // Infinite Fix
-  // -------------------------
+  // ---------------------
   slidesContainer.addEventListener("transitionend", ()=>{
 
     if(index >= total + slidesToShow){
       index = slidesToShow;
-      updateSlider(false);
+      update(false);
     }
 
     if(index < slidesToShow){
       index = total + slidesToShow - 1;
-      updateSlider(false);
+      update(false);
     }
 
   });
 
-  // -------------------------
+  // ---------------------
   // Dots
-  // -------------------------
+  // ---------------------
   function createDots(){
-
     dotsContainer.innerHTML = "";
-
     for(let i = 0; i < total; i++){
       const dot = document.createElement("span");
-
       dot.addEventListener("click", ()=>{
         index = i + slidesToShow;
-        updateSlider();
+        update();
       });
-
       dotsContainer.appendChild(dot);
     }
   }
 
   function updateDots(){
-
     const realIndex = (index - slidesToShow + total) % total;
-
     dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
       dot.classList.toggle("active", i === realIndex);
     });
   }
 
-  // -------------------------
+  // ---------------------
   // Autoplay
-  // -------------------------
-  function startAutoplay(){
+  // ---------------------
+  function startAuto(){
     if(autoplay){
-      autoplayInterval = setInterval(nextSlide, speed);
+      autoplayInterval = setInterval(next, speed);
     }
   }
 
-  function stopAutoplay(){
+  function stopAuto(){
     clearInterval(autoplayInterval);
   }
 
-  slider.addEventListener("mouseenter", stopAutoplay);
-  slider.addEventListener("mouseleave", startAutoplay);
+  slider.addEventListener("mouseenter", stopAuto);
+  slider.addEventListener("mouseleave", startAuto);
 
-  // -------------------------
+  // ---------------------
   // Events
-  // -------------------------
-  nextBtn.addEventListener("click", nextSlide);
-  prevBtn.addEventListener("click", prevSlide);
+  // ---------------------
+  nextBtn.addEventListener("click", next);
+  prevBtn.addEventListener("click", prev);
 
   window.addEventListener("resize", ()=>{
-    stopAutoplay();
-    setupSlider();
-    startAutoplay();
+    stopAuto();
+    setup();
+    startAuto();
   });
 
-  // -------------------------
   // Init
-  // -------------------------
-  setupSlider();
-  startAutoplay();
+  setup();
+  startAuto();
 
 });
 </script>
