@@ -127,25 +127,6 @@
         "collection_color_scheme": "default"
       }
     },
-    "custom_landing_page_header_tCwjpa": {
-      "type": "custom-landing-page-header",
-      "name": "Landing Page Header",
-      "settings": {
-        "logo_text": "UN",
-        "tagline": "",
-        "menu": "main-menu",
-        "cart_label": "CART",
-        "right_text": ""
-      }
-    },
-    "custom_commonheader_ecrgzV": {
-      "type": "custom-commonheader",
-      "name": "Custom Common Header",
-      "settings": {
-        "custom_menu": "",
-        "show_search": true
-      }
-    },
     "custom_header_common_zBfFB8": {
       "type": "custom-header-common",
       "blocks": {
@@ -170,19 +151,23 @@
       ],
       "name": "Custom Header Image",
       "settings": {
+        "color_scheme": "scheme-1",
+        "custom_class": "gruns-header",
         "custom_image": "shopify://shop_images/logo.svg",
         "image_link": "",
         "show_search": false,
         "button_text": "",
-        "button_link": ""
+        "button_link": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 16
       }
     }
   },
   "order": [
     "header_announcements_9jGBFp",
     "header_section",
-    "custom_landing_page_header_tCwjpa",
-    "custom_commonheader_ecrgzV",
     "custom_header_common_zBfFB8"
   ]
 }
