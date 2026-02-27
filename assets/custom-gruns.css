@@ -7,6 +7,10 @@
   font-style: normal;
 } */
 :root{
+    --orrange-color: #ff8e2c;
+    --yellow-color: 255, 204, 46;
+    --green-color: #007E40;
+    --white-color: #FFFFFF;
     --color-background: 0, 126, 64;
     --gradient-background: #007e40;
     --color-foreground: 255, 204, 46;
@@ -26,7 +30,7 @@ body {
   font-family: "DM Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 .gruns-top-header {
-    background: #ff8e2c !important;
+    background: var(--orrange-color);
 }
 .gruns-top-header p{
     font-size: 20px;
@@ -51,9 +55,9 @@ nav.custom-header-img__menu {
     max-height: 34px;
 }
 nav.custom-header-img__menu ul li a{
-    background-color: rgb(var(--color-secondary-button));
-    color: rgb(var(--color-badge-foreground));
-    border-color: rgb(var(--color-badge-foreground));
+    background-color: rgb(var(--green-color));
+    color: rgb(var(--yellow-color));
+    border-color: rgb(var(--yellow-color));
     transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
     border: 1px solid;
     padding: 7px 10px;
@@ -62,4 +66,9 @@ nav.custom-header-img__menu ul li a{
     font-size: 14px;
     font-weight: 400;
     font-family: Work Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+nav.custom-header-img__menu ul li a:hover{
+    background-color:var(--white-color);
+    color: var(--green-color);
+    border-color: rgb(var(--orrange-color));
 }
