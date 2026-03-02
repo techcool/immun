@@ -347,36 +347,20 @@
     "tabbed_video_testimonials_CN3Fj9": {
       "type": "tabbed-video-testimonials",
       "blocks": {
-        "tab_3LHpqE": {
-          "type": "tab",
-          "name": "Convenience",
-          "settings": {
-            "tab_id": "convenience",
-            "tab_label": "Convenience"
-          }
-        },
-        "tab_w4gcXr": {
-          "type": "tab",
-          "name": "Ingredients",
-          "settings": {
-            "tab_id": "ingredients",
-            "tab_label": "Ingredients"
-          }
-        },
-        "tab_WfHVUD": {
-          "type": "tab",
-          "name": "Value",
-          "settings": {
-            "tab_id": "value",
-            "tab_label": "Value"
-          }
-        },
         "testimonial_VjUddP": {
           "type": "testimonial",
           "settings": {
             "parent_tab": "taste",
             "content": "So easy to grab and eat on my way to the billion things I have to do as a mom\n\nPortable! Love the flavor and it’s so easy to grab and eat on my way to the billion things I have to do as a mom. Easy way to get my nutrients in!",
             "author": "Kelli L."
+          }
+        },
+        "video_QXW9MC": {
+          "type": "video",
+          "settings": {
+            "parent_tab": "",
+            "thumbnail": "shopify://shop_images/ShopTile-OG-Kids_1.png",
+            "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
           }
         },
         "tab_YfxJm7": {
@@ -387,12 +371,12 @@
             "tab_label": "Taste"
           }
         },
-        "video_QXW9MC": {
-          "type": "video",
+        "tab_WfHVUD": {
+          "type": "tab",
+          "name": "Value",
           "settings": {
-            "parent_tab": "taste",
-            "thumbnail": "shopify://shop_images/ShopTile-OG-Kids_1.png",
-            "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
+            "tab_id": "value",
+            "tab_label": "Value"
           }
         },
         "tab_fmq9Nj": {
@@ -410,17 +394,33 @@
             "tab_id": "benefits",
             "tab_label": "Benefits"
           }
+        },
+        "tab_w4gcXr": {
+          "type": "tab",
+          "name": "Ingredients",
+          "settings": {
+            "tab_id": "ingredients",
+            "tab_label": "Ingredients"
+          }
+        },
+        "tab_3LHpqE": {
+          "type": "tab",
+          "name": "Convenience",
+          "settings": {
+            "tab_id": "convenience",
+            "tab_label": "Convenience"
+          }
         }
       },
       "block_order": [
-        "tab_3LHpqE",
-        "tab_w4gcXr",
-        "tab_WfHVUD",
         "testimonial_VjUddP",
-        "tab_YfxJm7",
         "video_QXW9MC",
+        "tab_YfxJm7",
+        "tab_WfHVUD",
         "tab_fmq9Nj",
-        "tab_TUBYeg"
+        "tab_TUBYeg",
+        "tab_w4gcXr",
+        "tab_3LHpqE"
       ],
       "name": "Tabbed Video Testimonials",
       "settings": {
