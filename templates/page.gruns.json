@@ -429,8 +429,26 @@
           "type": "testimonial",
           "settings": {
             "parent_tab": "vs-powders",
-            "content": "<p><strong>I was super skeptical. These gummies actually do taste really yummy</strong><br/><br/>and they’re easy to throw in a packet and take with me so I can enjoy them anytime. I also stopped buying separate probiotic gummies, b12 gummies, and multivitamin gummies. I just take these now and it’s easier for me to manage.<br/><br/><br/><br/><br/><br/><br/><br/></p>",
-            "author": "Jamie W.",
+            "content": "<p><strong>Grüns has been the one thing I’ve been able to stick to</strong></p><p>I’ve tried a few green powders over the years. The issue has never been nutritive content. It’s always been an issue of consistency like many things. Grüns has been the one thing I’ve been able to stick to because they are so easy to consume and taste wonderful (just like gummy bears).<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Samuel L.",
+            "rating": "5"
+          }
+        },
+        "testimonial_Yct6Cc": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "vs-powders",
+            "content": "<p><strong>WOW! I’ve tried a ton of green “things” over the years and I have to say, Grüns FOR THE WIN!</strong><br/><br/>I was taking AG1 but even with their monthly subscription discount it was still $94 a month and the drink was definitely gritty/chalky. Grüns literally tastes like fruit snacks I ate as a kid. And there isn’t a bad aftertaste either! On top of that, they are super convenient, half the price of what I was paying with AG1, and offer the same benefits and then some! P.S. I never do reviews, but these are amazing!<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Bradley O.",
+            "rating": "5"
+          }
+        },
+        "testimonial_jeH7q4": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "vs-powders",
+            "content": "<p><strong>Grüns is exactly what I needed.</strong><br/><br/>I’ve been choking on Athletic Greens for the last few years and am glad those days are over. I look forward to taking Grüns every day not only because they taste great but also because I know they’re good for me.<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Jaxon S.",
             "rating": "5"
           }
         },
@@ -505,6 +523,8 @@
         "testimonial_bfHJCA",
         "tab_fmq9Nj",
         "testimonial_D37zEc",
+        "testimonial_Yct6Cc",
+        "testimonial_jeH7q4",
         "tab_TUBYeg",
         "tab_w4gcXr",
         "tab_3LHpqE",
