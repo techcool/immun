@@ -513,3 +513,26 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 </script>
 
+<style>
+.testimonial-slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.slides {
+  display: flex;
+}
+
+.slide {
+  flex: 0 0 33.33%;
+  transition: all 0.4s ease;
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+</style>
+
