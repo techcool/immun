@@ -347,6 +347,20 @@
     "tabbed_video_testimonials_CN3Fj9": {
       "type": "tabbed-video-testimonials",
       "blocks": {
+        "review_video_C9fcgy": {
+          "type": "review_video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/ShopTile-OG-Adults_1.png",
+            "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
+          }
+        },
+        "review_video_UrRWiB": {
+          "type": "review_video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/ShopTile-OG-Adults_1.png",
+            "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
+          }
+        },
         "testimonial_VjUddP": {
           "type": "testimonial",
           "settings": {
@@ -402,29 +416,23 @@
             "tab_id": "convenience",
             "tab_label": "Convenience"
           }
-        },
-        "video_QXW9MC": {
-          "type": "video",
-          "settings": {
-            "parent_tab": "taste",
-            "thumbnail": "shopify://shop_images/ShopTile-OG-Kids_1.png",
-            "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
-          }
         }
       },
       "block_order": [
+        "review_video_C9fcgy",
+        "review_video_UrRWiB",
         "testimonial_VjUddP",
         "tab_YfxJm7",
         "tab_WfHVUD",
         "tab_fmq9Nj",
         "tab_TUBYeg",
         "tab_w4gcXr",
-        "tab_3LHpqE",
-        "video_QXW9MC"
+        "tab_3LHpqE"
       ],
       "name": "Tabbed Video Testimonials",
       "settings": {
         "heading": "Join 1,000,000+ Others Filling Nutrition Gaps",
+        "review_tab_id": "review",
         "bg_color": "#dfe9e2"
       }
     }
