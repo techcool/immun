@@ -72,39 +72,41 @@
 }
 {% endschema %}
 
-<section class="testimonial-slider {{ section.settings.custom_class }}" 
+<section class="testimonial-slider {{ section.settings.custom_class }}"
   style="padding-top:{{ section.settings.padding_top }}px;
          padding-bottom:{{ section.settings.padding_bottom }}px;">
-    <div class="page-width">
-        <div class="slider-wrapper">
-            
-            <div class="slides">
-            {% for block in section.blocks %}
-                <div class="slide" {{ block.shopify_attributes }}>
-                
-                {% if block.settings.subtext != blank %}
-                    <p class="subtext">{{ block.settings.subtext }}</p>
-                {% endif %}
-                
-                {% if block.settings.quote != blank %}
-                    <h2 class="quote">{{ block.settings.quote }}</h2>
-                {% endif %}
 
-                {% if block.settings.logo != blank %}
-                    <div class="logo">
-                    <img src="{{ block.settings.logo | image_url: width: 300 }}" alt="logo">
-                    </div>
-                {% endif %}
-                </div>
-            {% endfor %}
-            </div>
+  <div class="page-width">
+    <div class="slider-wrapper">
 
-            <button class="nav prev">&#8592;</button>
-            <button class="nav next">&#8594;</button>
+      <div class="slides">
+        {% for block in section.blocks %}
+        <div class="slide" {{ block.shopify_attributes }}>
+          
+          {% if block.settings.subtext != blank %}
+          <p class="subtext">{{ block.settings.subtext }}</p>
+          {% endif %}
+          
+          {% if block.settings.quote != blank %}
+          <h2 class="quote">{{ block.settings.quote }}</h2>
+          {% endif %}
 
-            <div class="dots"></div>
+          {% if block.settings.logo != blank %}
+          <div class="logo">
+            <img src="{{ block.settings.logo | image_url: width: 300 }}" alt="logo">
+          </div>
+          {% endif %}
 
         </div>
+        {% endfor %}
+      </div>
+
+      <button class="nav prev">&#8592;</button>
+      <button class="nav next">&#8594;</button>
+
+      <div class="dots"></div>
+
+    </div>
   </div>
 </section>
 
@@ -113,12 +115,14 @@
   background:#f7f7f5;
   text-align:center;
   position:relative;
+  overflow:hidden;
 }
 
 .slider-wrapper {
   max-width:720px;
   margin:0 auto;
   position:relative;
+  overflow:hidden;
 }
 
 .slides {
@@ -129,6 +133,14 @@
 .slide {
   min-width:100%;
   padding:20px;
+  opacity:0.4;
+  transform:scale(0.9);
+  transition:all 0.4s ease;
+}
+
+.slide.active {
+  opacity:1;
+  transform:scale(1);
 }
 
 .subtext {
@@ -158,10 +170,11 @@
   height:45px;
   border-radius:50%;
   cursor:pointer;
+  z-index:2;
 }
 
-.prev { left:-60px; }
-.next { right:-60px; }
+.prev { left:10px; }
+.next { right:10px; }
 
 .dots {
   margin-top:30px;
@@ -183,13 +196,11 @@
 
 @media(max-width:768px){
   .quote{font-size:20px;}
-  .prev{left:10px;}
-  .next{right:10px;}
 }
 </style>
 
 
-{% comment %} <script>
+<script>
 document.addEventListener("DOMContentLoaded", function(){
 
   const slider = document.querySelector(".testimonial-slider");
@@ -206,126 +217,30 @@ document.addEventListener("DOMContentLoaded", function(){
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.speed }};
 
-  // Clone first & last slide
+  // Clone first & last for infinite
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[total - 1].cloneNode(true);
 
   slidesContainer.appendChild(firstClone);
-  slidesContainer.insertBefore(lastClone, slides[0]);
-
-  const allSlides = slider.querySelectorAll(".slide");
-
-  slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-
-  function updateDots() {
-    document.querySelectorAll(".dots span").forEach((dot, i) => {
-      dot.classList.toggle("active", i === index - 1);
-    });
-  }
-
-  function moveToSlide() {
-    slidesContainer.style.transition = "transform 0.5s ease";
-    slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-  }
-
-  nextBtn.addEventListener("click", () => {
-    if(index >= allSlides.length - 1) return;
-    index++;
-    moveToSlide();
-  });
-
-  prevBtn.addEventListener("click", () => {
-    if(index <= 0) return;
-    index--;
-    moveToSlide();
-  });
-
-  slidesContainer.addEventListener("transitionend", () => {
-    if(allSlides[index].isEqualNode(firstClone)){
-      slidesContainer.style.transition = "none";
-      index = 1;
-      slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-    }
-
-    if(allSlides[index].isEqualNode(lastClone)){
-      slidesContainer.style.transition = "none";
-      index = total;
-      slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-    }
-
-    updateDots();
-  });
-
-  // Create dots
-  for(let i = 0; i < total; i++){
-    const dot = document.createElement("span");
-    dot.addEventListener("click", () => {
-      index = i + 1;
-      moveToSlide();
-    });
-    dotsContainer.appendChild(dot);
-  }
-
-  updateDots();
-
-  if(autoplay){
-    setInterval(() => {
-      nextBtn.click();
-    }, speed);
-  }
-
-});
-</script> {% endcomment %}
-
-
- 
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-
-  const slider = document.querySelector(".testimonial-slider");
-  if(!slider) return;
-
-  const slidesContainer = slider.querySelector(".slides");
-  const slides = slider.querySelectorAll(".slide");
-  const prevBtn = slider.querySelector(".prev");
-  const nextBtn = slider.querySelector(".next");
-  const dotsContainer = slider.querySelector(".dots");
-
-  let slidesToShow = window.innerWidth <= 768 ? 1 :
-                     window.innerWidth <= 1024 ? 2 : 3;
-
-  let index = slidesToShow;
-  const total = slides.length;
-  const autoplay = {{ section.settings.autoplay }};
-  const speed = {{ section.settings.speed }};
-
-  // Clone for infinite
-  for(let i = 0; i < slidesToShow; i++){
-    const cloneFirst = slides[i].cloneNode(true);
-    const cloneLast = slides[total - 1 - i].cloneNode(true);
-    slidesContainer.appendChild(cloneFirst);
-    slidesContainer.insertBefore(cloneLast, slidesContainer.firstChild);
-  }
+  slidesContainer.insertBefore(lastClone, slidesContainer.firstChild);
 
   const allSlides = slider.querySelectorAll(".slide");
 
   function updateSlider(animate = true){
     const slideWidth = allSlides[0].offsetWidth;
     slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
-    slidesContainer.style.transform =
-      `translateX(-${index * slideWidth}px)`;
+    slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
 
     allSlides.forEach(slide => slide.classList.remove("active"));
-
-    let centerIndex = index + Math.floor(slidesToShow / 2);
-    if(allSlides[centerIndex])
-      allSlides[centerIndex].classList.add("active");
+    if(allSlides[index]) {
+      allSlides[index].classList.add("active");
+    }
 
     updateDots();
   }
 
   function updateDots(){
-    const realIndex = (index - slidesToShow + total) % total;
+    const realIndex = (index - 1 + total) % total;
     dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
       dot.classList.toggle("active", i === realIndex);
     });
@@ -342,12 +257,12 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   slidesContainer.addEventListener("transitionend", ()=>{
-    if(index >= total + slidesToShow){
-      index = slidesToShow;
+    if(index >= total + 1){
+      index = 1;
       updateSlider(false);
     }
-    if(index < slidesToShow){
-      index = total + slidesToShow - 1;
+    if(index <= 0){
+      index = total;
       updateSlider(false);
     }
   });
@@ -359,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function(){
   for(let i = 0; i < total; i++){
     const dot = document.createElement("span");
     dot.addEventListener("click", ()=>{
-      index = i + slidesToShow;
+      index = i + 1;
       updateSlider();
     });
     dotsContainer.appendChild(dot);
@@ -371,13 +286,9 @@ document.addEventListener("DOMContentLoaded", function(){
     setInterval(nextSlide, speed);
   }
 
-  // Recalculate on resize
   window.addEventListener("resize", ()=>{
     updateSlider(false);
   });
 
 });
-</script>  
-
-
-
+</script>
