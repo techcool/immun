@@ -349,6 +349,7 @@
       "blocks": {
         "tab_TUBYeg": {
           "type": "tab",
+          "name": "Benefits",
           "settings": {
             "tab_id": "benefits",
             "tab_label": "Benefits"
@@ -364,6 +365,7 @@
         },
         "tab_YfxJm7": {
           "type": "tab",
+          "name": "Taste",
           "settings": {
             "tab_id": "taste",
             "tab_label": "Taste"
@@ -379,6 +381,7 @@
         },
         "tab_fmq9Nj": {
           "type": "tab",
+          "name": "Vs Powders",
           "settings": {
             "tab_id": "vs-powders",
             "tab_label": "Vs Powders"
