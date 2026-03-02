@@ -1,7 +1,32 @@
 {% schema %}
 {
-  "name": "Center Slider",
+  "name": "Testimonial Logo Slider",
   "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 80,
+      "label": "Padding Top",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 80,
+      "label": "Padding Bottom",
+      "unit": "px"
+    },
     {
       "type": "checkbox",
       "id": "autoplay",
@@ -17,184 +42,300 @@
       "default": 4000,
       "label": "Autoplay speed",
       "unit": "ms"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show pagination dots",
+      "default": true
     }
   ],
   "blocks": [
     {
       "type": "slide",
-      "name": "Slide",
+      "name": "Testimonial Slide",
       "settings": [
-        { "type": "textarea", "id": "quote", "label": "Quote" },
-        { "type": "text", "id": "subtext", "label": "Subtext" },
-        { "type": "image_picker", "id": "logo", "label": "Logo" }
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Testimonial quote"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Subtext"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Company logo"
+        }
       ]
     }
   ],
   "presets": [
-    { "name": "Center Slider" }
+    {
+      "name": "Testimonial Logo Slider",
+      "category": "Testimonials",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
   ]
 }
 {% endschema %}
 
-<section class="center-slider">
-  <div class="slider-wrapper">
-    <div class="slider-track">
-      {% for block in section.blocks %}
-        <div class="slide" {{ block.shopify_attributes }}>
-          {% if block.settings.subtext != blank %}
-            <p class="subtext">{{ block.settings.subtext }}</p>
-          {% endif %}
-          {% if block.settings.quote != blank %}
-            <h2 class="quote">{{ block.settings.quote }}</h2>
-          {% endif %}
-          {% if block.settings.logo != blank %}
-            <div class="logo">
-              <img src="{{ block.settings.logo | image_url: width: 300 }}" alt="logo">
-            </div>
-          {% endif %}
-        </div>
-      {% endfor %}
-    </div>
+<section 
+  class="testimonial-slider {{ section.settings.custom_class }}" 
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="testimonial-slider__container">
 
-    <button class="nav prev">&#8592;</button>
-    <button class="nav next">&#8594;</button>
+    <div class="testimonial-slider__wrapper">
+      <div class="testimonial-slider__slides">
+        {% for block in section.blocks %}
+          <div class="testimonial-slider__slide" {{ block.shopify_attributes }}>
+            <div class="testimonial-slider__content">
+              
+              {% if block.settings.subtext != blank %}
+                <p class="testimonial-slider__subtext">
+                  {{ block.settings.subtext }}
+                </p>
+              {% endif %}
+              
+              {% if block.settings.quote != blank %}
+                <h2 class="testimonial-slider__quote">
+                  {{ block.settings.quote }}
+                </h2>
+              {% endif %}
+
+              {% if block.settings.logo != blank %}
+                <div class="testimonial-slider__logo">
+                  <img 
+                    src="{{ block.settings.logo | image_url: width: 400 }}" 
+                    alt="{{ block.settings.subtext }}"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_navigation %}
+        <button class="testimonial-slider__nav testimonial-slider__nav--prev">‹</button>
+        <button class="testimonial-slider__nav testimonial-slider__nav--next">›</button>
+      {% endif %}
+
+      {% if section.settings.show_dots %}
+        <div class="testimonial-slider__dots"></div>
+      {% endif %}
+
+    </div>
   </div>
 </section>
 
 <style>
-.center-slider {
-  background: #f7f7f5;
-  padding: 80px 0;
-  overflow: hidden;
+.testimonial-slider {
+  background:#f7f7f5;
+  overflow:hidden;
+  position:relative;
 }
 
-.slider-wrapper {
-  max-width: 1100px;
-  margin: auto;
-  position: relative;
+.testimonial-slider__container {
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px;
 }
 
-.slider-track {
-  display: flex;
-  align-items: center;
-  transition: transform 0.5s ease;
+.testimonial-slider__slides {
+  display:flex;
+  transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);
 }
 
-.slide {
-  flex: 0 0 33.333%;
-  text-align: center;
-  opacity: 0.4;
-  transform: scale(0.8);
-  transition: all 0.4s ease;
-  padding: 20px;
+.testimonial-slider__slide {
+  flex:0 0 33.3333%;
+  padding:20px;
+  box-sizing:border-box;
+  opacity:0.4;
+  transform:scale(0.85);
+  transition:all 0.5s ease;
+  text-align:center;
 }
 
-.slide.active {
-  opacity: 1;
-  transform: scale(1);
+.testimonial-slider__slide.active {
+  opacity:1;
+  transform:scale(1);
 }
 
-.subtext {
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
+.testimonial-slider__quote {
+  font-size:26px;
+  margin-bottom:20px;
 }
 
-.quote {
-  font-size: 24px;
-  margin-bottom: 20px;
+.testimonial-slider__logo img {
+  max-width:180px;
+  height:auto;
 }
 
-.logo img {
-  max-width: 180px;
-  max-height: 80px;
-}
-
-.nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  background: #fff;
-  cursor: pointer;
-}
-
-.prev { left: 0; }
-.next { right: 0; }
-
-@media (max-width: 768px) {
-  .slide {
-    flex: 0 0 100%;
-    opacity: 1;
-    transform: scale(1);
+/* Tablet */
+@media(max-width:991px){
+  .testimonial-slider__slide{
+    flex:0 0 50%;
   }
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .testimonial-slider__slide{
+    flex:0 0 100%;
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+/* Navigation */
+.testimonial-slider__nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#fff;
+  border:1px solid #ddd;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.testimonial-slider__nav--prev{ left:0; }
+.testimonial-slider__nav--next{ right:0; }
+
+/* Dots */
+.testimonial-slider__dots{
+  margin-top:20px;
+  text-align:center;
+}
+
+.testimonial-slider__dots span{
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background:#ccc;
+  border-radius:50%;
+  margin:0 5px;
+  cursor:pointer;
+}
+
+.testimonial-slider__dots span.active{
+  background:#000;
 }
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const slider = document.querySelector(".center-slider");
-  if (!slider) return;
+document.addEventListener('DOMContentLoaded', function() {
 
-  const track = slider.querySelector(".slider-track");
-  let slides = slider.querySelectorAll(".slide");
-  const prev = slider.querySelector(".prev");
-  const next = slider.querySelector(".next");
+  const sliders = document.querySelectorAll('.testimonial-slider');
 
-  const total = slides.length;
-  if (total < 3) return;
+  sliders.forEach(function(slider){
 
-  let index = 1; // middle active
+    const slidesContainer = slider.querySelector('.testimonial-slider__slides');
+    let slides = slider.querySelectorAll('.testimonial-slider__slide');
+    const prevBtn = slider.querySelector('.testimonial-slider__nav--prev');
+    const nextBtn = slider.querySelector('.testimonial-slider__nav--next');
+    const dotsContainer = slider.querySelector('.testimonial-slider__dots');
 
-  // Clone first & last for infinite loop
-  const firstClone = slides[0].cloneNode(true);
-  const lastClone = slides[total - 1].cloneNode(true);
+    if(slides.length < 3) return;
 
-  track.appendChild(firstClone);
-  track.insertBefore(lastClone, slides[0]);
+    let totalSlides = slides.length;
+    let currentIndex = 1;
+    let autoplayInterval;
 
-  slides = slider.querySelectorAll(".slide");
+    const autoplay = {{ section.settings.autoplay | json }};
+    const speed = {{ section.settings.speed | json }};
 
-  function updateSlider(animate = true) {
-    track.style.transition = animate ? "transform 0.5s ease" : "none";
-    track.style.transform = `translateX(-${index * 33.333}%)`;
+    // Clone first & last
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[totalSlides-1].cloneNode(true);
 
-    slides.forEach(s => s.classList.remove("active"));
-    slides[index].classList.add("active");
-  }
+    slidesContainer.appendChild(firstClone);
+    slidesContainer.insertBefore(lastClone, slidesContainer.firstChild);
 
-  function nextSlide() {
-    index++;
-    updateSlider();
-  }
+    slides = slider.querySelectorAll('.testimonial-slider__slide');
+    totalSlides = slides.length;
 
-  function prevSlide() {
-    index--;
-    updateSlider();
-  }
-
-  track.addEventListener("transitionend", () => {
-    if (index >= total + 1) {
-      index = 1;
-      updateSlider(false);
+    function slidesPerView(){
+      if(window.innerWidth < 768) return 1;
+      if(window.innerWidth < 991) return 2;
+      return 3;
     }
-    if (index <= 0) {
-      index = total;
-      updateSlider(false);
+
+    function updateSlider(animate=true){
+      const slideWidth = slides[0].offsetWidth;
+      const centerOffset = slidesPerView() === 3 ? 1 : 0;
+
+      if(!animate){
+        slidesContainer.style.transition = "none";
+      } else {
+        slidesContainer.style.transition = "transform 0.6s cubic-bezier(0.4,0,0.2,1)";
+      }
+
+      slidesContainer.style.transform =
+        `translateX(-${(currentIndex-centerOffset)*slideWidth}px)`;
+
+      slides.forEach(s=>s.classList.remove("active"));
+      if(slidesPerView()===3){
+        slides[currentIndex].classList.add("active");
+      }
     }
+
+    function nextSlide(){
+      currentIndex++;
+      if(currentIndex >= totalSlides-1){
+        currentIndex = 1;
+        updateSlider(false);
+      }
+      updateSlider(true);
+    }
+
+    function prevSlide(){
+      currentIndex--;
+      if(currentIndex <= 0){
+        currentIndex = totalSlides-2;
+        updateSlider(false);
+      }
+      updateSlider(true);
+    }
+
+    if(prevBtn) prevBtn.addEventListener("click", prevSlide);
+    if(nextBtn) nextBtn.addEventListener("click", nextSlide);
+
+    window.addEventListener("resize", ()=>updateSlider(false));
+
+    function startAutoplay(){
+      if(!autoplay) return;
+      autoplayInterval = setInterval(nextSlide, speed);
+    }
+
+    function stopAutoplay(){
+      clearInterval(autoplayInterval);
+    }
+
+    slider.addEventListener("mouseenter", stopAutoplay);
+    slider.addEventListener("mouseleave", startAutoplay);
+
+    updateSlider(false);
+    startAutoplay();
+
   });
 
-  next.addEventListener("click", nextSlide);
-  prev.addEventListener("click", prevSlide);
-
-  {% if section.settings.autoplay %}
-    setInterval(nextSlide, {{ section.settings.speed }});
-  {% endif %}
-
-  updateSlider(false);
 });
 </script>
