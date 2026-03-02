@@ -9,12 +9,6 @@
       "default": "Join 1,000,000+ Others Filling Nutrition Gaps"
     },
     {
-      "type": "text",
-      "id": "review_tab_id",
-      "label": "Review Tab ID (must match one tab ID exactly)",
-      "default": "review"
-    },
-    {
       "type": "color",
       "id": "bg_color",
       "label": "Background",
@@ -78,16 +72,17 @@
   ],
   "presets": [
     {
-      "name": "Tabbed Testimonials + Review Video"
+      "name": "Tabbed Testimonials + Video"
     }
   ]
 }
 {% endschema %}
 
-<section class="custom-tabs" style="background: {{ section.settings.bg_color }}">
+<section class="custom-tabs-section" style="background: {{ section.settings.bg_color }};">
   <div class="container">
 
-    <h2 class="heading">{{ section.settings.heading }}</h2>
+    <!-- Heading -->
+    <h2 class="section-heading">{{ section.settings.heading }}</h2>
 
     <!-- Tabs -->
     <div class="tabs">
@@ -123,17 +118,17 @@
       {% endif %}
     {% endfor %}
 
-    <!-- Review Video Section -->
-    <div class="review-video-wrapper"
-         id="review-video-wrapper"
-         data-review-tab="{{ section.settings.review_tab_id }}">
+    <!-- Review Video Section (Always Visible) -->
+    <div class="review-video-wrapper">
 
       <div class="video-grid">
         {% for block in section.blocks %}
           {% if block.type == 'review_video' %}
             <div class="video-card">
               <div class="video-wrapper" data-video="{{ block.settings.video_url }}">
-                <img src="{{ block.settings.thumbnail | image_url: width: 600 }}">
+                {% if block.settings.thumbnail != blank %}
+                  <img src="{{ block.settings.thumbnail | image_url: width: 600 }}" alt="">
+                {% endif %}
                 <div class="play-btn">▶</div>
               </div>
             </div>
@@ -146,110 +141,136 @@
   </div>
 </section>
 
-
 <style>
-.custom-tabs { padding:80px 20px; text-align:center; }
-.container { max-width:1200px; margin:auto; }
-
-.tabs { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
-.tab-btn {
-  padding:10px 20px;
-  border-radius:30px;
-  border:1px solid #1b5e3c;
-  background:transparent;
-  cursor:pointer;
+.custom-tabs-section {
+  padding: 80px 20px;
+  text-align: center;
 }
-.tab-btn.active { background:#1b5e3c; color:#fff; }
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+.section-heading {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
 
-.tab-content { display:none; }
-.tab-content.active { display:block; }
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.tab-btn {
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: 1px solid #1b5e3c;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+.tab-btn.active {
+  background: #1b5e3c;
+  color: #fff;
+}
+
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
 
 .testimonial-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 60px;
 }
 
 .testimonial-item {
-  background:#fff;
-  padding:20px;
-  border-radius:12px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
 }
 
-.review-video-wrapper { display:none; margin-top:50px; }
+.stars {
+  color: #1b5e3c;
+  margin-bottom: 10px;
+}
+
+/* Video Section */
+.review-video-wrapper {
+  margin-top: 40px;
+}
 
 .video-grid {
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
 
 .video-wrapper {
-  position:relative;
-  cursor:pointer;
+  position: relative;
+  cursor: pointer;
 }
 .video-wrapper img {
-  width:100%;
-  border-radius:16px;
+  width: 100%;
+  border-radius: 16px;
 }
 .play-btn {
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-size:30px;
-  color:#fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: #fff;
 }
 
-@media(max-width:991px){
-  .testimonial-grid { grid-template-columns:repeat(2,1fr); }
-  .video-grid { grid-template-columns:repeat(2,1fr); }
+/* Responsive */
+@media(max-width: 991px){
+  .testimonial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-@media(max-width:600px){
+
+@media(max-width: 600px){
   .testimonial-grid,
-  .video-grid { grid-template-columns:1fr; }
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+  .section-heading {
+    font-size: 26px;
+  }
 }
 </style>
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
   const buttons = document.querySelectorAll(".tab-btn");
   const contents = document.querySelectorAll(".tab-content");
-  const reviewWrapper = document.getElementById("review-video-wrapper");
-  const reviewTabID = reviewWrapper.dataset.reviewTab;
 
-  function checkReviewTab(activeID){
-    if(activeID === reviewTabID){
-      reviewWrapper.style.display = "block";
-    } else {
-      reviewWrapper.style.display = "none";
-    }
-  }
-
-  buttons.forEach(btn=>{
+  buttons.forEach(btn => {
     btn.addEventListener("click", function(){
-      buttons.forEach(b=>b.classList.remove("active"));
-      contents.forEach(c=>c.classList.remove("active"));
+      buttons.forEach(b => b.classList.remove("active"));
+      contents.forEach(c => c.classList.remove("active"));
 
       this.classList.add("active");
-      const activeID = this.dataset.tab;
-      document.getElementById(activeID).classList.add("active");
-
-      checkReviewTab(activeID);
+      document.getElementById(this.dataset.tab).classList.add("active");
     });
   });
 
-  // Initial check
-  const firstActive = document.querySelector(".tab-btn.active").dataset.tab;
-  checkReviewTab(firstActive);
-
-  // Video play
-  document.querySelectorAll(".video-wrapper").forEach(wrapper=>{
+  document.querySelectorAll(".video-wrapper").forEach(wrapper => {
     wrapper.addEventListener("click", function(){
       const videoURL = this.dataset.video;
-      if(videoURL.includes("youtube")){
+
+      if(videoURL.includes("youtube") || videoURL.includes("youtu.be")){
         this.innerHTML = `<iframe width="100%" height="315" src="${videoURL}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
       } else {
         this.innerHTML = `<video controls autoplay width="100%"><source src="${videoURL}" type="video/mp4"></video>`;
