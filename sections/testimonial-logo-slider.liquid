@@ -104,8 +104,6 @@
       <button class="nav prev">&#8592;</button>
       <button class="nav next">&#8594;</button>
 
-      <div class="dots"></div>
-
     </div>
   </div>
 </section>
@@ -122,26 +120,32 @@
   max-width:1000px;
   margin:0 auto;
   position:relative;
+  overflow:hidden;
 }
 
 .slides {
   display:flex;
-  align-items:center;
-  transition:transform 0.5s ease;
+  transition:transform 0.6s ease-in-out;
+  will-change: transform;
 }
 
 .slide {
-  flex:0 0 50%;
-  opacity:0.5;
+  flex:0 0 100%;
+  padding:40px 20px;
+  transition:all 0.5s ease;
+  opacity:0.4;
   transform:scale(0.85);
-  transition:all 0.4s ease;
-  padding:20px;
 }
 
 .slide.active {
-  flex:0 0 100%;
   opacity:1;
   transform:scale(1);
+}
+
+.slide.prev,
+.slide.next {
+  opacity:0.6;
+  transform:scale(0.9);
 }
 
 .subtext {
@@ -196,11 +200,9 @@
 }
 
 @media(max-width:768px){
-  .slide,
-  .slide.active{
-    flex:0 0 100%;
-    opacity:1;
-    transform:scale(1);
+  .slide{
+    opacity:1 !important;
+    transform:scale(1) !important;
   }
   .quote{font-size:20px;}
 }
@@ -212,102 +214,71 @@ document.addEventListener("DOMContentLoaded", function(){
   const slider = document.querySelector(".testimonial-slider");
   if(!slider) return;
 
-  const slidesContainer = slider.querySelector(".slides");
+  const track = slider.querySelector(".slides");
   let slides = slider.querySelectorAll(".slide");
-  const prevBtn = slider.querySelector(".prev");
-  const nextBtn = slider.querySelector(".next");
-  const dotsContainer = slider.querySelector(".dots");
+  const prev = slider.querySelector(".prev");
+  const next = slider.querySelector(".next");
 
   const total = slides.length;
-  const autoplay = {{ section.settings.autoplay }};
-  const speed = {{ section.settings.speed }};
-
-  if(total < 2) return;
+  if(total < 3) return;
 
   let index = 1;
+  let isMoving = false;
 
-  // ===== Clone for Infinite Loop =====
-  const firstClone = slides[0].cloneNode(true);
-  const lastClone = slides[total - 1].cloneNode(true);
+  // Clone first & last
+  const first = slides[0].cloneNode(true);
+  const last = slides[total - 1].cloneNode(true);
 
-  slidesContainer.appendChild(firstClone);
-  slidesContainer.insertBefore(lastClone, slidesContainer.firstChild);
+  track.appendChild(first);
+  track.insertBefore(last, slides[0]);
 
   slides = slider.querySelectorAll(".slide");
 
-  function setPosition(animate = true){
+  function update(animate = true){
     const slideWidth = slides[0].offsetWidth;
-    slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
-    slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
+    track.style.transition = animate ? "transform 0.5s ease" : "none";
+    track.style.transform = `translateX(-${(index) * slideWidth}px)`;
 
     slides.forEach(s => s.classList.remove("active"));
-    if(slides[index]){
-      slides[index].classList.add("active");
-    }
-
-    updateDots();
-  }
-
-  function updateDots(){
-    let realIndex = index - 1;
-
-    if(realIndex >= total) realIndex = 0;
-    if(realIndex < 0) realIndex = total - 1;
-
-    dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
-      dot.classList.toggle("active", i === realIndex);
-    });
+    slides[index].classList.add("active");
   }
 
   function nextSlide(){
-    if(index >= slides.length - 1) return;
+    if(isMoving) return;
+    isMoving = true;
     index++;
-    setPosition(true);
+    update(true);
   }
 
   function prevSlide(){
-    if(index <= 0) return;
+    if(isMoving) return;
+    isMoving = true;
     index--;
-    setPosition(true);
+    update(true);
   }
 
-  slidesContainer.addEventListener("transitionend", function(){
+  track.addEventListener("transitionend", function(){
 
-    if(index === slides.length - 1){
+    if(index === total + 1){
       index = 1;
-      setPosition(false);
+      update(false);
     }
 
     if(index === 0){
       index = total;
-      setPosition(false);
+      update(false);
     }
 
+    isMoving = false;
   });
 
-  nextBtn.addEventListener("click", nextSlide);
-  prevBtn.addEventListener("click", prevSlide);
+  next.addEventListener("click", nextSlide);
+  prev.addEventListener("click", prevSlide);
 
-  // ===== Create Dots =====
-  dotsContainer.innerHTML = "";
-  for(let i = 0; i < total; i++){
-    const dot = document.createElement("span");
-    dot.addEventListener("click", ()=>{
-      index = i + 1;
-      setPosition(true);
-    });
-    dotsContainer.appendChild(dot);
-  }
+  window.addEventListener("resize", ()=> update(false));
 
-  // Initial Position
-  setPosition(false);
-
-  // ===== Autoplay =====
-  if(autoplay){
-    setInterval(()=>{
-      nextSlide();
-    }, speed);
-  }
+  update(false);
 
 });
 </script>
+
