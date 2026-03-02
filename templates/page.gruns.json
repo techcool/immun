@@ -347,42 +347,30 @@
     "tabbed_video_testimonials_CN3Fj9": {
       "type": "tabbed-video-testimonials",
       "blocks": {
-        "testimonial_VKCnnM": {
-          "type": "testimonial",
-          "settings": {
-            "parent_tab": "",
-            "content": "",
-            "author": ""
-          }
-        },
-        "review_video_C9fcgy": {
-          "type": "review_video",
-          "settings": {
-            "thumbnail": "shopify://shop_images/ShopTile-OG-Adults_1.png",
-            "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
-          }
-        },
-        "review_video_UrRWiB": {
-          "type": "review_video",
-          "settings": {
-            "thumbnail": "shopify://shop_images/ShopTile-OG-Adults_1.png",
-            "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
-          }
-        },
-        "testimonial_VjUddP": {
-          "type": "testimonial",
-          "settings": {
-            "parent_tab": "taste",
-            "content": "So easy to grab and eat on my way to the billion things I have to do as a mom\n\nPortable! Love the flavor and it’s so easy to grab and eat on my way to the billion things I have to do as a mom. Easy way to get my nutrients in!",
-            "author": "Kelli L."
-          }
-        },
         "tab_YfxJm7": {
           "type": "tab",
           "name": "Taste",
           "settings": {
             "tab_id": "taste",
             "tab_label": "Taste"
+          }
+        },
+        "testimonial_VjUddP": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "taste",
+            "content": "<p><strong>10/10 would recommend. The convenience and taste are huge! Like mixed berries!</strong><br/><br/>Plus not having to clean a shaker bottle or extra dishes for greens stuff in powder form, is absolutely excellent!<br/><br/></p>",
+            "author": "Dustin O.",
+            "rating": "5"
+          }
+        },
+        "testimonial_VKCnnM": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "",
+            "content": "",
+            "author": "",
+            "rating": "5"
           }
         },
         "tab_WfHVUD": {
@@ -424,24 +412,61 @@
             "tab_id": "convenience",
             "tab_label": "Convenience"
           }
+        },
+        "review_video_UrRWiB": {
+          "type": "review_video",
+          "settings": {
+            "video_url": "",
+            "embed_code": "<div style=\"padding:177.78% 0 0 0;position:relative;\"><iframe src=\"https://player.vimeo.com/video/1026964348?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"Testimonial Video - Claire - Value\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>"
+          }
+        },
+        "review_video_4E3Uqw": {
+          "type": "review_video",
+          "settings": {
+            "video_url": "",
+            "embed_code": "<div style=\"padding:177.78% 0 0 0;position:relative;\"><iframe src=\"https://player.vimeo.com/video/1026964479?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"Testimonial Video - Zac Cardwell - Convenience\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>"
+          }
+        },
+        "review_video_PatWXM": {
+          "type": "review_video",
+          "settings": {
+            "video_url": "",
+            "embed_code": "<div style=\"padding:177.78% 0 0 0;position:relative;\"><iframe src=\"https://player.vimeo.com/video/1026964436?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"Testimonial Video - Paige Flamm - Ingredients\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>"
+          }
+        },
+        "review_video_NR9pcW": {
+          "type": "review_video",
+          "settings": {
+            "video_url": "",
+            "embed_code": "<div style=\"padding:177.78% 0 0 0;position:relative;\"><iframe src=\"https://player.vimeo.com/video/1026964397?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"Testimonial Video - Jill Justine - Benefits\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>"
+          }
+        },
+        "review_video_C9fcgy": {
+          "type": "review_video",
+          "settings": {
+            "video_url": "",
+            "embed_code": "<div style=\"padding:177.78% 0 0 0;position:relative;\"><iframe src=\"https://player.vimeo.com/video/1026964420?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"Testimonial Video - Kennedy Johnson - AG1\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>"
+          }
         }
       },
       "block_order": [
-        "testimonial_VKCnnM",
-        "review_video_C9fcgy",
-        "review_video_UrRWiB",
-        "testimonial_VjUddP",
         "tab_YfxJm7",
+        "testimonial_VjUddP",
+        "testimonial_VKCnnM",
         "tab_WfHVUD",
         "tab_fmq9Nj",
         "tab_TUBYeg",
         "tab_w4gcXr",
-        "tab_3LHpqE"
+        "tab_3LHpqE",
+        "review_video_UrRWiB",
+        "review_video_4E3Uqw",
+        "review_video_PatWXM",
+        "review_video_NR9pcW",
+        "review_video_C9fcgy"
       ],
       "name": "Tabbed Video Testimonials",
       "settings": {
         "heading": "Join 1,000,000+ Others Filling Nutrition Gaps",
-        "review_tab_id": "review",
         "bg_color": "#dfe9e2"
       }
     }
