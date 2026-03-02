@@ -38,32 +38,32 @@
 .testimonial-slider{
   background:#f7f7f5;
   overflow:hidden;
-  text-align:center;
   position:relative;
+  text-align:center;
 }
 
 .slider-wrapper{
   max-width:1200px;
   margin:auto;
-  position:relative;
   overflow:hidden;
+  position:relative;
+  padding:0 15%; /* This creates 1/2 preview */
 }
 
 .slides{
   display:flex;
-  align-items:center;
+  transition:transform .5s ease;
 }
 
 .slide{
-  flex:0 0 50%;
-  padding:30px 20px;
-  opacity:0.4;
-  transform:scale(0.85);
+  flex:0 0 70%; /* Main visible width */
+  margin:0 15px;
+  opacity:.4;
+  transform:scale(.85);
   transition:all .4s ease;
 }
 
 .slide.active{
-  flex:0 0 100%;
   opacity:1;
   transform:scale(1);
 }
@@ -91,28 +91,24 @@
   width:45px;
   height:45px;
   border-radius:50%;
-  border:1px solid #ddd;
   background:#fff;
+  border:1px solid #ddd;
   cursor:pointer;
-  z-index:5;
+  z-index:10;
 }
 
 .prev{ left:10px; }
 .next{ right:10px; }
 
-/* Tablet */
+/* Tablet & Mobile */
 @media(max-width:991px){
-  .slide,
-  .slide.active{
+  .slider-wrapper{ padding:0; }
+  .slide{
     flex:0 0 100%;
+    margin:0;
     opacity:1;
     transform:scale(1);
   }
-}
-
-/* Mobile */
-@media(max-width:600px){
-  .quote{ font-size:20px; }
 }
 </style>
 
@@ -135,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   let index = 1;
 
-  // Clone first & last
+  // Clone slides
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[total - 1].cloneNode(true);
 
@@ -145,12 +141,12 @@ document.addEventListener("DOMContentLoaded", function(){
   slides = slider.querySelectorAll(".slide");
 
   function getSlideWidth(){
-    return slider.querySelector(".slide").offsetWidth;
+    return slides[0].offsetWidth + 30; // including margin
   }
 
   function updateSlider(animate = true){
     const slideWidth = getSlideWidth();
-    slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
+    slidesContainer.style.transition = animate ? "transform .5s ease" : "none";
     slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
 
     slides.forEach(s => s.classList.remove("active"));
@@ -195,63 +191,3 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 </script>
-
-{% schema %}
-{
-  "name": "Testimonial Logo Slider",
-  "settings": [
-    {
-      "type": "text",
-      "id": "custom_class",
-      "label": "Custom Class"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 150,
-      "step": 5,
-      "default": 80,
-      "label": "Padding Top"
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 150,
-      "step": 5,
-      "default": 80,
-      "label": "Padding Bottom"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Enable Autoplay",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "speed",
-      "min": 2000,
-      "max": 8000,
-      "step": 500,
-      "default": 4000,
-      "label": "Autoplay Speed (ms)"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "slide",
-      "name": "Slide",
-      "settings": [
-        { "type": "textarea", "id": "quote", "label": "Quote Text" },
-        { "type": "text", "id": "subtext", "label": "Sub Text" },
-        { "type": "image_picker", "id": "logo", "label": "Logo Image" }
-      ]
-    }
-  ],
-  "presets": [
-    { "name": "Testimonial Logo Slider" }
-  ]
-}
-{% endschema %}
