@@ -347,18 +347,19 @@
     "tabbed_video_testimonials_CN3Fj9": {
       "type": "tabbed-video-testimonials",
       "blocks": {
-        "video_QXW9MC": {
-          "type": "video",
-          "settings": {
-            "parent_tab": "",
-            "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
-          }
-        },
         "tab_YfxJm7": {
           "type": "tab",
           "settings": {
             "tab_id": "taste",
             "tab_label": "Taste"
+          }
+        },
+        "video_QXW9MC": {
+          "type": "video",
+          "settings": {
+            "parent_tab": "taste",
+            "thumbnail": "shopify://shop_images/ShopTile-OG-Kids_1.png",
+            "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
           }
         },
         "tab_fmq9Nj": {
@@ -377,8 +378,8 @@
         }
       },
       "block_order": [
-        "video_QXW9MC",
         "tab_YfxJm7",
+        "video_QXW9MC",
         "tab_fmq9Nj",
         "tab_KmUNDP"
       ],
