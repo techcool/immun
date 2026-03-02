@@ -1,21 +1,23 @@
 {% schema %}
 {
-  "name": "Tabbed Testimonials",
+  "name": "Advanced Tabbed",
   "settings": [
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
+      "label": "Section Heading",
       "default": "Join 1,000,000+ Others Filling Nutrition Gaps"
     },
     {
       "type": "color",
       "id": "bg_color",
-      "label": "Background",
-      "default": "#dfe9e2"
+      "label": "Background Color",
+      "default": "#f5f5f5"
     }
   ],
   "blocks": [
+
+    /* ---------------- TAB BLOCK ---------------- */
     {
       "type": "tab",
       "name": "Tab",
@@ -23,18 +25,30 @@
         {
           "type": "text",
           "id": "tab_id",
-          "label": "Tab ID (lowercase, no spaces)"
+          "label": "Tab ID (unique, lowercase)"
         },
         {
           "type": "text",
           "id": "tab_label",
           "label": "Tab Label"
+        },
+        {
+          "type": "select",
+          "id": "layout_style",
+          "label": "Tab Layout Style",
+          "options": [
+            { "value": "grid", "label": "Grid Layout" },
+            { "value": "compact", "label": "Compact Layout" }
+          ],
+          "default": "grid"
         }
       ]
     },
+
+    /* ---------------- TESTIMONIAL BLOCK ---------------- */
     {
       "type": "testimonial",
-      "name": "Testimonial",
+      "name": "Testimonial Item",
       "settings": [
         {
           "type": "text",
@@ -42,25 +56,32 @@
           "label": "Parent Tab ID"
         },
         {
-          "type": "textarea",
+          "type": "richtext",
           "id": "content",
-          "label": "Testimonial Text"
+          "label": "Testimonial Content"
         },
         {
           "type": "text",
           "id": "author",
-          "label": "Author"
+          "label": "Author Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author Image"
         }
       ]
     },
+
+    /* ---------------- VIDEO BLOCK ---------------- */
     {
       "type": "review_video",
-      "name": "Review Video",
+      "name": "Review Video Item",
       "settings": [
         {
           "type": "image_picker",
           "id": "thumbnail",
-          "label": "Thumbnail"
+          "label": "Video Thumbnail"
         },
         {
           "type": "text",
@@ -69,19 +90,19 @@
         }
       ]
     }
+
   ],
   "presets": [
     {
-      "name": "Tabbed Testimonials + Video"
+      "name": "Advanced Tabbed Testimonials PRO"
     }
   ]
 }
 {% endschema %}
 
-<section class="custom-tabs-section" style="background: {{ section.settings.bg_color }};">
+<section class="adv-tabs-pro" style="background: {{ section.settings.bg_color }};">
   <div class="container">
 
-    <!-- Heading -->
     <h2 class="section-heading">{{ section.settings.heading }}</h2>
 
     <!-- Tabs -->
@@ -96,40 +117,57 @@
       {% endfor %}
     </div>
 
-    <!-- Testimonials Content -->
+    <!-- Tab Content -->
     {% for tab in section.blocks %}
       {% if tab.type == 'tab' %}
         <div class="tab-content {% if forloop.first %}active{% endif %}"
-             id="{{ tab.settings.tab_id }}">
+             id="{{ tab.settings.tab_id }}"
+             data-layout="{{ tab.settings.layout_style }}">
 
-          <div class="testimonial-grid">
+          <div class="testimonial-wrapper layout-{{ tab.settings.layout_style }}">
+
             {% for block in section.blocks %}
               {% if block.type == 'testimonial' and block.settings.parent_tab == tab.settings.tab_id %}
-                <div class="testimonial-item">
+                <div class="testimonial-card">
+
+                  {% if block.settings.author_image != blank %}
+                    <img class="author-img"
+                         src="{{ block.settings.author_image | image_url: width: 80 }}"
+                         alt="">
+                  {% endif %}
+
                   <div class="stars">★★★★★</div>
-                  <p>{{ block.settings.content }}</p>
-                  <strong>{{ block.settings.author }}</strong>
+
+                  <div class="content">
+                    {{ block.settings.content }}
+                  </div>
+
+                  <div class="author">
+                    {{ block.settings.author }}
+                  </div>
+
                 </div>
               {% endif %}
             {% endfor %}
+
           </div>
 
         </div>
       {% endif %}
     {% endfor %}
 
-    <!-- Review Video Section (Always Visible) -->
-    <div class="review-video-wrapper">
+    <!-- Separate Video Section -->
+    <div class="review-video-section">
 
       <div class="video-grid">
         {% for block in section.blocks %}
           {% if block.type == 'review_video' %}
-            <div class="video-card">
+            <div class="video-item">
               <div class="video-wrapper" data-video="{{ block.settings.video_url }}">
                 {% if block.settings.thumbnail != blank %}
-                  <img src="{{ block.settings.thumbnail | image_url: width: 600 }}" alt="">
+                  <img src="{{ block.settings.thumbnail | image_url: width: 600 }}">
                 {% endif %}
-                <div class="play-btn">▶</div>
+                <span class="play-btn">▶</span>
               </div>
             </div>
           {% endif %}
@@ -142,131 +180,113 @@
 </section>
 
 <style>
-.custom-tabs-section {
-  padding: 80px 20px;
-  text-align: center;
-}
-.container {
-  max-width: 1200px;
-  margin: auto;
-}
-.section-heading {
-  font-size: 36px;
-  margin-bottom: 30px;
-}
+.adv-tabs-pro { padding:80px 20px; }
+.container { max-width:1200px; margin:auto; }
+
+.section-heading { text-align:center; margin-bottom:40px; }
 
 .tabs {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:40px;
 }
 .tab-btn {
-  padding: 10px 22px;
-  border-radius: 30px;
-  border: 1px solid #1b5e3c;
-  background: transparent;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s ease;
+  padding:10px 22px;
+  border-radius:30px;
+  border:1px solid #111;
+  background:transparent;
+  cursor:pointer;
 }
 .tab-btn.active {
-  background: #1b5e3c;
-  color: #fff;
+  background:#111;
+  color:#fff;
 }
 
-.tab-content {
-  display: none;
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+
+/* Layout Variations */
+.layout-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
 }
-.tab-content.active {
-  display: block;
+.layout-compact {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
 }
 
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-bottom: 60px;
+.testimonial-card {
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
 }
-
-.testimonial-item {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
+.author-img {
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  margin-bottom:10px;
 }
-
-.stars {
-  color: #1b5e3c;
-  margin-bottom: 10px;
-}
+.stars { margin-bottom:10px; }
+.author { margin-top:10px; font-weight:bold; }
 
 /* Video Section */
-.review-video-wrapper {
-  margin-top: 40px;
+.review-video-section {
+  margin-top:60px;
 }
-
 .video-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:20px;
 }
-
 .video-wrapper {
-  position: relative;
-  cursor: pointer;
+  position:relative;
+  cursor:pointer;
 }
 .video-wrapper img {
-  width: 100%;
-  border-radius: 16px;
+  width:100%;
+  border-radius:16px;
 }
 .play-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 30px;
-  color: #fff;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:30px;
+  color:#fff;
 }
 
-/* Responsive */
-@media(max-width: 991px){
-  .testimonial-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .video-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+@media(max-width:991px){
+  .layout-grid { grid-template-columns:repeat(2,1fr); }
+  .video-grid { grid-template-columns:repeat(2,1fr); }
 }
-
-@media(max-width: 600px){
-  .testimonial-grid,
-  .video-grid {
-    grid-template-columns: 1fr;
-  }
-  .section-heading {
-    font-size: 26px;
-  }
+@media(max-width:600px){
+  .layout-grid,
+  .layout-compact,
+  .video-grid { grid-template-columns:1fr; }
 }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
-  const buttons = document.querySelectorAll(".tab-btn");
+  const tabs = document.querySelectorAll(".tab-btn");
   const contents = document.querySelectorAll(".tab-content");
 
-  buttons.forEach(btn => {
+  tabs.forEach(btn=>{
     btn.addEventListener("click", function(){
-      buttons.forEach(b => b.classList.remove("active"));
-      contents.forEach(c => c.classList.remove("active"));
+      tabs.forEach(b=>b.classList.remove("active"));
+      contents.forEach(c=>c.classList.remove("active"));
 
       this.classList.add("active");
       document.getElementById(this.dataset.tab).classList.add("active");
     });
   });
 
-  document.querySelectorAll(".video-wrapper").forEach(wrapper => {
+  document.querySelectorAll(".video-wrapper").forEach(wrapper=>{
     wrapper.addEventListener("click", function(){
       const videoURL = this.dataset.video;
 
