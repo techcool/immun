@@ -222,10 +222,11 @@ document.addEventListener("DOMContentLoaded", function(){
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.speed }};
 
-  let index = 1;
-
   if(total < 2) return;
 
+  let index = 1;
+
+  // ===== Clone for Infinite Loop =====
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[total - 1].cloneNode(true);
 
@@ -234,14 +235,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
   slides = slider.querySelectorAll(".slide");
 
-  function updateSlider(animate = true){
+  function setPosition(animate = true){
     const slideWidth = slides[0].offsetWidth;
-
     slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
     slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
 
-    slides.forEach(slide => slide.classList.remove("active"));
-
+    slides.forEach(s => s.classList.remove("active"));
     if(slides[index]){
       slides[index].classList.add("active");
     }
@@ -261,25 +260,27 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   function nextSlide(){
+    if(index >= slides.length - 1) return;
     index++;
-    updateSlider();
+    setPosition(true);
   }
 
   function prevSlide(){
+    if(index <= 0) return;
     index--;
-    updateSlider();
+    setPosition(true);
   }
 
-  slidesContainer.addEventListener("transitionend", ()=>{
+  slidesContainer.addEventListener("transitionend", function(){
 
-    if(index >= total + 1){
+    if(index === slides.length - 1){
       index = 1;
-      updateSlider(false);
+      setPosition(false);
     }
 
-    if(index <= 0){
+    if(index === 0){
       index = total;
-      updateSlider(false);
+      setPosition(false);
     }
 
   });
@@ -287,19 +288,25 @@ document.addEventListener("DOMContentLoaded", function(){
   nextBtn.addEventListener("click", nextSlide);
   prevBtn.addEventListener("click", prevSlide);
 
+  // ===== Create Dots =====
+  dotsContainer.innerHTML = "";
   for(let i = 0; i < total; i++){
     const dot = document.createElement("span");
     dot.addEventListener("click", ()=>{
       index = i + 1;
-      updateSlider();
+      setPosition(true);
     });
     dotsContainer.appendChild(dot);
   }
 
-  updateSlider(false);
+  // Initial Position
+  setPosition(false);
 
+  // ===== Autoplay =====
   if(autoplay){
-    setInterval(nextSlide, speed);
+    setInterval(()=>{
+      nextSlide();
+    }, speed);
   }
 
 });
