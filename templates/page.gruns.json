@@ -347,6 +347,14 @@
     "tabbed_video_testimonials_CN3Fj9": {
       "type": "tabbed-video-testimonials",
       "blocks": {
+        "testimonial_VKCnnM": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "",
+            "content": "",
+            "author": ""
+          }
+        },
         "review_video_C9fcgy": {
           "type": "review_video",
           "settings": {
@@ -419,6 +427,7 @@
         }
       },
       "block_order": [
+        "testimonial_VKCnnM",
         "review_video_C9fcgy",
         "review_video_UrRWiB",
         "testimonial_VjUddP",
