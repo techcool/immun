@@ -347,6 +347,14 @@
     "tabbed_video_testimonials_CN3Fj9": {
       "type": "tabbed-video-testimonials",
       "blocks": {
+        "testimonial_VjUddP": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "taste",
+            "content": "So easy to grab and eat on my way to the billion things I have to do as a mom\n\nPortable! Love the flavor and it’s so easy to grab and eat on my way to the billion things I have to do as a mom. Easy way to get my nutrients in!",
+            "author": "Kelli L."
+          }
+        },
         "tab_YfxJm7": {
           "type": "tab",
           "settings": {
@@ -378,6 +386,7 @@
         }
       },
       "block_order": [
+        "testimonial_VjUddP",
         "tab_YfxJm7",
         "video_QXW9MC",
         "tab_fmq9Nj",
