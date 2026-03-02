@@ -358,7 +358,7 @@
         "video_QXW9MC": {
           "type": "video",
           "settings": {
-            "parent_tab": "taste value",
+            "parent_tab": "taste",
             "thumbnail": "shopify://shop_images/ShopTile-OG-Kids_1.png",
             "video_url": "https://vimeo.com/1026964420?fl=pl&fe=cm"
           }
