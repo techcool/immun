@@ -347,6 +347,22 @@
     "tabbed_video_testimonials_CN3Fj9": {
       "type": "tabbed-video-testimonials",
       "blocks": {
+        "tab_3LHpqE": {
+          "type": "tab",
+          "name": "Convenience",
+          "settings": {
+            "tab_id": "convenience",
+            "tab_label": "Convenience"
+          }
+        },
+        "tab_w4gcXr": {
+          "type": "tab",
+          "name": "Ingredients",
+          "settings": {
+            "tab_id": "ingredients",
+            "tab_label": "Ingredients"
+          }
+        },
         "tab_WfHVUD": {
           "type": "tab",
           "name": "Value",
@@ -397,6 +413,8 @@
         }
       },
       "block_order": [
+        "tab_3LHpqE",
+        "tab_w4gcXr",
         "tab_WfHVUD",
         "testimonial_VjUddP",
         "tab_YfxJm7",
