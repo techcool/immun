@@ -90,12 +90,11 @@
         <div class="tab-content {% if forloop.first %}active{% endif %}"
              id="{{ tab.settings.tab_id }}">
 
-          <div class="testimonial-grid">
+          <div class="testimonial-flex">
             {% for block in section.blocks %}
               {% if block.type == 'testimonial' and block.settings.parent_tab == tab.settings.tab_id %}
                 <div class="testimonial-card">
 
-                  <!-- Dynamic Rating -->
                   <div class="stars">
                     {% assign rating = block.settings.rating | plus: 0 %}
                     {% for i in (1..5) %}
@@ -126,7 +125,7 @@
 
     <!-- Video Section -->
     <div class="review-video-section">
-      <div class="video-grid">
+      <div class="video-flex">
 
         {% for block in section.blocks %}
           {% if block.type == 'review_video' %}
@@ -163,6 +162,7 @@
 .container { max-width:1200px; margin:auto; }
 .section-heading { text-align:center; margin-bottom:40px; }
 
+/* Tabs */
 .tabs {
   display:flex;
   justify-content:center;
@@ -179,17 +179,20 @@
 }
 .tab-btn.active { background:#000; color:#fff; }
 
+/* Tab Content */
 .tab-content { display:none; }
 .tab-content.active { display:block; }
 
-.testimonial-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
+/* FLEX Testimonials */
+.testimonial-flex {
+  display:flex;
+  flex-wrap:wrap;
   gap:30px;
   margin-bottom:60px;
 }
 
 .testimonial-card {
+  flex: 0 0 calc(33.33% - 20px);
   background:#fff;
   padding:25px;
   border-radius:12px;
@@ -201,11 +204,17 @@
   margin-bottom:10px;
 }
 
+/* FLEX Videos */
 .review-video-section { margin-top:40px; }
-.video-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+.video-flex {
+  display:flex;
+  flex-wrap:wrap;
   gap:20px;
+}
+
+.video-item {
+  flex: 0 0 calc(33.33% - 14px);
 }
 
 .video-wrapper iframe,
@@ -214,13 +223,21 @@
   border-radius:12px;
 }
 
+/* Responsive */
 @media(max-width:991px){
-  .testimonial-grid { grid-template-columns:repeat(2,1fr); }
-  .video-grid { grid-template-columns:repeat(2,1fr); }
+  .testimonial-card {
+    flex: 0 0 calc(50% - 15px);
+  }
+  .video-item {
+    flex: 0 0 calc(50% - 10px);
+  }
 }
+
 @media(max-width:600px){
-  .testimonial-grid,
-  .video-grid { grid-template-columns:1fr; }
+  .testimonial-card,
+  .video-item {
+    flex: 0 0 100%;
+  }
 }
 </style>
 
