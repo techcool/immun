@@ -1,7 +1,13 @@
 {% schema %}
 {
-  "name": "Dynamic Testimonial",
+  "name": "Press Slider",
   "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f6f6f4"
+    },
     {
       "type": "checkbox",
       "id": "autoplay",
@@ -10,18 +16,12 @@
     },
     {
       "type": "range",
-      "id": "autoplay_speed",
-      "label": "Autoplay Speed (seconds)",
+      "id": "speed",
+      "label": "Autoplay Speed",
       "min": 3,
-      "max": 10,
+      "max": 8,
       "step": 1,
       "default": 5
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color",
-      "default": "#f4f4f4"
     }
   ],
   "blocks": [
@@ -32,167 +32,195 @@
         {
           "type": "textarea",
           "id": "quote",
-          "label": "Quote Text"
+          "label": "Quote"
         },
         {
           "type": "image_picker",
           "id": "logo",
-          "label": "Brand Logo"
+          "label": "Logo"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Dynamic Testimonial Slider"
+      "name": "Press Slider"
     }
   ]
 }
 {% endschema %}
 
 <style>
-.testimonial-slider {
+.press-section {
+  background: {{ section.settings.bg_color }};
+  padding: 120px 20px;
+  overflow: hidden;
   position: relative;
-  padding: 80px 20px;
   text-align: center;
 }
 
-.testimonial-slide {
-  display: none;
-  max-width: 900px;
-  margin: 0 auto;
+.press-wrapper {
+  display: flex;
+  transition: transform 0.6s ease;
 }
 
-.testimonial-slide.active {
-  display: block;
+.press-slide {
+  min-width: 100%;
+  opacity: 0.4;
+  transition: opacity 0.5s ease;
 }
 
-.testimonial-quote {
+.press-slide.active {
+  opacity: 1;
+}
+
+.press-quote {
   font-size: 20px;
-  margin-bottom: 30px;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: #1f3d2b;
 }
 
-.testimonial-logo img {
-  max-height: 60px;
+.press-logo img {
+  max-height: 70px;
   margin: 0 auto;
 }
 
-.slider-arrows {
+.press-arrows {
   position: absolute;
   top: 50%;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
+  padding: 0 40px;
 }
 
-.slider-arrow {
-  width: 45px;
-  height: 45px;
+.press-arrow {
+  width: 50px;
+  height: 50px;
   border: 2px solid #1f3d2b;
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
   font-size: 18px;
+  color: #1f3d2b;
 }
 
-.slider-dots {
-  margin-top: 30px;
+.press-dots {
+  margin-top: 40px;
 }
 
-.slider-dots span {
-  height: 8px;
+.press-dots span {
   width: 8px;
-  background: #999;
+  height: 8px;
+  margin: 0 5px;
+  background: #b7c2b9;
   display: inline-block;
   border-radius: 50%;
-  margin: 0 5px;
   cursor: pointer;
 }
 
-.slider-dots span.active {
+.press-dots span.active {
   background: #1f3d2b;
 }
 
-@media(max-width: 768px){
-  .testimonial-quote {
+@media(max-width:768px){
+  .press-section {
+    padding: 80px 20px;
+  }
+
+  .press-quote {
     font-size: 16px;
+  }
+
+  .press-arrows {
+    padding: 0 15px;
   }
 }
 </style>
 
-<section class="testimonial-slider" style="background: {{ section.settings.bg_color }};">
-  
-  {% for block in section.blocks %}
-    <div class="testimonial-slide {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}">
-      
-      <div class="testimonial-quote">
-        "{{ block.settings.quote }}"
-      </div>
-
-      {% if block.settings.logo %}
-      <div class="testimonial-logo">
-        <img src="{{ block.settings.logo | image_url }}" alt="logo">
-      </div>
-      {% endif %}
-
-    </div>
-  {% endfor %}
-
-  <div class="slider-arrows">
-    <button class="slider-arrow prev">&#8592;</button>
-    <button class="slider-arrow next">&#8594;</button>
-  </div>
-
-  <div class="slider-dots">
+<section class="press-section">
+  <div class="press-wrapper" id="pressWrapper">
     {% for block in section.blocks %}
-      <span data-index="{{ forloop.index0 }}" class="{% if forloop.first %}active{% endif %}"></span>
+      <div class="press-slide {% if forloop.first %}active{% endif %}">
+        <div class="press-quote">
+          "{{ block.settings.quote }}"
+        </div>
+        {% if block.settings.logo %}
+        <div class="press-logo">
+          <img src="{{ block.settings.logo | image_url }}" alt="logo">
+        </div>
+        {% endif %}
+      </div>
     {% endfor %}
   </div>
 
+  {% if section.blocks.size > 1 %}
+  <div class="press-arrows">
+    <button class="press-arrow" id="prev">&#8592;</button>
+    <button class="press-arrow" id="next">&#8594;</button>
+  </div>
+
+  <div class="press-dots" id="pressDots">
+    {% for block in section.blocks %}
+      <span class="{% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></span>
+    {% endfor %}
+  </div>
+  {% endif %}
 </section>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const slides = document.querySelectorAll(".testimonial-slide");
-  const dots = document.querySelectorAll(".slider-dots span");
-  const prev = document.querySelector(".prev");
-  const next = document.querySelector(".next");
+document.addEventListener("DOMContentLoaded", function(){
+
+  const wrapper = document.getElementById("pressWrapper");
+  const slides = document.querySelectorAll(".press-slide");
+  const dots = document.querySelectorAll("#pressDots span");
+  const prev = document.getElementById("prev");
+  const next = document.getElementById("next");
 
   let index = 0;
+  let total = slides.length;
   let autoplay = {{ section.settings.autoplay }};
-  let speed = {{ section.settings.autoplay_speed }} * 1000;
+  let speed = {{ section.settings.speed }} * 1000;
   let interval;
 
-  function showSlide(i) {
-    slides.forEach(slide => slide.classList.remove("active"));
-    dots.forEach(dot => dot.classList.remove("active"));
-    slides[i].classList.add("active");
-    dots[i].classList.add("active");
-    index = i;
+  function updateSlider(){
+    wrapper.style.transform = "translateX(-" + index * 100 + "%)";
+    slides.forEach(s => s.classList.remove("active"));
+    dots.forEach(d => d.classList.remove("active"));
+    slides[index].classList.add("active");
+    dots[index].classList.add("active");
   }
 
-  next.addEventListener("click", () => {
-    index = (index + 1) % slides.length;
-    showSlide(index);
-  });
+  if(next){
+    next.addEventListener("click", function(){
+      index = (index + 1) % total;
+      updateSlider();
+    });
+  }
 
-  prev.addEventListener("click", () => {
-    index = (index - 1 + slides.length) % slides.length;
-    showSlide(index);
-  });
+  if(prev){
+    prev.addEventListener("click", function(){
+      index = (index - 1 + total) % total;
+      updateSlider();
+    });
+  }
 
-  dots.forEach(dot => {
-    dot.addEventListener("click", function() {
-      showSlide(parseInt(this.dataset.index));
+  dots.forEach(dot=>{
+    dot.addEventListener("click", function(){
+      index = parseInt(this.dataset.index);
+      updateSlider();
     });
   });
 
-  if (autoplay) {
-    interval = setInterval(() => {
-      index = (index + 1) % slides.length;
-      showSlide(index);
+  if(autoplay && total > 1){
+    interval = setInterval(function(){
+      index = (index + 1) % total;
+      updateSlider();
     }, speed);
   }
+
 });
 </script>
