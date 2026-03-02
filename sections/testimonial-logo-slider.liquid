@@ -58,186 +58,218 @@
 </section>
 
 <style>
-#testimonial-{{ section.id }} {
-  background:#f7f7f5;
-  overflow:hidden;
-  position:relative;
-  text-align:center;
+.testimonial-slider {
+  background: #f7f7f5;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-#testimonial-{{ section.id }} .slider-wrapper {
-  max-width:1100px;
-  margin:auto;
-  position:relative;
+.slider-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
 }
 
-#testimonial-{{ section.id }} .slides {
-  display:flex;
-  transition:transform 0.5s ease;
+.slides {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
-#testimonial-{{ section.id }} .slide {
-  min-width:33.3333%;
-  padding:20px;
-  opacity:0.5;
-  transform:scale(0.85);
-  transition:all 0.4s ease;
+.slide {
+  flex: 0 0 100%;
+  padding: 20px;
+  opacity: 0.4;
+  transform: scale(0.9);
+  transition: all 0.4s ease;
 }
 
-#testimonial-{{ section.id }} .slide.active {
-  opacity:1;
-  transform:scale(1);
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
 }
 
-#testimonial-{{ section.id }} .subtext {
-  font-size:14px;
-  color:#777;
-  margin-bottom:10px;
+.subtext {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 15px;
 }
 
-#testimonial-{{ section.id }} .quote {
-  font-size:26px;
-  margin-bottom:20px;
+.quote {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 30px;
 }
 
-#testimonial-{{ section.id }} .logo img {
-  max-width:180px;
+.logo img {
+  max-width: 200px;
+  margin: 0 auto;
 }
 
-#testimonial-{{ section.id }} .nav {
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  border:1px solid #ddd;
-  background:#fff;
-  cursor:pointer;
-  z-index:5;
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border: 1px solid #ddd;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 5;
+  transition: 0.3s ease;
 }
 
-#testimonial-{{ section.id }} .prev { left:-20px; }
-#testimonial-{{ section.id }} .next { right:-20px; }
-
-#testimonial-{{ section.id }} .dots {
-  margin-top:30px;
+.nav:hover {
+  background: #000;
+  color: #fff;
 }
 
-#testimonial-{{ section.id }} .dots span {
-  width:8px;
-  height:8px;
-  display:inline-block;
-  background:#ccc;
-  border-radius:50%;
-  margin:0 5px;
-  cursor:pointer;
+.prev { left: 15px; }
+.next { right: 15px; }
+
+.dots {
+  margin-top: 30px;
 }
 
-#testimonial-{{ section.id }} .dots span.active {
-  background:#000;
+.dots span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 5px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.dots span.active {
+  background: #000;
 }
 
 @media(max-width:768px){
-  #testimonial-{{ section.id }} .slide{
-    min-width:100%;
-    opacity:1;
-    transform:scale(1);
-  }
+  .quote { font-size: 20px; }
 }
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
 
-  const section = document.querySelector("#testimonial-{{ section.id }}");
-  if(!section) return;
+  document.querySelectorAll(".testimonial-slider").forEach(function (slider) {
 
-  const slidesContainer = section.querySelector(".slides");
-  const prevBtn = section.querySelector(".prev");
-  const nextBtn = section.querySelector(".next");
-  const dotsContainer = section.querySelector(".dots");
+    const slidesContainer = slider.querySelector(".slides");
+    const slides = slider.querySelectorAll(".slide");
+    const prevBtn = slider.querySelector(".prev");
+    const nextBtn = slider.querySelector(".next");
+    const dotsContainer = slider.querySelector(".dots");
 
-  let slides = section.querySelectorAll(".slide");
-  const total = slides.length;
-  if(total < 2) return;
+    const total = slides.length;
+    if (total < 2) return;
 
-  const autoplay = {{ section.settings.autoplay }};
-  const speed = {{ section.settings.speed }};
+    const autoplay = {{ section.settings.autoplay | json }};
+    const speed = {{ section.settings.speed }};
 
-  let index = 1;
+    let index = 1;
+    let interval;
 
-  // Clone first & last
-  const firstClone = slides[0].cloneNode(true);
-  const lastClone = slides[total - 1].cloneNode(true);
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[total - 1].cloneNode(true);
 
-  slidesContainer.appendChild(firstClone);
-  slidesContainer.insertBefore(lastClone, slidesContainer.firstChild);
+    slidesContainer.appendChild(firstClone);
+    slidesContainer.insertBefore(lastClone, slidesContainer.firstChild);
 
-  slides = section.querySelectorAll(".slide");
+    const allSlides = slider.querySelectorAll(".slide");
 
-  function updateSlider(animate=true){
-    const slideWidth = slides[0].offsetWidth;
-    slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
-    slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
+    function updateSlider(animate = true) {
+      const width = slider.offsetWidth;
 
-    slides.forEach(s => s.classList.remove("active"));
+      slidesContainer.style.transition = animate ? "transform 0.6s ease" : "none";
+      slidesContainer.style.transform = `translateX(-${index * width}px)`;
 
-    let centerIndex = index + 1;
-    if(centerIndex >= slides.length) centerIndex = index;
+      allSlides.forEach(slide => slide.classList.remove("active"));
 
-    slides[index].classList.add("active");
-    updateDots();
-  }
+      if (allSlides[index]) {
+        allSlides[index].classList.add("active");
+      }
 
-  function updateDots(){
-    let realIndex = index - 1;
-    if(realIndex >= total) realIndex = 0;
-    if(realIndex < 0) realIndex = total - 1;
-
-    dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
-      dot.classList.toggle("active", i === realIndex);
-    });
-  }
-
-  function nextSlide(){
-    index++;
-    updateSlider();
-  }
-
-  function prevSlide(){
-    index--;
-    updateSlider();
-  }
-
-  slidesContainer.addEventListener("transitionend", ()=>{
-    if(index >= total + 1){
-      index = 1;
-      updateSlider(false);
+      updateDots();
     }
-    if(index <= 0){
-      index = total;
-      updateSlider(false);
+
+    function updateDots() {
+      let realIndex = index - 1;
+
+      if (realIndex >= total) realIndex = 0;
+      if (realIndex < 0) realIndex = total - 1;
+
+      dotsContainer.querySelectorAll("span").forEach((dot, i) => {
+        dot.classList.toggle("active", i === realIndex);
+      });
     }
-  });
 
-  nextBtn.addEventListener("click", nextSlide);
-  prevBtn.addEventListener("click", prevSlide);
-
-  for(let i=0;i<total;i++){
-    const dot=document.createElement("span");
-    dot.addEventListener("click", ()=>{
-      index = i + 1;
+    function nextSlide() {
+      index++;
       updateSlider();
+    }
+
+    function prevSlide() {
+      index--;
+      updateSlider();
+    }
+
+    slidesContainer.addEventListener("transitionend", function () {
+
+      if (index >= total + 1) {
+        index = 1;
+        updateSlider(false);
+      }
+
+      if (index <= 0) {
+        index = total;
+        updateSlider(false);
+      }
     });
-    dotsContainer.appendChild(dot);
-  }
 
-  updateSlider(false);
+    nextBtn.addEventListener("click", () => {
+      nextSlide();
+      resetAutoplay();
+    });
 
-  if(autoplay){
-    setInterval(nextSlide, speed);
-  }
+    prevBtn.addEventListener("click", () => {
+      prevSlide();
+      resetAutoplay();
+    });
+
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement("span");
+      dot.addEventListener("click", function () {
+        index = i + 1;
+        updateSlider();
+        resetAutoplay();
+      });
+      dotsContainer.appendChild(dot);
+    }
+
+    function startAutoplay() {
+      if (autoplay) {
+        interval = setInterval(nextSlide, speed);
+      }
+    }
+
+    function resetAutoplay() {
+      if (autoplay) {
+        clearInterval(interval);
+        startAutoplay();
+      }
+    }
+
+    window.addEventListener("resize", () => updateSlider(false));
+
+    updateSlider(false);
+    startAutoplay();
+
+  });
 
 });
 </script>
