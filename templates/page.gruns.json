@@ -425,6 +425,15 @@
             "tab_label": "Vs Powders"
           }
         },
+        "testimonial_D37zEc": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "vs-powders",
+            "content": "<p><strong>I was super skeptical. These gummies actually do taste really yummy</strong><br/><br/>and they’re easy to throw in a packet and take with me so I can enjoy them anytime. I also stopped buying separate probiotic gummies, b12 gummies, and multivitamin gummies. I just take these now and it’s easier for me to manage.<br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Jamie W.",
+            "rating": "5"
+          }
+        },
         "tab_TUBYeg": {
           "type": "tab",
           "name": "Benefits",
@@ -495,6 +504,7 @@
         "testimonial_PmTjL6",
         "testimonial_bfHJCA",
         "tab_fmq9Nj",
+        "testimonial_D37zEc",
         "tab_TUBYeg",
         "tab_w4gcXr",
         "tab_3LHpqE",
