@@ -1,130 +1,118 @@
 <section id="testimonial-{{ section.id }}" 
-  class="testimonial-slider {{ section.settings.custom_class }}" 
+  class="testimonial-slider {{ section.settings.custom_class }}"
   style="padding-top:{{ section.settings.padding_top }}px;
          padding-bottom:{{ section.settings.padding_bottom }}px;">
 
-  <div class="page-width">
-    <div class="slider-wrapper">
+  <div class="slider-wrapper">
+    <div class="slides">
+      {% for block in section.blocks %}
+        <div class="slide" {{ block.shopify_attributes }}>
+          
+          {% if block.settings.subtext != blank %}
+            <p class="subtext">{{ block.settings.subtext }}</p>
+          {% endif %}
+          
+          {% if block.settings.quote != blank %}
+            <h2 class="quote">{{ block.settings.quote }}</h2>
+          {% endif %}
 
-      <div class="slides">
-        {% for block in section.blocks %}
-          <div class="slide" {{ block.shopify_attributes }}>
-            
-            {% if block.settings.subtext != blank %}
-              <p class="subtext">{{ block.settings.subtext }}</p>
-            {% endif %}
-            
-            {% if block.settings.quote != blank %}
-              <h2 class="quote">{{ block.settings.quote }}</h2>
-            {% endif %}
+          {% if block.settings.logo != blank %}
+            <div class="logo">
+              <img 
+                src="{{ block.settings.logo | image_url: width: 400 }}" 
+                alt="{{ block.settings.logo.alt | escape }}"
+                loading="lazy">
+            </div>
+          {% endif %}
 
-            {% if block.settings.logo != blank %}
-              <div class="logo">
-                <img 
-                  src="{{ block.settings.logo | image_url: width: 400 }}" 
-                  alt="{{ block.settings.logo.alt | escape }}"
-                  loading="lazy">
-              </div>
-            {% endif %}
-
-          </div>
-        {% endfor %}
-      </div>
-
-      <button class="nav prev">&#8592;</button>
-      <button class="nav next">&#8594;</button>
-
-      <div class="dots"></div>
-
+        </div>
+      {% endfor %}
     </div>
+
+    <button class="nav prev">&#8592;</button>
+    <button class="nav next">&#8594;</button>
   </div>
 </section>
 
 <style>
-.testimonial-slider {
+.testimonial-slider{
   background:#f7f7f5;
+  overflow:hidden;
   text-align:center;
+  position:relative;
+}
+
+.slider-wrapper{
+  max-width:1200px;
+  margin:auto;
   position:relative;
   overflow:hidden;
 }
 
-.slider-wrapper {
-  max-width:1000px;
-  margin:0 auto;
-  position:relative;
-}
-
-.slides {
+.slides{
   display:flex;
   align-items:center;
 }
 
-.slide {
-  flex:0 0 100%;
-  padding:20px;
+.slide{
+  flex:0 0 50%;
+  padding:30px 20px;
   opacity:0.4;
-  transform:scale(0.9);
-  transition:all 0.4s ease;
+  transform:scale(0.85);
+  transition:all .4s ease;
 }
 
-.slide.active {
+.slide.active{
+  flex:0 0 100%;
   opacity:1;
   transform:scale(1);
 }
 
-.subtext {
+.subtext{
   font-size:14px;
   color:#777;
   margin-bottom:15px;
 }
 
-.quote {
+.quote{
   font-size:28px;
-  font-weight:500;
-  margin-bottom:30px;
+  margin-bottom:25px;
 }
 
-.logo img {
-  max-width:200px;
-  margin:0 auto;
+.logo img{
+  max-width:180px;
+  margin:auto;
 }
 
-.nav {
+.nav{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  background:#fff;
-  border:1px solid #ddd;
   width:45px;
   height:45px;
   border-radius:50%;
+  border:1px solid #ddd;
+  background:#fff;
   cursor:pointer;
   z-index:5;
 }
 
-.prev { left:-20px; }
-.next { right:-20px; }
+.prev{ left:10px; }
+.next{ right:10px; }
 
-.dots {
-  margin-top:30px;
+/* Tablet */
+@media(max-width:991px){
+  .slide,
+  .slide.active{
+    flex:0 0 100%;
+    opacity:1;
+    transform:scale(1);
+  }
 }
 
-.dots span {
-  display:inline-block;
-  width:8px;
-  height:8px;
-  margin:0 5px;
-  background:#ccc;
-  border-radius:50%;
-  cursor:pointer;
-}
-
-.dots span.active {
-  background:#000;
-}
-
-@media(max-width:768px){
-  .quote{font-size:20px;}
+/* Mobile */
+@media(max-width:600px){
+  .quote{ font-size:20px; }
 }
 </style>
 
@@ -138,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function(){
   let slides = slider.querySelectorAll(".slide");
   const prevBtn = slider.querySelector(".prev");
   const nextBtn = slider.querySelector(".next");
-  const dotsContainer = slider.querySelector(".dots");
 
   const total = slides.length;
   const autoplay = {{ section.settings.autoplay | json }};
@@ -148,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   let index = 1;
 
-  // Clone first and last slide
+  // Clone first & last
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[total - 1].cloneNode(true);
 
@@ -157,46 +144,35 @@ document.addEventListener("DOMContentLoaded", function(){
 
   slides = slider.querySelectorAll(".slide");
 
-  function updateSlider(animate = true){
-    const slideWidth = slider.querySelector(".slide").offsetWidth;
+  function getSlideWidth(){
+    return slider.querySelector(".slide").offsetWidth;
+  }
 
+  function updateSlider(animate = true){
+    const slideWidth = getSlideWidth();
     slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
     slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
 
     slides.forEach(s => s.classList.remove("active"));
     if(slides[index]) slides[index].classList.add("active");
-
-    updateDots();
-  }
-
-  function updateDots(){
-    let realIndex = index - 1;
-    if(realIndex >= total) realIndex = 0;
-    if(realIndex < 0) realIndex = total - 1;
-
-    dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
-      dot.classList.toggle("active", i === realIndex);
-    });
   }
 
   function nextSlide(){
-    if(index >= slides.length - 1) return;
     index++;
     updateSlider();
   }
 
   function prevSlide(){
-    if(index <= 0) return;
     index--;
     updateSlider();
   }
 
   slidesContainer.addEventListener("transitionend", ()=>{
-    if(index === slides.length - 1){
+    if(index >= slides.length - 1){
       index = 1;
       updateSlider(false);
     }
-    if(index === 0){
+    if(index <= 0){
       index = slides.length - 2;
       updateSlider(false);
     }
@@ -205,18 +181,11 @@ document.addEventListener("DOMContentLoaded", function(){
   nextBtn.addEventListener("click", nextSlide);
   prevBtn.addEventListener("click", prevSlide);
 
-  // Create dots
-  for(let i = 0; i < total; i++){
-    const dot = document.createElement("span");
-    dot.addEventListener("click", ()=>{
-      index = i + 1;
-      updateSlider();
-    });
-    dotsContainer.appendChild(dot);
-  }
-
-  // Initial position after load
   window.addEventListener("load", ()=>{
+    updateSlider(false);
+  });
+
+  window.addEventListener("resize", ()=>{
     updateSlider(false);
   });
 
@@ -275,28 +244,14 @@ document.addEventListener("DOMContentLoaded", function(){
       "type": "slide",
       "name": "Slide",
       "settings": [
-        {
-          "type": "textarea",
-          "id": "quote",
-          "label": "Quote Text"
-        },
-        {
-          "type": "text",
-          "id": "subtext",
-          "label": "Sub Text"
-        },
-        {
-          "type": "image_picker",
-          "id": "logo",
-          "label": "Logo Image"
-        }
+        { "type": "textarea", "id": "quote", "label": "Quote Text" },
+        { "type": "text", "id": "subtext", "label": "Sub Text" },
+        { "type": "image_picker", "id": "logo", "label": "Logo Image" }
       ]
     }
   ],
   "presets": [
-    {
-      "name": "Testimonial Logo Slider"
-    }
+    { "name": "Testimonial Logo Slider" }
   ]
 }
 {% endschema %}
