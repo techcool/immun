@@ -72,8 +72,7 @@
 }
 {% endschema %}
 
-<section id="testimonial-{{ section.id }}" 
-  class="testimonial-slider {{ section.settings.custom_class }}" 
+<section class="testimonial-slider {{ section.settings.custom_class }}" 
   style="padding-top:{{ section.settings.padding_top }}px;
          padding-bottom:{{ section.settings.padding_bottom }}px;">
 
@@ -112,19 +111,26 @@
 </section>
 
 <style>
-#testimonial-{{ section.id }} {
+.testimonial-slider {
   background:#f7f7f5;
   text-align:center;
+  position:relative;
   overflow:hidden;
 }
 
-#testimonial-{{ section.id }} .slides {
+.slider-wrapper {
+  max-width:1000px;
+  margin:0 auto;
+  position:relative;
+}
+
+.slides {
   display:flex;
   align-items:center;
   transition:transform 0.5s ease;
 }
 
-#testimonial-{{ section.id }} .slide {
+.slide {
   flex:0 0 50%;
   opacity:0.5;
   transform:scale(0.85);
@@ -132,23 +138,30 @@
   padding:20px;
 }
 
-#testimonial-{{ section.id }} .slide.active {
+.slide.active {
   flex:0 0 100%;
   opacity:1;
   transform:scale(1);
 }
 
-#testimonial-{{ section.id }} .quote {
+.subtext {
+  font-size:14px;
+  color:#777;
+  margin-bottom:15px;
+}
+
+.quote {
   font-size:28px;
+  font-weight:500;
   margin-bottom:30px;
 }
 
-#testimonial-{{ section.id }} .logo img {
+.logo img {
   max-width:200px;
   margin:0 auto;
 }
 
-#testimonial-{{ section.id }} .nav {
+.nav {
   position:absolute;
   top:50%;
   transform:translateY(-50%);
@@ -161,14 +174,14 @@
   z-index:5;
 }
 
-#testimonial-{{ section.id }} .prev { left:0; }
-#testimonial-{{ section.id }} .next { right:0; }
+.prev { left:0; }
+.next { right:0; }
 
-#testimonial-{{ section.id }} .dots {
+.dots {
   margin-top:30px;
 }
 
-#testimonial-{{ section.id }} .dots span {
+.dots span {
   display:inline-block;
   width:8px;
   height:8px;
@@ -178,25 +191,25 @@
   cursor:pointer;
 }
 
-#testimonial-{{ section.id }} .dots span.active {
+.dots span.active {
   background:#000;
 }
 
 @media(max-width:768px){
-  #testimonial-{{ section.id }} .slide,
-  #testimonial-{{ section.id }} .slide.active{
+  .slide,
+  .slide.active{
     flex:0 0 100%;
     opacity:1;
     transform:scale(1);
   }
-  #testimonial-{{ section.id }} .quote{font-size:20px;}
+  .quote{font-size:20px;}
 }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
-  const slider = document.querySelector("#testimonial-{{ section.id }}");
+  const slider = document.querySelector(".testimonial-slider");
   if(!slider) return;
 
   const slidesContainer = slider.querySelector(".slides");
@@ -206,15 +219,14 @@ document.addEventListener("DOMContentLoaded", function(){
   const dotsContainer = slider.querySelector(".dots");
 
   const total = slides.length;
-  if(total < 2) return;
-
-  let index = 1;
-  let isMoving = false;
-
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.speed }};
 
-  // Clone
+  if(total < 2) return;
+
+  let index = 1;
+
+  // ===== Clone for Infinite Loop =====
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[total - 1].cloneNode(true);
 
@@ -229,13 +241,16 @@ document.addEventListener("DOMContentLoaded", function(){
     slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
 
     slides.forEach(s => s.classList.remove("active"));
-    slides[index].classList.add("active");
+    if(slides[index]){
+      slides[index].classList.add("active");
+    }
 
     updateDots();
   }
 
   function updateDots(){
     let realIndex = index - 1;
+
     if(realIndex >= total) realIndex = 0;
     if(realIndex < 0) realIndex = total - 1;
 
@@ -245,48 +260,49 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   function nextSlide(){
-    if(isMoving) return;
-    isMoving = true;
+    if(index >= slides.length - 1) return;
     index++;
     setPosition(true);
   }
 
   function prevSlide(){
-    if(isMoving) return;
-    isMoving = true;
+    if(index <= 0) return;
     index--;
     setPosition(true);
   }
 
   slidesContainer.addEventListener("transitionend", function(){
+
     if(index === slides.length - 1){
       index = 1;
       setPosition(false);
     }
+
     if(index === 0){
       index = total;
       setPosition(false);
     }
-    isMoving = false;
+
   });
 
   nextBtn.addEventListener("click", nextSlide);
   prevBtn.addEventListener("click", prevSlide);
 
-  // Dots
+  // ===== Create Dots =====
   dotsContainer.innerHTML = "";
   for(let i = 0; i < total; i++){
     const dot = document.createElement("span");
     dot.addEventListener("click", ()=>{
-      if(isMoving) return;
       index = i + 1;
       setPosition(true);
     });
     dotsContainer.appendChild(dot);
   }
 
+  // Initial Position
   setPosition(false);
 
+  // ===== Autoplay =====
   if(autoplay){
     setInterval(()=>{
       nextSlide();
