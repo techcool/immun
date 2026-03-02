@@ -219,14 +219,15 @@ document.addEventListener("DOMContentLoaded", function(){
   const dotsContainer = slider.querySelector(".dots");
 
   const total = slides.length;
+  if(total < 2) return;
+
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.speed }};
 
-  if(total < 2) return;
-
   let index = 1;
+  let isMoving = false;
 
-  // ===== Clone for Infinite Loop =====
+  // ===== Clone First & Last =====
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[total - 1].cloneNode(true);
 
@@ -235,10 +236,15 @@ document.addEventListener("DOMContentLoaded", function(){
 
   slides = slider.querySelectorAll(".slide");
 
-  function setPosition(animate = true){
-    const slideWidth = slides[0].offsetWidth;
+  function getSlideWidth(){
+    return slider.querySelector(".slider-wrapper").offsetWidth;
+  }
+
+  function updatePosition(animate = true){
+    const width = getSlideWidth();
+
     slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
-    slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
+    slidesContainer.style.transform = `translateX(-${index * width}px)`;
 
     slides.forEach(s => s.classList.remove("active"));
     if(slides[index]){
@@ -260,29 +266,32 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   function nextSlide(){
-    if(index >= slides.length - 1) return;
+    if(isMoving) return;
+    isMoving = true;
     index++;
-    setPosition(true);
+    updatePosition(true);
   }
 
   function prevSlide(){
-    if(index <= 0) return;
+    if(isMoving) return;
+    isMoving = true;
     index--;
-    setPosition(true);
+    updatePosition(true);
   }
 
   slidesContainer.addEventListener("transitionend", function(){
 
-    if(index === slides.length - 1){
+    if(index === total + 1){
       index = 1;
-      setPosition(false);
+      updatePosition(false);
     }
 
     if(index === 0){
       index = total;
-      setPosition(false);
+      updatePosition(false);
     }
 
+    isMoving = false;
   });
 
   nextBtn.addEventListener("click", nextSlide);
@@ -294,13 +303,14 @@ document.addEventListener("DOMContentLoaded", function(){
     const dot = document.createElement("span");
     dot.addEventListener("click", ()=>{
       index = i + 1;
-      setPosition(true);
+      updatePosition(true);
     });
     dotsContainer.appendChild(dot);
   }
 
-  // Initial Position
-  setPosition(false);
+  // Initial Setup
+  window.addEventListener("load", ()=> updatePosition(false));
+  window.addEventListener("resize", ()=> updatePosition(false));
 
   // ===== Autoplay =====
   if(autoplay){
