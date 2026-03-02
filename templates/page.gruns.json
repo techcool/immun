@@ -390,6 +390,33 @@
             "tab_label": "Value"
           }
         },
+        "testimonial_4KxUi3": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "value",
+            "content": "<p><strong>These gummies are amazing!</strong></p><p>Grüns has replaced multiple vitamins and supplements as they are all included in just one yummy little Grüns pack! (For WAY less than I was paying before). Best decision I ever made switching!! If you’re on the fence, JUMP! You will not regret your decision!<br/><br/><br/><br/><br/><br/></p>",
+            "author": "Rebecca D.",
+            "rating": "5"
+          }
+        },
+        "testimonial_PmTjL6": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "value",
+            "content": "<p><strong>The benefits of eating these gummies daily is stacked.</strong><br/><br/>I used to pay so much for multiple supplements to get all of the same benefits that Grüns gives me in a simple snack pack.<br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Jeremy H.",
+            "rating": "5"
+          }
+        },
+        "testimonial_bfHJCA": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "value",
+            "content": "<p><strong>I was super skeptical. These gummies actually do taste really yummy</strong><br/><br/>and they’re easy to throw in a packet and take with me so I can enjoy them anytime. I also stopped buying separate probiotic gummies, b12 gummies, and multivitamin gummies. I just take these now and it’s easier for me to manage.<br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Jamie W.",
+            "rating": "5"
+          }
+        },
         "tab_fmq9Nj": {
           "type": "tab",
           "name": "Vs Powders",
@@ -464,6 +491,9 @@
         "testimonial_NUVH3e",
         "testimonial_XpxQMK",
         "tab_WfHVUD",
+        "testimonial_4KxUi3",
+        "testimonial_PmTjL6",
+        "testimonial_bfHJCA",
         "tab_fmq9Nj",
         "tab_TUBYeg",
         "tab_w4gcXr",
