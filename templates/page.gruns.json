@@ -460,6 +460,33 @@
             "tab_label": "Benefits"
           }
         },
+        "testimonial_QGhAEK": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "benefits",
+            "content": "<p><strong>Grüns really does taste great! More importantly, I feel great.</strong><br/><br/>The prebiotics do their job, but not aggressively, and I feel like my overall digestion has improved. This is huge for someone who suffers from chronic IBS! I feel like I’m already seeing improvements in my skin too. They are definitely part of my daily routine.<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Susan U.",
+            "rating": "5"
+          }
+        },
+        "testimonial_yJikb7": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "benefits",
+            "content": "<p><strong>If you are serious about changing your life, start here. The product is AMAZING!</strong><br/><br/>It provides clean feeling energy and mental focus in a good tasting gummy bear that satisfies a sweet tooth craving without the sugar crash.<br/></p>",
+            "author": "Jeremy C.",
+            "rating": "5"
+          }
+        },
+        "testimonial_6CbkUi": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "benefits",
+            "content": "<p><strong>My bowel movements are normal for the 1st time in 15 years!</strong><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Wendy B.",
+            "rating": "5"
+          }
+        },
         "tab_w4gcXr": {
           "type": "tab",
           "name": "Ingredients",
@@ -468,12 +495,66 @@
             "tab_label": "Ingredients"
           }
         },
+        "testimonial_N86eWE": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "ingredients",
+            "content": "<p><strong>I can’t stop raving about Grüns to my friends. Definitely give them a try!</strong><br/><br/>Pharmacist approved! Most other gummies on the market have only a few vitamins, but there are no other products like this with full spectrum vitamins in gummy form! I can’t stop raving about Grüns to my friends. Definitely give them a try!<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Mercedes F.",
+            "rating": "5"
+          }
+        },
+        "testimonial_YBJhKm": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "ingredients",
+            "content": "<p><strong>1000/10. Truly exceeded my expectations!</strong><br/><br/>Love the taste, love how they make me feel, and so impressed by the ingredients list! Definitely will be taking these on vacation with me (bye bye green powder)!<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Gizelle C.",
+            "rating": "5"
+          }
+        },
+        "testimonial_hx37rD": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "ingredients",
+            "content": "<p><strong>Grüns are the tastiest nutritional gummies I’ve ever had.</strong><br/><br/>They’re more convenient, less messy, and more flavorful than green powders. They are easy to have on the go, so it’s easy to build the daily habit of taking them. I’ve felt great since I started taking Grüns! So much nutrition packed into an easy habit. Do yourself a favor and get a subscription. You won’t regret it!<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Mercedes F.",
+            "rating": "5"
+          }
+        },
         "tab_3LHpqE": {
           "type": "tab",
           "name": "Convenience",
           "settings": {
             "tab_id": "convenience",
             "tab_label": "Convenience"
+          }
+        },
+        "testimonial_KFPxwa": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "convenience",
+            "content": "<p><strong>So easy to grab and eat on my way to the billion things I have to do as a mom</strong><br/><br/>Portable! Love the flavor and it’s so easy to grab and eat on my way to the billion things I have to do as a mom. Easy way to get my nutrients in!<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Kelli L.",
+            "rating": "5"
+          }
+        },
+        "testimonial_VCqwNy": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "convenience",
+            "content": "<p><strong>Gruns has genuinely made a comprehensive daily nutrition solution enjoyable and accessible.</strong><br/><br/>I've been using Gruns Daily Gummies for a few weeks, and I'm hooked! The convenience of getting 60 nutrient-dense ingredients in a tasty gummy is unbeatable. They make meeting my daily nutrient needs a breeze, and the blend also supports gut health. I've noticed increased energy levels and an overall sense of vitality. It's perfect for on-the-go nutrition. Gruns has genuinely made a comprehensive daily nutrition solution enjoyable and accessible. Highly recommend!<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>",
+            "author": "Crystal H.",
+            "rating": "5"
+          }
+        },
+        "testimonial_NqhDek": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "convenience",
+            "content": "<p><strong>It’s wild I WANT to take Grüns and don’t forget.</strong><br/><br/>I love that it's a little pack of gummies because taking just 2 gummies before Grüns was never satisfying. And that’s before you get to all the health benefits.<br/></p>",
+            "author": "Brittany A.",
+            "rating": "5"
           }
         },
         "review_video_UrRWiB": {
@@ -526,8 +607,17 @@
         "testimonial_Yct6Cc",
         "testimonial_jeH7q4",
         "tab_TUBYeg",
+        "testimonial_QGhAEK",
+        "testimonial_yJikb7",
+        "testimonial_6CbkUi",
         "tab_w4gcXr",
+        "testimonial_N86eWE",
+        "testimonial_YBJhKm",
+        "testimonial_hx37rD",
         "tab_3LHpqE",
+        "testimonial_KFPxwa",
+        "testimonial_VCqwNy",
+        "testimonial_NqhDek",
         "review_video_UrRWiB",
         "review_video_4E3Uqw",
         "review_video_PatWXM",
