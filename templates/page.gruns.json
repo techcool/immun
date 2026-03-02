@@ -382,6 +382,43 @@
         "padding_bottom": 80,
         "custom_class": ""
       }
+    },
+    "dynamic_testimonial_slider_PmUCVd": {
+      "type": "dynamic-testimonial-slider",
+      "blocks": {
+        "slide_kGTmgb": {
+          "type": "slide",
+          "settings": {
+            "quote": "",
+            "logo": "shopify://shop_images/logo-glamour_1.png"
+          }
+        },
+        "slide_VaDME3": {
+          "type": "slide",
+          "settings": {
+            "quote": "",
+            "logo": "shopify://shop_images/logo-bonappetit_1.png"
+          }
+        },
+        "slide_pfQGL9": {
+          "type": "slide",
+          "settings": {
+            "quote": "ghjj",
+            "logo": "shopify://shop_images/logo-theskimm_1.png"
+          }
+        }
+      },
+      "block_order": [
+        "slide_kGTmgb",
+        "slide_VaDME3",
+        "slide_pfQGL9"
+      ],
+      "name": "Dynamic Testimonial Slider",
+      "settings": {
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "bg_color": "#f4f4f4"
+      }
     }
   },
   "order": [
@@ -392,6 +429,7 @@
     "find_your_favorite_pYqbb9",
     "health_benefits_FCwzcz",
     "modern_living_stats_URhcL9",
-    "snackable_tested_stats_CAdNUP"
+    "snackable_tested_stats_CAdNUP",
+    "dynamic_testimonial_slider_PmUCVd"
   ]
 }
