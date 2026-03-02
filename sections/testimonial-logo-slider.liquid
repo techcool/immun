@@ -72,7 +72,7 @@
 }
 {% endschema %}
 
-<section class="testimonial-slider {{ section.settings.custom_class }}"
+<section class="testimonial-slider {{ section.settings.custom_class }}" 
   style="padding-top:{{ section.settings.padding_top }}px;
          padding-bottom:{{ section.settings.padding_bottom }}px;">
 
@@ -81,23 +81,23 @@
 
       <div class="slides">
         {% for block in section.blocks %}
-        <div class="slide" {{ block.shopify_attributes }}>
-          
-          {% if block.settings.subtext != blank %}
-          <p class="subtext">{{ block.settings.subtext }}</p>
-          {% endif %}
-          
-          {% if block.settings.quote != blank %}
-          <h2 class="quote">{{ block.settings.quote }}</h2>
-          {% endif %}
+          <div class="slide" {{ block.shopify_attributes }}>
+            
+            {% if block.settings.subtext != blank %}
+              <p class="subtext">{{ block.settings.subtext }}</p>
+            {% endif %}
+            
+            {% if block.settings.quote != blank %}
+              <h2 class="quote">{{ block.settings.quote }}</h2>
+            {% endif %}
 
-          {% if block.settings.logo != blank %}
-          <div class="logo">
-            <img src="{{ block.settings.logo | image_url: width: 300 }}" alt="logo">
+            {% if block.settings.logo != blank %}
+              <div class="logo">
+                <img src="{{ block.settings.logo | image_url: width: 300 }}" alt="logo">
+              </div>
+            {% endif %}
+
           </div>
-          {% endif %}
-
-        </div>
         {% endfor %}
       </div>
 
@@ -119,26 +119,27 @@
 }
 
 .slider-wrapper {
-  max-width:720px;
+  max-width:1000px;
   margin:0 auto;
   position:relative;
-  overflow:hidden;
 }
 
 .slides {
   display:flex;
+  align-items:center;
   transition:transform 0.5s ease;
 }
 
 .slide {
-  min-width:100%;
-  padding:20px;
-  opacity:0.4;
-  transform:scale(0.9);
+  flex:0 0 50%;
+  opacity:0.5;
+  transform:scale(0.85);
   transition:all 0.4s ease;
+  padding:20px;
 }
 
 .slide.active {
+  flex:0 0 100%;
   opacity:1;
   transform:scale(1);
 }
@@ -170,11 +171,11 @@
   height:45px;
   border-radius:50%;
   cursor:pointer;
-  z-index:2;
+  z-index:5;
 }
 
-.prev { left:10px; }
-.next { right:10px; }
+.prev { left:0; }
+.next { right:0; }
 
 .dots {
   margin-top:30px;
@@ -195,10 +196,15 @@
 }
 
 @media(max-width:768px){
+  .slide,
+  .slide.active{
+    flex:0 0 100%;
+    opacity:1;
+    transform:scale(1);
+  }
   .quote{font-size:20px;}
 }
 </style>
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -207,40 +213,48 @@ document.addEventListener("DOMContentLoaded", function(){
   if(!slider) return;
 
   const slidesContainer = slider.querySelector(".slides");
-  const slides = slider.querySelectorAll(".slide");
+  let slides = slider.querySelectorAll(".slide");
   const prevBtn = slider.querySelector(".prev");
   const nextBtn = slider.querySelector(".next");
   const dotsContainer = slider.querySelector(".dots");
 
-  let index = 1;
   const total = slides.length;
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.speed }};
 
-  // Clone first & last for infinite
+  let index = 1;
+
+  if(total < 2) return;
+
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[total - 1].cloneNode(true);
 
   slidesContainer.appendChild(firstClone);
   slidesContainer.insertBefore(lastClone, slidesContainer.firstChild);
 
-  const allSlides = slider.querySelectorAll(".slide");
+  slides = slider.querySelectorAll(".slide");
 
   function updateSlider(animate = true){
-    const slideWidth = allSlides[0].offsetWidth;
+    const slideWidth = slides[0].offsetWidth;
+
     slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
     slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
 
-    allSlides.forEach(slide => slide.classList.remove("active"));
-    if(allSlides[index]) {
-      allSlides[index].classList.add("active");
+    slides.forEach(slide => slide.classList.remove("active"));
+
+    if(slides[index]){
+      slides[index].classList.add("active");
     }
 
     updateDots();
   }
 
   function updateDots(){
-    const realIndex = (index - 1 + total) % total;
+    let realIndex = index - 1;
+
+    if(realIndex >= total) realIndex = 0;
+    if(realIndex < 0) realIndex = total - 1;
+
     dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
       dot.classList.toggle("active", i === realIndex);
     });
@@ -257,20 +271,22 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   slidesContainer.addEventListener("transitionend", ()=>{
+
     if(index >= total + 1){
       index = 1;
       updateSlider(false);
     }
+
     if(index <= 0){
       index = total;
       updateSlider(false);
     }
+
   });
 
   nextBtn.addEventListener("click", nextSlide);
   prevBtn.addEventListener("click", prevSlide);
 
-  // Create dots
   for(let i = 0; i < total; i++){
     const dot = document.createElement("span");
     dot.addEventListener("click", ()=>{
@@ -285,10 +301,6 @@ document.addEventListener("DOMContentLoaded", function(){
   if(autoplay){
     setInterval(nextSlide, speed);
   }
-
-  window.addEventListener("resize", ()=>{
-    updateSlider(false);
-  });
 
 });
 </script>
