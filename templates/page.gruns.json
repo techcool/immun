@@ -343,6 +343,28 @@
         "padding_bottom": 80,
         "custom_class": ""
       }
+    },
+    "tabbed_video_testimonials_CN3Fj9": {
+      "type": "tabbed-video-testimonials",
+      "blocks": {
+        "tab_fmq9Nj": {
+          "type": "tab",
+          "settings": {}
+        },
+        "tab_KmUNDP": {
+          "type": "tab",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "tab_fmq9Nj",
+        "tab_KmUNDP"
+      ],
+      "name": "Tabbed Video Testimonials",
+      "settings": {
+        "heading": "Join 1,000,000+ Others Filling Nutrition Gaps",
+        "bg_color": "#dfe9e2"
+      }
     }
   },
   "order": [
@@ -352,6 +374,7 @@
     "find_your_favorite_pYqbb9",
     "health_benefits_FCwzcz",
     "modern_living_stats_URhcL9",
-    "snackable_tested_stats_CAdNUP"
+    "snackable_tested_stats_CAdNUP",
+    "tabbed_video_testimonials_CN3Fj9"
   ]
 }

@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Tabbed Video Testimonials",
+  "name": "Advanced Tabbed",
   "settings": [
     {
       "type": "text",
@@ -9,15 +9,9 @@
       "default": "Join 1,000,000+ Others Filling Nutrition Gaps"
     },
     {
-      "type": "text",
-      "id": "rating_text",
-      "label": "Rating Text",
-      "default": "4.8 stars"
-    },
-    {
       "type": "color",
       "id": "bg_color",
-      "label": "Background Color",
+      "label": "Background",
       "default": "#dfe9e2"
     }
   ],
@@ -26,195 +20,188 @@
       "type": "tab",
       "name": "Tab",
       "settings": [
-        { "type": "text", "id": "tab_name", "label": "Tab Name", "default": "Taste" },
-
-        { "type": "textarea", "id": "testimonial_1", "label": "Testimonial 1" },
-        { "type": "text", "id": "author_1", "label": "Author 1" },
-
-        { "type": "textarea", "id": "testimonial_2", "label": "Testimonial 2" },
-        { "type": "text", "id": "author_2", "label": "Author 2" },
-
-        { "type": "textarea", "id": "testimonial_3", "label": "Testimonial 3" },
-        { "type": "text", "id": "author_3", "label": "Author 3" },
-
-        { "type": "image_picker", "id": "video_thumbnail", "label": "Video Thumbnail" },
-        { "type": "text", "id": "video_url", "label": "YouTube or MP4 Video URL" }
+        {
+          "type": "text",
+          "id": "tab_id",
+          "label": "Tab ID (unique, lowercase, no spaces)",
+          "default": "taste"
+        },
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab Label",
+          "default": "Taste"
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "parent_tab",
+          "label": "Parent Tab ID (match Tab ID above)"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Testimonial Text"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "parent_tab",
+          "label": "Parent Tab ID (match Tab ID above)"
+        },
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Thumbnail"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "YouTube or MP4 URL"
+        }
       ]
     }
   ],
   "presets": [
-    { "name": "Tabbed Video Testimonials" }
+    {
+      "name": "Advanced Tabbed Testimonials"
+    }
   ]
 }
 {% endschema %}
 
-
-<section class="tabbed-testimonials" style="background: {{ section.settings.bg_color }};">
+<section class="advanced-tabs" style="background: {{ section.settings.bg_color }}">
   <div class="container">
 
-    <div class="rating">
-      ⭐⭐⭐⭐⭐ <span>{{ section.settings.rating_text }}</span>
-    </div>
-
-    <h2 class="main-heading">{{ section.settings.heading }}</h2>
+    <h2 class="heading">{{ section.settings.heading }}</h2>
 
     <!-- Tabs -->
     <div class="tabs">
       {% for block in section.blocks %}
-        <button class="tab-btn {% if forloop.first %}active{% endif %}" data-tab="tab-{{ forloop.index }}">
-          {{ block.settings.tab_name }}
-        </button>
+        {% if block.type == 'tab' %}
+          <button class="tab-btn {% if forloop.first %}active{% endif %}"
+                  data-tab="{{ block.settings.tab_id }}">
+            {{ block.settings.tab_label }}
+          </button>
+        {% endif %}
       {% endfor %}
     </div>
 
-    <!-- Tab Content -->
-    {% for block in section.blocks %}
-      <div class="tab-content {% if forloop.first %}active{% endif %}" id="tab-{{ forloop.index }}">
+    <!-- Content -->
+    {% for tab in section.blocks %}
+      {% if tab.type == 'tab' %}
+        <div class="tab-content {% if forloop.first %}active{% endif %}"
+             id="{{ tab.settings.tab_id }}">
 
-        <div class="testimonial-grid">
-
-          {% assign t1 = block.settings.testimonial_1 %}
-          {% assign a1 = block.settings.author_1 %}
-          {% if t1 != blank %}
-          <div class="testimonial-item">
-            <div class="stars">★★★★★</div>
-            <p>{{ t1 }}</p>
-            <strong>{{ a1 }}</strong>
+          <!-- Testimonials -->
+          <div class="testimonial-grid">
+            {% for block in section.blocks %}
+              {% if block.type == 'testimonial' and block.settings.parent_tab == tab.settings.tab_id %}
+                <div class="testimonial-item">
+                  <div class="stars">★★★★★</div>
+                  <p>{{ block.settings.content }}</p>
+                  <strong>{{ block.settings.author }}</strong>
+                </div>
+              {% endif %}
+            {% endfor %}
           </div>
-          {% endif %}
 
-          {% assign t2 = block.settings.testimonial_2 %}
-          {% assign a2 = block.settings.author_2 %}
-          {% if t2 != blank %}
-          <div class="testimonial-item">
-            <div class="stars">★★★★★</div>
-            <p>{{ t2 }}</p>
-            <strong>{{ a2 }}</strong>
+          <!-- Videos -->
+          <div class="video-grid">
+            {% for block in section.blocks %}
+              {% if block.type == 'video' and block.settings.parent_tab == tab.settings.tab_id %}
+                <div class="video-card">
+                  <div class="video-wrapper" data-video="{{ block.settings.video_url }}">
+                    <img src="{{ block.settings.thumbnail | image_url: width: 600 }}">
+                    <div class="play-btn">▶</div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
           </div>
-          {% endif %}
-
-          {% assign t3 = block.settings.testimonial_3 %}
-          {% assign a3 = block.settings.author_3 %}
-          {% if t3 != blank %}
-          <div class="testimonial-item">
-            <div class="stars">★★★★★</div>
-            <p>{{ t3 }}</p>
-            <strong>{{ a3 }}</strong>
-          </div>
-          {% endif %}
 
         </div>
-
-        {% if block.settings.video_thumbnail != blank %}
-        <div class="video-card">
-          <div class="video-wrapper" data-video="{{ block.settings.video_url }}">
-            <img src="{{ block.settings.video_thumbnail | image_url: width: 600 }}" alt="">
-            <div class="play-btn">▶</div>
-          </div>
-        </div>
-        {% endif %}
-
-      </div>
+      {% endif %}
     {% endfor %}
 
   </div>
 </section>
 
-
 <style>
-.tabbed-testimonials {
-  padding: 80px 20px;
-  text-align: center;
-}
-.container {
-  max-width: 1200px;
-  margin: auto;
-}
-.rating {
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-.main-heading {
-  font-size: 36px;
-  margin-bottom: 30px;
-}
-.tabs {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 40px;
-}
+.advanced-tabs { padding:80px 20px; text-align:center; }
+.container { max-width:1200px; margin:auto; }
+
+.tabs { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
 .tab-btn {
-  padding: 10px 24px;
-  border-radius: 30px;
-  border: 1px solid #1b5e3c;
-  background: transparent;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
+  padding:10px 20px;
+  border-radius:30px;
+  border:1px solid #1b5e3c;
+  background:transparent;
+  cursor:pointer;
 }
-.tab-btn.active {
-  background: #1b5e3c;
-  color: #fff;
-}
-.tab-content {
-  display: none;
-}
-.tab-content.active {
-  display: block;
-}
+.tab-btn.active { background:#1b5e3c; color:#fff; }
+
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+
 .testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-bottom: 40px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+  margin-bottom:40px;
 }
+.video-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:20px;
+}
+
 .testimonial-item {
-  background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-}
-.stars {
-  color: #1b5e3c;
-  margin-bottom: 10px;
-}
-.video-card {
-  max-width: 350px;
-  margin: auto;
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
 }
 .video-wrapper {
-  position: relative;
-  cursor: pointer;
+  position:relative;
+  cursor:pointer;
 }
 .video-wrapper img {
-  width: 100%;
-  border-radius: 16px;
+  width:100%;
+  border-radius:16px;
 }
 .play-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 40px;
-  color: #fff;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:30px;
+  color:#fff;
 }
 
-@media(max-width: 991px){
-  .testimonial-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+@media(max-width:991px){
+  .testimonial-grid { grid-template-columns:repeat(2,1fr); }
+  .video-grid { grid-template-columns:repeat(2,1fr); }
 }
-@media(max-width: 600px){
-  .testimonial-grid {
-    grid-template-columns: 1fr;
-  }
-  .main-heading {
-    font-size: 26px;
-  }
+@media(max-width:600px){
+  .testimonial-grid,
+  .video-grid { grid-template-columns:1fr; }
 }
 </style>
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -222,20 +209,19 @@ document.addEventListener("DOMContentLoaded", function(){
   const buttons = document.querySelectorAll(".tab-btn");
   const contents = document.querySelectorAll(".tab-content");
 
-  buttons.forEach(btn => {
+  buttons.forEach(btn=>{
     btn.addEventListener("click", function(){
-      buttons.forEach(b => b.classList.remove("active"));
-      contents.forEach(c => c.classList.remove("active"));
-
+      buttons.forEach(b=>b.classList.remove("active"));
+      contents.forEach(c=>c.classList.remove("active"));
       this.classList.add("active");
       document.getElementById(this.dataset.tab).classList.add("active");
     });
   });
 
-  document.querySelectorAll(".video-wrapper").forEach(wrapper => {
+  document.querySelectorAll(".video-wrapper").forEach(wrapper=>{
     wrapper.addEventListener("click", function(){
       const videoURL = this.dataset.video;
-      if(videoURL.includes("youtube") || videoURL.includes("youtu.be")){
+      if(videoURL.includes("youtube")){
         this.innerHTML = `<iframe width="100%" height="315" src="${videoURL}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
       } else {
         this.innerHTML = `<video controls autoplay width="100%"><source src="${videoURL}" type="video/mp4"></video>`;
