@@ -191,3 +191,63 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 </script>
+
+{% schema %}
+{
+  "name": "Testimonial Logo Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 80,
+      "label": "Padding Top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 80,
+      "label": "Padding Bottom"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 4000,
+      "label": "Autoplay Speed (ms)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote Text" },
+        { "type": "text", "id": "subtext", "label": "Sub Text" },
+        { "type": "image_picker", "id": "logo", "label": "Logo Image" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Testimonial Logo Slider" }
+  ]
+}
+{% endschema %}
