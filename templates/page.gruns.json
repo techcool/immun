@@ -347,12 +347,12 @@
     "tabbed_video_testimonials_CN3Fj9": {
       "type": "tabbed-video-testimonials",
       "blocks": {
-        "tab_TUBYeg": {
+        "tab_WfHVUD": {
           "type": "tab",
-          "name": "Benefits",
+          "name": "Value",
           "settings": {
-            "tab_id": "benefits",
-            "tab_label": "Benefits"
+            "tab_id": "value",
+            "tab_label": "Value"
           }
         },
         "testimonial_VjUddP": {
@@ -386,14 +386,23 @@
             "tab_id": "vs-powders",
             "tab_label": "Vs Powders"
           }
+        },
+        "tab_TUBYeg": {
+          "type": "tab",
+          "name": "Benefits",
+          "settings": {
+            "tab_id": "benefits",
+            "tab_label": "Benefits"
+          }
         }
       },
       "block_order": [
-        "tab_TUBYeg",
+        "tab_WfHVUD",
         "testimonial_VjUddP",
         "tab_YfxJm7",
         "video_QXW9MC",
-        "tab_fmq9Nj"
+        "tab_fmq9Nj",
+        "tab_TUBYeg"
       ],
       "name": "Tabbed Video Testimonials",
       "settings": {
