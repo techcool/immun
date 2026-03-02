@@ -383,41 +383,41 @@
         "custom_class": ""
       }
     },
-    "dynamic_testimonial_slider_PmUCVd": {
-      "type": "dynamic-testimonial-slider",
+    "press_slider_8BxcVa": {
+      "type": "press-slider",
       "blocks": {
-        "slide_kGTmgb": {
+        "slide_ahnpMy": {
           "type": "slide",
           "settings": {
-            "quote": "",
-            "logo": "shopify://shop_images/logo-glamour_1.png"
+            "logo": "shopify://shop_images/logo-bonappetit_1.png",
+            "quote": "nvnnhg hhngh"
           }
         },
-        "slide_VaDME3": {
+        "slide_MKEggJ": {
           "type": "slide",
           "settings": {
-            "quote": "",
-            "logo": "shopify://shop_images/logo-bonappetit_1.png"
+            "logo": "shopify://shop_images/logo-glamour_1.png",
+            "quote": "gfhfghf h"
           }
         },
-        "slide_pfQGL9": {
+        "slide_QVan8r": {
           "type": "slide",
           "settings": {
-            "quote": "ghjj",
-            "logo": "shopify://shop_images/logo-theskimm_1.png"
+            "logo": "shopify://shop_images/logo-theskimm_1.png",
+            "quote": "bfgbbfgg"
           }
         }
       },
       "block_order": [
-        "slide_kGTmgb",
-        "slide_VaDME3",
-        "slide_pfQGL9"
+        "slide_ahnpMy",
+        "slide_MKEggJ",
+        "slide_QVan8r"
       ],
-      "name": "Dynamic Testimonial Slider",
+      "name": "Press Slider Center",
       "settings": {
         "autoplay": true,
         "autoplay_speed": 5,
-        "bg_color": "#f4f4f4"
+        "bg_color": "#f3f4f2"
       }
     }
   },
@@ -430,6 +430,6 @@
     "health_benefits_FCwzcz",
     "modern_living_stats_URhcL9",
     "snackable_tested_stats_CAdNUP",
-    "dynamic_testimonial_slider_PmUCVd"
+    "press_slider_8BxcVa"
   ]
 }
