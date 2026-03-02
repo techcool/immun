@@ -53,7 +53,6 @@
       "type": "review_video",
       "name": "Review Video",
       "settings": [
-        { "type": "image_picker", "id": "thumbnail", "label": "Thumbnail (optional)" },
         { "type": "video", "id": "video_file", "label": "Upload Video (MP4)" },
         { "type": "text", "id": "video_url", "label": "YouTube/Vimeo URL" },
         { "type": "html", "id": "embed_code", "label": "Custom Embed Code (iframe/script)" }
@@ -85,43 +84,43 @@
     </div>
 
     <!-- Tab Content -->
-    {% for tab in section.blocks %}
-      {% if tab.type == 'tab' %}
-        <div class="tab-content {% if forloop.first %}active{% endif %}"
-             id="{{ tab.settings.tab_id }}">
+    <div class="tabs-wrapper">
 
-          <div class="testimonial-flex">
-            {% for block in section.blocks %}
-              {% if block.type == 'testimonial' and block.settings.parent_tab == tab.settings.tab_id %}
-                <div class="testimonial-card">
+      {% for tab in section.blocks %}
+        {% if tab.type == 'tab' %}
+          <div class="tab-content {% if forloop.first %}active{% endif %}"
+               id="{{ tab.settings.tab_id }}">
 
-                  <div class="stars">
-                    {% assign rating = block.settings.rating | plus: 0 %}
-                    {% for i in (1..5) %}
-                      {% if i <= rating %}
-                        ★
-                      {% else %}
-                        ☆
-                      {% endif %}
-                    {% endfor %}
+            <div class="testimonial-flex">
+              {% for block in section.blocks %}
+                {% if block.type == 'testimonial' and block.settings.parent_tab == tab.settings.tab_id %}
+                  <div class="testimonial-card">
+
+                    <div class="stars">
+                      {% assign rating = block.settings.rating | plus: 0 %}
+                      {% for i in (1..5) %}
+                        {% if i <= rating %}★{% else %}☆{% endif %}
+                      {% endfor %}
+                    </div>
+
+                    <div class="content">
+                      {{ block.settings.content }}
+                    </div>
+
+                    <div class="author">
+                      {{ block.settings.author }}
+                    </div>
+
                   </div>
+                {% endif %}
+              {% endfor %}
+            </div>
 
-                  <div class="content">
-                    {{ block.settings.content }}
-                  </div>
-
-                  <div class="author">
-                    {{ block.settings.author }}
-                  </div>
-
-                </div>
-              {% endif %}
-            {% endfor %}
           </div>
+        {% endif %}
+      {% endfor %}
 
-        </div>
-      {% endif %}
-    {% endfor %}
+    </div>
 
     <!-- Video Section -->
     <div class="review-video-section">
@@ -170,6 +169,7 @@
   flex-wrap:wrap;
   margin-bottom:40px;
 }
+
 .tab-btn {
   padding:10px 22px;
   border-radius:30px;
@@ -177,13 +177,26 @@
   background:transparent;
   cursor:pointer;
 }
+
 .tab-btn.active { background:#000; color:#fff; }
 
-/* Tab Content */
-.tab-content { display:none; }
-.tab-content.active { display:block; }
+/* IMPORTANT FIX */
+.tabs-wrapper {
+  position:relative;
+}
 
-/* FLEX Testimonials */
+.tab-content {
+  display:none;
+  width:100%;
+  height:auto;
+}
+
+.tab-content.active {
+  display:block;
+  height:auto;
+}
+
+/* Testimonials Flex */
 .testimonial-flex {
   display:flex;
   flex-wrap:wrap;
@@ -192,7 +205,7 @@
 }
 
 .testimonial-card {
-  flex: 0 0 calc(33.33% - 20px);
+  flex:0 0 calc(33.33% - 20px);
   background:#fff;
   padding:25px;
   border-radius:12px;
@@ -204,9 +217,7 @@
   margin-bottom:10px;
 }
 
-/* FLEX Videos */
-.review-video-section { margin-top:40px; }
-
+/* Videos Flex */
 .video-flex {
   display:flex;
   flex-wrap:wrap;
@@ -214,7 +225,7 @@
 }
 
 .video-item {
-  flex: 0 0 calc(33.33% - 14px);
+  flex:0 0 calc(33.33% - 14px);
 }
 
 .video-wrapper iframe,
@@ -225,19 +236,13 @@
 
 /* Responsive */
 @media(max-width:991px){
-  .testimonial-card {
-    flex: 0 0 calc(50% - 15px);
-  }
-  .video-item {
-    flex: 0 0 calc(50% - 10px);
-  }
+  .testimonial-card { flex:0 0 calc(50% - 15px); }
+  .video-item { flex:0 0 calc(50% - 10px); }
 }
 
 @media(max-width:600px){
   .testimonial-card,
-  .video-item {
-    flex: 0 0 100%;
-  }
+  .video-item { flex:0 0 100%; }
 }
 </style>
 
@@ -249,11 +254,17 @@ document.addEventListener("DOMContentLoaded", function(){
 
   tabs.forEach(btn=>{
     btn.addEventListener("click", function(){
+
       tabs.forEach(b=>b.classList.remove("active"));
       contents.forEach(c=>c.classList.remove("active"));
 
       this.classList.add("active");
-      document.getElementById(this.dataset.tab).classList.add("active");
+
+      const activeContent = document.getElementById(this.dataset.tab);
+      if(activeContent){
+        activeContent.classList.add("active");
+      }
+
     });
   });
 
