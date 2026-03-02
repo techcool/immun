@@ -1,0 +1,198 @@
+{% schema %}
+{
+  "name": "Dynamic Testimonial",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay Speed (seconds)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f4f4f4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Brand Logo"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Testimonial Slider"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.testimonial-slider {
+  position: relative;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.testimonial-slide {
+  display: none;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.testimonial-slide.active {
+  display: block;
+}
+
+.testimonial-quote {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.testimonial-logo img {
+  max-height: 60px;
+  margin: 0 auto;
+}
+
+.slider-arrows {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.slider-arrow {
+  width: 45px;
+  height: 45px;
+  border: 2px solid #1f3d2b;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.slider-dots {
+  margin-top: 30px;
+}
+
+.slider-dots span {
+  height: 8px;
+  width: 8px;
+  background: #999;
+  display: inline-block;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.slider-dots span.active {
+  background: #1f3d2b;
+}
+
+@media(max-width: 768px){
+  .testimonial-quote {
+    font-size: 16px;
+  }
+}
+</style>
+
+<section class="testimonial-slider" style="background: {{ section.settings.bg_color }};">
+  
+  {% for block in section.blocks %}
+    <div class="testimonial-slide {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}">
+      
+      <div class="testimonial-quote">
+        "{{ block.settings.quote }}"
+      </div>
+
+      {% if block.settings.logo %}
+      <div class="testimonial-logo">
+        <img src="{{ block.settings.logo | image_url }}" alt="logo">
+      </div>
+      {% endif %}
+
+    </div>
+  {% endfor %}
+
+  <div class="slider-arrows">
+    <button class="slider-arrow prev">&#8592;</button>
+    <button class="slider-arrow next">&#8594;</button>
+  </div>
+
+  <div class="slider-dots">
+    {% for block in section.blocks %}
+      <span data-index="{{ forloop.index0 }}" class="{% if forloop.first %}active{% endif %}"></span>
+    {% endfor %}
+  </div>
+
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const slides = document.querySelectorAll(".testimonial-slide");
+  const dots = document.querySelectorAll(".slider-dots span");
+  const prev = document.querySelector(".prev");
+  const next = document.querySelector(".next");
+
+  let index = 0;
+  let autoplay = {{ section.settings.autoplay }};
+  let speed = {{ section.settings.autoplay_speed }} * 1000;
+  let interval;
+
+  function showSlide(i) {
+    slides.forEach(slide => slide.classList.remove("active"));
+    dots.forEach(dot => dot.classList.remove("active"));
+    slides[i].classList.add("active");
+    dots[i].classList.add("active");
+    index = i;
+  }
+
+  next.addEventListener("click", () => {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  });
+
+  prev.addEventListener("click", () => {
+    index = (index - 1 + slides.length) % slides.length;
+    showSlide(index);
+  });
+
+  dots.forEach(dot => {
+    dot.addEventListener("click", function() {
+      showSlide(parseInt(this.dataset.index));
+    });
+  });
+
+  if (autoplay) {
+    interval = setInterval(() => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }, speed);
+  }
+});
+</script>
