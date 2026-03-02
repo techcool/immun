@@ -1,257 +1,197 @@
 {% schema %}
 {
-  "name": "Testimonial Logo Slider",
+  "name": "Testimonial Logo ",
   "settings": [
-    {
-      "type": "text",
-      "id": "custom_class",
-      "label": "Custom Class"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 150,
-      "step": 5,
-      "default": 80,
-      "label": "Padding Top"
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 150,
-      "step": 5,
-      "default": 80,
-      "label": "Padding Bottom"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Enable Autoplay",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "speed",
-      "min": 2000,
-      "max": 8000,
-      "step": 500,
-      "default": 4000,
-      "label": "Autoplay Speed (ms)"
-    }
+    { "type": "text", "id": "custom_class", "label": "Custom Class" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 150, "step": 5, "default": 80, "label": "Padding Top" },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 150, "step": 5, "default": 80, "label": "Padding Bottom" },
+    { "type": "checkbox", "id": "autoplay", "label": "Enable Autoplay", "default": true },
+    { "type": "range", "id": "speed", "min": 2000, "max": 8000, "step": 500, "default": 4000, "label": "Autoplay Speed (ms)" }
   ],
   "blocks": [
     {
       "type": "slide",
       "name": "Slide",
       "settings": [
-        {
-          "type": "textarea",
-          "id": "quote",
-          "label": "Quote Text"
-        },
-        {
-          "type": "text",
-          "id": "subtext",
-          "label": "Sub Text"
-        },
-        {
-          "type": "image_picker",
-          "id": "logo",
-          "label": "Logo Image"
-        }
+        { "type": "textarea", "id": "quote", "label": "Quote Text" },
+        { "type": "text", "id": "subtext", "label": "Sub Text" },
+        { "type": "image_picker", "id": "logo", "label": "Logo Image" }
       ]
     }
   ],
   "presets": [
-    {
-      "name": "Testimonial Logo Slider"
-    }
+    { "name": "Testimonial Logo Slider Pro" }
   ]
 }
 {% endschema %}
 
-<section class="testimonial-slider {{ section.settings.custom_class }}" 
-  style="padding-top:{{ section.settings.padding_top }}px;
-         padding-bottom:{{ section.settings.padding_bottom }}px;">
+<section id="testimonial-{{ section.id }}"
+ class="testimonial-slider {{ section.settings.custom_class }}"
+ style="padding-top:{{ section.settings.padding_top }}px;
+        padding-bottom:{{ section.settings.padding_bottom }}px;">
 
   <div class="page-width">
     <div class="slider-wrapper">
-
       <div class="slides">
         {% for block in section.blocks %}
           <div class="slide" {{ block.shopify_attributes }}>
-            
             {% if block.settings.subtext != blank %}
               <p class="subtext">{{ block.settings.subtext }}</p>
             {% endif %}
-            
             {% if block.settings.quote != blank %}
               <h2 class="quote">{{ block.settings.quote }}</h2>
             {% endif %}
-
             {% if block.settings.logo != blank %}
               <div class="logo">
                 <img src="{{ block.settings.logo | image_url: width: 300 }}" alt="logo">
               </div>
             {% endif %}
-
           </div>
         {% endfor %}
       </div>
 
       <button class="nav prev">&#8592;</button>
       <button class="nav next">&#8594;</button>
-
       <div class="dots"></div>
-
     </div>
   </div>
 </section>
 
 <style>
-.testimonial-slider {
+#testimonial-{{ section.id }} {
   background:#f7f7f5;
-  text-align:center;
-  position:relative;
   overflow:hidden;
+  position:relative;
+  text-align:center;
 }
 
-.slider-wrapper {
-  max-width:1000px;
-  margin:0 auto;
+#testimonial-{{ section.id }} .slider-wrapper {
+  max-width:1100px;
+  margin:auto;
   position:relative;
 }
 
-.slides {
+#testimonial-{{ section.id }} .slides {
   display:flex;
-  align-items:center;
   transition:transform 0.5s ease;
 }
 
-.slide {
-  flex:0 0 50%;
+#testimonial-{{ section.id }} .slide {
+  min-width:33.3333%;
+  padding:20px;
   opacity:0.5;
   transform:scale(0.85);
   transition:all 0.4s ease;
-  padding:20px;
 }
 
-.slide.active {
-  flex:0 0 100%;
+#testimonial-{{ section.id }} .slide.active {
   opacity:1;
   transform:scale(1);
 }
 
-.subtext {
+#testimonial-{{ section.id }} .subtext {
   font-size:14px;
   color:#777;
-  margin-bottom:15px;
+  margin-bottom:10px;
 }
 
-.quote {
-  font-size:28px;
-  font-weight:500;
-  margin-bottom:30px;
+#testimonial-{{ section.id }} .quote {
+  font-size:26px;
+  margin-bottom:20px;
 }
 
-.logo img {
-  max-width:200px;
-  margin:0 auto;
+#testimonial-{{ section.id }} .logo img {
+  max-width:180px;
 }
 
-.nav {
+#testimonial-{{ section.id }} .nav {
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  background:#fff;
-  border:1px solid #ddd;
   width:45px;
   height:45px;
   border-radius:50%;
+  border:1px solid #ddd;
+  background:#fff;
   cursor:pointer;
   z-index:5;
 }
 
-.prev { left:0; }
-.next { right:0; }
+#testimonial-{{ section.id }} .prev { left:-20px; }
+#testimonial-{{ section.id }} .next { right:-20px; }
 
-.dots {
+#testimonial-{{ section.id }} .dots {
   margin-top:30px;
 }
 
-.dots span {
-  display:inline-block;
+#testimonial-{{ section.id }} .dots span {
   width:8px;
   height:8px;
-  margin:0 5px;
+  display:inline-block;
   background:#ccc;
   border-radius:50%;
+  margin:0 5px;
   cursor:pointer;
 }
 
-.dots span.active {
+#testimonial-{{ section.id }} .dots span.active {
   background:#000;
 }
 
 @media(max-width:768px){
-  .slide,
-  .slide.active{
-    flex:0 0 100%;
+  #testimonial-{{ section.id }} .slide{
+    min-width:100%;
     opacity:1;
     transform:scale(1);
   }
-  .quote{font-size:20px;}
 }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
-  const slider = document.querySelector(".testimonial-slider");
-  if(!slider) return;
+  const section = document.querySelector("#testimonial-{{ section.id }}");
+  if(!section) return;
 
-  const slidesContainer = slider.querySelector(".slides");
-  let slides = slider.querySelectorAll(".slide");
-  const prevBtn = slider.querySelector(".prev");
-  const nextBtn = slider.querySelector(".next");
-  const dotsContainer = slider.querySelector(".dots");
+  const slidesContainer = section.querySelector(".slides");
+  const prevBtn = section.querySelector(".prev");
+  const nextBtn = section.querySelector(".next");
+  const dotsContainer = section.querySelector(".dots");
 
+  let slides = section.querySelectorAll(".slide");
   const total = slides.length;
+  if(total < 2) return;
+
   const autoplay = {{ section.settings.autoplay }};
   const speed = {{ section.settings.speed }};
 
   let index = 1;
 
-  if(total < 2) return;
-
+  // Clone first & last
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[total - 1].cloneNode(true);
 
   slidesContainer.appendChild(firstClone);
   slidesContainer.insertBefore(lastClone, slidesContainer.firstChild);
 
-  slides = slider.querySelectorAll(".slide");
+  slides = section.querySelectorAll(".slide");
 
-  function updateSlider(animate = true){
+  function updateSlider(animate=true){
     const slideWidth = slides[0].offsetWidth;
-
     slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
     slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
 
-    slides.forEach(slide => slide.classList.remove("active"));
+    slides.forEach(s => s.classList.remove("active"));
 
-    if(slides[index]){
-      slides[index].classList.add("active");
-    }
+    let centerIndex = index + 1;
+    if(centerIndex >= slides.length) centerIndex = index;
 
+    slides[index].classList.add("active");
     updateDots();
   }
 
   function updateDots(){
     let realIndex = index - 1;
-
     if(realIndex >= total) realIndex = 0;
     if(realIndex < 0) realIndex = total - 1;
 
@@ -271,24 +211,21 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   slidesContainer.addEventListener("transitionend", ()=>{
-
     if(index >= total + 1){
       index = 1;
       updateSlider(false);
     }
-
     if(index <= 0){
       index = total;
       updateSlider(false);
     }
-
   });
 
   nextBtn.addEventListener("click", nextSlide);
   prevBtn.addEventListener("click", prevSlide);
 
-  for(let i = 0; i < total; i++){
-    const dot = document.createElement("span");
+  for(let i=0;i<total;i++){
+    const dot=document.createElement("span");
     dot.addEventListener("click", ()=>{
       index = i + 1;
       updateSlider();
