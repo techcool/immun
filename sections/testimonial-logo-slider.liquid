@@ -104,59 +104,64 @@
       <button class="nav prev">&#8592;</button>
       <button class="nav next">&#8594;</button>
 
+      <div class="dots"></div>
+
     </div>
   </div>
 </section>
 
 <style>
-.testimonial-slider{
+.testimonial-slider {
   background:#f7f7f5;
-  overflow:hidden;
-}
-
-.slider-wrapper{
+  text-align:center;
   position:relative;
-  max-width:1100px;
-  margin:auto;
   overflow:hidden;
 }
 
-.slides{
+.slider-wrapper {
+  max-width:1000px;
+  margin:0 auto;
+  position:relative;
+}
+
+.slides {
   display:flex;
+  align-items:center;
   transition:transform 0.5s ease;
 }
 
-.slide{
-  flex:0 0 33.333%;
-  padding:20px;
-  text-align:center;
-  opacity:0.4;
-  transform:scale(0.8);
+.slide {
+  flex:0 0 50%;
+  opacity:0.5;
+  transform:scale(0.85);
   transition:all 0.4s ease;
+  padding:20px;
 }
 
-.slide.active{
+.slide.active {
+  flex:0 0 100%;
   opacity:1;
   transform:scale(1);
 }
 
-.subtext{
+.subtext {
   font-size:14px;
   color:#777;
   margin-bottom:15px;
 }
 
-.quote{
-  font-size:26px;
-  margin-bottom:25px;
+.quote {
+  font-size:28px;
+  font-weight:500;
+  margin-bottom:30px;
 }
 
-.logo img{
-  max-width:180px;
-  margin:auto;
+.logo img {
+  max-width:200px;
+  margin:0 auto;
 }
 
-.nav{
+.nav {
   position:absolute;
   top:50%;
   transform:translateY(-50%);
@@ -166,18 +171,38 @@
   height:45px;
   border-radius:50%;
   cursor:pointer;
-  z-index:10;
+  z-index:5;
 }
 
-.prev{ left:0; }
-.next{ right:0; }
+.prev { left:0; }
+.next { right:0; }
+
+.dots {
+  margin-top:30px;
+}
+
+.dots span {
+  display:inline-block;
+  width:8px;
+  height:8px;
+  margin:0 5px;
+  background:#ccc;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.dots span.active {
+  background:#000;
+}
 
 @media(max-width:768px){
-  .slide{
+  .slide,
+  .slide.active{
     flex:0 0 100%;
     opacity:1;
     transform:scale(1);
   }
+  .quote{font-size:20px;}
 }
 </style>
 
@@ -187,71 +212,102 @@ document.addEventListener("DOMContentLoaded", function(){
   const slider = document.querySelector(".testimonial-slider");
   if(!slider) return;
 
-  const track = slider.querySelector(".slides");
+  const slidesContainer = slider.querySelector(".slides");
   let slides = slider.querySelectorAll(".slide");
-  const prev = slider.querySelector(".prev");
-  const next = slider.querySelector(".next");
+  const prevBtn = slider.querySelector(".prev");
+  const nextBtn = slider.querySelector(".next");
+  const dotsContainer = slider.querySelector(".dots");
 
   const total = slides.length;
-  if(total < 3) return;
+  const autoplay = {{ section.settings.autoplay }};
+  const speed = {{ section.settings.speed }};
+
+  if(total < 2) return;
 
   let index = 1;
-  let isMoving = false;
 
-  // Clone first & last
-  const first = slides[0].cloneNode(true);
-  const last = slides[total - 1].cloneNode(true);
+  // ===== Clone for Infinite Loop =====
+  const firstClone = slides[0].cloneNode(true);
+  const lastClone = slides[total - 1].cloneNode(true);
 
-  track.appendChild(first);
-  track.insertBefore(last, slides[0]);
+  slidesContainer.appendChild(firstClone);
+  slidesContainer.insertBefore(lastClone, slidesContainer.firstChild);
 
   slides = slider.querySelectorAll(".slide");
 
-  function update(animate = true){
+  function setPosition(animate = true){
     const slideWidth = slides[0].offsetWidth;
-    track.style.transition = animate ? "transform 0.5s ease" : "none";
-    track.style.transform = `translateX(-${(index) * slideWidth}px)`;
+    slidesContainer.style.transition = animate ? "transform 0.5s ease" : "none";
+    slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
 
     slides.forEach(s => s.classList.remove("active"));
-    slides[index].classList.add("active");
+    if(slides[index]){
+      slides[index].classList.add("active");
+    }
+
+    updateDots();
+  }
+
+  function updateDots(){
+    let realIndex = index - 1;
+
+    if(realIndex >= total) realIndex = 0;
+    if(realIndex < 0) realIndex = total - 1;
+
+    dotsContainer.querySelectorAll("span").forEach((dot,i)=>{
+      dot.classList.toggle("active", i === realIndex);
+    });
   }
 
   function nextSlide(){
-    if(isMoving) return;
-    isMoving = true;
+    if(index >= slides.length - 1) return;
     index++;
-    update(true);
+    setPosition(true);
   }
 
   function prevSlide(){
-    if(isMoving) return;
-    isMoving = true;
+    if(index <= 0) return;
     index--;
-    update(true);
+    setPosition(true);
   }
 
-  track.addEventListener("transitionend", function(){
+  slidesContainer.addEventListener("transitionend", function(){
 
-    if(index === total + 1){
+    if(index === slides.length - 1){
       index = 1;
-      update(false);
+      setPosition(false);
     }
 
     if(index === 0){
       index = total;
-      update(false);
+      setPosition(false);
     }
 
-    isMoving = false;
   });
 
-  next.addEventListener("click", nextSlide);
-  prev.addEventListener("click", prevSlide);
+  nextBtn.addEventListener("click", nextSlide);
+  prevBtn.addEventListener("click", prevSlide);
 
-  window.addEventListener("resize", ()=> update(false));
+  // ===== Create Dots =====
+  dotsContainer.innerHTML = "";
+  for(let i = 0; i < total; i++){
+    const dot = document.createElement("span");
+    dot.addEventListener("click", ()=>{
+      index = i + 1;
+      setPosition(true);
+    });
+    dotsContainer.appendChild(dot);
+  }
 
-  update(false);
+  // Initial Position
+  setPosition(false);
+
+  // ===== Autoplay =====
+  if(autoplay){
+    setInterval(()=>{
+      nextSlide();
+    }, speed);
+  }
 
 });
 </script>
-
