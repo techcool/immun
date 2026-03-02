@@ -364,12 +364,21 @@
             "rating": "5"
           }
         },
-        "testimonial_VKCnnM": {
+        "testimonial_NUVH3e": {
           "type": "testimonial",
           "settings": {
-            "parent_tab": "",
-            "content": "",
-            "author": "",
+            "parent_tab": "taste",
+            "content": "<p><strong>These gummies are shockingly delicious, like strawberries!</strong><br/><br/>I hate subscriptions because I feel like they are a trap so I canceled it before the gummies even arrived. We quickly decided to resubscribe because we love Grüns so much! A bonus is my kids love them too!<br/><br/><br/><br/></p>",
+            "author": "Kate S.",
+            "rating": "5"
+          }
+        },
+        "testimonial_XpxQMK": {
+          "type": "testimonial",
+          "settings": {
+            "parent_tab": "taste",
+            "content": "<p><strong>A delicious adventure for your taste buds.</strong><br/><br/>These gummy bears are more than just a treat; they’re a flavorful escape. With a burst of mouthwatering flavors, every bite is an invitation to a tasteful journey. Grüns makes healthy eating an indulgent experience.<br/><br/><br/><br/></p>",
+            "author": "Kevin M.",
             "rating": "5"
           }
         },
@@ -452,7 +461,8 @@
       "block_order": [
         "tab_YfxJm7",
         "testimonial_VjUddP",
-        "testimonial_VKCnnM",
+        "testimonial_NUVH3e",
+        "testimonial_XpxQMK",
         "tab_WfHVUD",
         "tab_fmq9Nj",
         "tab_TUBYeg",
