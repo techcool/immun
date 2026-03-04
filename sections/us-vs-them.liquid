@@ -1,194 +1,198 @@
-<section class="us-vs-them-section {{ section.settings.custom_class }}"
-style="
-padding-top: {{ section.settings.padding_top }}px;
-padding-bottom: {{ section.settings.padding_bottom }}px;
-">
-
-<div class="page-width">
-
-<div class="us-vs-them-wrapper">
-
-<div class="us-vs-them-left">
-
-{% if section.settings.heading != blank %}
-<h2>{{ section.settings.heading }}</h2>
-{% endif %}
-
-{% if section.settings.description != blank %}
-<div class="desc rte">
-{{ section.settings.description }}
-</div>
-{% endif %}
-
-</div>
-
-
-<div class="us-vs-them-table-wrapper">
-
-{% if section.blocks.size > 0 %}
-
-<div class="us-vs-them-table">
-
-<table>
-
-<thead>
-<tr>
-
-<th></th>
-
-<th class="brand">
-{{ section.settings.brand_title }}
-</th>
-
-<th>
-{{ section.settings.col_two }}
-</th>
-
-<th>
-{{ section.settings.col_three }}
-</th>
-
-</tr>
-</thead>
-
-<tbody>
-
-{% for block in section.blocks %}
-
-<tr {{ block.shopify_attributes }}>
-
-<td class="feature">
-<div class="rte">
-{{ block.settings.feature }}
-</div>
-</td>
-
-<td class="brand-value">
-<div class="rte">
-{{ block.settings.brand_value }}
-</div>
-</td>
-
-<td>
-<div class="rte">
-{{ block.settings.col_two_value }}
-</div>
-</td>
-
-<td>
-<div class="rte">
-{{ block.settings.col_three_value }}
-</div>
-</td>
-
-</tr>
-
-{% endfor %}
-
-</tbody>
-
-</table>
-
-</div>
-
-{% else %}
-
-<div class="comparison-image">
-
-{% if section.settings.table_image != blank %}
-<img
-src="{{ section.settings.table_image | image_url: width: 1400 }}"
-alt=""
-loading="lazy"
+<section
+  class="us-vs-them-section {{ section.settings.custom_class }}"
+  style="
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
 >
-{% endif %}
+  <div class="page-width">
+    <div class="us-vs-them-wrapper">
 
-</div>
+      <!-- Left Content -->
+      <div class="us-vs-them-left">
 
-{% endif %}
+        {% if section.settings.heading != blank %}
+          <h2>{{ section.settings.heading }}</h2>
+        {% endif %}
 
-</div>
+        {% if section.settings.description != blank %}
+          <div class="desc rte">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
 
-</div>
-</div>
+      </div>
+
+
+      <!-- Table / Image -->
+      <div class="us-vs-them-table-wrapper">
+
+        {% if section.blocks.size > 0 %}
+
+          <div class="us-vs-them-table">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th></th>
+
+                  <th class="brand">
+                    {{ section.settings.brand_title }}
+                  </th>
+
+                  <th>
+                    {{ section.settings.col_two }}
+                  </th>
+
+                  <th>
+                    {{ section.settings.col_three }}
+                  </th>
+
+                </tr>
+              </thead>
+
+              <tbody>
+
+                {% for block in section.blocks %}
+
+                  <tr {{ block.shopify_attributes }}>
+
+                    <td class="feature">
+                      <div class="rte">
+                        {{ block.settings.feature }}
+                      </div>
+                    </td>
+
+                    <td class="brand-value">
+                      <div class="rte">
+                        {{ block.settings.brand_value }}
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="rte">
+                        {{ block.settings.col_two_value }}
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="rte">
+                        {{ block.settings.col_three_value }}
+                      </div>
+                    </td>
+
+                  </tr>
+
+                {% endfor %}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        {% else %}
+
+          <!-- Fallback Image -->
+          <div class="comparison-image">
+
+            {% if section.settings.table_image != blank %}
+              <img
+                src="{{ section.settings.table_image | image_url: width: 1400 }}"
+                alt=""
+                loading="lazy"
+              >
+            {% endif %}
+
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 <style>
 
 .us-vs-them-wrapper{
-display:grid;
-grid-template-columns:1fr 1.3fr;
-gap:60px;
-align-items:center;
+  display:grid;
+  grid-template-columns:1fr 1.3fr;
+  gap:60px;
+  align-items:center;
 }
 
 .us-vs-them-left h2{
-font-size:40px;
-font-weight:700;
-margin-bottom:15px;
+  font-size:40px;
+  font-weight:700;
+  margin-bottom:15px;
 }
 
 .us-vs-them-left .desc{
-color:#555;
-font-size:16px;
+  color:#555;
+  font-size:16px;
 }
 
 .us-vs-them-table table{
-width:100%;
-border-collapse:collapse;
-background:#fff;
-border-radius:12px;
-overflow:hidden;
-border:2px solid #1c6b3c;
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  border:2px solid #1c6b3c;
 }
 
 .us-vs-them-table th,
 .us-vs-them-table td{
-padding:16px;
-border-bottom:1px solid #eee;
-text-align:center;
+  padding:16px;
+  border-bottom:1px solid #eee;
+  text-align:center;
 }
 
 .us-vs-them-table th:first-child,
 .us-vs-them-table td:first-child{
-text-align:left;
-font-weight:600;
+  text-align:left;
+  font-weight:600;
 }
 
 .us-vs-them-table thead{
-background:#f4f4f4;
+  background:#f4f4f4;
 }
 
 .us-vs-them-table .brand{
-background:#1c6b3c;
-color:#fff;
-font-weight:700;
+  background:#1c6b3c;
+  color:#fff;
+  font-weight:700;
 }
 
 .us-vs-them-table .brand-value{
-background:#1c6b3c;
-color:#fff;
-font-weight:600;
+  background:#1c6b3c;
+  color:#fff;
+  font-weight:600;
 }
 
 .us-vs-them-table tbody tr:last-child td{
-border-bottom:none;
+  border-bottom:none;
 }
 
 .comparison-image img{
-width:100%;
-border-radius:12px;
+  width:100%;
+  border-radius:12px;
 }
 
 @media(max-width:990px){
 
-.us-vs-them-wrapper{
-grid-template-columns:1fr;
-gap:40px;
-}
+  .us-vs-them-wrapper{
+    grid-template-columns:1fr;
+    gap:40px;
+  }
 
-.us-vs-them-left h2{
-font-size:30px;
-}
+  .us-vs-them-left h2{
+    font-size:30px;
+  }
 
 }
 
@@ -197,119 +201,119 @@ font-size:30px;
 
 {% schema %}
 {
-"name": "Us vs Them Comparison",
-"settings":[
+  "name": "Us vs Them Comparison",
+  "settings": [
 
-{
-"type":"text",
-"id":"heading",
-"label":"Heading",
-"default":"Us vs. Them"
-},
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Us vs. Them"
+    },
 
-{
-"type":"richtext",
-"id":"description",
-"label":"Description"
-},
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
 
-{
-"type":"text",
-"id":"brand_title",
-"label":"Brand Title",
-"default":"grüns"
-},
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand Title",
+      "default": "grüns"
+    },
 
-{
-"type":"text",
-"id":"col_two",
-"label":"Column Two",
-"default":"Generic Multivitamin"
-},
+    {
+      "type": "text",
+      "id": "col_two",
+      "label": "Column Two",
+      "default": "Generic Multivitamin"
+    },
 
-{
-"type":"text",
-"id":"col_three",
-"label":"Column Three",
-"default":"Green Powder"
-},
+    {
+      "type": "text",
+      "id": "col_three",
+      "label": "Column Three",
+      "default": "Green Powder"
+    },
 
-{
-"type":"image_picker",
-"id":"table_image",
-"label":"Fallback Image"
-},
+    {
+      "type": "image_picker",
+      "id": "table_image",
+      "label": "Fallback Image"
+    },
 
-{
-"type":"range",
-"id":"padding_top",
-"min":0,
-"max":200,
-"step":4,
-"unit":"px",
-"label":"Padding Top",
-"default":80
-},
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
 
-{
-"type":"range",
-"id":"padding_bottom",
-"min":0,
-"max":200,
-"step":4,
-"unit":"px",
-"label":"Padding Bottom",
-"default":80
-},
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    },
 
-{
-"type":"text",
-"id":"custom_class",
-"label":"Custom CSS Class"
-}
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class"
+    }
 
-],
+  ],
 
-"blocks":[
+  "blocks": [
 
-{
-"type":"row",
-"name":"Table Row",
-"settings":[
+    {
+      "type": "row",
+      "name": "Table Row",
+      "settings": [
 
-{
-"type":"richtext",
-"id":"feature",
-"label":"Feature"
-},
+        {
+          "type": "richtext",
+          "id": "feature",
+          "label": "Feature"
+        },
 
-{
-"type":"richtext",
-"id":"brand_value",
-"label":"Brand Value"
-},
+        {
+          "type": "richtext",
+          "id": "brand_value",
+          "label": "Brand Value"
+        },
 
-{
-"type":"richtext",
-"id":"col_two_value",
-"label":"Column Two Value"
-},
+        {
+          "type": "richtext",
+          "id": "col_two_value",
+          "label": "Column Two Value"
+        },
 
-{
-"type":"richtext",
-"id":"col_three_value",
-"label":"Column Three Value"
-}
+        {
+          "type": "richtext",
+          "id": "col_three_value",
+          "label": "Column Three Value"
+        }
 
-]
-}
+      ]
+    }
 
-],
+  ],
 
-"presets":[
-{
-"name":"Us vs Them Comparison"
-}
-]
+  "presets": [
+    {
+      "name": "Us vs Them Comparison"
+    }
+  ]
 }
 {% endschema %}
