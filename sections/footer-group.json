@@ -257,6 +257,7 @@
         "policy_XLt6z7",
         "policy_P8Ehiq"
       ],
+      "disabled": true,
       "name": "Gruns Footer",
       "settings": {
         "bg_color": "#013c27",

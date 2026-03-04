@@ -861,6 +861,34 @@
             "text": "Jüced",
             "link": "#"
           }
+        },
+        "social_xziWeQ": {
+          "type": "social",
+          "settings": {
+            "icon": "shopify://shop_images/Instagram.svg",
+            "link": "#"
+          }
+        },
+        "social_mKKUEc": {
+          "type": "social",
+          "settings": {
+            "icon": "shopify://shop_images/Instagram.svg",
+            "link": "#"
+          }
+        },
+        "social_DeRryX": {
+          "type": "social",
+          "settings": {
+            "icon": "shopify://shop_images/Instagram.svg",
+            "link": "#"
+          }
+        },
+        "social_hRJyfh": {
+          "type": "social",
+          "settings": {
+            "icon": "shopify://shop_images/Instagram.svg",
+            "link": "#"
+          }
         }
       },
       "block_order": [
@@ -881,7 +909,11 @@
         "menu3_8WpyLU",
         "menu3_eVQWtM",
         "menu3_C9Ywaw",
-        "menu3_WechmP"
+        "menu3_WechmP",
+        "social_xziWeQ",
+        "social_mKKUEc",
+        "social_DeRryX",
+        "social_hRJyfh"
       ],
       "name": "Gruns Footer",
       "settings": {
