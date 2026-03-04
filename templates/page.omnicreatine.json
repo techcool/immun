@@ -132,6 +132,7 @@
         "item_YGEQpL": {
           "type": "item",
           "settings": {
+            "icon": "shopify://shop_images/icon__11.svg",
             "text": "Fresh & Light Taste"
           }
         },
