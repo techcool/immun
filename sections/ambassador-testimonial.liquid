@@ -1,0 +1,251 @@
+<section
+  class="ambassador-testimonial {{ section.settings.custom_class }}"
+  style="
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+
+<div class="page-width">
+
+<div class="testimonial-wrapper">
+
+<!-- Image -->
+<div class="testimonial-image">
+
+{% if section.settings.image != blank %}
+<img
+src="{{ section.settings.image | image_url: width: 900 }}"
+alt=""
+loading="lazy"
+>
+{% endif %}
+
+</div>
+
+
+<!-- Content -->
+<div class="testimonial-content">
+
+{% if section.settings.quote != blank %}
+<h2 class="testimonial-quote">
+“{{ section.settings.quote }}”
+</h2>
+{% endif %}
+
+{% if section.settings.description != blank %}
+<div class="testimonial-desc">
+{{ section.settings.description }}
+</div>
+{% endif %}
+
+{% if section.settings.name != blank %}
+<h4 class="testimonial-name">
+{{ section.settings.name }}
+</h4>
+{% endif %}
+
+{% if section.settings.role != blank %}
+<p class="testimonial-role">
+{{ section.settings.role }}
+</p>
+{% endif %}
+
+{% if section.settings.button_label != blank %}
+<a
+href="{{ section.settings.button_link }}"
+class="testimonial-btn"
+>
+{{ section.settings.button_label }}
+</a>
+{% endif %}
+
+{% if section.settings.disclaimer != blank %}
+<p class="testimonial-disclaimer">
+{{ section.settings.disclaimer }}
+</p>
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+
+<style>
+
+.ambassador-testimonial{
+background:#f6f6f6;
+}
+
+.testimonial-wrapper{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:70px;
+align-items:center;
+}
+
+.testimonial-image img{
+width:100%;
+border-radius:20px;
+border:3px solid #111;
+}
+
+.testimonial-quote{
+font-size:40px;
+font-weight:700;
+color:#0b3b2d;
+margin-bottom:20px;
+}
+
+.testimonial-desc{
+font-size:16px;
+color:#333;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+.testimonial-name{
+font-size:20px;
+font-weight:700;
+margin-bottom:5px;
+}
+
+.testimonial-role{
+color:#666;
+margin-bottom:25px;
+}
+
+.testimonial-btn{
+display:inline-block;
+padding:14px 28px;
+background:#0b7a43;
+color:#fff;
+text-decoration:none;
+border-radius:40px;
+font-weight:600;
+box-shadow:5px 5px 0 #000;
+transition:.3s;
+}
+
+.testimonial-btn:hover{
+transform:translateY(-3px);
+}
+
+.testimonial-disclaimer{
+margin-top:20px;
+font-size:13px;
+color:#666;
+}
+
+@media(max-width:990px){
+
+.testimonial-wrapper{
+grid-template-columns:1fr;
+gap:40px;
+}
+
+.testimonial-quote{
+font-size:30px;
+}
+
+}
+
+</style>
+
+
+{% schema %}
+{
+"name":"Ambassador Testimonial",
+"settings":[
+
+{
+"type":"image_picker",
+"id":"image",
+"label":"Left Image"
+},
+
+{
+"type":"text",
+"id":"quote",
+"label":"Quote Heading",
+"default":"I love that it makes better health accessible to everyone"
+},
+
+{
+"type":"richtext",
+"id":"description",
+"label":"Description"
+},
+
+{
+"type":"text",
+"id":"name",
+"label":"Author Name",
+"default":"Shaun White"
+},
+
+{
+"type":"text",
+"id":"role",
+"label":"Author Role",
+"default":"3x Olympic Gold Medalist, Snowboarding Icon"
+},
+
+{
+"type":"text",
+"id":"button_label",
+"label":"Button Label",
+"default":"Shop Now"
+},
+
+{
+"type":"url",
+"id":"button_link",
+"label":"Button Link"
+},
+
+{
+"type":"textarea",
+"id":"disclaimer",
+"label":"Disclaimer Text"
+},
+
+{
+"type":"range",
+"id":"padding_top",
+"min":0,
+"max":200,
+"step":4,
+"unit":"px",
+"label":"Padding Top",
+"default":80
+},
+
+{
+"type":"range",
+"id":"padding_bottom",
+"min":0,
+"max":200,
+"step":4,
+"unit":"px",
+"label":"Padding Bottom",
+"default":80
+},
+
+{
+"type":"text",
+"id":"custom_class",
+"label":"Custom CSS Class"
+}
+
+],
+
+"presets":[
+{
+"name":"Ambassador Testimonial"
+}
+]
+}
+{% endschema %}
