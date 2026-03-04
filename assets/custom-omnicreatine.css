@@ -59,6 +59,9 @@ h1{
   max-width:1280px;
   margin:0 auto;
 }
+.dFLEX{
+  display:flex;
+}
 
 
 /* Omonicreatine page css end Desktop */
