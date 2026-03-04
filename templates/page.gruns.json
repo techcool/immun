@@ -683,11 +683,13 @@
       "name": "CTA Nutrient Section",
       "settings": {
         "heading": "<p>Want To Join The 10% of People Who Are Nutrient Sufficient?</p>",
-        "subtext": "",
+        "heading_color": "#ffffff",
+        "subtext": "<p>Shaun White is a paid spokesperson and investor in Grüns. He also still rips and loves taking Grüns to the slopes with him.</p>",
+        "subtext_color": "#cccccc",
         "button_label": "Get Your Grüns",
         "button_link": "",
         "bg_color": "#000000",
-        "button_color": "#FFD22E",
+        "button_color": "#ffd22e",
         "padding_top": 80,
         "padding_bottom": 80,
         "custom_class": "common-container gruns-cta"
