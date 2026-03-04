@@ -206,7 +206,7 @@
 /* BUTTON */
 
 #shopify-section-{{ section.id }} .benefit-btn{
-  display:inline-flex;
+  display:flex;
   align-items:center;
   gap:10px;
   padding:16px 34px;
@@ -215,6 +215,11 @@
   border-radius:40px;
   text-decoration:none;
   font-weight:600;
+  max-width: 516px;
+  width: 100%;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
 }
 
 #shopify-section-{{ section.id }} .btn-icon{
