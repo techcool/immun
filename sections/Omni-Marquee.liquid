@@ -1,0 +1,154 @@
+<section class="omni-marquee">
+
+<div class="marquee-track">
+
+<div class="marquee-group">
+
+{% for block in section.blocks %}
+
+<div class="marquee-item" {{ block.shopify_attributes }}>
+
+{% if block.settings.icon != blank %}
+
+<img
+src="{{ block.settings.icon | image_url: width: 80 }}"
+alt="{{ block.settings.text }}"
+class="marquee-icon"
+>
+
+{% endif %}
+
+<p class="marquee-text">
+{{ block.settings.text }}
+</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+<div class="marquee-group">
+
+{% for block in section.blocks %}
+
+<div class="marquee-item">
+
+{% if block.settings.icon != blank %}
+
+<img
+src="{{ block.settings.icon | image_url: width: 80 }}"
+alt="{{ block.settings.text }}"
+class="marquee-icon"
+>
+
+{% endif %}
+
+<p class="marquee-text">
+{{ block.settings.text }}
+</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</section>
+
+
+<style>
+
+.omni-marquee{
+background:#355e9c;
+overflow:hidden;
+padding:14px 0;
+}
+
+.marquee-track{
+display:flex;
+width:max-content;
+animation:marquee-scroll 25s linear infinite;
+}
+
+.marquee-group{
+display:flex;
+}
+
+.marquee-item{
+display:flex;
+align-items:center;
+gap:10px;
+padding:0 40px;
+white-space:nowrap;
+}
+
+.marquee-icon{
+width:24px;
+height:24px;
+}
+
+.marquee-text{
+color:#fff;
+font-size:18px;
+font-weight:600;
+}
+
+@keyframes marquee-scroll{
+
+0%{
+transform:translateX(0);
+}
+
+100%{
+transform:translateX(-50%);
+}
+
+}
+
+</style>
+
+
+
+{% schema %}
+{
+"name": "OMNI Marquee",
+
+"settings": [],
+
+"blocks":[
+
+{
+"type":"item",
+"name":"Marquee Item",
+"settings":[
+
+{
+"type":"image_picker",
+"id":"icon",
+"label":"Icon"
+},
+
+{
+"type":"text",
+"id":"text",
+"label":"Text",
+"default":"VEGAN FORMULA"
+}
+
+]
+}
+
+],
+
+"presets":[
+{
+"name":"OMNI Marquee"
+}
+]
+
+}
+{% endschema %}
