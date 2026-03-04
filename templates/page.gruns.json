@@ -658,7 +658,24 @@
         "product_image": "shopify://shop_images/Adult-Cropped_1.png",
         "padding_top": 80,
         "padding_bottom": 80,
-        "custom_class": "gruns-mango common-container"
+        "custom_class": "guns-mango common-container"
+      }
+    },
+    "ambassador_testimonial_8LFQYg": {
+      "type": "ambassador-testimonial",
+      "name": "Ambassador Testimonial",
+      "settings": {
+        "image": "shopify://shop_images/Lifestyle-ShaunWhite_1.jpg",
+        "quote": "I love that it makes better health accessible to everyone",
+        "description": "<p>\"As a former pro athlete, I've always looked for ways to stay sharp, feel my best, and fuel my body without overcomplicating it. Grüns uses clean ingredients that actually deliver, and I love that it makes better health accessible to everyone, whether you're training at the highest level or just trying to make good choices every day.\"</p>",
+        "name": "Shaun White",
+        "role": "3x Olympic Gold Medalist, Snowboarding Icon",
+        "button_label": "Shop Now",
+        "button_link": "#",
+        "disclaimer": "Shaun White is a paid spokesperson and investor in Grüns. He also still rips and loves taking Grüns to the slopes with him.",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_class": "common-container gruns-everyone"
       }
     }
   },
@@ -672,6 +689,7 @@
     "snackable_tested_stats_CAdNUP",
     "tabbed_video_testimonials_CN3Fj9",
     "us_vs_them_AdHgdb",
-    "mango_hero_bMHkfT"
+    "mango_hero_bMHkfT",
+    "ambassador_testimonial_8LFQYg"
   ]
 }
