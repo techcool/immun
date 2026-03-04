@@ -50,20 +50,6 @@
     "custom_footer_gruns_Tw7jGq": {
       "type": "custom-footer-gruns",
       "blocks": {
-        "policy_fNCCTz": {
-          "type": "policy",
-          "settings": {
-            "text": "#gfg",
-            "link": "#"
-          }
-        },
-        "social_x636UW": {
-          "type": "social",
-          "settings": {
-            "icon": "",
-            "link": "#"
-          }
-        },
         "menu3_YPcwqD": {
           "type": "menu3",
           "settings": {
@@ -196,11 +182,86 @@
             "text": "Press Inquiries",
             "link": "#"
           }
+        },
+        "social_qXGdzx": {
+          "type": "social",
+          "settings": {
+            "icon": "shopify://shop_images/Instagram.svg",
+            "link": "#"
+          }
+        },
+        "social_x636UW": {
+          "type": "social",
+          "settings": {
+            "icon": "shopify://shop_images/TikTok.svg",
+            "link": "#"
+          }
+        },
+        "social_33iCqN": {
+          "type": "social",
+          "settings": {
+            "icon": "shopify://shop_images/YouTube.svg",
+            "link": "#"
+          }
+        },
+        "social_WcgJxb": {
+          "type": "social",
+          "settings": {
+            "icon": "shopify://shop_images/Facebook.svg",
+            "link": "#"
+          }
+        },
+        "policy_fNCCTz": {
+          "type": "policy",
+          "settings": {
+            "text": "Refund Policy",
+            "link": "#"
+          }
+        },
+        "policy_cLMpH3": {
+          "type": "policy",
+          "settings": {
+            "text": "Privacy Policy",
+            "link": "#"
+          }
+        },
+        "policy_rx8Nqh": {
+          "type": "policy",
+          "settings": {
+            "text": "Terms of service",
+            "link": "#"
+          }
+        },
+        "policy_cXCPt7": {
+          "type": "policy",
+          "settings": {
+            "text": "Shipping policy",
+            "link": "#"
+          }
+        },
+        "policy_dckUFt": {
+          "type": "policy",
+          "settings": {
+            "text": "My Privacy Choices",
+            "link": "#"
+          }
+        },
+        "policy_XLt6z7": {
+          "type": "policy",
+          "settings": {
+            "text": "Authorized Resale Policy",
+            "link": "#"
+          }
+        },
+        "policy_P8Ehiq": {
+          "type": "policy",
+          "settings": {
+            "text": "Accessibility",
+            "link": "#"
+          }
         }
       },
       "block_order": [
-        "policy_fNCCTz",
-        "social_x636UW",
         "menu3_YPcwqD",
         "menu3_Q3MkNY",
         "menu3_H3RciA",
@@ -219,7 +280,18 @@
         "menu1_iX3KDg",
         "menu1_qcgeE9",
         "menu1_g6VCHB",
-        "menu1_JdyhjW"
+        "menu1_JdyhjW",
+        "social_qXGdzx",
+        "social_x636UW",
+        "social_33iCqN",
+        "social_WcgJxb",
+        "policy_fNCCTz",
+        "policy_cLMpH3",
+        "policy_rx8Nqh",
+        "policy_cXCPt7",
+        "policy_dckUFt",
+        "policy_XLt6z7",
+        "policy_P8Ehiq"
       ],
       "name": "Gruns Footer",
       "settings": {
