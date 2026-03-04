@@ -637,11 +637,14 @@
       "name": "Us vs Them Comparison",
       "settings": {
         "heading": "Us vs. Them",
-        "description": "Not overhyped or overpriced. Just comprehensive nutrition made enjoyable.",
+        "description": "<p>Not overhyped or overpriced. Just comprehensive nutrition made enjoyable.</p>",
         "brand_title": "grüns",
-        "col_two": "",
-        "col_three": "",
-        "table_image": "shopify://shop_images/UsVsThem_Adults_1.png"
+        "col_two": "uo",
+        "col_three": "ut",
+        "table_image": "shopify://shop_images/UsVsThem_Adults_1.png",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_class": "gruns-them"
       }
     }
   },
