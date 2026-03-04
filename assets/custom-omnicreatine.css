@@ -55,5 +55,10 @@ h1{
       font-family: 'Satoshi-Bold';
 }
 
+.omniContainer{
+  max-width:1280px;
+  margin:0 auto;
+}
+
 
 /* Omonicreatine page css end Desktop */
