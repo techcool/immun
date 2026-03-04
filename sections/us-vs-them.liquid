@@ -1,89 +1,122 @@
-<section class="us-vs-them-section">
-  <div class="page-width">
+<section class="us-vs-them-section {{ section.settings.custom_class }}"
+style="
+padding-top: {{ section.settings.padding_top }}px;
+padding-bottom: {{ section.settings.padding_bottom }}px;
+">
 
-    <div class="us-vs-them-wrapper">
+<div class="page-width">
 
-      <div class="us-vs-them-left">
-        <h2>{{ section.settings.heading }}</h2>
-        <p>{{ section.settings.description }}</p>
-      </div>
+<div class="us-vs-them-wrapper">
 
-      <div class="us-vs-them-table-wrapper">
+<div class="us-vs-them-left">
 
-        {% if section.blocks.size > 0 %}
+{% if section.settings.heading != blank %}
+<h2>{{ section.settings.heading }}</h2>
+{% endif %}
 
-        <div class="us-vs-them-table">
-          <table>
+{% if section.settings.description != blank %}
+<div class="desc rte">
+{{ section.settings.description }}
+</div>
+{% endif %}
 
-            <thead>
-              <tr>
-                <th></th>
-                <th class="brand">{{ section.settings.brand_title }}</th>
-                <th>{{ section.settings.col_two }}</th>
-                <th>{{ section.settings.col_three }}</th>
-              </tr>
-            </thead>
+</div>
 
-            <tbody>
 
-              {% for block in section.blocks %}
-              <tr>
+<div class="us-vs-them-table-wrapper">
 
-                <td class="feature">
-                  {{ block.settings.feature }}
-                </td>
+{% if section.blocks.size > 0 %}
 
-                <td class="brand-value">
-                  {{ block.settings.brand_value }}
-                </td>
+<div class="us-vs-them-table">
 
-                <td>
-                  {{ block.settings.col_two_value }}
-                </td>
+<table>
 
-                <td>
-                  {{ block.settings.col_three_value }}
-                </td>
+<thead>
+<tr>
 
-              </tr>
-              {% endfor %}
+<th></th>
 
-            </tbody>
+<th class="brand">
+{{ section.settings.brand_title }}
+</th>
 
-          </table>
-        </div>
+<th>
+{{ section.settings.col_two }}
+</th>
 
-        {% else %}
+<th>
+{{ section.settings.col_three }}
+</th>
 
-        <div class="comparison-image">
-          {% if section.settings.table_image != blank %}
-            <img
-              src="{{ section.settings.table_image | image_url: width: 1200 }}"
-              alt="Comparison Image"
-              loading="lazy"
-            >
-          {% endif %}
-        </div>
+</tr>
+</thead>
 
-        {% endif %}
+<tbody>
 
-      </div>
+{% for block in section.blocks %}
 
-    </div>
+<tr {{ block.shopify_attributes }}>
 
-  </div>
-</section>
+<td class="feature">
+<div class="rte">
+{{ block.settings.feature }}
+</div>
+</td>
+
+<td class="brand-value">
+<div class="rte">
+{{ block.settings.brand_value }}
+</div>
+</td>
+
+<td>
+<div class="rte">
+{{ block.settings.col_two_value }}
+</div>
+</td>
+
+<td>
+<div class="rte">
+{{ block.settings.col_three_value }}
+</div>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<div class="comparison-image">
+
+{% if section.settings.table_image != blank %}
+<img
+src="{{ section.settings.table_image | image_url: width: 1400 }}"
+alt=""
+loading="lazy"
+>
+{% endif %}
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+</div>
 
 <style>
 
-.us-vs-them-section{
-padding:80px 20px;
-background:#f7f7f7;
-}
-
 .us-vs-them-wrapper{
 display:grid;
-grid-template-columns:1fr 1.2fr;
+grid-template-columns:1fr 1.3fr;
 gap:60px;
 align-items:center;
 }
@@ -94,9 +127,9 @@ font-weight:700;
 margin-bottom:15px;
 }
 
-.us-vs-them-left p{
-font-size:16px;
+.us-vs-them-left .desc{
 color:#555;
+font-size:16px;
 }
 
 .us-vs-them-table table{
@@ -111,8 +144,8 @@ border:2px solid #1c6b3c;
 .us-vs-them-table th,
 .us-vs-them-table td{
 padding:16px;
-text-align:center;
 border-bottom:1px solid #eee;
+text-align:center;
 }
 
 .us-vs-them-table th:first-child,
@@ -146,7 +179,7 @@ width:100%;
 border-radius:12px;
 }
 
-@media(max-width:900px){
+@media(max-width:990px){
 
 .us-vs-them-wrapper{
 grid-template-columns:1fr;
@@ -161,9 +194,10 @@ font-size:30px;
 
 </style>
 
+
 {% schema %}
 {
-"name": "Us vs Them",
+"name": "Us vs Them Comparison",
 "settings":[
 
 {
@@ -174,37 +208,64 @@ font-size:30px;
 },
 
 {
-"type":"textarea",
+"type":"richtext",
 "id":"description",
-"label":"Description",
-"default":"Not overhyped or overpriced. Just comprehensive nutrition made enjoyable and for everyone."
+"label":"Description"
 },
 
 {
 "type":"text",
 "id":"brand_title",
-"label":"Brand Column Title",
+"label":"Brand Title",
 "default":"grüns"
 },
 
 {
 "type":"text",
 "id":"col_two",
-"label":"Column Two Title",
+"label":"Column Two",
 "default":"Generic Multivitamin"
 },
 
 {
 "type":"text",
 "id":"col_three",
-"label":"Column Three Title",
-"default":"Overpriced Green Powder"
+"label":"Column Three",
+"default":"Green Powder"
 },
 
 {
 "type":"image_picker",
 "id":"table_image",
-"label":"Fallback Image (show if no table rows)"
+"label":"Fallback Image"
+},
+
+{
+"type":"range",
+"id":"padding_top",
+"min":0,
+"max":200,
+"step":4,
+"unit":"px",
+"label":"Padding Top",
+"default":80
+},
+
+{
+"type":"range",
+"id":"padding_bottom",
+"min":0,
+"max":200,
+"step":4,
+"unit":"px",
+"label":"Padding Bottom",
+"default":80
+},
+
+{
+"type":"text",
+"id":"custom_class",
+"label":"Custom CSS Class"
 }
 
 ],
@@ -217,31 +278,27 @@ font-size:30px;
 "settings":[
 
 {
-"type":"text",
+"type":"richtext",
 "id":"feature",
-"label":"Feature",
-"default":"Cost Per Serving"
+"label":"Feature"
 },
 
 {
-"type":"text",
+"type":"richtext",
 "id":"brand_value",
-"label":"Brand Value",
-"default":"$1.47"
+"label":"Brand Value"
 },
 
 {
-"type":"text",
+"type":"richtext",
 "id":"col_two_value",
-"label":"Column Two Value",
-"default":"🤔"
+"label":"Column Two Value"
 },
 
 {
-"type":"text",
+"type":"richtext",
 "id":"col_three_value",
-"label":"Column Three Value",
-"default":"$3.60"
+"label":"Column Three Value"
 }
 
 ]
