@@ -740,7 +740,10 @@
       "name": "FAQ Accordion",
       "settings": {
         "heading": "Any last questions?",
-        "bg_color": "#d6e3dc"
+        "bg_color": "#d6e3dc",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_class": "common-container gruns-faq"
       }
     },
     "section_3zf8Rh": {
