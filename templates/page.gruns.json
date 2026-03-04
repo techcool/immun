@@ -646,6 +646,20 @@
         "padding_bottom": 80,
         "custom_class": "gruns-them"
       }
+    },
+    "mango_hero_bMHkfT": {
+      "type": "mango-hero",
+      "name": "Mango Product Hero",
+      "settings": {
+        "heading": "Mango Sorbet Won't Stick Around",
+        "text": "Grab this summery flavor before it's gone for good.",
+        "btn_label": "Stock Up While You Can!",
+        "btn_link": "",
+        "product_image": "shopify://shop_images/Adult-Cropped_1.png",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_class": ""
+      }
     }
   },
   "order": [
@@ -657,6 +671,7 @@
     "modern_living_stats_URhcL9",
     "snackable_tested_stats_CAdNUP",
     "tabbed_video_testimonials_CN3Fj9",
-    "us_vs_them_AdHgdb"
+    "us_vs_them_AdHgdb",
+    "mango_hero_bMHkfT"
   ]
 }
