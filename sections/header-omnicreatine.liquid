@@ -1,21 +1,145 @@
-<header class="custom-header">
-  <div class="header-left">
-    <a href="/collections/all" class="shop-link">SHOP NOW</a>
-  </div>
+<header class="omni-header color-{{ section.settings.color_scheme }} {{ section.settings.custom_class }}">
+  <div class="omni-header__container">
 
-  <div class="header-center">
-    <a href="{{ routes.root_url }}" class="logo">
-      OMNI
-    </a>
-  </div>
+    <!-- LEFT: Logo -->
+    <div class="omni-header__logo">
+      {% if section.settings.custom_image != blank %}
+        <a href="{{ section.settings.image_link | default: routes.root_url }}">
+          <img 
+            src="{{ section.settings.custom_image | image_url: width: 400 }}"
+            alt="{{ section.settings.custom_image.alt | escape }}"
+            loading="lazy"
+          >
+        </a>
+      {% endif %}
+    </div>
 
-  <div class="header-right">
-    <a href="/account" class="icon">
-      {% render 'icon-account' %}
-    </a>
+    <!-- CENTER: Navigation -->
+    <nav class="omni-header__nav">
+      <ul>
+        {% for block in section.blocks %}
+          {% if block.type == 'nav_link' %}
+            <li {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.link_url }}">
+                {{ block.settings.link_text }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
 
-    <a href="/cart" class="icon">
-      {% render 'icon-cart' %}
-    </a>
+    <!-- RIGHT -->
+    <div class="omni-header__actions">
+
+      {% if section.settings.show_search %}
+        <a href="{{ routes.search_url }}" class="omni-icon" aria-label="Search">
+          🔍
+        </a>
+      {% endif %}
+
+      <a href="{{ routes.cart_url }}" class="omni-icon omni-cart" aria-label="Cart">
+        🛒
+        {% if cart.item_count > 0 %}
+          <span class="omni-cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_link }}" class="omni-btn">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+
+    </div>
+
   </div>
 </header>
+
+<style>
+
+.omni-header {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media (max-width:768px){
+  .omni-header{
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+}
+
+.omni-header__container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+/* Logo */
+
+.omni-header__logo img{
+  max-height:34px;
+  display:block;
+}
+
+/* Navigation */
+
+.omni-header__nav ul{
+  list-style:none;
+  display:flex;
+  gap:35px;
+  margin:0;
+  padding:0;
+}
+
+.omni-header__nav a{
+  text-decoration:none;
+  font-size:14px;
+  font-weight:500;
+}
+
+/* Right */
+
+.omni-header__actions{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.omni-icon{
+  text-decoration:none;
+  font-size:18px;
+  position:relative;
+}
+
+.omni-cart-count{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  font-size:11px;
+  padding:2px 6px;
+  border-radius:20px;
+  background:currentColor;
+  color:#fff;
+}
+
+.omni-btn{
+  padding:10px 18px;
+  text-decoration:none;
+  font-size:14px;
+  border:1px solid currentColor;
+}
+
+/* Hide nav mobile */
+
+@media(max-width:991px){
+  .omni-header__nav{
+    display:none;
+  }
+}
+
+</style>
