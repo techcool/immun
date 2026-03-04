@@ -634,37 +634,14 @@
     },
     "us_vs_them_AdHgdb": {
       "type": "us-vs-them",
-      "blocks": {
-        "row_dpX6FG": {
-          "type": "row",
-          "settings": {
-            "feature": "Cost Per Serving",
-            "brand_value": "$1.47",
-            "col_two_value": "🤔",
-            "col_three_value": "$3.60"
-          }
-        },
-        "row_ag7WrM": {
-          "type": "row",
-          "settings": {
-            "feature": "Cost Per Serving",
-            "brand_value": "$1.47",
-            "col_two_value": "🤔",
-            "col_three_value": "$3.60"
-          }
-        }
-      },
-      "block_order": [
-        "row_dpX6FG",
-        "row_ag7WrM"
-      ],
       "name": "Us vs Them Comparison",
       "settings": {
         "heading": "Us vs. Them",
         "description": "Not overhyped or overpriced. Just comprehensive nutrition made enjoyable.",
         "brand_title": "grüns",
-        "col_two": "Generic Multivitamin",
-        "col_three": "Green Powder"
+        "col_two": "",
+        "col_three": "",
+        "table_image": "shopify://shop_images/UsVsThem_Adults_1.png"
       }
     }
   },
