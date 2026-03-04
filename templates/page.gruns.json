@@ -732,6 +732,172 @@
         "padding_bottom": 80,
         "custom_class": "common-container gruns-cta"
       }
+    },
+    "custom_footer_gruns_fqp9Jn": {
+      "type": "custom-footer-gruns",
+      "blocks": {
+        "menu1_tfqQ8N": {
+          "type": "menu1",
+          "settings": {
+            "text": "Reviews",
+            "link": "#"
+          }
+        },
+        "menu1_NMEdP9": {
+          "type": "menu1",
+          "settings": {
+            "text": "Our Science",
+            "link": "#"
+          }
+        },
+        "menu1_HzpYBK": {
+          "type": "menu1",
+          "settings": {
+            "text": "How Grüns Works",
+            "link": "#"
+          }
+        },
+        "menu1_wbnxzz": {
+          "type": "menu1",
+          "settings": {
+            "text": "Our Story",
+            "link": "#"
+          }
+        },
+        "menu1_cmEFDh": {
+          "type": "menu1",
+          "settings": {
+            "text": "Find in Store",
+            "link": "#"
+          }
+        },
+        "menu1_MijfB6": {
+          "type": "menu1",
+          "settings": {
+            "text": "FAQs",
+            "link": "#"
+          }
+        },
+        "menu1_MqGKKG": {
+          "type": "menu1",
+          "settings": {
+            "text": "Press Inquiries",
+            "link": "#"
+          }
+        },
+        "menu2_9949EY": {
+          "type": "menu2",
+          "settings": {
+            "text": "Refer a Friend",
+            "link": "#"
+          }
+        },
+        "menu2_pr6LEC": {
+          "type": "menu2",
+          "settings": {
+            "text": "Partners & Influencers",
+            "link": "#"
+          }
+        },
+        "menu2_K8tLYK": {
+          "type": "menu2",
+          "settings": {
+            "text": "Make a Return",
+            "link": "#"
+          }
+        },
+        "menu2_HipYR9": {
+          "type": "menu2",
+          "settings": {
+            "text": "Careers",
+            "link": "#"
+          }
+        },
+        "menu2_YMWCif": {
+          "type": "menu2",
+          "settings": {
+            "text": "Account Login",
+            "link": "#"
+          }
+        },
+        "menu2_FnzpqU": {
+          "type": "menu2",
+          "settings": {
+            "text": "Contact Us",
+            "link": "#"
+          }
+        },
+        "menu3_yQVJcz": {
+          "type": "menu3",
+          "settings": {
+            "text": "About",
+            "link": "#"
+          }
+        },
+        "menu3_8WpyLU": {
+          "type": "menu3",
+          "settings": {
+            "text": "Grüns Adults",
+            "link": "#"
+          }
+        },
+        "menu3_eVQWtM": {
+          "type": "menu3",
+          "settings": {
+            "text": "Grüns Kids",
+            "link": "#"
+          }
+        },
+        "menu3_C9Ywaw": {
+          "type": "menu3",
+          "settings": {
+            "text": "Immün",
+            "link": "#"
+          }
+        },
+        "menu3_WechmP": {
+          "type": "menu3",
+          "settings": {
+            "text": "Jüced",
+            "link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "menu1_tfqQ8N",
+        "menu1_NMEdP9",
+        "menu1_HzpYBK",
+        "menu1_wbnxzz",
+        "menu1_cmEFDh",
+        "menu1_MijfB6",
+        "menu1_MqGKKG",
+        "menu2_9949EY",
+        "menu2_pr6LEC",
+        "menu2_K8tLYK",
+        "menu2_HipYR9",
+        "menu2_YMWCif",
+        "menu2_FnzpqU",
+        "menu3_yQVJcz",
+        "menu3_8WpyLU",
+        "menu3_eVQWtM",
+        "menu3_C9Ywaw",
+        "menu3_WechmP"
+      ],
+      "name": "Gruns Footer",
+      "settings": {
+        "bg_color": "#003c2b",
+        "pattern_opacity": 0.2,
+        "heading": "Sign Up for 52% Off",
+        "newsletter_class": "",
+        "email_description": "**By providing your number and clicking the button, you agree to receive recurring auto-dialed marketing SMS (including cart reminders; AI content; artificial or prerecorded voices) and our Terms of Service (including arbitration). Consent is not required to purchase. Msg & data rates may apply. Msg frequency varies. Reply HELP for help; STOP to opt-out. View Privacy Policy.",
+        "sms_description": "By completing this form you are signing up to receive our emails and can unsubscribe at any time.",
+        "menu1_title": "Learn",
+        "menu2_title": "Connect",
+        "menu3_image": "shopify://shop_images/snacks.svg",
+        "logo": "shopify://shop_images/logo.svg",
+        "disclaimer1": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.",
+        "disclaimer2": "**Offer assumes customer has received and uses promotional SMS discount reserved for new customers only."
+      }
     }
   },
   "order": [
@@ -747,6 +913,7 @@
     "us_vs_them_AdHgdb",
     "mango_hero_bMHkfT",
     "ambassador_testimonial_8LFQYg",
-    "cta_nutrient_BLbx8W"
+    "cta_nutrient_BLbx8W",
+    "custom_footer_gruns_fqp9Jn"
   ]
 }
