@@ -631,6 +631,41 @@
         "heading": "Join 1,000,000+ Others Filling Nutrition Gaps",
         "bg_color": "#dfe9e2"
       }
+    },
+    "us_vs_them_AdHgdb": {
+      "type": "us-vs-them",
+      "blocks": {
+        "row_dpX6FG": {
+          "type": "row",
+          "settings": {
+            "feature": "Cost Per Serving",
+            "brand_value": "$1.47",
+            "col_two_value": "🤔",
+            "col_three_value": "$3.60"
+          }
+        },
+        "row_ag7WrM": {
+          "type": "row",
+          "settings": {
+            "feature": "Cost Per Serving",
+            "brand_value": "$1.47",
+            "col_two_value": "🤔",
+            "col_three_value": "$3.60"
+          }
+        }
+      },
+      "block_order": [
+        "row_dpX6FG",
+        "row_ag7WrM"
+      ],
+      "name": "Us vs Them Comparison",
+      "settings": {
+        "heading": "Us vs. Them",
+        "description": "Not overhyped or overpriced. Just comprehensive nutrition made enjoyable.",
+        "brand_title": "grüns",
+        "col_two": "Generic Multivitamin",
+        "col_three": "Green Powder"
+      }
     }
   },
   "order": [
@@ -641,6 +676,7 @@
     "health_benefits_FCwzcz",
     "modern_living_stats_URhcL9",
     "snackable_tested_stats_CAdNUP",
-    "tabbed_video_testimonials_CN3Fj9"
+    "tabbed_video_testimonials_CN3Fj9",
+    "us_vs_them_AdHgdb"
   ]
 }
