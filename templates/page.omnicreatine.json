@@ -212,9 +212,11 @@
         "badge": "#1 TASTING CREATINE",
         "heading": "Optimize Your Routine",
         "description": "Creatine supports how your cells create and reuse energy. Its effects show up in strength, recovery, mental clarity and daily stamina.",
+        "button_icon": "shopify://shop_images/icon__arrow.svg",
         "button_text": "TRY OMNI TODAY",
         "button_link": "",
-        "guarantee": "30-day money-back guarantee"
+        "guarantee_icon": "shopify://shop_images/tickCheck.svg",
+        "guarantee_text": "30-day money-back guarantee"
       }
     }
   },
