@@ -50,6 +50,20 @@
     "custom_footer_gruns_Tw7jGq": {
       "type": "custom-footer-gruns",
       "blocks": {
+        "policy_fNCCTz": {
+          "type": "policy",
+          "settings": {
+            "text": "#gfg",
+            "link": "#"
+          }
+        },
+        "social_x636UW": {
+          "type": "social",
+          "settings": {
+            "icon": "",
+            "link": "#"
+          }
+        },
         "menu3_YPcwqD": {
           "type": "menu3",
           "settings": {
@@ -185,6 +199,8 @@
         }
       },
       "block_order": [
+        "policy_fNCCTz",
+        "social_x636UW",
         "menu3_YPcwqD",
         "menu3_Q3MkNY",
         "menu3_H3RciA",
