@@ -1,4 +1,6 @@
-<section class="faq-section" style="background: {{ section.settings.bg_color }};">
+<section class="faq-section {{ section.settings.custom_class }}" 
+style="background: {{ section.settings.bg_color }}; padding-top:{{ section.settings.padding_top }}px; padding-bottom:{{ section.settings.padding_bottom }}px;">
+
   <div class="page-width faq-container">
 
     {% if section.settings.heading != blank %}
@@ -38,10 +40,6 @@
 
 
 <style>
-
-.faq-section{
-  padding:80px 20px;
-}
 
 .faq-container{
   display:grid;
@@ -109,7 +107,6 @@
 </style>
 
 
-
 <script>
 
 document.querySelectorAll('.faq-question').forEach((button) => {
@@ -145,7 +142,6 @@ document.querySelectorAll('.faq-question').forEach((button) => {
 </script>
 
 
-
 {% schema %}
 {
   "name": "FAQ Accordion",
@@ -161,6 +157,31 @@ document.querySelectorAll('.faq-question').forEach((button) => {
       "id": "bg_color",
       "label": "Background color",
       "default": "#d9e6de"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class"
     }
   ],
   "blocks": [
