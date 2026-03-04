@@ -677,6 +677,21 @@
         "padding_bottom": 80,
         "custom_class": "common-container gruns-everyone"
       }
+    },
+    "cta_nutrient_BLbx8W": {
+      "type": "cta-nutrient",
+      "name": "CTA Nutrient Section",
+      "settings": {
+        "heading": "<p>Want To Join The 10% of People Who Are Nutrient Sufficient?</p>",
+        "subtext": "",
+        "button_label": "Get Your Grüns",
+        "button_link": "",
+        "bg_color": "#000000",
+        "button_color": "#FFD22E",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_class": "common-container gruns-cta"
+      }
     }
   },
   "order": [
@@ -690,6 +705,7 @@
     "tabbed_video_testimonials_CN3Fj9",
     "us_vs_them_AdHgdb",
     "mango_hero_bMHkfT",
-    "ambassador_testimonial_8LFQYg"
+    "ambassador_testimonial_8LFQYg",
+    "cta_nutrient_BLbx8W"
   ]
 }
