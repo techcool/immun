@@ -13,9 +13,9 @@
 
 @font-face {
   font-family: 'Satoshi-Regular';
-  src: url('../fonts/Satoshi-Regular.woff2') format('woff2'),
-       url('../fonts/Satoshi-Regular.woff') format('woff'),
-       url('../fonts/Satoshi-Regular.ttf') format('truetype');
+  src: url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Regular.woff2') format('woff2'),
+       url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Regular.woff') format('woff'),
+       url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Regular.ttf') format('truetype');
   font-weight: 400;
   font-display: swap;
   font-style: normal;
@@ -23,9 +23,9 @@
 
 @font-face {
   font-family: 'Satoshi-Medium';
-  src: url('../fonts/Satoshi-Medium.woff2') format('woff2'),
-       url('../fonts/Satoshi-Medium.woff') format('woff'),
-       url('../fonts/Satoshi-Medium.ttf') format('truetype');
+  src: url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Medium.woff2') format('woff2'),
+       url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Medium.woff') format('woff'),
+       url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Medium.ttf') format('truetype');
   font-weight: 500;
   font-display: swap;
   font-style: normal;
@@ -33,9 +33,9 @@
 
 @font-face {
   font-family: 'Satoshi-Bold';
-  src: url('../fonts/Satoshi-Bold.woff2') format('woff2'),
-       url('../fonts/Satoshi-Bold.woff') format('woff'),
-       url('../fonts/Satoshi-Bold.ttf') format('truetype');
+  src: url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Bold.woff2') format('woff2'),
+       url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Bold.woff') format('woff'),
+       url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Bold.ttf') format('truetype');
   font-weight: 700;
   font-display: swap;
   font-style: normal;
@@ -43,9 +43,9 @@
 
 @font-face {
   font-family: 'Satoshi-Black';
-  src: url('../fonts/Satoshi-Black.woff2') format('woff2'),
-       url('../fonts/Satoshi-Black.woff') format('woff'),
-       url('../fonts/Satoshi-Black.ttf') format('truetype');
+  src: url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Black.woff2') format('woff2'),
+       url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Black.woff') format('woff'),
+       url('https://cdn.shopify.com/s/files/1/0976/2829/1379/files/Satoshi-Black.ttf') format('truetype');
   font-weight: 900;
   font-display: swap;
   font-style: normal;
