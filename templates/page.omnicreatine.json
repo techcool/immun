@@ -104,11 +104,26 @@
         "cart_icon": "shopify://shop_images/cart.svg",
         "cart_link": ""
       }
+    },
+    "omni_hero_banner_f3KqAi": {
+      "type": "omni-hero-banner",
+      "name": "OMNI Hero Banner",
+      "settings": {
+        "rating_text": "4.8 Rating | 35,000+ Orders Delivered",
+        "sale_badge": "PRE-SPRING SALE",
+        "heading": "Creatine For Body & Mind",
+        "description": "OMNI is a creatine infused gummy that helps with building muscle, improve mental clarity and accelerate your recovery.",
+        "button_text": "TRY OMNI TODAY",
+        "button_link": "",
+        "guarantee_text": "30-day money-back guarantee",
+        "product_image": "shopify://shop_images/spring_1.webp"
+      }
     }
   },
   "order": [
     "custom_header_common_RPAJ68",
     "main",
-    "omni_flex_header_7zw3jC"
+    "omni_flex_header_7zw3jC",
+    "omni_hero_banner_f3KqAi"
   ]
 }
