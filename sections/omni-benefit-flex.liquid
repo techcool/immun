@@ -1,0 +1,304 @@
+<section class="omni-benefit">
+
+<div class="omni-container">
+
+<!-- LEFT IMAGE -->
+
+<div class="benefit-left">
+
+{% if section.settings.image != blank %}
+<img
+src="{{ section.settings.image | image_url: width: 900 }}"
+alt="Product"
+>
+{% endif %}
+
+</div>
+
+
+<!-- RIGHT CONTENT -->
+
+<div class="benefit-right">
+
+{% if section.settings.badge != blank %}
+<div class="benefit-badge">
+{{ section.settings.badge }}
+</div>
+{% endif %}
+
+<h2 class="benefit-title">
+{{ section.settings.heading }}
+</h2>
+
+<p class="benefit-desc">
+{{ section.settings.description }}
+</p>
+
+
+
+<div class="benefit-features">
+
+{% for block in section.blocks %}
+
+<div class="benefit-item" {{ block.shopify_attributes }}>
+
+{% if block.settings.icon != blank %}
+<img
+src="{{ block.settings.icon | image_url: width: 60 }}"
+alt="{{ block.settings.title }}"
+class="benefit-icon"
+>
+{% endif %}
+
+<div class="benefit-text">
+
+<h4>{{ block.settings.title }}</h4>
+<p>{{ block.settings.text }}</p>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+
+{% if section.settings.button_text != blank %}
+<a href="{{ section.settings.button_link }}" class="benefit-btn">
+{{ section.settings.button_text }}
+</a>
+{% endif %}
+
+
+{% if section.settings.guarantee != blank %}
+<div class="benefit-guarantee">
+✓ {{ section.settings.guarantee }}
+</div>
+{% endif %}
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<style>
+
+#shopify-section-{{ section.id }} .omni-benefit{
+padding:80px 40px;
+background:#f5f6f7;
+}
+
+/* MAIN FLEX */
+
+#shopify-section-{{ section.id }} .omni-container{
+max-width:1300px;
+margin:auto;
+display:flex;
+align-items:center;
+gap:80px;
+}
+
+/* LEFT IMAGE */
+
+#shopify-section-{{ section.id }} .benefit-left{
+flex:1;
+}
+
+#shopify-section-{{ section.id }} .benefit-left img{
+width:100%;
+border-radius:24px;
+}
+
+/* RIGHT CONTENT */
+
+#shopify-section-{{ section.id }} .benefit-right{
+flex:1;
+}
+
+/* BADGE */
+
+#shopify-section-{{ section.id }} .benefit-badge{
+display:inline-block;
+padding:6px 14px;
+border-radius:30px;
+border:1px solid #2e4f82;
+font-size:14px;
+margin-bottom:16px;
+}
+
+/* TITLE */
+
+#shopify-section-{{ section.id }} .benefit-title{
+font-size:44px;
+margin-bottom:16px;
+}
+
+/* DESC */
+
+#shopify-section-{{ section.id }} .benefit-desc{
+color:#555;
+margin-bottom:30px;
+}
+
+/* FEATURES */
+
+#shopify-section-{{ section.id }} .benefit-features{
+display:flex;
+flex-wrap:wrap;
+gap:30px;
+margin-bottom:30px;
+}
+
+#shopify-section-{{ section.id }} .benefit-item{
+display:flex;
+align-items:flex-start;
+gap:12px;
+width:48%;
+}
+
+#shopify-section-{{ section.id }} .benefit-icon{
+width:32px;
+}
+
+/* BUTTON */
+
+#shopify-section-{{ section.id }} .benefit-btn{
+display:inline-block;
+padding:16px 34px;
+background:#2e4f82;
+color:#fff;
+border-radius:40px;
+text-decoration:none;
+font-weight:600;
+margin-top:10px;
+}
+
+/* GUARANTEE */
+
+#shopify-section-{{ section.id }} .benefit-guarantee{
+margin-top:12px;
+font-size:14px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+#shopify-section-{{ section.id }} .omni-container{
+flex-direction:column;
+gap:40px;
+}
+
+#shopify-section-{{ section.id }} .benefit-item{
+width:100%;
+}
+
+#shopify-section-{{ section.id }} .benefit-title{
+font-size:32px;
+}
+
+}
+
+</style>
+
+
+
+{% schema %}
+{
+"name": "OMNI Benefit Flex",
+
+"settings": [
+
+{
+"type":"image_picker",
+"id":"image",
+"label":"Left Image"
+},
+
+{
+"type":"text",
+"id":"badge",
+"label":"Badge Text",
+"default":"#1 TASTING CREATINE"
+},
+
+{
+"type":"text",
+"id":"heading",
+"label":"Heading",
+"default":"Optimize Your Routine"
+},
+
+{
+"type":"textarea",
+"id":"description",
+"label":"Description"
+},
+
+{
+"type":"text",
+"id":"button_text",
+"label":"Button Text",
+"default":"TRY OMNI TODAY"
+},
+
+{
+"type":"url",
+"id":"button_link",
+"label":"Button Link"
+},
+
+{
+"type":"text",
+"id":"guarantee",
+"label":"Guarantee Text",
+"default":"30-day money-back guarantee"
+}
+
+],
+
+"blocks":[
+
+{
+"type":"feature",
+"name":"Feature",
+
+"settings":[
+
+{
+"type":"image_picker",
+"id":"icon",
+"label":"Icon"
+},
+
+{
+"type":"text",
+"id":"title",
+"label":"Title"
+},
+
+{
+"type":"textarea",
+"id":"text",
+"label":"Description"
+}
+
+]
+
+}
+
+],
+
+"presets":[
+{
+"name":"OMNI Benefit Flex"
+}
+]
+
+}
+{% endschema %}
