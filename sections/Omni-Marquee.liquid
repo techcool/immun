@@ -62,23 +62,24 @@ class="marquee-icon"
 
 <style>
 
-.omni-marquee{
-background:#355e9c;
+#shopify-section-{{ section.id }} .omni-marquee{
+background: {{ section.settings.bg_color }};
 overflow:hidden;
-padding:14px 0;
+padding-top: {{ section.settings.padding_top }}px;
+padding-bottom: {{ section.settings.padding_bottom }}px;
 }
 
-.marquee-track{
+#shopify-section-{{ section.id }} .marquee-track{
 display:flex;
 width:max-content;
 animation:marquee-scroll 25s linear infinite;
 }
 
-.marquee-group{
+#shopify-section-{{ section.id }} .marquee-group{
 display:flex;
 }
 
-.marquee-item{
+#shopify-section-{{ section.id }} .marquee-item{
 display:flex;
 align-items:center;
 gap:10px;
@@ -86,12 +87,12 @@ padding:0 40px;
 white-space:nowrap;
 }
 
-.marquee-icon{
+#shopify-section-{{ section.id }} .marquee-icon{
 width:24px;
 height:24px;
 }
 
-.marquee-text{
+#shopify-section-{{ section.id }} .marquee-text{
 color:#fff;
 font-size:18px;
 font-weight:600;
@@ -117,7 +118,36 @@ transform:translateX(-50%);
 {
 "name": "OMNI Marquee",
 
-"settings": [],
+"settings": [
+
+{
+"type": "color",
+"id": "bg_color",
+"label": "Background Color",
+"default": "#355e9c"
+},
+
+{
+"type": "range",
+"id": "padding_top",
+"label": "Padding Top",
+"min": 0,
+"max": 100,
+"step": 2,
+"default": 14
+},
+
+{
+"type": "range",
+"id": "padding_bottom",
+"label": "Padding Bottom",
+"min": 0,
+"max": 100,
+"step": 2,
+"default": 14
+}
+
+],
 
 "blocks":[
 
