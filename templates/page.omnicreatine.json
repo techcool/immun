@@ -87,7 +87,7 @@
       }
     },
     "omni_header_7G3kr8": {
-      "type": "omni-header",
+      "type": "omni-dynamic-header",
       "name": "OMNI Header",
       "settings": {}
     }
