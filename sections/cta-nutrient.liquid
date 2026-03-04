@@ -1,102 +1,109 @@
 <section
   class="cta-nutrient {{ section.settings.custom_class }}"
   style="
-    background: {{ section.settings.bg_color }};
+    {% if section.settings.bg_image != blank %}
+      background-image: url({{ section.settings.bg_image | image_url: width: 2000 }});
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    {% else %}
+      background-color: {{ section.settings.bg_color }};
+    {% endif %}
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
   "
 >
+  <div class="page-width">
 
-<div class="page-width">
+    <div class="cta-wrapper">
 
-<div class="cta-wrapper">
+      {% if section.settings.heading != blank %}
+        <h2
+          class="cta-heading"
+          style="color: {{ section.settings.heading_color }};"
+        >
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
 
-{% if section.settings.heading != blank %}
-<h2
-class="cta-heading"
-style="color: {{ section.settings.heading_color }};"
->
-{{ section.settings.heading }}
-</h2>
-{% endif %}
+      {% if section.settings.subtext != blank %}
+        <div
+          class="cta-subtext"
+          style="color: {{ section.settings.subtext_color }};"
+        >
+          {{ section.settings.subtext }}
+        </div>
+      {% endif %}
 
+      {% if section.settings.button_label != blank %}
+        <a
+          href="{{ section.settings.button_link }}"
+          class="cta-btn"
+          style="
+            background: {{ section.settings.button_color }};
+            color: {{ section.settings.button_text_color }};
+          "
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
 
-{% if section.settings.subtext != blank %}
-<div
-class="cta-subtext"
-style="color: {{ section.settings.subtext_color }};"
->
-{{ section.settings.subtext }}
-</div>
-{% endif %}
+    </div>
 
-
-{% if section.settings.button_label != blank %}
-<a
-href="{{ section.settings.button_link }}"
-class="cta-btn"
-style="background: {{ section.settings.button_color }};"
->
-{{ section.settings.button_label }}
-</a>
-{% endif %}
-
-</div>
-
-</div>
+  </div>
+</section>
 
 
 <style>
 
+.cta-nutrient{
+  position: relative;
+}
+
 .cta-wrapper{
-  text-align:center;
-  max-width:900px;
-  margin:auto;
+  text-align: center;
+  max-width: 900px;
+  margin: auto;
 }
 
 .cta-heading{
-  font-size:44px;
-  font-weight:700;
-  line-height:1.3;
-  margin-bottom:18px;
-}
-
-.cta-heading em{
-  font-style:italic;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 18px;
 }
 
 .cta-subtext{
-  font-size:16px;
-  max-width:600px;
-  margin:0 auto 30px;
+  font-size: 16px;
+  max-width: 600px;
+  margin: 0 auto 30px;
 }
 
 .cta-btn{
-  display:inline-block;
-  padding:16px 34px;
-  border-radius:40px;
-  font-weight:600;
-  text-decoration:none;
-  color:#000;
-  transition:0.3s;
+  display: inline-block;
+  padding: 16px 34px;
+  border-radius: 40px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
 .cta-btn:hover{
-  transform:translateY(-2px);
+  transform: translateY(-2px);
 }
 
 
 /* Responsive */
 
-@media(max-width:990px){
+@media (max-width: 990px){
 
-.cta-heading{
-  font-size:30px;
-}
+  .cta-heading{
+    font-size: 30px;
+  }
 
-.cta-subtext{
-  font-size:14px;
-}
+  .cta-subtext{
+    font-size: 14px;
+  }
 
 }
 
@@ -105,97 +112,110 @@ style="background: {{ section.settings.button_color }};"
 
 {% schema %}
 {
-"name":"CTA Nutrient Section",
-"settings":[
+  "name": "CTA Nutrient Section",
+  "settings": [
 
-{
-"type":"textarea",
-"id":"heading",
-"label":"Heading",
-"default":"Want To Join The 10% of People Who Are Nutrient Sufficient?"
-},
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Want To Join The 10% of People Who Are Nutrient Sufficient?"
+    },
 
-{
-"type":"color",
-"id":"heading_color",
-"label":"Heading Color",
-"default":"#ffffff"
-},
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
 
-{
-"type":"richtext",
-"id":"subtext",
-"label":"Sub Text"
-},
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Sub Text"
+    },
 
-{
-"type":"color",
-"id":"subtext_color",
-"label":"Subtext Color",
-"default":"#cccccc"
-},
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext Color",
+      "default": "#cccccc"
+    },
 
-{
-"type":"text",
-"id":"button_label",
-"label":"Button Label",
-"default":"Get Your Grüns"
-},
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Get Your Grüns"
+    },
 
-{
-"type":"url",
-"id":"button_link",
-"label":"Button Link"
-},
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
 
-{
-"type":"color",
-"id":"bg_color",
-"label":"Background Color",
-"default":"#000000"
-},
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#FFD22E"
+    },
 
-{
-"type":"color",
-"id":"button_color",
-"label":"Button Color",
-"default":"#FFD22E"
-},
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
 
-{
-"type":"range",
-"id":"padding_top",
-"min":0,
-"max":200,
-"step":4,
-"unit":"px",
-"label":"Padding Top",
-"default":96
-},
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
 
-{
-"type":"range",
-"id":"padding_bottom",
-"min":0,
-"max":200,
-"step":4,
-"unit":"px",
-"label":"Padding Bottom",
-"default":96
-},
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
 
-{
-"type":"text",
-"id":"custom_class",
-"label":"Custom CSS Class"
-}
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 96
+    },
 
-],
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 96
+    },
 
-"presets":[
-{
-"name":"CTA Nutrient Section"
-}
-]
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "CTA Nutrient Section"
+    }
+  ]
 }
 {% endschema %}
