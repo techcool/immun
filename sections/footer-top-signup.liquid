@@ -1,27 +1,71 @@
 {% style %}
 
 .footer-top{
-background: {{ section.settings.bg_color }};
-color:#fff;
+background:{{ section.settings.bg_color }};
 padding:80px 20px;
+color:#fff;
 }
 
-.footer-wrapper{
+.footer-container{
 max-width:1400px;
 margin:auto;
 display:grid;
-grid-template-columns:1.2fr 1fr 1fr 1fr;
-gap:40px;
+grid-template-columns:1.4fr 1fr 1fr 1fr;
+gap:60px;
+align-items:flex-start;
 }
 
-.footer-menu h3{
+.footer-signup h2{
+font-size:28px;
+font-weight:700;
 margin-bottom:20px;
+color:#FFC72C;
+}
+
+.signup-input{
+display:flex;
+margin-bottom:15px;
+}
+
+.signup-input input{
+width:100%;
+padding:14px;
+border:none;
+outline:none;
+font-size:16px;
+}
+
+.signup-input button{
+background:#FFC72C;
+border:none;
+padding:0 18px;
+cursor:pointer;
+font-size:18px;
+}
+
+.signup-email{
+display:block;
+margin-bottom:15px;
+text-decoration:underline;
+}
+
+.signup-desc{
+font-size:12px;
+opacity:.8;
+line-height:1.6;
+}
+
+.footer-menu-title{
 font-size:22px;
+font-weight:700;
+margin-bottom:20px;
+color:#FFC72C;
 }
 
 .footer-menu ul{
 list-style:none;
 padding:0;
+margin:0;
 }
 
 .footer-menu li{
@@ -29,34 +73,63 @@ margin-bottom:10px;
 }
 
 .footer-menu a{
+color:#fff;
 text-decoration:none;
-color:inherit;
+font-size:15px;
 }
 
 .footer-menu a:hover{
 text-decoration:underline;
 }
 
-@media(max-width:900px){
-.footer-wrapper{
-grid-template-columns:1fr;
+.footer-logo{
+margin-bottom:20px;
 }
+
+.footer-logo img{
+max-width:120px;
+}
+
+@media(max-width:900px){
+
+.footer-container{
+grid-template-columns:1fr;
+gap:40px;
+}
+
 }
 
 {% endstyle %}
 
 <section class="footer-top">
 
-<div class="footer-wrapper">
+<div class="footer-container">
 
-<!-- Signup Area -->
-<div>
+<!-- LEFT SIGNUP -->
+<div class="footer-signup">
+
 <h2>{{ section.settings.heading }}</h2>
+
+<div class="signup-input">
+<input type="text" placeholder="{{ section.settings.input_placeholder }}">
+<button>{{ section.settings.button_text }}</button>
 </div>
 
-<!-- Column 1 -->
+<a class="signup-email" href="#">
+{{ section.settings.email_text }}
+</a>
+
+<div class="signup-desc">
+{{ section.settings.description }}
+</div>
+
+</div>
+
+
+<!-- MENU COLUMN 1 -->
 <div class="footer-menu">
-<h3>{{ section.settings.title1 }}</h3>
+
+<h3 class="footer-menu-title">{{ section.settings.menu_title_1 }}</h3>
 
 <ul>
 {% for block in section.blocks %}
@@ -69,11 +142,14 @@ grid-template-columns:1fr;
 {% endif %}
 {% endfor %}
 </ul>
+
 </div>
 
-<!-- Column 2 -->
+
+<!-- MENU COLUMN 2 -->
 <div class="footer-menu">
-<h3>{{ section.settings.title2 }}</h3>
+
+<h3 class="footer-menu-title">{{ section.settings.menu_title_2 }}</h3>
 
 <ul>
 {% for block in section.blocks %}
@@ -86,11 +162,18 @@ grid-template-columns:1fr;
 {% endif %}
 {% endfor %}
 </ul>
+
 </div>
 
-<!-- Column 3 -->
+
+<!-- MENU COLUMN 3 WITH LOGO -->
 <div class="footer-menu">
-<h3>{{ section.settings.title3 }}</h3>
+
+<div class="footer-logo">
+{% if section.settings.logo %}
+<img src="{{ section.settings.logo | image_url }}" alt="">
+{% endif %}
+</div>
 
 <ul>
 {% for block in section.blocks %}
@@ -103,16 +186,25 @@ grid-template-columns:1fr;
 {% endif %}
 {% endfor %}
 </ul>
+
 </div>
 
 </div>
 
 </section>
 
+
 {% schema %}
 {
-"name": "Footer Top",
+"name":"Footer Top Signup",
 "settings":[
+
+{
+"type":"color",
+"id":"bg_color",
+"label":"Background Color",
+"default":"#004225"
+},
 
 {
 "type":"text",
@@ -122,31 +214,51 @@ grid-template-columns:1fr;
 },
 
 {
-"type":"color",
-"id":"bg_color",
-"label":"Background",
-"default":"#004225"
+"type":"text",
+"id":"input_placeholder",
+"label":"Input Placeholder",
+"default":"Phone number"
 },
 
 {
 "type":"text",
-"id":"title1",
+"id":"button_text",
+"label":"Button Text",
+"default":"→"
+},
+
+{
+"type":"text",
+"id":"email_text",
+"label":"Email Link Text",
+"default":"Email me instead"
+},
+
+{
+"type":"textarea",
+"id":"description",
+"label":"Description",
+"default":"By providing your number and clicking the button, you agree to receive recurring auto-dialed marketing SMS."
+},
+
+{
+"type":"text",
+"id":"menu_title_1",
 "label":"Menu Title 1",
 "default":"Learn"
 },
 
 {
 "type":"text",
-"id":"title2",
+"id":"menu_title_2",
 "label":"Menu Title 2",
 "default":"Connect"
 },
 
 {
-"type":"text",
-"id":"title3",
-"label":"Menu Title 3",
-"default":"Brand"
+"type":"image_picker",
+"id":"logo",
+"label":"Right Logo"
 }
 
 ],
@@ -208,7 +320,7 @@ grid-template-columns:1fr;
 
 "presets":[
 {
-"name":"Footer Top"
+"name":"Footer Top Signup"
 }
 ]
 }
