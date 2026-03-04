@@ -656,6 +656,8 @@
         "btn_label": "Stock Up While You Can!",
         "btn_link": "",
         "product_image": "shopify://shop_images/Adult-Cropped_1.png",
+        "gummy_one": "shopify://shop_images/LifestyleImage-HandSatchet_2x_2e155675-186a-42d7-b8a7-2ccd7bcc42b3_1.png",
+        "gummy_two": "shopify://shop_images/ShopTile-OG-Kids_1.png",
         "padding_top": 80,
         "padding_bottom": 80,
         "custom_class": ""
