@@ -166,11 +166,28 @@
         "padding_top_mobile": 16,
         "padding_bottom_mobile": 16
       }
+    },
+    "custom_header_common_QNEzLd": {
+      "type": "custom-header-common",
+      "name": "Custom Header Image",
+      "settings": {
+        "color_scheme": "",
+        "custom_class": "",
+        "image_link": "",
+        "show_search": true,
+        "button_text": "",
+        "button_link": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 16
+      }
     }
   },
   "order": [
     "header_announcements_9jGBFp",
     "header_section",
-    "custom_header_common_zBfFB8"
+    "custom_header_common_zBfFB8",
+    "custom_header_common_QNEzLd"
   ]
 }
