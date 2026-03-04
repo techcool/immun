@@ -11,6 +11,74 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "custom_footer_gruns_Tw7jGq": {
+      "type": "custom-footer-gruns",
+      "blocks": {
+        "menu3_YPcwqD": {
+          "type": "menu3",
+          "settings": {
+            "text": "About",
+            "link": "#"
+          }
+        },
+        "menu3_Q3MkNY": {
+          "type": "menu3",
+          "settings": {
+            "text": "Grüns Adults",
+            "link": "#"
+          }
+        },
+        "menu2_jrzLTp": {
+          "type": "menu2",
+          "settings": {
+            "text": "Refer a Friend",
+            "link": "#"
+          }
+        },
+        "menu1_cYcn8n": {
+          "type": "menu1",
+          "settings": {
+            "text": "Our Science",
+            "link": "#"
+          }
+        },
+        "menu1_7LH7pw": {
+          "type": "menu1",
+          "settings": {
+            "text": "",
+            "link": ""
+          }
+        },
+        "menu1_QUH3XH": {
+          "type": "menu1",
+          "settings": {
+            "text": "Reviews",
+            "link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "menu3_YPcwqD",
+        "menu3_Q3MkNY",
+        "menu2_jrzLTp",
+        "menu1_cYcn8n",
+        "menu1_7LH7pw",
+        "menu1_QUH3XH"
+      ],
+      "name": "Gruns Footer",
+      "settings": {
+        "bg_color": "#013c27",
+        "pattern_opacity": 0.4,
+        "heading": "Sign Up for 52% Off",
+        "email_text": "Email me instead",
+        "description": "**By providing your number and clicking the button, you agree to receive recurring auto-dialed marketing SMS (including cart reminders; AI content; artificial or prerecorded voices) and our Terms of Service (including arbitration). Consent is not required to purchase. Msg & data rates may apply. Msg frequency varies. Reply HELP for help; STOP to opt-out. View Privacy Policy.",
+        "menu1_title": "Learn",
+        "menu2_title": "Connect",
+        "logo": "shopify://shop_images/logo.svg",
+        "disclaimer1": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.",
+        "disclaimer2": "**Offer assumes customer has received and uses promotional SMS discount reserved for new customers only."
+      }
+    },
     "footer_m9NzUG": {
       "type": "footer",
       "blocks": {
@@ -115,9 +183,9 @@
             "width": "fill",
             "custom_width": 100,
             "inherit_color_scheme": true,
+            "color_scheme": "",
             "heading": "",
             "heading_preset": "h3",
-            "color_scheme": "",
             "border_style": "all",
             "border_width": 1,
             "border_radius": 100,
@@ -205,6 +273,7 @@
     }
   },
   "order": [
+    "custom_footer_gruns_Tw7jGq",
     "footer_m9NzUG",
     "footer_utilities_jLGE8U"
   ]

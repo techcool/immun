@@ -732,56 +732,6 @@
         "padding_bottom": 80,
         "custom_class": "common-container gruns-cta"
       }
-    },
-    "faq_accordion_ULVHdE": {
-      "type": "faq-accordion",
-      "blocks": {
-        "faq_6Xhz99": {
-          "type": "faq",
-          "settings": {
-            "question": "When will my gummies arrive?",
-            "answer": "<p>We're fast! Orders typically ship within 24 hours and on average arrive 3-5 days later. You could be snacking on these delicious gummies and enjoying improved health just 3 days from now.</p>"
-          }
-        },
-        "faq_X8e7c7": {
-          "type": "faq",
-          "name": "FAQ Item",
-          "settings": {
-            "question": "What's inside each order? What am I getting?",
-            "answer": "<p>All of our gummies ship in a larger pouch that contains 28 daily sachets. Sachet is a fancy word for our gummy pack. Our packs each contain a small handful of gummies for you to enjoy daily. So if you're ordering for yourself, you'll get 28 daily packs inside a larger pouch. We recommend ordering on subscription. You get better pricing, and we'll make sure you're always stocked up on your healthiest habit.</p>"
-          }
-        },
-        "faq_xahbqp": {
-          "type": "faq",
-          "name": "FAQ Item",
-          "settings": {
-            "question": "When will I feel something?",
-            "answer": "<p>The timeline for experiencing the benefits of Grüns can vary from person to person. Some individuals may notice improvements within days or weeks, while for others, it may be more gradual. Consistent daily use is essential for the best results.</p>"
-          }
-        },
-        "faq_zH6Age": {
-          "type": "faq",
-          "name": "FAQ Item",
-          "settings": {
-            "question": "How do you handle returns or exchanges?",
-            "answer": "<p>We want you to have the best experience with Grüns. We offer a simple 30-day guarantee on your first order. Refunds include the full value of your order (less a $5 handling fee and original shipping costs), and exchanges are free. We accept all refund requests within our policy with no hassle. If you have any questions about our guarantee, our Grüns Care Bears are always happy to help at<span style=\"text-decoration:underline\">care@gruns.co</span>. This policy applies only to your initial purchase.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "faq_6Xhz99",
-        "faq_X8e7c7",
-        "faq_xahbqp",
-        "faq_zH6Age"
-      ],
-      "name": "FAQ Accordion",
-      "settings": {
-        "heading": "Any last questions?",
-        "bg_color": "#d6e3dc",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "custom_class": "common-container gruns-faq"
-      }
     }
   },
   "order": [
@@ -797,7 +747,6 @@
     "us_vs_them_AdHgdb",
     "mango_hero_bMHkfT",
     "ambassador_testimonial_8LFQYg",
-    "cta_nutrient_BLbx8W",
-    "faq_accordion_ULVHdE"
+    "cta_nutrient_BLbx8W"
   ]
 }
