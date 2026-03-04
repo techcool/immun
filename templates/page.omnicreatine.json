@@ -122,20 +122,37 @@
     "omni_marquee_bT8K7p": {
       "type": "Omni-Marquee",
       "blocks": {
+        "item_VrppbJ": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/icon__13.svg",
+            "text": "Bioavailable Formula"
+          }
+        },
+        "item_YGEQpL": {
+          "type": "item",
+          "settings": {
+            "text": "Fresh & Light Taste"
+          }
+        },
         "item_MgWe3i": {
           "type": "item",
           "settings": {
-            "text": "VEGAN FORMULA"
+            "icon": "shopify://shop_images/icon__12.svg",
+            "text": "High Dose Creatine"
           }
         },
         "item_wL6MVU": {
           "type": "item",
           "settings": {
-            "text": "VEGAN FORMULA"
+            "icon": "shopify://shop_images/icon__13.svg",
+            "text": "Vegan Formula"
           }
         }
       },
       "block_order": [
+        "item_VrppbJ",
+        "item_YGEQpL",
         "item_MgWe3i",
         "item_wL6MVU"
       ],
