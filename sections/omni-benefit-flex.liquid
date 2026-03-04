@@ -3,13 +3,12 @@
 <div class="omni-container">
 
 <!-- LEFT IMAGE -->
-
 <div class="benefit-left">
 
 {% if section.settings.image != blank %}
 <img
 src="{{ section.settings.image | image_url: width: 900 }}"
-alt="Product"
+alt="Product image"
 >
 {% endif %}
 
@@ -17,7 +16,6 @@ alt="Product"
 
 
 <!-- RIGHT CONTENT -->
-
 <div class="benefit-right">
 
 {% if section.settings.badge != blank %}
@@ -26,16 +24,22 @@ alt="Product"
 </div>
 {% endif %}
 
+{% if section.settings.heading != blank %}
 <h2 class="benefit-title">
 {{ section.settings.heading }}
 </h2>
+{% endif %}
 
+{% if section.settings.description != blank %}
 <p class="benefit-desc">
 {{ section.settings.description }}
 </p>
+{% endif %}
 
 
 
+<!-- FEATURES -->
+{% if section.blocks.size > 0 %}
 <div class="benefit-features">
 
 {% for block in section.blocks %}
@@ -44,16 +48,21 @@ alt="Product"
 
 {% if block.settings.icon != blank %}
 <img
+class="benefit-icon"
 src="{{ block.settings.icon | image_url: width: 60 }}"
 alt="{{ block.settings.title }}"
-class="benefit-icon"
 >
 {% endif %}
 
 <div class="benefit-text">
 
+{% if block.settings.title != blank %}
 <h4>{{ block.settings.title }}</h4>
+{% endif %}
+
+{% if block.settings.text != blank %}
 <p>{{ block.settings.text }}</p>
+{% endif %}
 
 </div>
 
@@ -62,19 +71,43 @@ class="benefit-icon"
 {% endfor %}
 
 </div>
+{% endif %}
 
 
 
+<!-- BUTTON -->
 {% if section.settings.button_text != blank %}
 <a href="{{ section.settings.button_link }}" class="benefit-btn">
-{{ section.settings.button_text }}
+
+{% if section.settings.button_icon != blank %}
+<img
+class="btn-icon"
+src="{{ section.settings.button_icon | image_url: width: 40 }}"
+alt="button icon"
+>
+{% endif %}
+
+<span>{{ section.settings.button_text }}</span>
+
 </a>
 {% endif %}
 
 
+
+<!-- GUARANTEE -->
 {% if section.settings.guarantee != blank %}
 <div class="benefit-guarantee">
-✓ {{ section.settings.guarantee }}
+
+{% if section.settings.guarantee_icon != blank %}
+<img
+class="guarantee-icon"
+src="{{ section.settings.guarantee_icon | image_url: width: 40 }}"
+alt="guarantee icon"
+>
+{% endif %}
+
+<span>{{ section.settings.guarantee }}</span>
+
 </div>
 {% endif %}
 
@@ -92,8 +125,6 @@ class="benefit-icon"
 padding:80px 40px;
 background:#f5f6f7;
 }
-
-/* MAIN FLEX */
 
 #shopify-section-{{ section.id }} .omni-container{
 max-width:1300px;
@@ -114,7 +145,7 @@ width:100%;
 border-radius:24px;
 }
 
-/* RIGHT CONTENT */
+/* RIGHT */
 
 #shopify-section-{{ section.id }} .benefit-right{
 flex:1;
@@ -155,23 +186,26 @@ margin-bottom:30px;
 }
 
 #shopify-section-{{ section.id }} .benefit-item{
+display:flex;
+gap:12px;
 width:calc(50% - 15px);
 }
 
 #shopify-section-{{ section.id }} .benefit-icon{
-width:64px;
-height:64px;
-padding:3px;
+width:60px;
+height:60px;
 }
 
 #shopify-section-{{ section.id }} .benefit-item h4{
-    margin-bottom:0;
+margin-bottom:0;
 }
 
 /* BUTTON */
 
 #shopify-section-{{ section.id }} .benefit-btn{
-display:inline-block;
+display:inline-flex;
+align-items:center;
+gap:10px;
 padding:16px 34px;
 background:#2e4f82;
 color:#fff;
@@ -181,11 +215,24 @@ font-weight:600;
 margin-top:10px;
 }
 
+#shopify-section-{{ section.id }} .btn-icon{
+width:20px;
+height:20px;
+}
+
 /* GUARANTEE */
 
 #shopify-section-{{ section.id }} .benefit-guarantee{
+display:flex;
+align-items:center;
+gap:8px;
 margin-top:12px;
 font-size:14px;
+}
+
+#shopify-section-{{ section.id }} .guarantee-icon{
+width:18px;
+height:18px;
 }
 
 /* MOBILE */
@@ -244,6 +291,12 @@ font-size:32px;
 },
 
 {
+"type":"image_picker",
+"id":"button_icon",
+"label":"Button Icon"
+},
+
+{
 "type":"text",
 "id":"button_text",
 "label":"Button Text",
@@ -254,6 +307,12 @@ font-size:32px;
 "type":"url",
 "id":"button_link",
 "label":"Button Link"
+},
+
+{
+"type":"image_picker",
+"id":"guarantee_icon",
+"label":"Guarantee Icon"
 },
 
 {
