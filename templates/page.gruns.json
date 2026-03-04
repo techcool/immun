@@ -862,6 +862,55 @@
             "link": "#"
           }
         },
+        "policy_FEknBr": {
+          "type": "policy",
+          "settings": {
+            "text": "Refund policy",
+            "link": "#"
+          }
+        },
+        "policy_K68kMG": {
+          "type": "policy",
+          "settings": {
+            "text": "Privacy policy",
+            "link": "#"
+          }
+        },
+        "policy_7rQRKp": {
+          "type": "policy",
+          "settings": {
+            "text": "Terms of service",
+            "link": "#"
+          }
+        },
+        "policy_EPdc49": {
+          "type": "policy",
+          "settings": {
+            "text": "Shipping policy",
+            "link": "#"
+          }
+        },
+        "policy_MXaMkt": {
+          "type": "policy",
+          "settings": {
+            "text": "My Privacy Choices",
+            "link": "#"
+          }
+        },
+        "policy_T9iHNj": {
+          "type": "policy",
+          "settings": {
+            "text": "Authorized Resale Policy",
+            "link": "#"
+          }
+        },
+        "policy_RmKfM3": {
+          "type": "policy",
+          "settings": {
+            "text": "Accessibility",
+            "link": "#"
+          }
+        },
         "social_xziWeQ": {
           "type": "social",
           "settings": {
@@ -872,21 +921,21 @@
         "social_mKKUEc": {
           "type": "social",
           "settings": {
-            "icon": "shopify://shop_images/Instagram.svg",
+            "icon": "shopify://shop_images/TikTok.svg",
             "link": "#"
           }
         },
         "social_DeRryX": {
           "type": "social",
           "settings": {
-            "icon": "shopify://shop_images/Instagram.svg",
+            "icon": "shopify://shop_images/YouTube.svg",
             "link": "#"
           }
         },
         "social_hRJyfh": {
           "type": "social",
           "settings": {
-            "icon": "shopify://shop_images/Instagram.svg",
+            "icon": "shopify://shop_images/Facebook.svg",
             "link": "#"
           }
         }
@@ -910,11 +959,19 @@
         "menu3_eVQWtM",
         "menu3_C9Ywaw",
         "menu3_WechmP",
+        "policy_FEknBr",
+        "policy_K68kMG",
+        "policy_7rQRKp",
+        "policy_EPdc49",
+        "policy_MXaMkt",
+        "policy_T9iHNj",
+        "policy_RmKfM3",
         "social_xziWeQ",
         "social_mKKUEc",
         "social_DeRryX",
         "social_hRJyfh"
       ],
+      "disabled": true,
       "name": "Gruns Footer",
       "settings": {
         "bg_color": "#003c2b",
