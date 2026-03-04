@@ -47,6 +47,7 @@
         "announcement_Jabmn9",
         "announcement_BxgCk9"
       ],
+      "disabled": true,
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 5,
@@ -131,8 +132,16 @@
     "custom_header_common_zBfFB8": {
       "type": "custom-header-common",
       "blocks": {
+        "nav_link_HrFDJ6": {
+          "type": "nav_link",
+          "settings": {
+            "link_text": "",
+            "link_url": ""
+          }
+        },
         "nav_link_qMUBWL": {
           "type": "nav_link",
+          "disabled": true,
           "settings": {
             "link_text": "Shop Kids",
             "link_url": "#"
@@ -140,6 +149,7 @@
         },
         "nav_link_nxX4ww": {
           "type": "nav_link",
+          "disabled": true,
           "settings": {
             "link_text": "Shop Adults",
             "link_url": "#"
@@ -147,6 +157,7 @@
         }
       },
       "block_order": [
+        "nav_link_HrFDJ6",
         "nav_link_qMUBWL",
         "nav_link_nxX4ww"
       ],

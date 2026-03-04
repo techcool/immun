@@ -55,9 +55,21 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "cta_section_VbpzJG": {
+      "type": "cta-section",
+      "name": "CTA Banner",
+      "settings": {
+        "bg-color": "",
+        "heading": "g",
+        "description": "",
+        "button-label": "",
+        "url": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "cta_section_VbpzJG"
   ]
 }

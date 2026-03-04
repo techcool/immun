@@ -688,11 +688,20 @@
         "subtext_color": "#cccccc",
         "button_label": "Get Your Grüns",
         "button_link": "",
-        "bg_color": "#000000",
         "button_color": "#ffd22e",
+        "button_text_color": "#000000",
+        "bg_color": "#000000",
         "padding_top": 80,
         "padding_bottom": 80,
         "custom_class": "common-container gruns-cta"
+      }
+    },
+    "faq_accordion_ULVHdE": {
+      "type": "faq-accordion",
+      "name": "FAQ Accordion",
+      "settings": {
+        "heading": "Any last questions?",
+        "bg_color": "#d6e3dc"
       }
     }
   },
@@ -708,6 +717,7 @@
     "us_vs_them_AdHgdb",
     "mango_hero_bMHkfT",
     "ambassador_testimonial_8LFQYg",
-    "cta_nutrient_BLbx8W"
+    "cta_nutrient_BLbx8W",
+    "faq_accordion_ULVHdE"
   ]
 }
