@@ -86,22 +86,19 @@
         "padding-block-end": 80
       }
     },
-    "omni_header_7G3kr8": {
-      "type": "omni-dynamic-header",
-      "name": "OMNI Header",
+    "omni_flex_header_7zw3jC": {
+      "type": "omni-flex-header",
+      "name": "OMNI Flex Header",
       "settings": {
         "custom_class": "",
         "bg_color": "#f3f5f8",
-        "logo": "shopify://shop_images/omni__logo.png",
         "logo_position": "center",
         "show_shop_link": true,
         "shop_text": "SHOP NOW",
         "shop_link": "",
         "show_account": true,
-        "account_icon": "shopify://shop_images/user.svg",
         "account_link": "",
         "show_cart": true,
-        "cart_icon": "shopify://shop_images/cart.svg",
         "cart_link": ""
       }
     }
@@ -109,6 +106,6 @@
   "order": [
     "custom_header_common_RPAJ68",
     "main",
-    "omni_header_7G3kr8"
+    "omni_flex_header_7zw3jC"
   ]
 }
