@@ -141,7 +141,6 @@
         },
         "nav_link_qMUBWL": {
           "type": "nav_link",
-          "disabled": true,
           "settings": {
             "link_text": "Shop Kids",
             "link_url": "#"
@@ -149,7 +148,6 @@
         },
         "nav_link_nxX4ww": {
           "type": "nav_link",
-          "disabled": true,
           "settings": {
             "link_text": "Shop Adults",
             "link_url": "#"
