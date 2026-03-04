@@ -98,9 +98,10 @@
         "shop_text": "SHOP NOW",
         "shop_link": "",
         "show_account": true,
-        "account_icon": "shopify://shop_images/user.png",
+        "account_icon": "shopify://shop_images/user.svg",
         "account_link": "",
         "show_cart": true,
+        "cart_icon": "shopify://shop_images/cart.svg",
         "cart_link": ""
       }
     }
