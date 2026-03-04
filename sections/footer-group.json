@@ -98,6 +98,13 @@
             "link": "#"
           }
         },
+        "menu1_7LH7pw": {
+          "type": "menu1",
+          "settings": {
+            "text": "Reviews",
+            "link": "#"
+          }
+        },
         "menu1_cYcn8n": {
           "type": "menu1",
           "settings": {
@@ -108,15 +115,36 @@
         "menu1_QUH3XH": {
           "type": "menu1",
           "settings": {
-            "text": "Reviews",
+            "text": "How Grüns Works",
             "link": "#"
           }
         },
-        "menu1_7LH7pw": {
+        "menu1_iX3KDg": {
           "type": "menu1",
           "settings": {
-            "text": "",
-            "link": ""
+            "text": "Our Story",
+            "link": "#"
+          }
+        },
+        "menu1_qcgeE9": {
+          "type": "menu1",
+          "settings": {
+            "text": "Find in Store",
+            "link": "#"
+          }
+        },
+        "menu1_g6VCHB": {
+          "type": "menu1",
+          "settings": {
+            "text": "FAQs",
+            "link": "#"
+          }
+        },
+        "menu1_JdyhjW": {
+          "type": "menu1",
+          "settings": {
+            "text": "Press Inquiries",
+            "link": "#"
           }
         }
       },
@@ -133,9 +161,13 @@
         "menu2_Rfwt9y",
         "menu2_eTA6DT",
         "menu2_hTdXUR",
+        "menu1_7LH7pw",
         "menu1_cYcn8n",
         "menu1_QUH3XH",
-        "menu1_7LH7pw"
+        "menu1_iX3KDg",
+        "menu1_qcgeE9",
+        "menu1_g6VCHB",
+        "menu1_JdyhjW"
       ],
       "name": "Gruns Footer",
       "settings": {
