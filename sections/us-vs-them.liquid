@@ -1,0 +1,204 @@
+<section class="us-vs-them-section">
+  <div class="page-width">
+    
+    <div class="us-vs-them-wrapper">
+      
+      <div class="us-vs-them-left">
+        <h2>{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.description }}</p>
+      </div>
+
+      <div class="us-vs-them-table">
+
+        <div class="table-header">
+          <div></div>
+          <div class="brand">{{ section.settings.brand_title }}</div>
+          <div>{{ section.settings.col_two }}</div>
+          <div>{{ section.settings.col_three }}</div>
+        </div>
+
+        {% for block in section.blocks %}
+        <div class="table-row">
+          
+          <div class="feature">
+            {{ block.settings.feature }}
+          </div>
+
+          <div class="brand-value">
+            {{ block.settings.brand_value }}
+          </div>
+
+          <div>
+            {{ block.settings.col_two_value }}
+          </div>
+
+          <div>
+            {{ block.settings.col_three_value }}
+          </div>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+
+.us-vs-them-section{
+padding:80px 20px;
+background:#f7f7f7;
+}
+
+.us-vs-them-wrapper{
+display:grid;
+grid-template-columns:1fr 1.2fr;
+gap:60px;
+align-items:center;
+}
+
+.us-vs-them-left h2{
+font-size:40px;
+font-weight:700;
+margin-bottom:15px;
+}
+
+.us-vs-them-left p{
+font-size:16px;
+color:#555;
+}
+
+.us-vs-them-table{
+background:white;
+border-radius:12px;
+overflow:hidden;
+border:2px solid #1c6b3c;
+}
+
+.table-header,
+.table-row{
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr;
+}
+
+.table-header{
+background:#f1f1f1;
+font-weight:600;
+}
+
+.table-header div,
+.table-row div{
+padding:16px;
+border-bottom:1px solid #eee;
+}
+
+.brand{
+background:#1c6b3c;
+color:white;
+text-align:center;
+font-weight:700;
+}
+
+.brand-value{
+background:#1c6b3c;
+color:white;
+text-align:center;
+font-weight:600;
+}
+
+.table-row:last-child div{
+border-bottom:none;
+}
+
+@media(max-width:900px){
+
+.us-vs-them-wrapper{
+grid-template-columns:1fr;
+}
+
+.table-header,
+.table-row{
+grid-template-columns:1.5fr 1fr 1fr 1fr;
+}
+
+}
+
+</style>
+
+{% schema %}
+{
+"name": "Us vs Them",
+"settings":[
+{
+"type":"text",
+"id":"heading",
+"label":"Heading",
+"default":"Us vs. Them"
+},
+{
+"type":"textarea",
+"id":"description",
+"label":"Description",
+"default":"Not overhyped or overpriced. Just comprehensive nutrition made enjoyable."
+},
+{
+"type":"text",
+"id":"brand_title",
+"label":"Brand Column",
+"default":"grüns"
+},
+{
+"type":"text",
+"id":"col_two",
+"label":"Column Two",
+"default":"Generic Multivitamin"
+},
+{
+"type":"text",
+"id":"col_three",
+"label":"Column Three",
+"default":"Green Powder"
+}
+],
+"blocks":[
+{
+"type":"row",
+"name":"Comparison Row",
+"settings":[
+{
+"type":"text",
+"id":"feature",
+"label":"Feature",
+"default":"Cost Per Serving"
+},
+{
+"type":"text",
+"id":"brand_value",
+"label":"Brand Value",
+"default":"$1.47"
+},
+{
+"type":"text",
+"id":"col_two_value",
+"label":"Column Two Value",
+"default":"🤔"
+},
+{
+"type":"text",
+"id":"col_three_value",
+"label":"Column Three Value",
+"default":"$3.60"
+}
+]
+}
+],
+"presets":[
+{
+"name":"Us vs Them Comparison"
+}
+]
+}
+{% endschema %}
