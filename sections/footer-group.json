@@ -11,42 +11,6 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
-    "footer_top_signup_WbrYRt": {
-      "type": "footer-top-signup",
-      "blocks": {
-        "menu1_KcUAdQ": {
-          "type": "menu1",
-          "settings": {
-            "text": "Our Science",
-            "link": "#"
-          }
-        },
-        "menu1_FPLwTU": {
-          "type": "menu1",
-          "name": "Menu 1 Link",
-          "settings": {
-            "text": "Reviews",
-            "link": "#"
-          }
-        }
-      },
-      "block_order": [
-        "menu1_KcUAdQ",
-        "menu1_FPLwTU"
-      ],
-      "name": "Footer Top Signup",
-      "settings": {
-        "bg_color": "#004225",
-        "heading": "Sign Up for 52% Off",
-        "input_placeholder": "Phone number",
-        "button_text": "→",
-        "email_text": "Email me instead",
-        "description": "**By providing your number and clicking the button, you agree to receive recurring auto-dialed marketing SMS (including cart reminders; AI content; artificial or prerecorded voices) and our Terms of Service (including arbitration). Consent is not required to purchase. Msg & data rates may apply. Msg frequency varies. Reply HELP for help; STOP to opt-out. View Privacy Policy.",
-        "menu_title_1": "Learn",
-        "menu_title_2": "Connect",
-        "logo": "shopify://shop_images/snacks.svg"
-      }
-    },
     "custom_footer_gruns_Tw7jGq": {
       "type": "custom-footer-gruns",
       "blocks": {
@@ -298,8 +262,9 @@
         "bg_color": "#013c27",
         "pattern_opacity": 0.4,
         "heading": "Sign Up for 52% Off",
-        "email_text": "Email me instead",
-        "description": "**By providing your number and clicking the button, you agree to receive recurring auto-dialed marketing SMS (including cart reminders; AI content; artificial or prerecorded voices) and our Terms of Service (including arbitration). Consent is not required to purchase. Msg & data rates may apply. Msg frequency varies. Reply HELP for help; STOP to opt-out. View Privacy Policy.",
+        "newsletter_class": "",
+        "email_description": "**By providing your number and clicking the button, you agree to receive recurring auto-dialed marketing SMS (including cart reminders; AI content; artificial or prerecorded voices) and our Terms of Service (including arbitration). Consent is not required to purchase. Msg & data rates may apply. Msg frequency varies. Reply HELP for help; STOP to opt-out. View Privacy Policy.",
+        "sms_description": "By completing this form you are signing up to receive our emails and can unsubscribe at any time.",
         "menu1_title": "Learn",
         "menu2_title": "Connect",
         "menu3_image": "shopify://shop_images/snacks.svg",
@@ -502,7 +467,6 @@
     }
   },
   "order": [
-    "footer_top_signup_WbrYRt",
     "custom_footer_gruns_Tw7jGq",
     "footer_m9NzUG",
     "footer_utilities_jLGE8U"
