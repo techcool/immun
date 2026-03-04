@@ -1,18 +1,27 @@
 <section class="faq-section" style="background: {{ section.settings.bg_color }};">
-  <div class="page-width">
+  <div class="page-width faq-container">
 
     {% if section.settings.heading != blank %}
-      <h2 class="faq-heading">{{ section.settings.heading }}</h2>
+      <div class="faq-left">
+        <h2 class="faq-heading">{{ section.settings.heading }}</h2>
+      </div>
     {% endif %}
 
-    <div class="faq-wrapper">
+    <div class="faq-right">
 
       {% for block in section.blocks %}
-      <div class="faq-item">
-        
+      <div class="faq-item {% if forloop.first %}active{% endif %}">
+
         <button class="faq-question">
-          <span>{{ block.settings.question }}</span>
-          <span class="faq-icon">+</span>
+
+          <span class="faq-title">
+            {{ block.settings.question }}
+          </span>
+
+          <span class="faq-icon">
+            {% if forloop.first %}−{% else %}+{% endif %}
+          </span>
+
         </button>
 
         <div class="faq-answer">
@@ -34,36 +43,43 @@
   padding:80px 20px;
 }
 
+.faq-container{
+  display:grid;
+  grid-template-columns:1fr 1.3fr;
+  gap:60px;
+  align-items:start;
+}
+
 .faq-heading{
   font-size:48px;
   font-weight:700;
-  margin-bottom:40px;
-}
-
-.faq-wrapper{
-  max-width:700px;
-  margin-left:auto;
+  margin:0;
 }
 
 .faq-item{
-  border-bottom:1px solid #2f4f46;
+  border-bottom:1px solid #2e4a42;
 }
 
 .faq-question{
   width:100%;
+  background:none;
+  border:none;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:20px 0;
   font-size:20px;
   font-weight:600;
-  background:none;
-  border:none;
-  padding:20px 0;
   cursor:pointer;
 }
 
+.faq-title{
+  text-align:left;
+}
+
 .faq-icon{
-  font-size:28px;
+  font-size:30px;
+  line-height:1;
 }
 
 .faq-answer{
@@ -77,31 +93,53 @@
   display:block;
 }
 
-.faq-item.active .faq-icon{
-  content:"-";
+@media(max-width:768px){
+
+.faq-container{
+  grid-template-columns:1fr;
+}
+
+.faq-heading{
+  font-size:32px;
+  margin-bottom:20px;
+}
+
 }
 
 </style>
 
 
+
 <script>
 
-document.querySelectorAll('.faq-question').forEach((item)=>{
-  item.addEventListener('click', function(){
+document.querySelectorAll('.faq-question').forEach((button) => {
 
-    const parent = this.parentElement;
+  button.addEventListener('click', function() {
 
-    parent.classList.toggle('active');
+    const currentItem = this.parentElement;
+    const allItems = document.querySelectorAll('.faq-item');
 
-    const icon = this.querySelector('.faq-icon');
+    allItems.forEach(item => {
 
-    if(parent.classList.contains('active')){
+      if(item !== currentItem){
+        item.classList.remove('active');
+        item.querySelector('.faq-icon').textContent = "+";
+      }
+
+    });
+
+    currentItem.classList.toggle('active');
+
+    const icon = currentItem.querySelector('.faq-icon');
+
+    if(currentItem.classList.contains('active')){
       icon.textContent = "−";
     }else{
       icon.textContent = "+";
     }
 
   });
+
 });
 
 </script>
@@ -121,20 +159,20 @@ document.querySelectorAll('.faq-question').forEach((item)=>{
     {
       "type": "color",
       "id": "bg_color",
-      "label": "Background Color",
-      "default": "#d6e3dc"
+      "label": "Background color",
+      "default": "#d9e6de"
     }
   ],
   "blocks": [
     {
       "type": "faq",
-      "name": "FAQ Item",
+      "name": "FAQ item",
       "settings": [
         {
           "type": "text",
           "id": "question",
           "label": "Question",
-          "default": "FAQ Question"
+          "default": "FAQ question"
         },
         {
           "type": "richtext",
