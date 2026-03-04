@@ -85,6 +85,11 @@ opacity:.85;
 opacity:1;
 }
 
+.gruns-menu-image img{
+max-width:120px;
+margin-bottom:15px;
+}
+
 .gruns-social{
 display:flex;
 gap:10px;
@@ -153,10 +158,6 @@ align-items:center;
 gap:6px;
 }
 
-.gruns-policy a:hover{
-opacity:1;
-}
-
 .gruns-policy img{
 width:14px;
 height:14px;
@@ -186,6 +187,7 @@ gap:10px;
 
 {% endstyle %}
 
+
 <footer class="gruns-footer">
 
 <div class="gruns-container">
@@ -198,7 +200,7 @@ gap:10px;
 <h2>{{ section.settings.heading }}</h2>
 
 <div class="gruns-input">
-<input type="text" placeholder="Phone number">
+<input type="email" placeholder="Email address">
 <button>→</button>
 </div>
 
@@ -211,7 +213,7 @@ gap:10px;
 </div>
 
 
-<!-- Menu Column 1 -->
+<!-- Menu 1 -->
 <div class="gruns-links">
 
 <h4>{{ section.settings.menu1_title }}</h4>
@@ -229,7 +231,7 @@ gap:10px;
 </div>
 
 
-<!-- Menu Column 2 -->
+<!-- Menu 2 -->
 <div class="gruns-links">
 
 <h4>{{ section.settings.menu2_title }}</h4>
@@ -247,10 +249,16 @@ gap:10px;
 </div>
 
 
-<!-- Menu Column 3 -->
+<!-- Menu 3 with Image -->
 <div>
 
-<ul style="list-style:none;padding:0;margin-top:30px;">
+{% if section.settings.menu3_image != blank %}
+<div class="gruns-menu-image">
+<img src="{{ section.settings.menu3_image | image_url: width:200 }}">
+</div>
+{% endif %}
+
+<ul style="list-style:none;padding:0;">
 {% for block in section.blocks %}
 {% if block.type == 'menu3' %}
 <li style="margin-bottom:8px;">
@@ -276,15 +284,11 @@ gap:10px;
 
 {% for block in section.blocks %}
 {% if block.type == 'social' %}
-
 <a href="{{ block.settings.link }}">
-
 {% if block.settings.icon != blank %}
-<img src="{{ block.settings.icon | image_url: width:50 }}">
+<img src="{{ block.settings.icon | image_url: width:40 }}">
 {% endif %}
-
 </a>
-
 {% endif %}
 {% endfor %}
 
@@ -348,8 +352,8 @@ gap:10px;
 {
 "type":"color",
 "id":"bg_color",
-"label":"Background Color",
-"default":"#003c2b"
+"default":"#003c2b",
+"label":"Background Color"
 },
 {
 "type":"image_picker",
@@ -359,23 +363,23 @@ gap:10px;
 {
 "type":"range",
 "id":"pattern_opacity",
-"label":"Pattern Opacity",
 "min":0,
 "max":1,
 "step":0.1,
-"default":0.2
+"default":0.2,
+"label":"Pattern Opacity"
 },
 {
 "type":"text",
 "id":"heading",
-"label":"Heading",
-"default":"Sign Up for 52% Off"
+"default":"Sign Up for 52% Off",
+"label":"Heading"
 },
 {
 "type":"text",
 "id":"email_text",
-"label":"Email Text",
-"default":"Email me instead"
+"default":"Text me instead",
+"label":"Sub Link Text"
 },
 {
 "type":"textarea",
@@ -385,14 +389,19 @@ gap:10px;
 {
 "type":"text",
 "id":"menu1_title",
-"label":"Menu 1 Title",
-"default":"Learn"
+"default":"Learn",
+"label":"Menu 1 Title"
 },
 {
 "type":"text",
 "id":"menu2_title",
-"label":"Menu 2 Title",
-"default":"Connect"
+"default":"Connect",
+"label":"Menu 2 Title"
+},
+{
+"type":"image_picker",
+"id":"menu3_image",
+"label":"Menu 3 Top Image"
 },
 {
 "type":"image_picker",
@@ -443,7 +452,7 @@ gap:10px;
 {
 "type":"image_picker",
 "id":"icon",
-"label":"Upload Social Icon"
+"label":"Social Icon"
 },
 {
 "type":"url",
