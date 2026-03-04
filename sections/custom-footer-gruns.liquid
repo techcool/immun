@@ -1,152 +1,149 @@
 {% style %}
 
 .gruns-footer{
-  position:relative;
-  background:{{ section.settings.bg_color }};
-  padding:80px 20px 40px;
-  color:#fff;
-  overflow:hidden;
+background:{{ section.settings.bg_color }};
+color:#fff;
+padding:80px 20px 40px;
+position:relative;
+overflow:hidden;
 }
 
-.gruns-footer::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image:url({{ section.settings.pattern | image_url: width:2000 }});
-  background-size:cover;
-  background-position:center;
-  opacity:{{ section.settings.pattern_opacity }};
-  pointer-events:none;
+.gruns-footer:before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:url({{ section.settings.pattern | image_url: width:2000 }});
+opacity:{{ section.settings.pattern_opacity }};
+background-size:cover;
+pointer-events:none;
 }
 
 .gruns-container{
-  position:relative;
-  max-width:1250px;
-  margin:auto;
+max-width:1300px;
+margin:auto;
+position:relative;
 }
 
 .gruns-grid{
-  display:grid;
-  grid-template-columns:1.4fr 1fr 1fr 1fr;
-  gap:50px;
+display:grid;
+grid-template-columns:1.4fr 1fr 1fr 1fr;
+gap:50px;
 }
 
 .gruns-newsletter h2{
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:20px;
+color:#FFC629;
+font-size:26px;
+margin-bottom:20px;
 }
 
 .gruns-input{
-  display:flex;
-  border-radius:6px;
-  overflow:hidden;
+display:flex;
 }
 
 .gruns-input input{
-  flex:1;
-  padding:15px;
-  border:none;
-  font-size:15px;
+flex:1;
+padding:15px;
+border:none;
+font-size:15px;
 }
 
 .gruns-input button{
-  width:60px;
-  background:#FFC629;
-  border:none;
-  font-size:18px;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.gruns-input button:hover{
-  background:#ffb400;
+width:60px;
+background:#FFC629;
+border:none;
+font-size:18px;
+cursor:pointer;
 }
 
 .gruns-links h4{
-  font-size:20px;
-  margin-bottom:15px;
+color:#FFC629;
+margin-bottom:14px;
+font-size:20px;
 }
 
 .gruns-links ul{
-  padding:0;
-  list-style:none;
+list-style:none;
+padding:0;
 }
 
 .gruns-links li{
-  margin-bottom:8px;
+margin-bottom:8px;
 }
 
 .gruns-links a{
-  color:#fff;
-  text-decoration:none;
-  opacity:.85;
-  transition:.25s;
+color:#fff;
+text-decoration:none;
+opacity:.85;
 }
 
 .gruns-links a:hover{
-  opacity:1;
-  transform:translateX(4px);
+opacity:1;
 }
 
-.gruns-logo img{
-  max-width:150px;
+.gruns-logo{
+margin-top:40px;
 }
 
 .gruns-social{
-  display:flex;
-  gap:10px;
-  margin-top:20px;
+display:flex;
+gap:10px;
+margin-top:10px;
 }
 
 .gruns-social a{
-  width:36px;
-  height:36px;
-  background:#fff;
-  color:#000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:6px;
-  font-size:14px;
-  transition:.3s;
+width:36px;
+height:36px;
+background:#fff;
+color:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:6px;
 }
 
-.gruns-social a:hover{
-  transform:translateY(-3px);
+.gruns-disclaimer{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+margin-top:40px;
+}
+
+.gruns-box{
+border:1px solid rgba(255,255,255,.3);
+padding:12px;
+font-size:12px;
 }
 
 .gruns-bottom{
-  border-top:1px solid rgba(255,255,255,.2);
-  margin-top:50px;
-  padding-top:20px;
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:10px;
-  font-size:14px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+margin-top:20px;
+font-size:13px;
 }
 
-.gruns-bottom a{
-  color:#fff;
-  margin-left:12px;
-  text-decoration:none;
-  opacity:.8;
+.gruns-policy a{
+color:#fff;
+margin-right:15px;
+text-decoration:none;
+opacity:.8;
 }
 
-.gruns-bottom a:hover{
-  opacity:1;
+.gruns-policy a:hover{
+opacity:1;
 }
 
 @media(max-width:900px){
 
 .gruns-grid{
 grid-template-columns:1fr;
-gap:40px;
 }
 
-.gruns-bottom{
-flex-direction:column;
+.gruns-disclaimer{
+grid-template-columns:1fr;
 }
 
 }
@@ -170,59 +167,73 @@ flex-direction:column;
 <button>→</button>
 </div>
 
-{% if section.settings.alt_text != blank %}
-<p style="margin-top:10px;">
-<a href="#">{{ section.settings.alt_text }}</a>
-</p>
-{% endif %}
+<a href="#">{{ section.settings.email_text }}</a>
 
-{% if section.settings.disclaimer != blank %}
-<p style="font-size:12px;margin-top:10px;opacity:.7;">
-{{ section.settings.disclaimer }}
+<p style="margin-top:10px;font-size:12px;opacity:.8;">
+{{ section.settings.description }}
 </p>
-{% endif %}
 
 </div>
 
 
-<!-- Menu 1 -->
+<!-- Column 1 -->
 <div class="gruns-links">
 
 <h4>{{ section.settings.menu1_title }}</h4>
 
 <ul>
-{% for link in linklists[section.settings.menu1].links %}
+
+{% for block in section.blocks %}
+{% if block.type == 'menu1' %}
 <li>
-<a href="{{ link.url }}">{{ link.title }}</a>
+<a href="{{ block.settings.link }}">{{ block.settings.text }}</a>
 </li>
+{% endif %}
 {% endfor %}
+
 </ul>
 
 </div>
 
 
-<!-- Menu 2 -->
+<!-- Column 2 -->
 <div class="gruns-links">
 
 <h4>{{ section.settings.menu2_title }}</h4>
 
 <ul>
-{% for link in linklists[section.settings.menu2].links %}
+
+{% for block in section.blocks %}
+{% if block.type == 'menu2' %}
 <li>
-<a href="{{ link.url }}">{{ link.title }}</a>
+<a href="{{ block.settings.link }}">{{ block.settings.text }}</a>
 </li>
+{% endif %}
 {% endfor %}
+
 </ul>
 
 </div>
 
 
-<!-- Logo & Social -->
-<div class="gruns-logo">
+<!-- Column 3 -->
+<div>
 
 {% if section.settings.logo != blank %}
-<img src="{{ section.settings.logo | image_url: width:300 }}">
+<img src="{{ section.settings.logo | image_url: width:200 }}">
 {% endif %}
+
+<ul style="list-style:none;padding:0;margin-top:15px;">
+
+{% for block in section.blocks %}
+{% if block.type == 'menu3' %}
+<li style="margin-bottom:8px;">
+<a href="{{ block.settings.link }}">{{ block.settings.text }}</a>
+</li>
+{% endif %}
+{% endfor %}
+
+</ul>
 
 <div class="gruns-social">
 
@@ -249,28 +260,43 @@ flex-direction:column;
 </div>
 
 
+<!-- Disclaimer -->
+<div class="gruns-disclaimer">
+
+<div class="gruns-box">
+{{ section.settings.disclaimer1 }}
+</div>
+
+<div class="gruns-box">
+{{ section.settings.disclaimer2 }}
+</div>
+
+</div>
+
+
+<!-- Bottom -->
 <div class="gruns-bottom">
 
 <div>
 © {{ 'now' | date: "%Y" }} {{ shop.name }}
 </div>
 
-<div>
+<div class="gruns-policy">
 
-{% if shop.policies.refund_policy != blank %}
+{% if shop.policies.refund_policy %}
 <a href="{{ shop.policies.refund_policy.url }}">Refund Policy</a>
 {% endif %}
 
-{% if shop.policies.privacy_policy != blank %}
+{% if shop.policies.privacy_policy %}
 <a href="{{ shop.policies.privacy_policy.url }}">Privacy Policy</a>
 {% endif %}
 
-{% if shop.policies.terms_of_service != blank %}
-<a href="{{ shop.policies.terms_of_service.url }}">Terms</a>
+{% if shop.policies.terms_of_service %}
+<a href="{{ shop.policies.terms_of_service.url }}">Terms Of Service</a>
 {% endif %}
 
-{% if shop.policies.shipping_policy != blank %}
-<a href="{{ shop.policies.shipping_policy.url }}">Shipping</a>
+{% if shop.policies.shipping_policy %}
+<a href="{{ shop.policies.shipping_policy.url }}">Shipping Policy</a>
 {% endif %}
 
 </div>
@@ -290,7 +316,7 @@ flex-direction:column;
 "type":"color",
 "id":"bg_color",
 "label":"Background Color",
-"default":"#063c28"
+"default":"#003c2b"
 },
 {
 "type":"image_picker",
@@ -314,43 +340,71 @@ flex-direction:column;
 },
 {
 "type":"text",
-"id":"alt_text",
-"label":"Alt Text",
+"id":"email_text",
+"label":"Email Text",
 "default":"Email me instead"
 },
 {
 "type":"textarea",
-"id":"disclaimer",
-"label":"Disclaimer"
+"id":"description",
+"label":"Description"
 },
 {
 "type":"text",
 "id":"menu1_title",
-"label":"Menu 1 Title",
-"default":"Learn"
-},
-{
-"type":"link_list",
-"id":"menu1",
-"label":"Menu 1"
+"default":"Learn",
+"label":"Menu 1 Title"
 },
 {
 "type":"text",
 "id":"menu2_title",
-"label":"Menu 2 Title",
-"default":"Connect"
-},
-{
-"type":"link_list",
-"id":"menu2",
-"label":"Menu 2"
+"default":"Connect",
+"label":"Menu 2 Title"
 },
 {
 "type":"image_picker",
 "id":"logo",
 "label":"Footer Logo"
+},
+{
+"type":"textarea",
+"id":"disclaimer1",
+"label":"Disclaimer Left"
+},
+{
+"type":"textarea",
+"id":"disclaimer2",
+"label":"Disclaimer Right"
 }
 ],
+
+"blocks":[
+{
+"type":"menu1",
+"name":"Learn Link",
+"settings":[
+{"type":"text","id":"text","label":"Text"},
+{"type":"url","id":"link","label":"Link"}
+]
+},
+{
+"type":"menu2",
+"name":"Connect Link",
+"settings":[
+{"type":"text","id":"text","label":"Text"},
+{"type":"url","id":"link","label":"Link"}
+]
+},
+{
+"type":"menu3",
+"name":"Product Link",
+"settings":[
+{"type":"text","id":"text","label":"Text"},
+{"type":"url","id":"link","label":"Link"}
+]
+}
+],
+
 "presets":[
 {
 "name":"Gruns Footer"
