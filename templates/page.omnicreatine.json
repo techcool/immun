@@ -140,7 +140,11 @@
         "item_wL6MVU"
       ],
       "name": "OMNI Marquee",
-      "settings": {}
+      "settings": {
+        "bg_color": "#355e9c",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
     }
   },
   "order": [
