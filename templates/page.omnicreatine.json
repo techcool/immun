@@ -163,6 +163,55 @@
         "padding_top": 32,
         "padding_bottom": 32
       }
+    },
+    "omni_benefit_flex_WgnMeC": {
+      "type": "omni-benefit-flex",
+      "blocks": {
+        "feature_yADRRd": {
+          "type": "feature",
+          "settings": {
+            "title": "Muscle Growth",
+            "text": "Clinically dosed creatine = more endurance and strength."
+          }
+        },
+        "feature_ry6QA6": {
+          "type": "feature",
+          "settings": {
+            "title": "Clearer Thinking",
+            "text": "Delivers ATP to brain to help you stay focused and mentally locked in."
+          }
+        },
+        "feature_6HHHQV": {
+          "type": "feature",
+          "settings": {
+            "title": "Enhanced Recovery",
+            "text": "Recharge muscle cells, so tomorrow's workout feels like Day 1."
+          }
+        },
+        "feature_tzidJM": {
+          "type": "feature",
+          "settings": {
+            "title": "Sustained Energy",
+            "text": "Smooth, crash-free energy with cellular fuel."
+          }
+        }
+      },
+      "block_order": [
+        "feature_yADRRd",
+        "feature_ry6QA6",
+        "feature_6HHHQV",
+        "feature_tzidJM"
+      ],
+      "name": "OMNI Benefit Flex",
+      "settings": {
+        "image": "shopify://shop_images/omni-left.webp",
+        "badge": "#1 TASTING CREATINE",
+        "heading": "Optimize Your Routine",
+        "description": "Creatine supports how your cells create and reuse energy. Its effects show up in strength, recovery, mental clarity and daily stamina.",
+        "button_text": "TRY OMNI TODAY",
+        "button_link": "",
+        "guarantee": "30-day money-back guarantee"
+      }
     }
   },
   "order": [
@@ -170,6 +219,7 @@
     "main",
     "omni_flex_header_7zw3jC",
     "omni_hero_banner_f3KqAi",
-    "omni_marquee_bT8K7p"
+    "omni_marquee_bT8K7p",
+    "omni_benefit_flex_WgnMeC"
   ]
 }
