@@ -1,0 +1,288 @@
+{% style %}
+.gruns-footer{
+  background: {{ section.settings.bg_color }};
+  color:#fff;
+  padding:70px 20px 30px;
+}
+
+.gruns-container{
+  max-width:1200px;
+  margin:auto;
+}
+
+.gruns-grid{
+  display:grid;
+  grid-template-columns:1.2fr 1fr 1fr 1fr;
+  gap:40px;
+}
+
+.gruns-newsletter h3{
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+.gruns-input{
+  display:flex;
+}
+
+.gruns-input input{
+  width:100%;
+  padding:14px;
+  border:none;
+}
+
+.gruns-input button{
+  width:60px;
+  border:none;
+  background:#ffc72c;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.gruns-links h4{
+  font-size:20px;
+  margin-bottom:15px;
+}
+
+.gruns-links ul{
+  list-style:none;
+  padding:0;
+}
+
+.gruns-links li{
+  margin-bottom:8px;
+}
+
+.gruns-links a{
+  color:#fff;
+  text-decoration:none;
+}
+
+.gruns-bottom{
+  margin-top:50px;
+  border-top:1px solid rgba(255,255,255,.2);
+  padding-top:20px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.gruns-social{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.gruns-social a{
+  width:36px;
+  height:36px;
+  background:#fff;
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:6px;
+}
+
+@media(max-width:900px){
+
+.gruns-grid{
+grid-template-columns:1fr;
+}
+
+.gruns-bottom{
+flex-direction:column;
+}
+
+}
+{% endstyle %}
+
+<footer class="gruns-footer">
+
+<div class="gruns-container">
+
+<div class="gruns-grid">
+
+<!-- Newsletter -->
+<div class="gruns-newsletter">
+
+<h3>{{ section.settings.signup_heading }}</h3>
+
+<div class="gruns-input">
+<input type="text" placeholder="Phone number">
+<button>→</button>
+</div>
+
+{% if section.settings.alt_text != blank %}
+<p style="margin-top:10px;">
+<a href="#">{{ section.settings.alt_text }}</a>
+</p>
+{% endif %}
+
+<p style="font-size:12px;opacity:.7;margin-top:10px;">
+{{ section.settings.disclaimer }}
+</p>
+
+</div>
+
+<!-- Menu 1 -->
+<div class="gruns-links">
+
+<h4>{{ section.settings.menu1_title }}</h4>
+
+<ul>
+{% for link in linklists[section.settings.menu1].links %}
+<li>
+<a href="{{ link.url }}">{{ link.title }}</a>
+</li>
+{% endfor %}
+</ul>
+
+</div>
+
+<!-- Menu 2 -->
+<div class="gruns-links">
+
+<h4>{{ section.settings.menu2_title }}</h4>
+
+<ul>
+{% for link in linklists[section.settings.menu2].links %}
+<li>
+<a href="{{ link.url }}">{{ link.title }}</a>
+</li>
+{% endfor %}
+</ul>
+
+</div>
+
+<!-- Logo + Social -->
+<div>
+
+{% if section.settings.footer_logo != blank %}
+<img 
+src="{{ section.settings.footer_logo | image_url: width:200 }}"
+width="140"
+>
+{% endif %}
+
+<div class="gruns-social">
+
+{% if settings.social_instagram_link != blank %}
+<a href="{{ settings.social_instagram_link }}">IG</a>
+{% endif %}
+
+{% if settings.social_tiktok_link != blank %}
+<a href="{{ settings.social_tiktok_link }}">TT</a>
+{% endif %}
+
+{% if settings.social_youtube_link != blank %}
+<a href="{{ settings.social_youtube_link }}">YT</a>
+{% endif %}
+
+{% if settings.social_facebook_link != blank %}
+<a href="{{ settings.social_facebook_link }}">FB</a>
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="gruns-bottom">
+
+<div>
+© {{ 'now' | date: "%Y" }} {{ shop.name }}
+</div>
+
+<div>
+
+{% if shop.policies.refund_policy != blank %}
+<a href="{{ shop.policies.refund_policy.url }}">Refund Policy</a>
+{% endif %}
+
+{% if shop.policies.privacy_policy != blank %}
+ | <a href="{{ shop.policies.privacy_policy.url }}">Privacy Policy</a>
+{% endif %}
+
+{% if shop.policies.terms_of_service != blank %}
+ | <a href="{{ shop.policies.terms_of_service.url }}">Terms of Service</a>
+{% endif %}
+
+{% if shop.policies.shipping_policy != blank %}
+ | <a href="{{ shop.policies.shipping_policy.url }}">Shipping Policy</a>
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+{% schema %}
+{
+"name":"Gruns Footer",
+"settings":[
+{
+"type":"color",
+"id":"bg_color",
+"label":"Background Color",
+"default":"#013c27"
+},
+{
+"type":"text",
+"id":"signup_heading",
+"label":"Signup Heading",
+"default":"Sign Up for 52% Off"
+},
+{
+"type":"text",
+"id":"alt_text",
+"label":"Alternative Text",
+"default":"Email me instead"
+},
+{
+"type":"textarea",
+"id":"disclaimer",
+"label":"Disclaimer Text"
+},
+{
+"type":"text",
+"id":"menu1_title",
+"label":"Menu 1 Title",
+"default":"Learn"
+},
+{
+"type":"link_list",
+"id":"menu1",
+"label":"Menu 1"
+},
+{
+"type":"text",
+"id":"menu2_title",
+"label":"Menu 2 Title",
+"default":"Connect"
+},
+{
+"type":"link_list",
+"id":"menu2",
+"label":"Menu 2"
+},
+{
+"type":"image_picker",
+"id":"footer_logo",
+"label":"Footer Logo"
+}
+],
+"presets":[
+{
+"name":"Gruns Footer"
+}
+]
+}
+{% endschema %}

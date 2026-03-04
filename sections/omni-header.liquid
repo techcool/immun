@@ -1,41 +1,59 @@
-<header class="omni-header">
+<header class="omni-header" style="background: {{ section.settings.bg_color }}">
 
-  <div class="omni-header-inner">
+  <div class="omni-header-container logo-{{ section.settings.logo_position }}">
 
-    <!-- LEFT MENU -->
-    <div class="omni-header-left">
-      <a href="/collections/kids" class="omni-pill">Shop Kids</a>
-      <a href="/collections/adults" class="omni-pill">Shop Adults</a>
+    <!-- LEFT -->
+    <div class="omni-left">
+
+      {% if section.settings.show_shop_link %}
+        <a href="{{ section.settings.shop_link }}" class="shop-link">
+          {{ section.settings.shop_text }}
+        </a>
+      {% endif %}
+
     </div>
 
+
     <!-- LOGO -->
-    <div class="omni-header-logo">
+    <div class="omni-logo">
+
       <a href="{{ routes.root_url }}">
-        {% if settings.logo != blank %}
-          <img src="{{ settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}">
+
+        {% if section.settings.logo != blank %}
+          <img
+            src="{{ section.settings.logo | image_url: width: 300 }}"
+            alt="{{ shop.name }}"
+            loading="lazy"
+          >
         {% else %}
           {{ shop.name }}
         {% endif %}
+
       </a>
+
     </div>
 
-    <!-- RIGHT ICONS -->
-    <div class="omni-header-right">
 
-      <a href="{{ routes.search_url }}" class="omni-icon">
-        🔍
+    <!-- RIGHT -->
+    <div class="omni-right">
+
+      {% if section.settings.show_account %}
+      <a href="{{ routes.account_url }}" class="header-icon">
+        {% render 'icon-account' %}
       </a>
+      {% endif %}
 
-      <a href="{{ routes.cart_url }}" class="omni-icon">
-        🛒
+      {% if section.settings.show_cart %}
+      <a href="{{ routes.cart_url }}" class="header-icon cart-icon">
+
+        {% render 'icon-cart' %}
+
         {% if cart.item_count > 0 %}
-          <span class="omni-cart-count">{{ cart.item_count }}</span>
+          <span class="cart-count">{{ cart.item_count }}</span>
         {% endif %}
-      </a>
 
-      <a href="{{ routes.account_url }}" class="omni-icon">
-        👤
       </a>
+      {% endif %}
 
     </div>
 
@@ -47,74 +65,82 @@
 <style>
 
 .omni-header{
-  background:#0a7a3e;
   padding:14px 40px;
 }
 
-.omni-header-inner{
+.omni-header-container{
   display:flex;
   align-items:center;
   justify-content:space-between;
 }
 
-/* LEFT */
 
-.omni-header-left{
-  display:flex;
-  gap:12px;
+/* LOGO CENTER */
+
+.logo-center .omni-left{
+  flex:1;
 }
 
-.omni-pill{
-  border:1px solid #ffd94c;
-  color:#ffd94c;
-  padding:6px 14px;
-  border-radius:20px;
-  font-size:13px;
-  text-decoration:none;
-}
-
-/* LOGO */
-
-.omni-header-logo{
+.logo-center .omni-logo{
+  flex:1;
   text-align:center;
 }
 
-.omni-header-logo img{
-  height:32px;
-}
-
-/* RIGHT */
-
-.omni-header-right{
+.logo-center .omni-right{
+  flex:1;
   display:flex;
+  justify-content:flex-end;
   gap:18px;
-  align-items:center;
 }
 
-.omni-icon{
-  color:#ffd94c;
-  font-size:18px;
+
+/* LOGO LEFT */
+
+.logo-left .omni-left{
+  display:flex;
+  gap:20px;
+}
+
+.logo-left .omni-logo{
+  margin-right:auto;
+  margin-left:20px;
+}
+
+
+/* LOGO */
+
+.omni-logo img{
+  max-height:40px;
+}
+
+
+/* SHOP LINK */
+
+.shop-link{
+  text-decoration:underline;
+  font-weight:500;
+  font-size:14px;
+}
+
+
+/* ICON */
+
+.header-icon{
   position:relative;
-  text-decoration:none;
 }
 
-.omni-cart-count{
+
+/* CART COUNT */
+
+.cart-count{
   position:absolute;
   top:-6px;
   right:-10px;
-  background:#ffd94c;
-  color:#000;
-  font-size:11px;
+  font-size:10px;
   padding:2px 6px;
-  border-radius:10px;
-}
-
-@media(max-width:768px){
-
-.omni-header-left{
-  display:none;
-}
-
+  border-radius:20px;
+  background:#000;
+  color:#fff;
 }
 
 </style>
@@ -122,11 +148,78 @@
 
 {% schema %}
 {
-  "name": "OMNI Header",
-  "settings": [],
+  "name": "OMNI Dynamic Header",
+  "settings": [
+
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Header Background",
+      "default": "#f3f5f8"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+
+    {
+      "type": "select",
+      "id": "logo_position",
+      "label": "Logo Position",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        }
+      ],
+      "default": "center"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_shop_link",
+      "label": "Show Shop Link",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "shop_text",
+      "label": "Shop Link Text",
+      "default": "SHOP NOW"
+    },
+
+    {
+      "type": "url",
+      "id": "shop_link",
+      "label": "Shop Link URL"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show Account Icon",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show Cart Icon",
+      "default": true
+    }
+
+  ],
+
   "presets": [
     {
-      "name": "OMNI Header"
+      "name": "OMNI Dynamic Header"
     }
   ]
 }
