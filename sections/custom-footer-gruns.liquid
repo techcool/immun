@@ -1,43 +1,66 @@
 {% style %}
+
 .gruns-footer{
-  background: {{ section.settings.bg_color }};
+  position:relative;
+  background:{{ section.settings.bg_color }};
+  padding:80px 20px 40px;
   color:#fff;
-  padding:70px 20px 30px;
+  overflow:hidden;
+}
+
+.gruns-footer::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url({{ section.settings.pattern | image_url: width:2000 }});
+  background-size:cover;
+  background-position:center;
+  opacity:{{ section.settings.pattern_opacity }};
+  pointer-events:none;
 }
 
 .gruns-container{
-  max-width:1200px;
+  position:relative;
+  max-width:1250px;
   margin:auto;
 }
 
 .gruns-grid{
   display:grid;
-  grid-template-columns:1.2fr 1fr 1fr 1fr;
-  gap:40px;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:50px;
 }
 
-.gruns-newsletter h3{
-  font-size:24px;
+.gruns-newsletter h2{
+  font-size:28px;
   font-weight:700;
   margin-bottom:20px;
 }
 
 .gruns-input{
   display:flex;
+  border-radius:6px;
+  overflow:hidden;
 }
 
 .gruns-input input{
-  width:100%;
-  padding:14px;
+  flex:1;
+  padding:15px;
   border:none;
+  font-size:15px;
 }
 
 .gruns-input button{
   width:60px;
+  background:#FFC629;
   border:none;
-  background:#ffc72c;
-  cursor:pointer;
   font-size:18px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.gruns-input button:hover{
+  background:#ffb400;
 }
 
 .gruns-links h4{
@@ -46,8 +69,8 @@
 }
 
 .gruns-links ul{
-  list-style:none;
   padding:0;
+  list-style:none;
 }
 
 .gruns-links li{
@@ -57,16 +80,17 @@
 .gruns-links a{
   color:#fff;
   text-decoration:none;
+  opacity:.85;
+  transition:.25s;
 }
 
-.gruns-bottom{
-  margin-top:50px;
-  border-top:1px solid rgba(255,255,255,.2);
-  padding-top:20px;
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:10px;
+.gruns-links a:hover{
+  opacity:1;
+  transform:translateX(4px);
+}
+
+.gruns-logo img{
+  max-width:150px;
 }
 
 .gruns-social{
@@ -84,12 +108,41 @@
   align-items:center;
   justify-content:center;
   border-radius:6px;
+  font-size:14px;
+  transition:.3s;
+}
+
+.gruns-social a:hover{
+  transform:translateY(-3px);
+}
+
+.gruns-bottom{
+  border-top:1px solid rgba(255,255,255,.2);
+  margin-top:50px;
+  padding-top:20px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  font-size:14px;
+}
+
+.gruns-bottom a{
+  color:#fff;
+  margin-left:12px;
+  text-decoration:none;
+  opacity:.8;
+}
+
+.gruns-bottom a:hover{
+  opacity:1;
 }
 
 @media(max-width:900px){
 
 .gruns-grid{
 grid-template-columns:1fr;
+gap:40px;
 }
 
 .gruns-bottom{
@@ -97,7 +150,9 @@ flex-direction:column;
 }
 
 }
+
 {% endstyle %}
+
 
 <footer class="gruns-footer">
 
@@ -108,7 +163,7 @@ flex-direction:column;
 <!-- Newsletter -->
 <div class="gruns-newsletter">
 
-<h3>{{ section.settings.signup_heading }}</h3>
+<h2>{{ section.settings.heading }}</h2>
 
 <div class="gruns-input">
 <input type="text" placeholder="Phone number">
@@ -121,11 +176,14 @@ flex-direction:column;
 </p>
 {% endif %}
 
-<p style="font-size:12px;opacity:.7;margin-top:10px;">
+{% if section.settings.disclaimer != blank %}
+<p style="font-size:12px;margin-top:10px;opacity:.7;">
 {{ section.settings.disclaimer }}
 </p>
+{% endif %}
 
 </div>
+
 
 <!-- Menu 1 -->
 <div class="gruns-links">
@@ -142,6 +200,7 @@ flex-direction:column;
 
 </div>
 
+
 <!-- Menu 2 -->
 <div class="gruns-links">
 
@@ -157,14 +216,12 @@ flex-direction:column;
 
 </div>
 
-<!-- Logo + Social -->
-<div>
 
-{% if section.settings.footer_logo != blank %}
-<img 
-src="{{ section.settings.footer_logo | image_url: width:200 }}"
-width="140"
->
+<!-- Logo & Social -->
+<div class="gruns-logo">
+
+{% if section.settings.logo != blank %}
+<img src="{{ section.settings.logo | image_url: width:300 }}">
 {% endif %}
 
 <div class="gruns-social">
@@ -205,15 +262,15 @@ width="140"
 {% endif %}
 
 {% if shop.policies.privacy_policy != blank %}
- | <a href="{{ shop.policies.privacy_policy.url }}">Privacy Policy</a>
+<a href="{{ shop.policies.privacy_policy.url }}">Privacy Policy</a>
 {% endif %}
 
 {% if shop.policies.terms_of_service != blank %}
- | <a href="{{ shop.policies.terms_of_service.url }}">Terms of Service</a>
+<a href="{{ shop.policies.terms_of_service.url }}">Terms</a>
 {% endif %}
 
 {% if shop.policies.shipping_policy != blank %}
- | <a href="{{ shop.policies.shipping_policy.url }}">Shipping Policy</a>
+<a href="{{ shop.policies.shipping_policy.url }}">Shipping</a>
 {% endif %}
 
 </div>
@@ -224,6 +281,7 @@ width="140"
 
 </footer>
 
+
 {% schema %}
 {
 "name":"Gruns Footer",
@@ -232,24 +290,38 @@ width="140"
 "type":"color",
 "id":"bg_color",
 "label":"Background Color",
-"default":"#013c27"
+"default":"#063c28"
+},
+{
+"type":"image_picker",
+"id":"pattern",
+"label":"Background Pattern"
+},
+{
+"type":"range",
+"id":"pattern_opacity",
+"label":"Pattern Opacity",
+"min":0,
+"max":1,
+"step":0.1,
+"default":0.2
 },
 {
 "type":"text",
-"id":"signup_heading",
-"label":"Signup Heading",
+"id":"heading",
+"label":"Heading",
 "default":"Sign Up for 52% Off"
 },
 {
 "type":"text",
 "id":"alt_text",
-"label":"Alternative Text",
+"label":"Alt Text",
 "default":"Email me instead"
 },
 {
 "type":"textarea",
 "id":"disclaimer",
-"label":"Disclaimer Text"
+"label":"Disclaimer"
 },
 {
 "type":"text",
@@ -275,7 +347,7 @@ width="140"
 },
 {
 "type":"image_picker",
-"id":"footer_logo",
+"id":"logo",
 "label":"Footer Logo"
 }
 ],
