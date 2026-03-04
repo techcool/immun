@@ -170,6 +170,7 @@
         "feature_yADRRd": {
           "type": "feature",
           "settings": {
+            "icon": "shopify://shop_images/Real_Energy.svg",
             "title": "Muscle Growth",
             "text": "Clinically dosed creatine = more endurance and strength."
           }
@@ -177,6 +178,7 @@
         "feature_ry6QA6": {
           "type": "feature",
           "settings": {
+            "icon": "shopify://shop_images/Stars_02.svg",
             "title": "Clearer Thinking",
             "text": "Delivers ATP to brain to help you stay focused and mentally locked in."
           }
@@ -184,6 +186,7 @@
         "feature_6HHHQV": {
           "type": "feature",
           "settings": {
+            "icon": "shopify://shop_images/Target_04.svg",
             "title": "Enhanced Recovery",
             "text": "Recharge muscle cells, so tomorrow's workout feels like Day 1."
           }
@@ -191,6 +194,7 @@
         "feature_tzidJM": {
           "type": "feature",
           "settings": {
+            "icon": "shopify://shop_images/Zap_Fast.svg",
             "title": "Sustained Energy",
             "text": "Smooth, crash-free energy with cellular fuel."
           }
