@@ -176,7 +176,17 @@ gap:6px;
 width:14px;
 height:14px;
 }
+.gruns-sms-mode{
+display:none;
+}
 
+.gruns-newsletter.sms-active .gruns-email-mode{
+display:none;
+}
+
+.gruns-newsletter.sms-active .gruns-sms-mode{
+display:block;
+}
 @media(max-width:900px){
 
 .gruns-grid{grid-template-columns:1fr;}
@@ -446,3 +456,31 @@ newsletter.classList.remove("sms-active");
 {% endschema %}
 
 
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+document.querySelectorAll(".gruns-newsletter").forEach(function(newsletter){
+
+const smsBtn = newsletter.querySelector(".gruns-toggle-sms");
+const emailBtn = newsletter.querySelector(".gruns-toggle-email");
+
+if(smsBtn){
+smsBtn.addEventListener("click", function(e){
+e.preventDefault();
+newsletter.classList.add("sms-active");
+});
+}
+
+if(emailBtn){
+emailBtn.addEventListener("click", function(e){
+e.preventDefault();
+newsletter.classList.remove("sms-active");
+});
+}
+
+});
+
+});
+
+</script>
