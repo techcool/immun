@@ -732,19 +732,6 @@
         "padding_bottom": 80,
         "custom_class": "common-container gruns-cta"
       }
-    },
-    "custom_footer_gruns_aYA7TR": {
-      "type": "custom-footer-gruns",
-      "name": "Gruns Footer",
-      "settings": {
-        "bg_color": "#003c2b",
-        "pattern_opacity": 0.2,
-        "heading": "Sign Up for 52% Off",
-        "menu1_title": "Learn",
-        "menu2_title": "Connect",
-        "disclaimer1": "",
-        "disclaimer2": ""
-      }
     }
   },
   "order": [
@@ -760,7 +747,6 @@
     "us_vs_them_AdHgdb",
     "mango_hero_bMHkfT",
     "ambassador_testimonial_8LFQYg",
-    "cta_nutrient_BLbx8W",
-    "custom_footer_gruns_aYA7TR"
+    "cta_nutrient_BLbx8W"
   ]
 }
