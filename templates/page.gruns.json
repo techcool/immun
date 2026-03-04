@@ -239,7 +239,7 @@
         "heading": "Transform Your Health",
         "subheading": "Over 35,000 research publications support the ingredients in Grüns.",
         "center_image": "shopify://shop_images/BearWithStaticShadow_0053fabc-639e-405e-b1bd-4cae4871b2e1_1.png",
-        "custom_class": "gruns-healthsec",
+        "custom_class": "common-container gruns-healthsec",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -260,7 +260,7 @@
         "bg_color": "#dfeee6",
         "padding_top": 80,
         "padding_bottom": 80,
-        "custom_class": ""
+        "custom_class": "common-container"
       }
     },
     "snackable_tested_stats_CAdNUP": {
@@ -342,7 +342,7 @@
         "number_color": "#0b6b3a",
         "padding_top": 80,
         "padding_bottom": 80,
-        "custom_class": ""
+        "custom_class": "common-container"
       }
     },
     "tabbed_video_testimonials_CN3Fj9": {
@@ -644,7 +644,7 @@
         "table_image": "shopify://shop_images/UsVsThem_Adults_1.png",
         "padding_top": 80,
         "padding_bottom": 80,
-        "custom_class": "gruns-them"
+        "custom_class": "common-container gruns-them"
       }
     },
     "mango_hero_bMHkfT": {
@@ -656,11 +656,9 @@
         "btn_label": "Stock Up While You Can!",
         "btn_link": "",
         "product_image": "shopify://shop_images/Adult-Cropped_1.png",
-        "gummy_one": "shopify://shop_images/LifestyleImage-HandSatchet_2x_2e155675-186a-42d7-b8a7-2ccd7bcc42b3_1.png",
-        "gummy_two": "shopify://shop_images/ShopTile-OG-Kids_1.png",
         "padding_top": 80,
         "padding_bottom": 80,
-        "custom_class": ""
+        "custom_class": "gruns-mango common-container"
       }
     }
   },
