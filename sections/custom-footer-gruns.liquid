@@ -83,10 +83,6 @@ opacity:.85;
 opacity:1;
 }
 
-.gruns-logo{
-margin-top:40px;
-}
-
 .gruns-social{
 display:flex;
 gap:10px;
@@ -96,12 +92,24 @@ margin-top:10px;
 .gruns-social a{
 width:36px;
 height:36px;
-background:#fff;
+background:#e6e6e6;
 color:#000;
 display:flex;
 align-items:center;
 justify-content:center;
 border-radius:6px;
+font-size:14px;
+}
+
+.gruns-brand-row{
+display:flex;
+align-items:center;
+gap:25px;
+margin-top:40px;
+}
+
+.footer-logo{
+max-width:200px;
 }
 
 .gruns-disclaimer{
@@ -121,15 +129,20 @@ font-size:12px;
 display:flex;
 justify-content:space-between;
 flex-wrap:wrap;
-margin-top:20px;
+margin-top:25px;
 font-size:13px;
+}
+
+.gruns-policy{
+display:flex;
+flex-wrap:wrap;
+gap:16px;
 }
 
 .gruns-policy a{
 color:#fff;
-margin-right:15px;
 text-decoration:none;
-opacity:.8;
+opacity:.85;
 }
 
 .gruns-policy a:hover{
@@ -146,10 +159,19 @@ grid-template-columns:1fr;
 grid-template-columns:1fr;
 }
 
+.gruns-brand-row{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.gruns-bottom{
+flex-direction:column;
+gap:10px;
+}
+
 }
 
 {% endstyle %}
-
 
 <footer class="gruns-footer">
 
@@ -182,7 +204,6 @@ grid-template-columns:1fr;
 <h4>{{ section.settings.menu1_title }}</h4>
 
 <ul>
-
 {% for block in section.blocks %}
 {% if block.type == 'menu1' %}
 <li>
@@ -190,7 +211,6 @@ grid-template-columns:1fr;
 </li>
 {% endif %}
 {% endfor %}
-
 </ul>
 
 </div>
@@ -202,7 +222,6 @@ grid-template-columns:1fr;
 <h4>{{ section.settings.menu2_title }}</h4>
 
 <ul>
-
 {% for block in section.blocks %}
 {% if block.type == 'menu2' %}
 <li>
@@ -210,7 +229,6 @@ grid-template-columns:1fr;
 </li>
 {% endif %}
 {% endfor %}
-
 </ul>
 
 </div>
@@ -219,12 +237,7 @@ grid-template-columns:1fr;
 <!-- Column 3 -->
 <div>
 
-{% if section.settings.logo != blank %}
-<img src="{{ section.settings.logo | image_url: width:200 }}">
-{% endif %}
-
-<ul style="list-style:none;padding:0;margin-top:15px;">
-
+<ul style="list-style:none;padding:0;margin-top:30px;">
 {% for block in section.blocks %}
 {% if block.type == 'menu3' %}
 <li style="margin-bottom:8px;">
@@ -232,8 +245,19 @@ grid-template-columns:1fr;
 </li>
 {% endif %}
 {% endfor %}
-
 </ul>
+
+</div>
+
+</div>
+
+
+<!-- Logo + Social -->
+<div class="gruns-brand-row">
+
+{% if section.settings.logo != blank %}
+<img src="{{ section.settings.logo | image_url: width:300 }}" class="footer-logo">
+{% endif %}
 
 <div class="gruns-social">
 
@@ -252,8 +276,6 @@ grid-template-columns:1fr;
 {% if settings.social_facebook_link != blank %}
 <a href="{{ settings.social_facebook_link }}">FB</a>
 {% endif %}
-
-</div>
 
 </div>
 
@@ -299,6 +321,10 @@ grid-template-columns:1fr;
 <a href="{{ shop.policies.shipping_policy.url }}">Shipping Policy</a>
 {% endif %}
 
+<a href="#">My Privacy Choices</a>
+<a href="#">Authorized Resale Policy</a>
+<a href="#">Accessibility</a>
+
 </div>
 
 </div>
@@ -306,7 +332,6 @@ grid-template-columns:1fr;
 </div>
 
 </footer>
-
 
 {% schema %}
 {
