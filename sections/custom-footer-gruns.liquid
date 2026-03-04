@@ -266,16 +266,22 @@ gap:10px;
 
 <div class="gruns-sms-mode">
 
-<form method="post" action="/contact#contact_form">
-
-<input type="hidden" name="form_type" value="contact">
+{% form 'contact' %}
 
 <div class="gruns-input">
 <input type="tel" name="contact[phone]" placeholder="Phone number" required>
 <button type="submit">→</button>
 </div>
 
-</form>
+{% if form.posted_successfully? %}
+<p class="gruns-success">Thank you! We will contact you soon.</p>
+{% endif %}
+
+{% if form.errors %}
+<p class="gruns-error">{{ form.errors | default_errors }}</p>
+{% endif %}
+
+{% endform %}
 
 <a href="#" class="gruns-toggle-email">Email me instead</a>
 
