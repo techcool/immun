@@ -28,10 +28,73 @@
             "link": "#"
           }
         },
+        "menu3_H3RciA": {
+          "type": "menu3",
+          "settings": {
+            "text": "Grüns Kids",
+            "link": "#"
+          }
+        },
+        "menu3_GhchYy": {
+          "type": "menu3",
+          "settings": {
+            "text": "Nütrops",
+            "link": "#"
+          }
+        },
+        "menu3_cRmbrK": {
+          "type": "menu3",
+          "settings": {
+            "text": "Immün",
+            "link": "#"
+          }
+        },
+        "menu3_c7Q3iz": {
+          "type": "menu3",
+          "settings": {
+            "text": "Jüced",
+            "link": "#"
+          }
+        },
         "menu2_jrzLTp": {
           "type": "menu2",
           "settings": {
             "text": "Refer a Friend",
+            "link": "#"
+          }
+        },
+        "menu2_94kXzw": {
+          "type": "menu2",
+          "settings": {
+            "text": "Partners & Influencers",
+            "link": "#"
+          }
+        },
+        "menu2_97Uk44": {
+          "type": "menu2",
+          "settings": {
+            "text": "Make a Return",
+            "link": "#"
+          }
+        },
+        "menu2_Rfwt9y": {
+          "type": "menu2",
+          "settings": {
+            "text": "Careers",
+            "link": "#"
+          }
+        },
+        "menu2_eTA6DT": {
+          "type": "menu2",
+          "settings": {
+            "text": "Account Login",
+            "link": "#"
+          }
+        },
+        "menu2_hTdXUR": {
+          "type": "menu2",
+          "settings": {
+            "text": "Contact Us",
             "link": "#"
           }
         },
@@ -42,28 +105,37 @@
             "link": "#"
           }
         },
-        "menu1_7LH7pw": {
-          "type": "menu1",
-          "settings": {
-            "text": "",
-            "link": ""
-          }
-        },
         "menu1_QUH3XH": {
           "type": "menu1",
           "settings": {
             "text": "Reviews",
             "link": "#"
           }
+        },
+        "menu1_7LH7pw": {
+          "type": "menu1",
+          "settings": {
+            "text": "",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "menu3_YPcwqD",
         "menu3_Q3MkNY",
+        "menu3_H3RciA",
+        "menu3_GhchYy",
+        "menu3_cRmbrK",
+        "menu3_c7Q3iz",
         "menu2_jrzLTp",
+        "menu2_94kXzw",
+        "menu2_97Uk44",
+        "menu2_Rfwt9y",
+        "menu2_eTA6DT",
+        "menu2_hTdXUR",
         "menu1_cYcn8n",
-        "menu1_7LH7pw",
-        "menu1_QUH3XH"
+        "menu1_QUH3XH",
+        "menu1_7LH7pw"
       ],
       "name": "Gruns Footer",
       "settings": {
