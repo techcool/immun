@@ -1,12 +1,12 @@
-<section class="faq-section {{ section.settings.custom_class }}" 
+<section class="faq-section {{ section.settings.custom_class }}"
 style="background: {{ section.settings.bg_color }}; padding-top:{{ section.settings.padding_top }}px; padding-bottom:{{ section.settings.padding_bottom }}px;">
 
   <div class="page-width faq-container">
 
     {% if section.settings.heading != blank %}
-      <div class="faq-left">
-        <h2 class="faq-heading">{{ section.settings.heading }}</h2>
-      </div>
+    <div class="faq-left">
+      <h2 class="faq-heading">{{ section.settings.heading }}</h2>
+    </div>
     {% endif %}
 
     <div class="faq-right">
@@ -27,7 +27,9 @@ style="background: {{ section.settings.bg_color }}; padding-top:{{ section.setti
         </button>
 
         <div class="faq-answer">
-          {{ block.settings.answer }}
+          <div class="faq-answer-inner">
+            {{ block.settings.answer }}
+          </div>
         </div>
 
       </div>
@@ -81,14 +83,19 @@ style="background: {{ section.settings.bg_color }}; padding-top:{{ section.setti
 }
 
 .faq-answer{
-  display:none;
-  padding-bottom:20px;
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.45s ease;
   font-size:16px;
   line-height:1.6;
 }
 
+.faq-answer-inner{
+  padding-bottom:20px;
+}
+
 .faq-item.active .faq-answer{
-  display:block;
+  max-height:500px;
 }
 
 @media(max-width:768px){
@@ -109,37 +116,39 @@ style="background: {{ section.settings.bg_color }}; padding-top:{{ section.setti
 
 <script>
 
-document.querySelectorAll('.faq-question').forEach((button) => {
+document.addEventListener("DOMContentLoaded", function(){
 
-  button.addEventListener('click', function() {
+  const items = document.querySelectorAll(".faq-item");
 
-    const currentItem = this.parentElement;
-    const allItems = document.querySelectorAll('.faq-item');
+  items.forEach(item => {
 
-    allItems.forEach(item => {
+    const btn = item.querySelector(".faq-question");
 
-      if(item !== currentItem){
-        item.classList.remove('active');
-        item.querySelector('.faq-icon').textContent = "+";
-      }
+    btn.addEventListener("click", function(){
+
+      items.forEach(el => {
+
+        if(el !== item){
+          el.classList.remove("active");
+          el.querySelector(".faq-icon").textContent = "+";
+        }
+
+      });
+
+      item.classList.toggle("active");
+
+      const icon = item.querySelector(".faq-icon");
+
+      icon.textContent = item.classList.contains("active") ? "−" : "+";
 
     });
-
-    currentItem.classList.toggle('active');
-
-    const icon = currentItem.querySelector('.faq-icon');
-
-    if(currentItem.classList.contains('active')){
-      icon.textContent = "−";
-    }else{
-      icon.textContent = "+";
-    }
 
   });
 
 });
 
 </script>
+
 
 
 {% schema %}
@@ -193,7 +202,7 @@ document.querySelectorAll('.faq-question').forEach((button) => {
           "type": "text",
           "id": "question",
           "label": "Question",
-          "default": "FAQ question"
+          "default": "FAQ Question"
         },
         {
           "type": "richtext",
