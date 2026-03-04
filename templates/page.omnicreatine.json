@@ -90,6 +90,7 @@
       "type": "omni-dynamic-header",
       "name": "OMNI Header",
       "settings": {
+        "custom_class": "",
         "bg_color": "#f3f5f8",
         "logo": "shopify://shop_images/omni__logo.png",
         "logo_position": "center",
@@ -97,6 +98,7 @@
         "shop_text": "SHOP NOW",
         "shop_link": "",
         "show_account": true,
+        "account_icon": "shopify://shop_images/user.png",
         "account_link": "",
         "show_cart": true,
         "cart_link": ""
