@@ -118,12 +118,36 @@
         "guarantee_text": "30-day money-back guarantee",
         "product_image": "shopify://shop_images/spring_1.webp"
       }
+    },
+    "omni_marquee_bT8K7p": {
+      "type": "Omni-Marquee",
+      "blocks": {
+        "item_MgWe3i": {
+          "type": "item",
+          "settings": {
+            "text": "VEGAN FORMULA"
+          }
+        },
+        "item_wL6MVU": {
+          "type": "item",
+          "settings": {
+            "text": "VEGAN FORMULA"
+          }
+        }
+      },
+      "block_order": [
+        "item_MgWe3i",
+        "item_wL6MVU"
+      ],
+      "name": "OMNI Marquee",
+      "settings": {}
     }
   },
   "order": [
     "custom_header_common_RPAJ68",
     "main",
     "omni_flex_header_7zw3jC",
-    "omni_hero_banner_f3KqAi"
+    "omni_hero_banner_f3KqAi",
+    "omni_marquee_bT8K7p"
   ]
 }
