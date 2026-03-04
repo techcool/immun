@@ -54,6 +54,9 @@
 h1{
       font-family: 'Satoshi-Bold';
 }
+body, p, li, span{
+  font-family: 'Satoshi-Regular';
+}
 
 .omniContainer{
   max-width:1280px;
