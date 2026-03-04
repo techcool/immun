@@ -446,26 +446,3 @@ newsletter.classList.remove("sms-active");
 {% endschema %}
 
 
-<script>
-
-document.addEventListener("DOMContentLoaded",function(){
-
-const newsletter=document.querySelector(".gruns-newsletter");
-
-document.querySelectorAll(".gruns-toggle-sms").forEach(btn=>{
-btn.addEventListener("click",function(e){
-e.preventDefault();
-newsletter.classList.add("sms-active");
-});
-});
-
-document.querySelectorAll(".gruns-toggle-email").forEach(btn=>{
-btn.addEventListener("click",function(e){
-e.preventDefault();
-newsletter.classList.remove("sms-active");
-});
-});
-
-});
-
-</script>
