@@ -48,21 +48,28 @@ max-width:140px;
 margin:auto;
 }
 
-/* Center Effect */
-
 .section-{{ section.id }} .owl-item{
 opacity:.4;
 transform:scale(.85);
-transition:.4s;
+transition:all .4s ease;
+}
+
+.section-{{ section.id }} .owl-item.active{
+opacity:.6;
+transform:scale(.9);
 }
 
 .section-{{ section.id }} .owl-item.active.center{
 opacity:1;
-transform:scale(1);
+transform:scale(1.08);
+z-index:2;
 }
 
+/* Center Card Style */
+
 .section-{{ section.id }} .owl-item.active.center .testimonial-item{
-box-shadow:0 20px 60px rgba(0,0,0,0.12);
+box-shadow:0 25px 70px rgba(0,0,0,0.15);
+border:2px solid #0f3d2e;
 }
 
 /* Navigation */
@@ -184,8 +191,6 @@ font-size:16px;
 
 <script>
 
-$(document).ready(function(){
-
 $('.testimonial-slider-{{ section.id }}').owlCarousel({
 
 loop:true,
@@ -193,8 +198,8 @@ margin:30,
 nav:true,
 dots:true,
 center:true,
-items:1,
-stagePadding:400,
+items:3,
+stagePadding:0,
 autoplay:true,
 autoplayTimeout:4000,
 smartSpeed:700,
@@ -208,25 +213,20 @@ responsive:{
 
 0:{
 items:1,
-stagePadding:30
+stagePadding:0
 },
 
 600:{
-items:1,
-stagePadding:120
+items:1
 },
 
 1000:{
-items:1,
-stagePadding:400
+items:3
 }
 
 }
 
 });
-
-});
-
 </script>
 
 
