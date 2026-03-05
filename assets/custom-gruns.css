@@ -210,8 +210,18 @@ span.faq-title{
     font-size: 24px;
     line-height: 1.275;
     font-weight: 600;
+    color: var(--Deep-Forest-Green);
 }
-
+.faq-answer-inner{
+    padding: 30px;
+}
+.faq-answer-inner p {
+    letter-spacing: -.02em;
+    font-size: 16px;
+    line-height: 1.275;
+    font-weight: 500;
+    color: var(--Deep-Forest-Green);
+}
 
 /* footer Start */
 .footer-bottom-container{
