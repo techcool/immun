@@ -324,7 +324,6 @@ span.faq-title{
 }
 
 .modern-living-content {
-  flex: 1 1;
   padding: 40px;
   width: calc(50% - 30px);
 }
@@ -388,7 +387,6 @@ span.faq-title{
 
 
 .modern-living-image {
-  flex: 1;
   height: 100%;
   width: calc( 50% - 30px);
 }
