@@ -282,7 +282,7 @@ img.small-image-footer {
 }
 
 .gruns-links li {
-  margin-bottom: 8px;
+    list-style: none;
 }
 
 .gruns-links a {
