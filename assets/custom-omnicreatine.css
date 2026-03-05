@@ -81,5 +81,10 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li {
     color: #002266;
 }
 
+.omni-right .header-icon{
+     width: 32px;
+    height: 32px;
+}
+
 
 /* Omonicreatine page css end Desktop */
