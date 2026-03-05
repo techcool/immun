@@ -693,8 +693,6 @@
         "btn_label": "Stock Up While You Can!",
         "btn_link": "",
         "product_image": "shopify://shop_images/Adult-Cropped_1.png",
-        "gummy_one": "shopify://shop_images/title-logo.svg",
-        "gummy_two": "shopify://shop_images/omni-left.webp",
         "padding_top": 40,
         "padding_bottom": 40,
         "custom_class": "guns-mango common-container"
