@@ -253,6 +253,7 @@ img.small-image-footer {
   display:flex;
   gap:20px; 
   max-width: 1070px;
+  margin-top: 70px;
 }
 
 .gruns-disclaimer .gruns-box:nth-child(1){
