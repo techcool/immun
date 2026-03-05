@@ -51,9 +51,19 @@
 .section-{{ section.id }} .owl-dots{
   margin-top:20px;
 }
+.custom-testimonials .owl-item{
+opacity:0.5;
+transform:scale(0.9);
+transition:0.4s;
+}
+
+.custom-testimonials .owl-item.active.center{
+opacity:1;
+transform:scale(1);
+}
 </style>
 
-<div class="section-{{ section.id }}">
+<div class="custom-testimonials section-{{ section.id }}">
   
   <div class="owl-carousel testimonial-slider-{{ section.id }}">
     
