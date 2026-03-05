@@ -9,36 +9,6 @@
  */
 {
   "sections": {
-    "custom_header_common_RPAJ68": {
-      "type": "custom-header-common",
-      "blocks": {
-        "nav_link_DkYVVA": {
-          "type": "nav_link",
-          "settings": {
-            "link_text": "",
-            "link_url": ""
-          }
-        }
-      },
-      "block_order": [
-        "nav_link_DkYVVA"
-      ],
-      "disabled": true,
-      "name": "Custom Header Image",
-      "settings": {
-        "color_scheme": "",
-        "custom_class": "",
-        "custom_image": "shopify://shop_images/logo-glamour_1.png",
-        "image_link": "",
-        "show_search": false,
-        "button_text": "acc",
-        "button_link": "",
-        "padding_top": 20,
-        "padding_bottom": 20,
-        "padding_top_mobile": 16,
-        "padding_bottom_mobile": 16
-      }
-    },
     "main": {
       "type": "main-page",
       "blocks": {
@@ -222,7 +192,6 @@
     }
   },
   "order": [
-    "custom_header_common_RPAJ68",
     "main",
     "omni_flex_header_7zw3jC",
     "omni_hero_banner_f3KqAi",
