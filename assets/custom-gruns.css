@@ -208,6 +208,24 @@ img.small-image-footer {
     right: 0;
     margin: 0 auto;
 }
+
+.gruns-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 25px;
+  font-size: 13px;
+}
+
+.gruns-policy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.gruns-policy img {
+  width: 14px;
+  height: 14px;
+}
 .gruns-policy a {
     color: var(--white-color);
     text-decoration: none;
