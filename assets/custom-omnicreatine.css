@@ -66,5 +66,20 @@ body, h1, h2, h3, h4, h5, h6, p, ul, li {
   display:flex;
 }
 
+.omni-left .shop-link{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    color: #265392;
+    padding: 0;
+}
+.omni-left .shop-link:hover{
+    color: #002266;
+}
+
 
 /* Omonicreatine page css end Desktop */
