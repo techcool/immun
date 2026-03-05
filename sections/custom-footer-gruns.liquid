@@ -240,10 +240,8 @@
 }
 
 {% endstyle %}
-```
 
 
-```liquid
 <footer class="gruns-footer">
   <div class="gruns-container">
     <div class="gruns-grid">
@@ -253,22 +251,32 @@
         <h2>{{ section.settings.heading }}</h2>
 
         <div class="gruns-email-mode">
-          {% form 'customer' %}
+          {% form 'customer', id: 'ContactFooter', class: 'newsletter-form' %}
+
             <input type="hidden" name="contact[tags]" value="newsletter">
 
             <div class="gruns-input">
-              <input type="email" name="contact[email]" placeholder="Email address" required>
-              <button type="submit">→</button>
+            <input
+                type="email"
+                name="contact[email]"
+                placeholder="Email address"
+                required
+            >
+
+            <button type="submit">→</button>
             </div>
 
             {% if form.posted_successfully? %}
-              <p class="gruns-success">Thank you for subscribing!</p>
+            <p class="gruns-success">Thank you for subscribing!</p>
             {% endif %}
 
             {% if form.errors %}
-              <p class="gruns-error">{{ form.errors | default_errors }}</p>
+            <p class="gruns-error">
+                {{ form.errors | default_errors }}
+            </p>
             {% endif %}
-          {% endform %}
+
+            {% endform %}
 
           <a href="#" class="gruns-toggle-sms">Text me instead</a>
 
@@ -279,20 +287,31 @@
 
 
         <div class="gruns-sms-mode">
-          {% form 'contact' %}
+          {% form 'contact', id: 'PhoneNewsletter' %}
+
+            <input type="hidden" name="contact[email]" value="phone@lead.com">
+            <input type="hidden" name="contact[body]" value="Phone newsletter signup">
+            <input type="hidden" name="contact[tags]" value="phone-newsletter">
+
             <div class="gruns-input">
-              <input type="tel" name="contact[phone]" placeholder="Phone number" required>
-              <button type="submit">→</button>
+            <input 
+                type="tel" 
+                name="contact[phone]" 
+                placeholder="Enter your phone number"
+                required
+            >
+            <button type="submit">→</button>
             </div>
 
             {% if form.posted_successfully? %}
-              <p class="gruns-success">Thank you! We will contact you soon.</p>
+            <p class="gruns-success">Thank you! We will contact you soon.</p>
             {% endif %}
 
             {% if form.errors %}
-              <p class="gruns-error">{{ form.errors | default_errors }}</p>
+            <p class="gruns-error">{{ form.errors | default_errors }}</p>
             {% endif %}
-          {% endform %}
+
+            {% endform %}
 
           <a href="#" class="gruns-toggle-email">Email me instead</a>
 
@@ -594,4 +613,4 @@ document.addEventListener("DOMContentLoaded", function () {
   ]
 }
 {% endschema %}
-```
+
