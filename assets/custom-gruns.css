@@ -240,6 +240,7 @@ span.faq-title{
     font-size: 18px;
     line-height: 1;
     transition: all .3s ease;
+    font-weight: 600;
 }
 .cta-btn:hover{
     box-shadow: 1px 1px 0px 0px #000000;
@@ -263,6 +264,7 @@ span.faq-title{
   margin-top: 1rem;
   font-size: 18px;
   line-height: 1;
+  font-weight: 600;
 }
 
 .testimonial-btn:hover{
