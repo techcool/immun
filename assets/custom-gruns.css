@@ -348,9 +348,10 @@ span.faq-title{
 }
 
 .stat-item h3 {
-  font-size: 70px;
-  color: #0b6b3a;
-  margin: 0;
+    color: var(--Deep-Forest-Green);
+    font-size: 6.25rem;
+    font-weight: 400;
+    margin: 0;
 }
 
 .stat-item p {
