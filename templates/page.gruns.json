@@ -710,7 +710,7 @@
         "button_label": "Shop Now",
         "button_link": "#",
         "disclaimer": "Shaun White is a paid spokesperson and investor in Grüns. He also still rips and loves taking Grüns to the slopes with him.",
-        "padding_top": 80,
+        "padding_top": 60,
         "padding_bottom": 80,
         "custom_class": "common-container gruns-everyone"
       }
