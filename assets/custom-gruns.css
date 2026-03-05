@@ -191,6 +191,8 @@ p {
     font-size: 44px;
     line-height: 1.275;
     font-weight: 700;
+    font-family: "DM Sans", sans-serif;
+    color: var(--Deep-Forest-Green)
 }
 
 
