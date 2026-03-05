@@ -51,12 +51,12 @@
   font-style: normal;
 }
 
-h1{
+/* h1{
       font-family: 'Satoshi-Bold';
-}
-body, h1, h2, h3, h4, h5, h6, p, ul, li {    
+} */
+/* body, h1, h2, h3, h4, h5, h6, p, ul, li {    
   font-family: 'Satoshi-Regular';
-}
+} */
 
 .omniContainer{
   max-width:1280px;
