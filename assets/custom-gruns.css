@@ -244,6 +244,12 @@ span.faq-title{
     box-shadow: 1px 1px 0px 0px #000000;
     transform: translate3d(5px, 5px, 0);
 }
+.testimonial-name {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
 
 /* footer Start */
 .footer-bottom-container{
