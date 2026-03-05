@@ -693,6 +693,8 @@
         "btn_label": "Stock Up While You Can!",
         "btn_link": "",
         "product_image": "shopify://shop_images/Adult-Cropped_1.png",
+        "gummy_one": "shopify://shop_images/title-logo.svg",
+        "gummy_two": "shopify://shop_images/omni-left.webp",
         "padding_top": 80,
         "padding_bottom": 80,
         "custom_class": "guns-mango common-container"
@@ -711,7 +713,7 @@
         "button_link": "#",
         "disclaimer": "Shaun White is a paid spokesperson and investor in Grüns. He also still rips and loves taking Grüns to the slopes with him.",
         "padding_top": 60,
-        "padding_bottom": 80,
+        "padding_bottom": 60,
         "custom_class": "common-container gruns-everyone"
       }
     },
