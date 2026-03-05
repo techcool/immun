@@ -326,6 +326,7 @@ span.faq-title{
 .modern-living-content {
   flex: 1;
   padding: 40px;
+  width: calc(50% -30px)
 }
 
 .modern-living-content h2 {
