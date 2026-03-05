@@ -305,7 +305,12 @@ span.faq-title{
     font-size: 6.25rem;
     font-weight: 400;
 }
-
+.stat-item p {
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.6;
+    font-weight: 500;
+}
 
 /* footer Start */
 .footer-bottom-container{
