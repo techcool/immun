@@ -144,6 +144,7 @@
       "name": "Testimonial Owl Slider",
       "settings": {
         "custom_class": "gruns-testimonial common-container",
+        "bg_color": "#ffffff",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -181,6 +182,7 @@
         "slide_XG6myx",
         "slide_xpARyK"
       ],
+      "disabled": true,
       "name": "Testimonial Logo Slider",
       "settings": {
         "custom_class": "gruns-testimonials",
