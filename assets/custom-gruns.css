@@ -411,6 +411,7 @@ span.faq-title{
     font-size: 12px;
     opacity: .8;
     line-height: 1.6;
+    color: var(--white-color);
 }
 
 
