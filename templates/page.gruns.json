@@ -984,7 +984,25 @@
         "menu3_image": "shopify://shop_images/snacks.svg",
         "logo": "shopify://shop_images/logo.svg",
         "disclaimer1": "*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.",
-        "disclaimer2": "**Offer assumes customer has received and uses promotional SMS discount reserved for new customers only."
+        "disclaimer2": "**Offer assumes customer has received and uses promotional SMS discount reserved for new customers only.",
+        "custom_class": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bottom_class": "",
+        "bottom_image1": "shopify://shop_images/big-title.svg",
+        "bottom_image1_class": "big-image-footer",
+        "bottom_image2": "shopify://shop_images/title-logo.svg",
+        "bottom_image2_class": "small image-footer"
+      }
+    },
+    "bear_hero_FGd4hH": {
+      "type": "bear-hero",
+      "name": "Bear Hero",
+      "settings": {
+        "title_top": "THE BEAR",
+        "title_bottom": "NECESSITIES",
+        "bg_color": "#014d2f",
+        "text_color": "#0a7a4a"
       }
     }
   },
@@ -1002,6 +1020,7 @@
     "mango_hero_bMHkfT",
     "ambassador_testimonial_8LFQYg",
     "cta_nutrient_BLbx8W",
-    "custom_footer_gruns_fqp9Jn"
+    "custom_footer_gruns_fqp9Jn",
+    "bear_hero_FGd4hH"
   ]
 }
