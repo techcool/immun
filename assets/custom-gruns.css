@@ -203,6 +203,12 @@ p {
     line-height: 1.475;
     font-family: "Work Sans", sans-serif;
 }
+.common-container .testimonial-disclaimer {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--Deep-Forest-Green);
+    font-style: italic;
+}
 .common-container h2 {
     font-size: 44px;
     line-height: 1.275;
