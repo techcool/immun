@@ -443,6 +443,24 @@
 
     </div>
   </div>
+  <div class="gruns-container {{ section.settings.bottom_class }}">
+    {% if section.settings.bottom_image1 != blank %}
+        <img 
+        src="{{ section.settings.bottom_image1 | image_url: width:1200 }}"
+        class="{{ section.settings.bottom_image1_class }}"
+        alt=""
+        >
+    {% endif %}
+
+    {% if section.settings.bottom_image2 != blank %}
+        <img 
+        src="{{ section.settings.bottom_image2 | image_url: width:1200 }}"
+        class="{{ section.settings.bottom_image2_class }}"
+        alt=""
+        >
+    {% endif %}
+
+    </div>
 </footer>
 
 
@@ -555,6 +573,63 @@ document.addEventListener("DOMContentLoaded", function () {
       "type": "textarea",
       "id": "disclaimer2",
       "label": "Disclaimer Right"
+    },
+    {
+        "type": "text",
+        "id": "custom_class",
+        "label": "Custom Section Class"
+    },
+
+    {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Padding Top",
+        "min": 0,
+        "max": 200,
+        "step": 10,
+        "default": 80,
+        "unit": "px"
+    },
+
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Padding Bottom",
+        "min": 0,
+        "max": 200,
+        "step": 10,
+        "default": 80,
+        "unit": "px"
+    },
+
+    {
+        "type": "text",
+        "id": "bottom_class",
+        "label": "Bottom Container Class"
+    },
+
+    {
+        "type": "image_picker",
+        "id": "bottom_image1",
+        "label": "Bottom Image 1"
+    },
+
+    {
+    "type": "text",
+    "id": "bottom_image1_class",
+    "label": "Bottom Image 1 Class"
+    },
+
+    {
+    "type": "image_picker",
+    "id": "bottom_image2",
+    "label": "Bottom Image 2"
+    },
+
+    {
+    "type": "text",
+    "id": "bottom_image2_class",
+    "label": "Bottom Image 2 Class"
     }
   ],
 
