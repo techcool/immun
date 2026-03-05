@@ -1,28 +1,49 @@
 <section class="omni-hero">
 
-<div class="omni-container-Inr dFLEX">
+<div class="omni-container-Inr">
 
 <!-- LEFT CONTENT -->
-
 <div class="omni-hero-content">
 
 {% if section.settings.rating_text != blank %}
 <div class="rating">
-⭐ ⭐ ⭐ ⭐ ⭐ {{ section.settings.rating_text }}
+
+{% if section.settings.rating_icon != blank %}
+<img
+src="{{ section.settings.rating_icon | image_url: width:120 }}"
+alt="rating"
+>
+{% endif %}
+
+<span>{{ section.settings.rating_text }}</span>
+
 </div>
 {% endif %}
 
 
-{% if section.settings.sale_badge != blank %}
+
+{% if section.settings.sale_badge_text != blank %}
 <div class="sale-badge">
-{{ section.settings.sale_badge }}
+
+{% if section.settings.sale_badge_icon != blank %}
+<img
+src="{{ section.settings.sale_badge_icon | image_url: width:40 }}"
+alt="sale"
+>
+{% endif %}
+
+<span>{{ section.settings.sale_badge_text }}</span>
+
 </div>
 {% endif %}
+
 
 
 <h1 class="hero-title">
 {{ section.settings.heading }}
+<span class="hero-highlight">{{ section.settings.highlight_text }}</span>
 </h1>
+
 
 
 <p class="hero-desc">
@@ -30,16 +51,36 @@
 </p>
 
 
+
 {% if section.settings.button_text != blank %}
 <a href="{{ section.settings.button_link }}" class="hero-btn">
-{{ section.settings.button_text }}
+
+<span>{{ section.settings.button_text }}</span>
+
+{% if section.settings.button_icon != blank %}
+<img
+src="{{ section.settings.button_icon | image_url: width:30 }}"
+alt="arrow"
+>
+{% endif %}
+
 </a>
 {% endif %}
 
 
+
 {% if section.settings.guarantee_text != blank %}
 <div class="guarantee">
-✓ {{ section.settings.guarantee_text }}
+
+{% if section.settings.guarantee_icon != blank %}
+<img
+src="{{ section.settings.guarantee_icon | image_url: width:30 }}"
+alt="guarantee"
+>
+{% endif %}
+
+<span>{{ section.settings.guarantee_text }}</span>
+
 </div>
 {% endif %}
 
@@ -48,26 +89,21 @@
 
 
 <!-- RIGHT IMAGE -->
-
 <div class="omni-hero-image">
 
 {% if section.settings.product_image != blank %}
-
 <img
-src="{{ section.settings.product_image | image_url: width: 900 }}"
+src="{{ section.settings.product_image | image_url: width:900 }}"
 alt="Product"
 >
-
 {% endif %}
 
 {% if section.settings.discount_badge != blank %}
-
 <img
 class="discount-badge"
-src="{{ section.settings.discount_badge | image_url: width: 200 }}"
+src="{{ section.settings.discount_badge | image_url: width:200 }}"
 alt="Sale"
 >
-
 {% endif %}
 
 </div>
@@ -81,13 +117,15 @@ alt="Sale"
 <style>
 
 .omni-hero{
-    background:#f5f6f7;
+background:#f5f6f7;
 }
 
 .omni-container-Inr{
-    display:flex;    
-    justify-content:space-between;
-    flex-wrap:wrap;
+max-width:1300px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
 }
 
 /* LEFT */
@@ -95,21 +133,27 @@ alt="Sale"
 .omni-hero-content{
 max-width:520px;
 width:50%;
-padding: 72px 15px 72px 80px;
-align-items: flex-start;
-display: flex;
-flex-direction: column;
+padding:72px 15px 72px 80px;
+display:flex;
+flex-direction:column;
 justify-content:center;
 }
 
 .rating{
-color:#3a5f92;
-font-weight:500;
+display:flex;
+align-items:center;
+gap:10px;
 margin-bottom:16px;
 }
 
+.rating img{
+height:20px;
+}
+
 .sale-badge{
-display:inline-block;
+display:inline-flex;
+align-items:center;
+gap:8px;
 padding:6px 12px;
 border-radius:20px;
 border:1px solid #3a5f92;
@@ -117,10 +161,18 @@ font-size:13px;
 margin-bottom:20px;
 }
 
+.sale-badge img{
+height:18px;
+}
+
 .hero-title{
 font-size:52px;
 line-height:1.2;
 margin-bottom:18px;
+}
+
+.hero-highlight{
+color:#3a5f92;
 }
 
 .hero-desc{
@@ -130,7 +182,9 @@ margin-bottom:28px;
 }
 
 .hero-btn{
-display:inline-block;
+display:inline-flex;
+align-items:center;
+gap:10px;
 padding:16px 34px;
 border-radius:40px;
 background:#2e4f82;
@@ -139,25 +193,33 @@ text-decoration:none;
 font-weight:600;
 }
 
+.hero-btn img{
+height:18px;
+}
+
 .guarantee{
+display:flex;
+align-items:center;
+gap:8px;
 margin-top:18px;
 font-size:14px;
-color:#333;
+}
+
+.guarantee img{
+height:18px;
 }
 
 /* IMAGE */
 
 .omni-hero-image{
 position:relative;
-width:50%
+width:50%;
 }
 
 .omni-hero-image img{
-    display:block;
-    object-fit:cover;
-    object-position:center;
-    width:100%;
-    height:100%;
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
 .discount-badge{
@@ -171,13 +233,23 @@ width:120px;
 
 @media(max-width:900px){
 
-.omni-container{
+.omni-container-Inr{
 flex-direction:column;
+}
+
+.omni-hero-content{
+width:100%;
+padding:40px 20px;
 text-align:center;
+align-items:center;
 }
 
 .hero-title{
 font-size:36px;
+}
+
+.omni-hero-image{
+width:100%;
 }
 
 }
@@ -190,74 +262,105 @@ font-size:36px;
 {
 "name": "OMNI Hero Banner",
 
-"settings": [
+"settings":[
 
 {
-"type": "text",
-"id": "rating_text",
-"label": "Rating Text",
-"default": "4.8 Rating | 35,000+ Orders Delivered"
+"type":"image_picker",
+"id":"rating_icon",
+"label":"Rating Stars Image"
 },
 
 {
-"type": "text",
-"id": "sale_badge",
-"label": "Sale Badge Text",
-"default": "PRE-SPRING SALE"
+"type":"text",
+"id":"rating_text",
+"label":"Rating Text",
+"default":"4.8 Rating | 35,000+ Orders Delivered"
 },
 
 {
-"type": "text",
-"id": "heading",
-"label": "Heading",
-"default": "Creatine For Body & Mind"
+"type":"image_picker",
+"id":"sale_badge_icon",
+"label":"Sale Badge Icon"
 },
 
 {
-"type": "textarea",
-"id": "description",
-"label": "Description",
-"default": "OMNI is a creatine infused gummy that helps with building muscle, improve mental clarity and accelerate your recovery."
+"type":"text",
+"id":"sale_badge_text",
+"label":"Sale Badge Text",
+"default":"PRE-SPRING SALE"
 },
 
 {
-"type": "text",
-"id": "button_text",
-"label": "Button Text",
-"default": "TRY OMNI TODAY"
+"type":"text",
+"id":"heading",
+"label":"Heading",
+"default":"Creatine For"
 },
 
 {
-"type": "url",
-"id": "button_link",
-"label": "Button Link"
+"type":"text",
+"id":"highlight_text",
+"label":"Highlight Text",
+"default":"Body & Mind"
 },
 
 {
-"type": "text",
-"id": "guarantee_text",
-"label": "Guarantee Text",
-"default": "30-day money-back guarantee"
+"type":"textarea",
+"id":"description",
+"label":"Description"
 },
 
 {
-"type": "image_picker",
-"id": "product_image",
-"label": "Product Image"
+"type":"text",
+"id":"button_text",
+"label":"Button Text",
+"default":"TRY OMNI TODAY"
 },
 
 {
-"type": "image_picker",
-"id": "discount_badge",
-"label": "Discount Badge Image"
+"type":"url",
+"id":"button_link",
+"label":"Button Link"
+},
+
+{
+"type":"image_picker",
+"id":"button_icon",
+"label":"Button Icon"
+},
+
+{
+"type":"image_picker",
+"id":"guarantee_icon",
+"label":"Guarantee Icon"
+},
+
+{
+"type":"text",
+"id":"guarantee_text",
+"label":"Guarantee Text",
+"default":"30-day money-back guarantee"
+},
+
+{
+"type":"image_picker",
+"id":"product_image",
+"label":"Product Image"
+},
+
+{
+"type":"image_picker",
+"id":"discount_badge",
+"label":"Discount Badge"
 }
 
 ],
 
-"presets": [
+"presets":[
 {
-"name": "OMNI Hero Banner"
+"name":"OMNI Hero Banner"
 }
 ]
+
 }
 {% endschema %}
