@@ -278,6 +278,28 @@ span.faq-title{
     background-color: var(--dk-green);
 }
 
+
+.hero-btn{
+  display:inline-block;
+  background:#ffffff;
+  border-radius:40px;
+  border:2px solid #000;
+  font-weight:600;
+  text-decoration:none;
+  transition: all .3s ease;
+  line-height: 1;
+  box-shadow: 5px 5px 0px 0px #000000;
+  transform: translate3d(0, 0, 0);
+  padding: 1rem 2.75rem;
+  margin-top: 1rem;
+}
+
+.hero-btn:hover{
+    box-shadow: 1px 1px 0px 0px #000000;
+    transform: translate3d(5px, 5px, 0);
+    background-color: #befdf7;
+}
+
 /* footer Start */
 .footer-bottom-container{
     position: relative;
