@@ -1,72 +1,72 @@
 {% style %}
-.section-{{ section.id }} {
+.your-health {
   padding-top: {{ section.settings.padding_top }}px;
   padding-bottom: {{ section.settings.padding_bottom }}px;
 }
 
-.section-{{ section.id }} .health-wrapper {
+.your-health .health-wrapper {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
 }
 
-.section-{{ section.id }} .health-heading {
+.your-health .health-heading {
   font-size: 42px;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-.section-{{ section.id }} .health-subheading {
+.your-health .health-subheading {
   font-size: 18px;
   color: #555;
   margin-bottom: 60px;
 }
 
-.section-{{ section.id }} .health-grid {
+.your-health .health-grid {
   display: grid;
   grid-template-columns: 1fr 500px 1fr;
   align-items: center;
   gap: 40px;
 }
 
-.section-{{ section.id }} .health-features {
+.your-health .health-features {
   display: flex;
   flex-direction: column;
   gap: 50px;
 }
 
-.section-{{ section.id }} .health-item {
+.your-health .health-item {
   text-align: center;
 }
 
-.section-{{ section.id }} .health-icon img {
+.your-health .health-icon img {
   width: 40px;
   margin: 0 auto 15px auto;
 }
 
-.section-{{ section.id }} .health-title {
+.your-health .health-title {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.section-{{ section.id }} .health-desc {
+.your-health .health-desc {
   font-size: 15px;
   color: #555;
   line-height: 1.6;
 }
 
-.section-{{ section.id }} .health-center img {
+.your-health .health-center img {
   width: 100%;
   max-width: 450px;
 }
 
 @media (max-width: 1024px) {
-  .section-{{ section.id }} .health-grid {
+  .your-health .health-grid {
     grid-template-columns: 1fr;
   }
 
-  .section-{{ section.id }} .health-center {
+  .your-health .health-center {
     order: -1;
   }
 }
