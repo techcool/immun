@@ -284,6 +284,7 @@ img.small-image-footer {
 .gruns-links li {
     list-style: none;
     line-height: 1.275;
+    margin-bottom: 10px
 }
 
 .gruns-links a {
@@ -299,6 +300,7 @@ img.small-image-footer {
 
 .gruns-links a:hover {
   color: rgb(var(--yellow-color));
+  transform: translateX(10px);
 }
 
 .gruns-menu-image img {
