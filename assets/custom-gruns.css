@@ -241,16 +241,26 @@ img.small-image-footer {
 .gruns-policy a:hover{
     color: rgb(var(--yellow-color));
 }
-.gruns-disclaimer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-top: 40px;
-}
+
 .gruns-box {
     font-size: 12px;
     color: rgb(255 255 255 / 76%);
     padding: 10px;
     border: 1px solid #fff;
 }
+.gruns-disclaimer{
+  display:flex;
+  gap:20px; /* space between boxes */
+}
 
+.gruns-disclaimer .gruns-box:nth-child(1){
+  flex:3;
+}
+
+.gruns-disclaimer .gruns-box:nth-child(2){
+  flex:2;
+}
+
+.gruns-disclaimer .gruns-box:nth-child(3){
+  flex:2;
+}
