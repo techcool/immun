@@ -267,7 +267,7 @@ span.faq-title{
 .testimonial-btn:hover{
     box-shadow: 1px 1px 0px 0px #000000;
     transform: translate3d(5px, 5px, 0);
-    background-color: var(--Deep-Forest-Green);
+    background-color: var(--dk-green);
 }
 
 /* footer Start */
