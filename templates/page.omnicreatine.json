@@ -23,6 +23,7 @@
       "block_order": [
         "nav_link_DkYVVA"
       ],
+      "disabled": true,
       "name": "Custom Header Image",
       "settings": {
         "color_scheme": "",
