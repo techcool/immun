@@ -184,3 +184,24 @@ p {
 .gruns-testimonials .page-width{
     overflow: hidden;
 }
+
+
+
+
+
+
+
+
+/* footer Start */
+img.small-image-footer {
+    width: 200px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+
+
+
