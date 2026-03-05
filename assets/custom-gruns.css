@@ -283,6 +283,7 @@ img.small-image-footer {
 
 .gruns-links li {
     list-style: none;
+    line-height: 1.275;
 }
 
 .gruns-links a {
@@ -292,6 +293,8 @@ img.small-image-footer {
     font-weight: 400;
     font-family: "DM Sans", sans-serif;
     transition: all .3s ease;
+    line-height: 1.275;
+    display: block;
 }
 
 .gruns-links a:hover {
