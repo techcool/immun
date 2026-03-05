@@ -111,6 +111,39 @@
         "product_image": "shopify://shop_images/hero_1317ea83-92e6-4452-9e1a-235594dc5a09_1.png"
       }
     },
+    "testimonial_owl_slider_6BWQzz": {
+      "type": "testimonial-owl-slider",
+      "blocks": {
+        "testimonial_mbdcm3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "\"In eight years of testing powders, pills, and potions, there's only one that I liked enough to then spend my own money on: Grüns superfood gummies.\"",
+            "logo": "shopify://shop_images/logo-bonappetit_1.png"
+          }
+        },
+        "testimonial_RgKN8M": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "\"If you know you’re not getting all of the vitamins and nutrients you need from your diet, adding Grüns in is a no-brainer.\"",
+            "logo": "shopify://shop_images/logo-glamour_1.png"
+          }
+        },
+        "testimonial_czbEdR": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "\"A multivitamin that doesn’t taste bad? Count us in.\"",
+            "logo": "shopify://shop_images/logo-theskimm_1.png"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_mbdcm3",
+        "testimonial_RgKN8M",
+        "testimonial_czbEdR"
+      ],
+      "name": "Testimonial Owl Slider",
+      "settings": {}
+    },
     "testimonial_logo_slider_JpeDGt": {
       "type": "testimonial-logo-slider",
       "blocks": {
@@ -226,7 +259,7 @@
         "heading_color": "#007e40",
         "bg_color": "#ffffff",
         "padding_top": 50,
-        "padding_bottom": 80
+        "padding_bottom": 50
       }
     },
     "health_benefits_FCwzcz": {
@@ -1047,6 +1080,7 @@
     "custom_header_common_hcUmjJ",
     "main",
     "nutrition_hero_wbz9CE",
+    "testimonial_owl_slider_6BWQzz",
     "testimonial_logo_slider_JpeDGt",
     "find_your_favorite_pYqbb9",
     "health_benefits_FCwzcz",
