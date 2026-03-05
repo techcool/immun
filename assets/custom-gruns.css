@@ -247,6 +247,7 @@ img.small-image-footer {
     color: rgb(255 255 255 / 76%);
     padding: 10px;
     border: 1px solid #fff;
+    max-width: 1200px;
 }
 .gruns-disclaimer{
   display:flex;
