@@ -6,7 +6,7 @@
 .section-{{ section.id }} {
   padding-top: {{ section.settings.padding_top }}px;
   padding-bottom: {{ section.settings.padding_bottom }}px;
-  background: {{ section.settings.bg_color }};
+  background: #f7f7f7;
   position: relative;
 }
 
@@ -19,29 +19,28 @@
   overflow: hidden;
   position: relative;
 }
-
 .gruns-testimonial .page-width:after {
-  content: "";
-  position: absolute;
-  width: 50px;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%);
-  z-index: 1;
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 50%);
+    z-index: 1;
 }
-
 .gruns-testimonial .page-width:before {
-  content: "";
-  position: absolute;
-  width: 50px;
-  height: 100%;
-  top: 0;
-  right: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%);
-  z-index: ;
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: #ffffff;
+    background: linear-gradient(90deg,rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%););
+    z-index: 1;
 }
-
 .gruns-testimonial .owl-stage-outer {
   overflow: visible;
 }
@@ -178,31 +177,31 @@
 
 <section class="gruns-testimonial section-{{ section.id }} {{ section.settings.custom_class }}">
 
-<div class="page-width">
+  <div class="page-width">
 
-<div class="owl-carousel testimonial-slider-{{ section.id }}">
+    <div class="owl-carousel testimonial-slider-{{ section.id }}">
 
-{% for block in section.blocks %}
+      {% for block in section.blocks %}
 
-<div class="testimonial-item">
+        <div class="testimonial-item">
 
-<div class="testimonial-text">
-{{ block.settings.quote }}
-</div>
+          <div class="testimonial-text">
+            {{ block.settings.quote }}
+          </div>
 
-<div class="testimonial-logo">
-{% if block.settings.logo != blank %}
-<img src="{{ block.settings.logo | image_url: width: 300 }}">
-{% endif %}
-</div>
+          <div class="testimonial-logo">
+            {% if block.settings.logo != blank %}
+              <img src="{{ block.settings.logo | image_url: width: 300 }}">
+            {% endif %}
+          </div>
 
-</div>
+        </div>
 
-{% endfor %}
+      {% endfor %}
 
-</div>
+    </div>
 
-</div>
+  </div>
 
 </section>
 
@@ -210,113 +209,106 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
-<script>
 
+<script>
 $(document).ready(function(){
 
-$('.testimonial-slider-{{ section.id }}').owlCarousel({
+  $('.testimonial-slider-{{ section.id }}').owlCarousel({
 
-loop:true,
-margin:30,
-nav:true,
-dots:false,
-center:true,
-items:1,
-stagePadding:400,
+    loop: true,
+    margin: 30,
+    nav: true,
+    dots: false,
+    center: true,
+    items: 1,
+    stagePadding: 400,
 
-autoplay:false,
-autoplayTimeout:4000,
-smartSpeed:700,
+    autoplay: false,
+    autoplayTimeout: 4000,
+    smartSpeed: 700,
 
-navText:[
-'<span>&larr;</span>',
-'<span>&rarr;</span>'
-],
+    navText: [
+      '<span>&larr;</span>',
+      '<span>&rarr;</span>'
+    ],
 
-responsive:{
+    responsive: {
 
-0:{
-items:1,
-stagePadding:30
-},
+      0: {
+        items: 1,
+        stagePadding: 30
+      },
 
-600:{
-items:1,
-stagePadding:120
-},
+      600: {
+        items: 1,
+        stagePadding: 120
+      },
 
-1000:{
-items:1,
-stagePadding:400
-}
+      1000: {
+        items: 1,
+        stagePadding: 400
+      }
 
-}
+    }
+
+  });
 
 });
-
-});
-
 </script>
 
 
 {% schema %}
 {
-"name": "Testimonial Owl Slider",
-"settings": [
-{
-"type": "text",
-"id": "custom_class",
-"label": "Custom Class"
-},
-{
-"type": "color",
-"id": "bg_color",
-"label": "Background Color",
-"default": "#f7f7f7"
-},
-{
-"type": "range",
-"id": "padding_top",
-"min": 0,
-"max": 200,
-"step": 10,
-"default": 80,
-"label": "Padding Top"
-},
-{
-"type": "range",
-"id": "padding_bottom",
-"min": 0,
-"max": 200,
-"step": 10,
-"default": 80,
-"label": "Padding Bottom"
-}
-],
+  "name": "Testimonial Owl Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 80,
+      "label": "Padding Top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 80,
+      "label": "Padding Bottom"
+    }
+  ],
 
-"blocks": [
-{
-"type": "testimonial",
-"name": "Testimonial",
-"settings": [
-{
-"type": "textarea",
-"id": "quote",
-"label": "Quote Text"
-},
-{
-"type": "image_picker",
-"id": "logo",
-"label": "Logo"
-}
-]
-}
-],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        }
+      ]
+    }
+  ],
 
-"presets": [
-{
-"name": "Testimonial Owl Slider"
-}
-]
+  "presets": [
+    {
+      "name": "Testimonial Owl Slider"
+    }
+  ]
 }
 {% endschema %}
