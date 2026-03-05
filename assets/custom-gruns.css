@@ -196,6 +196,9 @@ p {
 .footer-bottom-container{
     position: relative;
 }
+.footer-bottom-container {
+    margin-top: 100px !important;
+}
 img.small-image-footer {
     width: 200px;
     position: absolute;
