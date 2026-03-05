@@ -213,7 +213,7 @@ span.faq-title{
     color: var(--Deep-Forest-Green);
 }
 .faq-answer-inner{
-    padding: 30px;
+    padding:0 30px 30px;
 }
 .faq-answer-inner p {
     letter-spacing: -.02em;
