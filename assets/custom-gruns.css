@@ -272,6 +272,7 @@ img.small-image-footer {
 }
 
 .gruns-links h4 {
+    color: rgb(var(--yellow-color));
     font-size: 24px;
     font-weight: 600;
 }
@@ -285,13 +286,16 @@ img.small-image-footer {
 }
 
 .gruns-links a {
-  color: #fff;
-  text-decoration: none;
-  opacity: .85;
+    color: var(--white-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "DM Sans", sans-serif;
+    transition: all .3s ease;
 }
 
 .gruns-links a:hover {
-  opacity: 1;
+  color: rgb(var(--yellow-color));
 }
 
 .gruns-menu-image img {
