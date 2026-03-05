@@ -142,7 +142,11 @@
         "testimonial_czbEdR"
       ],
       "name": "Testimonial Owl Slider",
-      "settings": {}
+      "settings": {
+        "custom_class": "gruns-testimonials",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     },
     "testimonial_logo_slider_JpeDGt": {
       "type": "testimonial-logo-slider",
