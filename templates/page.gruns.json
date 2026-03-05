@@ -728,8 +728,8 @@
         "button_color": "#ffd22e",
         "button_text_color": "#000000",
         "bg_color": "#000000",
-        "padding_top": 80,
-        "padding_bottom": 80,
+        "padding_top": 52,
+        "padding_bottom": 52,
         "custom_class": "common-container gruns-cta"
       }
     },
@@ -775,8 +775,8 @@
       "settings": {
         "heading": "Any last questions?",
         "bg_color": "#d9e6de",
-        "padding_top": 80,
-        "padding_bottom": 80,
+        "padding_top": 60,
+        "padding_bottom": 60,
         "custom_class": "common-container gruns-faq"
       }
     },
