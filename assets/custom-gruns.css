@@ -313,7 +313,9 @@ span.faq-title{
 }
 
 
-
+.modern-living-btn {
+    text-align: center;
+}
 .modern-living-wrapper {
   display: flex;
   align-items: center;
