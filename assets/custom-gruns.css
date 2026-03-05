@@ -235,7 +235,8 @@ span.faq-title{
     line-height: 1;
 }
 .cta-btn:hover{
-  transform: translateY(10px);
+    box-shadow: 1px 1px 0px 0px #000000;
+    transform: translate3d(5px, 5px, 0);
 }
 
 /* footer Start */
