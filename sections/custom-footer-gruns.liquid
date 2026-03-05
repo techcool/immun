@@ -257,64 +257,64 @@
         </div>
       </div>
 
+      <div class="footer-menu-wrap">
+        <!-- Menu 1 -->
+        <div class="gruns-links">
+            <h4>{{ section.settings.menu1_title }}</h4>
 
-      <!-- Menu 1 -->
-      <div class="gruns-links">
-        <h4>{{ section.settings.menu1_title }}</h4>
+            <ul>
+            {% for block in section.blocks %}
+                {% if block.type == 'menu1' %}
+                <li>
+                    <a href="{{ block.settings.link }}">
+                    {{ block.settings.text }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
 
-        <ul>
-          {% for block in section.blocks %}
-            {% if block.type == 'menu1' %}
-              <li>
-                <a href="{{ block.settings.link }}">
-                  {{ block.settings.text }}
-                </a>
-              </li>
+
+        <!-- Menu 2 -->
+        <div class="gruns-links">
+            <h4>{{ section.settings.menu2_title }}</h4>
+
+            <ul>
+            {% for block in section.blocks %}
+                {% if block.type == 'menu2' %}
+                <li>
+                    <a href="{{ block.settings.link }}">
+                    {{ block.settings.text }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+
+
+        <!-- Menu 3 -->
+        <div class="gruns-links">
+            {% if section.settings.menu3_image != blank %}
+            <div class="gruns-menu-image">
+                <img src="{{ section.settings.menu3_image | image_url: width:200 }}">
+            </div>
             {% endif %}
-          {% endfor %}
-        </ul>
+
+            <ul style="list-style:none;padding:0;">
+            {% for block in section.blocks %}
+                {% if block.type == 'menu3' %}
+                <li>
+                    <a href="{{ block.settings.link }}">
+                    {{ block.settings.text }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
       </div>
-
-
-      <!-- Menu 2 -->
-      <div class="gruns-links">
-        <h4>{{ section.settings.menu2_title }}</h4>
-
-        <ul>
-          {% for block in section.blocks %}
-            {% if block.type == 'menu2' %}
-              <li>
-                <a href="{{ block.settings.link }}">
-                  {{ block.settings.text }}
-                </a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-
-
-      <!-- Menu 3 -->
-      <div class="gruns-links">
-        {% if section.settings.menu3_image != blank %}
-          <div class="gruns-menu-image">
-            <img src="{{ section.settings.menu3_image | image_url: width:200 }}">
-          </div>
-        {% endif %}
-
-        <ul style="list-style:none;padding:0;">
-          {% for block in section.blocks %}
-            {% if block.type == 'menu3' %}
-              <li>
-                <a href="{{ block.settings.link }}">
-                  {{ block.settings.text }}
-                </a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-
     </div>
 
 
