@@ -204,7 +204,6 @@ p {
     font-family: "Work Sans", sans-serif;
 }
 .common-container .testimonial-disclaimer {
-    margin-top: 20px;
     font-size: 13px;
     color: var(--Deep-Forest-Green);
     font-style: italic;
