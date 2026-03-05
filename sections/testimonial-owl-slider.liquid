@@ -3,150 +3,152 @@
 
 {% style %}
 
-.section-{{ section.id }}{
-padding-top:{{ section.settings.padding_top }}px;
-padding-bottom:{{ section.settings.padding_bottom }}px;
-background:#f7f7f7;
-position:relative;
+.section-{{ section.id }} {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  background: #f7f7f7;
+  position: relative;
 }
 
-.gruns-testimonial .page-width{
-max-width:1200px;
-margin:auto;
-padding:0 20px;
-overflow:hidden;
+/* Container */
+
+.gruns-testimonial .page-width {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  overflow: hidden;
 }
 
-.gruns-testimonial .owl-stage-outer{
-overflow:visible;
+.gruns-testimonial .owl-stage-outer {
+  overflow: visible;
 }
 
 /* Testimonial Card */
 
-.gruns-testimonial .testimonial-item{
-background:#fff;
-padding:50px 40px;
-border-radius:16px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-transition:all .4s ease;
-text-align:center;
-opacity:.7;
-transform:scale(.9);
+.gruns-testimonial .testimonial-item {
+  background: #fff;
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: all .4s ease;
+  text-align: center;
+  opacity: .7;
+  transform: scale(.9);
 }
 
 /* Quote */
 
-.gruns-testimonial .testimonial-text{
-font-size:18px;
-line-height:1.6;
-color:#555;
-margin-bottom:25px;
-font-style:italic;
+.gruns-testimonial .testimonial-text {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 25px;
+  font-style: italic;
 }
 
 /* Logo */
 
-.gruns-testimonial .testimonial-logo img{
-max-width:140px;
-margin:auto;
+.gruns-testimonial .testimonial-logo img {
+  max-width: 140px;
+  margin: auto;
 }
 
-/* Side Items */
+/* Owl Item Animation */
 
-.gruns-testimonial .owl-item{
-transition:all .4s ease;
+.gruns-testimonial .owl-item {
+  transition: all .4s ease;
 }
 
-.gruns-testimonial .owl-item.active .testimonial-item{
-opacity:.85;
-transform:scale(.95);
+.gruns-testimonial .owl-item.active .testimonial-item {
+  opacity: .85;
+  transform: scale(.95);
 }
 
-/* CENTER ACTIVE ITEM */
+/* Center Active Item */
 
-.gruns-testimonial .owl-item.center .testimonial-item{
-opacity:1;
-transform:scale(1.1);
-box-shadow:0 25px 60px rgba(0,0,0,0.2);
-border:2px solid #0f3d2e;
-background:#fff;
-z-index:3;
+.gruns-testimonial .owl-item.center .testimonial-item {
+  opacity: 1;
+  transform: scale(1.1);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+  border: 2px solid #0f3d2e;
+  background: #fff;
+  z-index: 3;
 }
 
 /* Navigation */
 
-.section-{{ section.id }} .owl-nav{
-position:absolute;
-top:45%;
-width:100%;
+.section-{{ section.id }} .owl-nav {
+  position: absolute;
+  top: 45%;
+  width: 100%;
 }
 
-.section-{{ section.id }} .owl-nav button{
-width:48px;
-height:48px;
-border-radius:50%;
-border:2px solid #0f3d2e!important;
-background:#fff!important;
-color:#0f3d2e!important;
-font-size:20px;
-transition:.3s;
+.section-{{ section.id }} .owl-nav button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #0f3d2e !important;
+  background: #fff !important;
+  color: #0f3d2e !important;
+  font-size: 20px;
+  transition: .3s;
 }
 
-.section-{{ section.id }} .owl-nav button:hover{
-background:#0f3d2e!important;
-color:#fff!important;
+.section-{{ section.id }} .owl-nav button:hover {
+  background: #0f3d2e !important;
+  color: #fff !important;
 }
 
-.section-{{ section.id }} .owl-prev{
-position:absolute;
-left:-60px;
+.section-{{ section.id }} .owl-prev {
+  position: absolute;
+  left: -60px;
 }
 
-.section-{{ section.id }} .owl-next{
-position:absolute;
-right:-60px;
+.section-{{ section.id }} .owl-next {
+  position: absolute;
+  right: -60px;
 }
 
 /* Dots */
 
-.section-{{ section.id }} .owl-dots{
-margin-top:35px;
-text-align:center;
+.section-{{ section.id }} .owl-dots {
+  margin-top: 35px;
+  text-align: center;
 }
 
-.section-{{ section.id }} .owl-dot span{
-width:10px;
-height:10px;
-background:#ccc!important;
+.section-{{ section.id }} .owl-dot span {
+  width: 10px;
+  height: 10px;
+  background: #ccc !important;
 }
 
-.section-{{ section.id }} .owl-dot.active span{
-background:#0f3d2e!important;
+.section-{{ section.id }} .owl-dot.active span {
+  background: #0f3d2e !important;
 }
 
 /* Responsive */
 
-@media(max-width:991px){
+@media (max-width: 991px) {
 
-.section-{{ section.id }} .testimonial-item{
-padding:35px;
+  .section-{{ section.id }} .testimonial-item {
+    padding: 35px;
+  }
+
+  .section-{{ section.id }} .owl-prev {
+    left: -20px;
+  }
+
+  .section-{{ section.id }} .owl-next {
+    right: -20px;
+  }
+
 }
 
-.section-{{ section.id }} .owl-prev{
-left:-20px;
-}
+@media (max-width: 600px) {
 
-.section-{{ section.id }} .owl-next{
-right:-20px;
-}
-
-}
-
-@media(max-width:600px){
-
-.section-{{ section.id }} .testimonial-text{
-font-size:16px;
-}
+  .section-{{ section.id }} .testimonial-text {
+    font-size: 16px;
+  }
 
 }
 
@@ -155,31 +157,31 @@ font-size:16px;
 
 <section class="gruns-testimonial section-{{ section.id }} {{ section.settings.custom_class }}">
 
-<div class="page-width">
+  <div class="page-width">
 
-<div class="owl-carousel testimonial-slider-{{ section.id }}">
+    <div class="owl-carousel testimonial-slider-{{ section.id }}">
 
-{% for block in section.blocks %}
+      {% for block in section.blocks %}
 
-<div class="testimonial-item">
+        <div class="testimonial-item">
 
-<div class="testimonial-text">
-{{ block.settings.quote }}
-</div>
+          <div class="testimonial-text">
+            {{ block.settings.quote }}
+          </div>
 
-<div class="testimonial-logo">
-{% if block.settings.logo != blank %}
-<img src="{{ block.settings.logo | image_url: width:300 }}">
-{% endif %}
-</div>
+          <div class="testimonial-logo">
+            {% if block.settings.logo != blank %}
+              <img src="{{ block.settings.logo | image_url: width: 300 }}">
+            {% endif %}
+          </div>
 
-</div>
+        </div>
 
-{% endfor %}
+      {% endfor %}
 
-</div>
+    </div>
 
-</div>
+  </div>
 
 </section>
 
@@ -189,103 +191,104 @@ font-size:16px;
 
 
 <script>
-
 $(document).ready(function(){
 
-$('.testimonial-slider-{{ section.id }}').owlCarousel({
+  $('.testimonial-slider-{{ section.id }}').owlCarousel({
 
-loop:true,
-margin:30,
-nav:true,
-dots:true,
-center:true,
-items:1,
-stagePadding:400,
-autoplay:false,
-autoplayTimeout:4000,
-smartSpeed:700,
+    loop: true,
+    margin: 30,
+    nav: true,
+    dots: true,
+    center: true,
+    items: 1,
+    stagePadding: 400,
 
-navText:[
-'<span>&larr;</span>',
-'<span>&rarr;</span>'
-],
+    autoplay: false,
+    autoplayTimeout: 4000,
+    smartSpeed: 700,
 
-responsive:{
+    navText: [
+      '<span>&larr;</span>',
+      '<span>&rarr;</span>'
+    ],
 
-0:{
-items:1,
-stagePadding:30
-},
+    responsive: {
 
-600:{
-items:1,
-stagePadding:120
-},
+      0: {
+        items: 1,
+        stagePadding: 30
+      },
 
-1000:{
-items:1,
-stagePadding:400
-}
+      600: {
+        items: 1,
+        stagePadding: 120
+      },
 
-}
+      1000: {
+        items: 1,
+        stagePadding: 400
+      }
+
+    }
+
+  });
 
 });
-
-});
-
 </script>
 
 
 {% schema %}
 {
-"name": "Testimonial Owl Slider",
-"settings": [
-{
-"type": "text",
-"id": "custom_class",
-"label": "Custom Class"
-},
-{
-"type": "range",
-"id": "padding_top",
-"min": 0,
-"max": 200,
-"step": 10,
-"default": 80,
-"label": "Padding Top"
-},
-{
-"type": "range",
-"id": "padding_bottom",
-"min": 0,
-"max": 200,
-"step": 10,
-"default": 80,
-"label": "Padding Bottom"
-}
-],
-"blocks":[
-{
-"type":"testimonial",
-"name":"Testimonial",
-"settings":[
-{
-"type":"textarea",
-"id":"quote",
-"label":"Quote Text"
-},
-{
-"type":"image_picker",
-"id":"logo",
-"label":"Logo"
-}
-]
-}
-],
-"presets":[
-{
-"name":"Testimonial Owl Slider"
-}
-]
+  "name": "Testimonial Owl Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 80,
+      "label": "Padding Top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 80,
+      "label": "Padding Bottom"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Testimonial Owl Slider"
+    }
+  ]
 }
 {% endschema %}
