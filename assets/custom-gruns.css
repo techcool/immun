@@ -193,6 +193,9 @@ p {
 
 
 /* footer Start */
+.footer-bottom-container{
+    position: relative;
+}
 img.small-image-footer {
     width: 200px;
     position: absolute;
