@@ -187,7 +187,11 @@ p {
 
 
 
-
+.common-container h2 {
+    font-size: 44px;
+    line-height: 1.275;
+    font-weight: 700;
+}
 
 
 
