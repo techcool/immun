@@ -226,6 +226,9 @@ img.small-image-footer {
   width: 14px;
   height: 14px;
 }
+.footer-logo {
+    max-width: 262px;
+}
 .gruns-policy a {
     color: var(--white-color);
     text-decoration: none;
@@ -241,7 +244,6 @@ img.small-image-footer {
 .gruns-policy a:hover{
     color: rgb(var(--yellow-color));
 }
-
 .gruns-box {
     font-size: 12px;
     color: rgb(255 255 255 / 76%);
