@@ -196,7 +196,12 @@ p {
 .common-container h2, .common-container h1, .common-container h3, .common-container h4, .common-container h5, .common-container h6{
     font-family: "Work Sans", sans-serif;
 }
-
+.common-container p{
+    color: var(--Deep-Forest-Green);
+    font-size: 18px;
+    line-height: 1.275;
+    font-family: "Work Sans", sans-serif;
+}
 .common-container h2 {
     font-size: 44px;
     line-height: 1.275;
