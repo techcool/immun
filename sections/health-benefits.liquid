@@ -72,7 +72,7 @@
 }
 {% endstyle %}
 
-<section class="section-{{ section.id }} {{ section.settings.custom_class }}">
+<section class="your-health section-{{ section.id }}{% if section.settings.custom_class != blank %} {{ section.settings.custom_class }}{% endif %}">
   <div class="health-wrapper page-width">
 
     {% if section.settings.heading != blank %}
