@@ -266,3 +266,8 @@ img.small-image-footer {
 .gruns-disclaimer .gruns-box:nth-child(3){
   flex:2;
 }
+@media (max-width:768px){
+  .gruns-disclaimer{
+    flex-direction:column;
+  }
+}
