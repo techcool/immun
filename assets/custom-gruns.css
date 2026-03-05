@@ -331,14 +331,18 @@ span.faq-title{
 .modern-living-content h2 {
   color: var(--dk-green);
   margin-bottom: 15px;
+  text-align: center;
 }
 
 .modern-living-content .subheading {
   font-size: 18px;
   margin-bottom: 40px;
-  color: #333;
+  color: #000;
+  text-align: center;
 }
-
+.modern-living-content .stat-item{
+    text-align: center;
+}
 .stats-wrapper {
   display: flex;
   gap: 50px;
