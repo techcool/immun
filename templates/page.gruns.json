@@ -373,10 +373,10 @@
         "note": "*In a post purchase survey of 3k+ customers who've been using Grüns daily",
         "quality_heading": "Quality You Can Trust",
         "quality_text": "Our gummies are regularly tested for all 21 vitamins & minerals to ensure label claims are accurate and clear of contaminants including:",
-        "bg_color": "#dfe8e2",
-        "inner_bg": "#efe2b6",
-        "heading_color": "#0b6b3a",
-        "number_color": "#0b6b3a",
+        "bg_color": "#dfefe7",
+        "inner_bg": "#fff2cb",
+        "heading_color": "#007e40",
+        "number_color": "#007e40",
         "padding_top": 80,
         "padding_bottom": 80,
         "custom_class": "common-container"
@@ -680,7 +680,7 @@
         "col_three": "ut",
         "table_image": "shopify://shop_images/UsVsThem_Adults_1.png",
         "padding_top": 60,
-        "padding_bottom": 80,
+        "padding_bottom": 60,
         "custom_class": "common-container gruns-them"
       }
     },
