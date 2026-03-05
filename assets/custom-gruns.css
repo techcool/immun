@@ -406,7 +406,12 @@ span.faq-title{
 
 
 
-
+.common-container .gruns-note {
+    margin-top: 10px;
+    font-size: 12px;
+    opacity: .8;
+    line-height: 1.6;
+}
 
 
 
