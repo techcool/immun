@@ -233,6 +233,7 @@ span.faq-title{
     padding: 1rem 2.75rem;
     font-size: 18px;
     line-height: 1;
+    transition: all .3s ease;
 }
 .cta-btn:hover{
     box-shadow: 1px 1px 0px 0px #000000;
