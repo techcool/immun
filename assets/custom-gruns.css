@@ -567,8 +567,11 @@ img.small-image-footer {
 
   .modern-living-content {
     padding: 40px 25px;
+    width: 100%;
   }
-
+  .modern-living-image {
+        width: 100%;
+    }
   .stats-wrapper {
     flex-direction: column;
     gap: 30px;
