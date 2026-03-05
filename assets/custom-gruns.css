@@ -323,48 +323,8 @@ img.small-image-footer {
   flex:1 1 220px;
 }
 
-/* Heading */
-.gruns-links h4{
-  margin-bottom:20px;
-  font-size:18px;
-  font-weight:600;
-}
 
-/* Menu list */
-.gruns-links ul{
-  list-style:none;
-  padding:0;
-  margin:0;
-}
 
-.gruns-links li{
-  margin-bottom:10px;
-}
-
-/* Menu links */
-.gruns-links a{
-  color:var(--white-color);
-  text-decoration:none;
-  font-size:14px;
-  font-family:"DM Sans", sans-serif;
-  transition:transform .3s ease, color .3s ease;
-  display:inline-block;
-}
-
-.gruns-links a:hover{
-  color:rgb(var(--yellow-color));
-  transform:translateX(10px);
-}
-
-/* Menu image */
-.gruns-menu-image{
-  margin-bottom:20px;
-}
-
-.gruns-menu-image img{
-  max-width:100%;
-  height:auto;
-}
 
 @media (max-width: 992px){
   .footer-menu-wrap{
