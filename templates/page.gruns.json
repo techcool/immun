@@ -988,7 +988,7 @@
         "custom_class": "gruns-footer -custom",
         "padding_top": 80,
         "padding_bottom": 80,
-        "bottom_class": "",
+        "bottom_class": "footer-bottom-container",
         "bottom_image1": "shopify://shop_images/big-title.svg",
         "bottom_image1_class": "big-image-footer",
         "bottom_image2": "shopify://shop_images/title-logo.svg",
