@@ -994,16 +994,6 @@
         "bottom_image2": "shopify://shop_images/title-logo.svg",
         "bottom_image2_class": "small image-footer"
       }
-    },
-    "bear_hero_FGd4hH": {
-      "type": "bear-hero",
-      "name": "Bear Hero",
-      "settings": {
-        "title_top": "THE BEAR",
-        "title_bottom": "NECESSITIES",
-        "bg_color": "#014d2f",
-        "text_color": "#0a7a4a"
-      }
     }
   },
   "order": [
@@ -1020,7 +1010,6 @@
     "mango_hero_bMHkfT",
     "ambassador_testimonial_8LFQYg",
     "cta_nutrient_BLbx8W",
-    "custom_footer_gruns_fqp9Jn",
-    "bear_hero_FGd4hH"
+    "custom_footer_gruns_fqp9Jn"
   ]
 }
