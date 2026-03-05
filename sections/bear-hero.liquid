@@ -1,0 +1,99 @@
+{% style %}
+.bear-hero{
+  background: {{ section.settings.bg_color }};
+  padding:120px 20px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.bear-hero-title{
+  font-size:120px;
+  font-weight:800;
+  letter-spacing:5px;
+  color:{{ section.settings.text_color }};
+  line-height:1;
+}
+
+.bear-hero-title span{
+  display:block;
+}
+
+.bear-hero-logo{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:120px;
+}
+
+@media(max-width:768px){
+
+.bear-hero-title{
+  font-size:60px;
+}
+
+.bear-hero-logo{
+  width:70px;
+}
+
+}
+{% endstyle %}
+
+<section class="bear-hero">
+
+<h1 class="bear-hero-title">
+<span>{{ section.settings.title_top }}</span>
+<span>{{ section.settings.title_bottom }}</span>
+</h1>
+
+{% if section.settings.logo != blank %}
+<img 
+class="bear-hero-logo"
+src="{{ section.settings.logo | image_url: width:300 }}"
+alt="bear logo">
+{% endif %}
+
+</section>
+
+{% schema %}
+{
+"name": "Bear Hero Section",
+"settings":[
+{
+"type":"text",
+"id":"title_top",
+"label":"Top Title",
+"default":"THE BEAR"
+},
+{
+"type":"text",
+"id":"title_bottom",
+"label":"Bottom Title",
+"default":"NECESSITIES"
+},
+{
+"type":"image_picker",
+"id":"logo",
+"label":"Center Bear Logo"
+},
+{
+"type":"color",
+"id":"bg_color",
+"label":"Background Color",
+"default":"#014d2f"
+},
+{
+"type":"color",
+"id":"text_color",
+"label":"Text Color",
+"default":"#0a7a4a"
+}
+],
+"presets":[
+{
+"name":"Bear Hero"
+}
+]
+}
+{% endschema %}
