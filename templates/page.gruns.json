@@ -973,7 +973,7 @@
       ],
       "name": "Gruns Footer",
       "settings": {
-        "bg_color": "#003c2b",
+        "bg_color": "#00351b",
         "pattern_opacity": 0.2,
         "heading": "Sign Up for 52% Off",
         "newsletter_class": "",
