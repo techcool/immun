@@ -246,6 +246,7 @@ img.small-image-footer {
 }
 .gruns-box {
     font-size: 12px;
+    line-height: 14px;
     color: rgb(255 255 255 / 76%);
     padding: 5px;
     border: 1px solid #fff;
