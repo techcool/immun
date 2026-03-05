@@ -318,7 +318,7 @@ span.faq-title{
 }
 .modern-living-wrapper {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 30px;
   background: #ffffff;
   border-radius: 20px;
