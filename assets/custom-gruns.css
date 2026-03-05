@@ -199,7 +199,7 @@ p {
 .common-container p{
     color: var(--Deep-Forest-Green);
     font-size: 18px;
-    line-height: 2.275;
+    line-height: 1.475;
     font-family: "Work Sans", sans-serif;
 }
 .common-container h2 {
