@@ -249,7 +249,26 @@ span.faq-title{
     font-weight: 600;
     margin-bottom: 0;
 }
+.testimonial-btn{
+  display:inline-block;
+  background:#0b7a43;
+  color:#fff;
+  text-decoration:none;
+  border-radius:40px;
+  transition: all .3s ease;
+  box-shadow: 5px 5px 0px 0px #000000;
+  transform: translate3d(0, 0, 0);
+  padding: 1rem 2.75rem;
+  margin-top: 1rem;
+  font-size: 18px;
+  line-height: 1;
+}
 
+.testimonial-btn:hover{
+    box-shadow: 1px 1px 0px 0px #000000;
+    transform: translate3d(5px, 5px, 0);
+    background-color: var(--Deep-Forest-Green);
+}
 
 /* footer Start */
 .footer-bottom-container{
