@@ -119,12 +119,12 @@
 }
 
 .slider-wrapper {
-  max-width:1200px;
+  max-width:1000px;
   margin:0 auto;
   position:relative;
 }
 
-{% comment %} .slides {
+.slides {
   display:flex;
   align-items:center;
   transition:transform 0.5s ease;
@@ -140,27 +140,6 @@
 
 .slide.active {
   flex:0 0 100%;
-  opacity:1;
-  transform:scale(1);
-} {% endcomment %}
-
-.slides {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:transform 0.5s ease;
-}
-
-.slide {
-  flex:0 0 40%;
-  opacity:0.6;
-  transform:scale(0.9);
-  transition:all 0.4s ease;
-  padding:20px;
-}
-
-.slide.active {
-  flex:0 0 50%;
   opacity:1;
   transform:scale(1);
 }
