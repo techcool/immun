@@ -328,6 +328,10 @@ span.faq-title{
 .modern-living-content {
   padding: 40px;
   width: calc(50% - 15px);
+  display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .modern-living-content h2 {
