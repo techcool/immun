@@ -245,7 +245,7 @@
 
 
 <footer class="gruns-footer">
-  <div class="gruns-container">
+  <footer class="gruns-footer {{ section.settings.custom_class }}">
     <div class="gruns-grid">
 
       <!-- Newsletter -->
@@ -445,7 +445,7 @@
 
     </div>
   </div>
-  <div class="gruns-container {{ section.settings.bottom_class }}">
+  <div class="gruns-container page-width {{ section.settings.bottom_class }}">
     {% if section.settings.bottom_image1 != blank %}
         <img 
         src="{{ section.settings.bottom_image1 | image_url: width:1200 }}"
