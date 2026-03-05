@@ -270,6 +270,35 @@ img.small-image-footer {
 .gruns-disclaimer .gruns-box:nth-child(3){
   flex:2;
 }
+
+.gruns-links h4 {
+    font-size: 24px;
+    font-weight: 600;
+}
+.gruns-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.gruns-links li {
+  margin-bottom: 8px;
+}
+
+.gruns-links a {
+  color: #fff;
+  text-decoration: none;
+  opacity: .85;
+}
+
+.gruns-links a:hover {
+  opacity: 1;
+}
+
+.gruns-menu-image img {
+  max-width: 120px;
+  margin-bottom: 15px;
+}
+
 @media (max-width:768px){
   .gruns-disclaimer{
     flex-direction:column;
