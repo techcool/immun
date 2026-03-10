@@ -1,0 +1,345 @@
+{% style %}
+
+.product-offer-section{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+max-width:1200px;
+margin:auto;
+padding:60px 20px;
+}
+
+.product-gallery img{
+width:100%;
+border-radius:10px;
+}
+
+.thumbnail-list{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+.thumbnail-list img{
+width:60px;
+cursor:pointer;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+.offer-badge{
+background:#ff6a00;
+color:#fff;
+padding:8px 12px;
+font-size:12px;
+display:inline-block;
+border-radius:6px;
+margin-bottom:15px;
+}
+
+.product-title{
+font-size:28px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.variant-buttons{
+display:flex;
+gap:10px;
+margin:15px 0;
+}
+
+.variant-buttons button{
+padding:10px 20px;
+border-radius:20px;
+border:1px solid #ddd;
+background:#f5f5f5;
+cursor:pointer;
+}
+
+.variant-buttons button.active{
+background:#00a6b6;
+color:#fff;
+}
+
+.plan-box{
+border:2px solid #ddd;
+border-radius:12px;
+padding:20px;
+margin-top:20px;
+}
+
+.plan{
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+}
+
+.buy-btn{
+background:#00a6b6;
+color:#fff;
+padding:14px;
+width:100%;
+border:none;
+border-radius:30px;
+font-weight:600;
+cursor:pointer;
+margin-top:10px;
+}
+
+.accordion{
+border-top:1px solid #ddd;
+margin-top:30px;
+}
+
+.accordion-item{
+border-bottom:1px solid #ddd;
+}
+
+.accordion-title{
+padding:15px;
+cursor:pointer;
+font-weight:600;
+}
+
+.accordion-content{
+display:none;
+padding:15px;
+font-size:14px;
+}
+
+.feature-icons{
+display:flex;
+gap:20px;
+margin-top:25px;
+flex-wrap:wrap;
+}
+
+.feature-icons img{
+width:40px;
+}
+
+@media(max-width:768px){
+
+.product-offer-section{
+grid-template-columns:1fr;
+}
+
+}
+
+{% endstyle %}
+
+
+<section class="product-offer-section">
+
+<!-- LEFT SIDE -->
+<div class="product-gallery">
+
+<span class="offer-badge">
+{{ section.settings.offer_text }}
+</span>
+
+<img id="mainProductImage"
+src="{{ product.featured_image | img_url: '800x' }}">
+
+<div class="thumbnail-list">
+
+{% for image in product.images %}
+<img
+src="{{ image | img_url: '200x' }}"
+onclick="changeImage('{{ image | img_url: '800x' }}')"
+>
+{% endfor %}
+
+</div>
+
+</div>
+
+
+<!-- RIGHT SIDE -->
+<div class="product-info">
+
+<h2 class="product-title">{{ product.title }}</h2>
+
+<p>{{ product.description | strip_html | truncate: 120 }}</p>
+
+
+<!-- VARIANTS -->
+
+<div class="variant-buttons">
+
+{% for variant in product.variants %}
+
+<button
+data-id="{{ variant.id }}"
+class="variant-btn {% if forloop.first %}active{% endif %}">
+{{ variant.title }}
+</button>
+
+{% endfor %}
+
+</div>
+
+
+<!-- PURCHASE PLAN -->
+
+<div class="plan-box">
+
+<div class="plan">
+<span>AutoShip & Save</span>
+<strong>{{ product.price | money }}</strong>
+</div>
+
+<div class="plan">
+<span>One Time Purchase</span>
+<strong>{{ product.price | money }}</strong>
+</div>
+
+<form method="post" action="/cart/add">
+
+<input
+type="hidden"
+name="id"
+id="variantId"
+value="{{ product.selected_or_first_available_variant.id }}">
+
+<button class="buy-btn">
+{{ section.settings.button_text }}
+</button>
+
+</form>
+
+</div>
+
+
+<!-- FEATURES -->
+
+<div class="feature-icons">
+
+{% for block in section.blocks %}
+<img src="{{ block.settings.icon | img_url: '100x' }}">
+{% endfor %}
+
+</div>
+
+
+<!-- ACCORDION -->
+
+<div class="accordion">
+
+{% for block in section.blocks %}
+
+{% if block.type == "accordion" %}
+
+<div class="accordion-item">
+
+<div class="accordion-title">
+{{ block.settings.title }}
+</div>
+
+<div class="accordion-content">
+{{ block.settings.text }}
+</div>
+
+</div>
+
+{% endif %}
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+
+function changeImage(src){
+document.getElementById("mainProductImage").src = src
+}
+
+document.querySelectorAll(".variant-btn").forEach(btn=>{
+
+btn.addEventListener("click",function(){
+
+document.querySelectorAll(".variant-btn").forEach(b=>b.classList.remove("active"))
+
+this.classList.add("active")
+
+document.getElementById("variantId").value = this.dataset.id
+
+})
+
+})
+
+document.querySelectorAll(".accordion-title").forEach(title=>{
+
+title.addEventListener("click",function(){
+
+let content = this.nextElementSibling
+
+content.style.display =
+content.style.display === "block" ? "none":"block"
+
+})
+
+})
+
+</script>
+
+
+{% schema %}
+{
+"name":"Product Offer Section",
+"settings":[
+{
+"type":"text",
+"id":"offer_text",
+"label":"Offer Badge",
+"default":"LIMITED TIME OFFER"
+},
+{
+"type":"text",
+"id":"button_text",
+"label":"Button Text",
+"default":"Start Now"
+}
+],
+"blocks":[
+{
+"type":"icon",
+"name":"Feature Icon",
+"settings":[
+{
+"type":"image_picker",
+"id":"icon",
+"label":"Icon"
+}
+]
+},
+{
+"type":"accordion",
+"name":"Accordion",
+"settings":[
+{
+"type":"text",
+"id":"title",
+"label":"Title"
+},
+{
+"type":"richtext",
+"id":"text",
+"label":"Content"
+}
+]
+}
+],
+"presets":[
+{
+"name":"Product Offer Section"
+}
+]
+}
+{% endschema %}
