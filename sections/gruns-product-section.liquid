@@ -608,6 +608,7 @@
 {% endschema %}
 
 <script>
+    
     /* ═══════════════════════════════════════════════════════════════
    gruns-product-section.js
    Drop in: assets/gruns-product-section.js
@@ -829,6 +830,70 @@
       if (ctaBtn) {
         ctaBtn.disabled = !matchedVariant.available;
         if (!matchedVariant.available) ctaBtn.textContent = 'Sold Out';
+      }
+
+      // Switch to variant image
+      this._switchVariantImage(matchedVariant);
+    }
+  };
+
+  /* ── VARIANT IMAGE SWITCHER ──────────────────────────────────── */
+  GrunsProductSection.prototype._switchVariantImage = function (variant) {
+    var variantImages = this.config.variantImages || {};
+    var imgData = variantImages[variant.id];
+    if (!imgData) return;
+
+    var slides = this.section.querySelectorAll('.gruns-slide');
+    var thumbs = this.section.querySelectorAll('.gruns-thumb');
+    var position = imgData.position; // 0-based index matching product.images order
+
+    // ── Try switching by slide position index first ──
+    var targetSlide = this.section.querySelector('.gruns-slide[data-slide="' + position + '"]');
+    if (targetSlide) {
+      slides.forEach(function (s) { s.classList.remove('active'); });
+      targetSlide.classList.add('active');
+
+      // Sync thumbnail highlight
+      thumbs.forEach(function (t) { t.classList.remove('active'); });
+      var targetThumb = this.section.querySelector('.gruns-thumb[data-index="' + position + '"]');
+      if (targetThumb) targetThumb.classList.add('active');
+      return;
+    }
+
+    // ── Fallback: inject a fresh <img> into the first slide ──
+    var firstSlide = this.section.querySelector('.gruns-slide[data-slide="0"]');
+    if (!firstSlide) return;
+
+    var existingImg = firstSlide.querySelector('img.gruns-variant-injected');
+    if (existingImg) {
+      existingImg.src = imgData.src;
+      existingImg.alt = imgData.alt;
+    } else {
+      var img = document.createElement('img');
+      img.src = imgData.src;
+      img.alt = imgData.alt;
+      img.className = 'gruns-product-img gruns-variant-injected';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+
+      // Hide existing placeholder content, show new image
+      firstSlide.style.position = 'relative';
+      img.style.position = 'absolute';
+      img.style.inset = '0';
+      firstSlide.appendChild(img);
+    }
+
+    slides.forEach(function (s) { s.classList.remove('active'); });
+    firstSlide.classList.add('active');
+
+    // Also update the matching thumbnail src if img tag exists
+    var targetThumb = this.section.querySelector('.gruns-thumb[data-index="0"]');
+    if (targetThumb) {
+      thumbs.forEach(function (t) { t.classList.remove('active'); });
+      targetThumb.classList.add('active');
+      var thumbImg = targetThumb.querySelector('img');
+      if (thumbImg) {
+        thumbImg.src = imgData.thumb;
+        thumbImg.alt = imgData.alt;
       }
     }
   };
