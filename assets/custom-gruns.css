@@ -565,7 +565,18 @@ img.small-image-footer {
 .review-video-section .video-wrapper{
   padding : 0 !important
 }
+button.tab-btn {
+    font-size: 22px;
+    padding: 10px 38px;
+}
 
+.tabs .tab-btn.active{
+  background-color: #007E40;
+  color: #FFFFFF;
+}
+.tabs button.tab-btn:hover{
+      background-color: rgba(139, 188, 159, var(--tw-bg-opacity));
+}
 
 @media (max-width: 992px){
   .footer-menu-wrap{
