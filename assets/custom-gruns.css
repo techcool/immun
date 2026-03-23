@@ -562,6 +562,9 @@ img.small-image-footer {
     color: #fff;
 }
 
+.review-video-section .video-wrapper{
+  padding : 0 !important
+}
 
 
 @media (max-width: 992px){
