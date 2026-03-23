@@ -771,6 +771,36 @@
         "custom_class": "common-container gruns-cta"
       }
     },
+    "product_gruns_style_HgKKhL": {
+      "type": "product-gruns-style",
+      "blocks": {
+        "ingredient_f7G4VB": {
+          "type": "ingredient",
+          "settings": {
+            "text": "22"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_f7G4VB"
+      ],
+      "name": "Gruns Style Product",
+      "settings": {
+        "offer": "LIMITED TIME OFFER",
+        "heading": "Limited Time Offer! Save Up To 52%",
+        "description": "",
+        "button": "Start Now"
+      }
+    },
+    "gruns_offer_product_nAMpaA": {
+      "type": "gruns-offer-product",
+      "name": "Gruns Offer Product",
+      "settings": {
+        "product": "limited-time-offer-save-up-to-52",
+        "offer_text": "LIMITED TIME OFFER",
+        "button_text": "Start Now"
+      }
+    },
     "faq_accordion_mCWKYg": {
       "type": "faq-accordion",
       "blocks": {
@@ -1096,6 +1126,8 @@
     "mango_hero_bMHkfT",
     "ambassador_testimonial_8LFQYg",
     "cta_nutrient_BLbx8W",
+    "product_gruns_style_HgKKhL",
+    "gruns_offer_product_nAMpaA",
     "faq_accordion_mCWKYg",
     "custom_footer_gruns_fqp9Jn"
   ]
