@@ -374,7 +374,19 @@
     productHandle: '{{ product.handle }}',
     variantsJson: {{ product.variants | json }},
     subscribeDiscount: {{ section.settings.subscribe_discount }},
-    currencySymbol: '{{ cart.currency.symbol }}'
+    currencySymbol: '{{ cart.currency.symbol }}',
+    variantImages: {
+      {%- for variant in product.variants -%}
+        {%- if variant.featured_image -%}
+          "{{ variant.id }}": {
+            "src": "{{ variant.featured_image | image_url: width: 800 }}",
+            "thumb": "{{ variant.featured_image | image_url: width: 120 }}",
+            "alt": {{ variant.featured_image.alt | default: variant.title | json }},
+            "position": {{ variant.featured_image.position | minus: 1 }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    }
   };
 </script>
 
@@ -606,6 +618,7 @@
   ]
 }
 {% endschema %}
+
 
 <script>
     
