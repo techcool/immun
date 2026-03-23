@@ -10,12 +10,6 @@
 
 {{ 'gruns-product-section.css' | asset_url | stylesheet_tag }}
 
-{% if section.settings.show_promo_banner %}
-<div class="gruns-promo-banner" role="banner">
-  {{ section.settings.promo_text }}
-</div>
-{% endif %}
-
 <section
   class="gruns-product-section"
   id="gruns-product-{{ section.id }}"
@@ -417,22 +411,6 @@
       "id": "product_tagline",
       "label": "Product Tagline",
       "default": "60+ potent ingredients to revive whole body vitality in great tasting gummies."
-    },
-    {
-      "type": "header",
-      "content": "Promo Banner"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_promo_banner",
-      "label": "Show promo banner",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "promo_text",
-      "label": "Promo Banner Text",
-      "default": "🔥 Limited Time Offer – Save Up To 52% on Your First Order! 🔥"
     },
     {
       "type": "header",
@@ -1003,21 +981,6 @@
   --g-star:        #f5a623;
   --g-radius:      12px;
   --g-shadow:      0 4px 24px rgba(30,60,40,.10);
-}
-
-/* ── PROMO BANNER ──────────────────────────────────────────── */
-.gruns-promo-banner {
-  background: var(--g-gold);
-  color: #fff;
-  text-align: center;
-  font-size: .82rem;
-  font-weight: 800;
-  letter-spacing: .04em;
-  padding: 9px 16px;
-  text-transform: uppercase;
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
 
 /* ── SECTION ─────────────────────────────────────────────────── */
