@@ -605,3 +605,300 @@
   ]
 }
 {% endschema %}
+
+
+<script>
+    /* ═══════════════════════════════════════════════════════════════
+   gruns-product-section.js
+   Drop in: assets/gruns-product-section.js
+   ═══════════════════════════════════════════════════════════════ */
+
+(function () {
+  'use strict';
+
+  /* ── Utility: format money like Shopify (cents → "$X.XX") ── */
+  function formatMoney(cents, symbol) {
+    symbol = symbol || '$';
+    var amount = (cents / 100).toFixed(2);
+    return symbol + amount;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     GrunsProductSection
+     One instance per section on the page.
+  ══════════════════════════════════════════════════════════════ */
+  function GrunsProductSection(sectionEl) {
+    this.section   = sectionEl;
+    this.sectionId = sectionEl.dataset.sectionId;
+
+    // Pull config injected by Liquid
+    var configKey = 'GrunsProduct_' + this.sectionId.replace(/-/g, '_');
+    this.config    = window[configKey] || {};
+    this.variants  = this.config.variantsJson || [];
+    this.discount  = parseInt(this.config.subscribeDiscount, 10) || 49;
+    this.currency  = this.config.currencySymbol || '$';
+
+    // State
+    this.selectedOptions = {};
+    this.qty             = 1;
+    this.purchaseType    = 'subscription'; // 'subscription' | 'onetime'
+
+    this._initGallery();
+    this._initVariantToggles();
+    this._initQtyToggle();
+    this._initPurchaseCards();
+    this._initAccordion();
+    this._updatePricing();
+  }
+
+  /* ── GALLERY ─────────────────────────────────────────────────── */
+  GrunsProductSection.prototype._initGallery = function () {
+    var self     = this;
+    var thumbs   = this.section.querySelectorAll('.gruns-thumb');
+    var slides   = this.section.querySelectorAll('.gruns-slide');
+    if (!thumbs.length) return;
+
+    thumbs.forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        var idx = parseInt(this.dataset.index, 10);
+
+        // Active thumb
+        thumbs.forEach(function (t) { t.classList.remove('active'); });
+        this.classList.add('active');
+
+        // Show slide
+        slides.forEach(function (s) { s.classList.remove('active'); });
+        var target = self.section.querySelector('.gruns-slide[data-slide="' + idx + '"]');
+        if (target) target.classList.add('active');
+      });
+    });
+  };
+
+  /* ── VARIANT OPTION TOGGLES ──────────────────────────────────── */
+  GrunsProductSection.prototype._initVariantToggles = function () {
+    var self    = this;
+    var buttons = this.section.querySelectorAll('.gruns-toggle-btn');
+    if (!buttons.length) return;
+
+    // Seed selectedOptions from active buttons
+    buttons.forEach(function (btn) {
+      if (btn.classList.contains('active') || btn.getAttribute('aria-pressed') === 'true') {
+        var optIdx = btn.dataset.option;
+        self.selectedOptions[optIdx] = btn.dataset.value;
+      }
+    });
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var optIdx = this.dataset.option;
+        var value  = this.dataset.value;
+
+        // Deactivate siblings
+        self.section.querySelectorAll('.gruns-toggle-btn[data-option="' + optIdx + '"]')
+          .forEach(function (b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+          });
+
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+        self.selectedOptions[optIdx] = value;
+
+        self._matchVariant();
+        self._updatePricing();
+      });
+    });
+  };
+
+  /* ── QTY TOGGLE ──────────────────────────────────────────────── */
+  GrunsProductSection.prototype._initQtyToggle = function () {
+    var self    = this;
+    var buttons = this.section.querySelectorAll('.gruns-qty-btn');
+    if (!buttons.length) return;
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+        self.qty = parseInt(this.dataset.qty, 10) || 1;
+
+        // Update hidden quantity input
+        var qtyInput = self.section.querySelector('#gruns-quantity-' + self.sectionId);
+        if (qtyInput) qtyInput.value = self.qty;
+
+        self._updatePricing();
+      });
+    });
+  };
+
+  /* ── PURCHASE CARDS ──────────────────────────────────────────── */
+  GrunsProductSection.prototype._initPurchaseCards = function () {
+    var self  = this;
+    var cards = this.section.querySelectorAll('.gruns-purchase-card');
+    if (!cards.length) return;
+
+    cards.forEach(function (card) {
+      // Click
+      card.addEventListener('click', function () {
+        self._selectCard(this.dataset.type);
+      });
+      // Keyboard a11y
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          self._selectCard(this.dataset.type);
+        }
+      });
+    });
+  };
+
+  GrunsProductSection.prototype._selectCard = function (type) {
+    var self  = this;
+    var cards = this.section.querySelectorAll('.gruns-purchase-card');
+
+    this.purchaseType = type;
+
+    cards.forEach(function (card) {
+      var isActive = card.dataset.type === type;
+      card.classList.toggle('active', isActive);
+      card.setAttribute('aria-checked', isActive ? 'true' : 'false');
+
+      var dot = card.querySelector('.gruns-radio-dot');
+      if (dot) dot.classList.toggle('active', isActive);
+    });
+
+    self._updatePricing();
+  };
+
+  /* ── ACCORDION ───────────────────────────────────────────────── */
+  GrunsProductSection.prototype._initAccordion = function () {
+    var headers = this.section.querySelectorAll('.gruns-acc-header');
+    if (!headers.length) return;
+
+    headers.forEach(function (header) {
+      header.addEventListener('click', function () {
+        var bodyId   = this.getAttribute('aria-controls');
+        var body     = document.getElementById(bodyId);
+        var isOpen   = this.getAttribute('aria-expanded') === 'true';
+
+        // Close all
+        headers.forEach(function (h) {
+          h.setAttribute('aria-expanded', 'false');
+          var bId = h.getAttribute('aria-controls');
+          var b   = document.getElementById(bId);
+          if (b) b.classList.remove('open');
+        });
+
+        // Open clicked (if was closed)
+        if (!isOpen) {
+          this.setAttribute('aria-expanded', 'true');
+          if (body) body.classList.add('open');
+        }
+      });
+    });
+  };
+
+  /* ── VARIANT MATCHING ────────────────────────────────────────── */
+  GrunsProductSection.prototype._matchVariant = function () {
+    if (!this.variants.length) return;
+
+    var self          = this;
+    var optionValues  = Object.values(self.selectedOptions);
+    var matchedVariant = null;
+
+    this.variants.forEach(function (v) {
+      var match = v.options.every(function (opt, idx) {
+        return optionValues[idx] === undefined || opt === optionValues[idx];
+      });
+      if (match) matchedVariant = v;
+    });
+
+    if (matchedVariant) {
+      this.currentVariant = matchedVariant;
+
+      // Update hidden variant ID input
+      var varInput = this.section.querySelector('#gruns-variant-id-' + this.sectionId);
+      if (varInput) varInput.value = matchedVariant.id;
+
+      // Update available state
+      var ctaBtn = this.section.querySelector('#gruns-cta-' + this.sectionId);
+      if (ctaBtn) {
+        ctaBtn.disabled = !matchedVariant.available;
+        if (!matchedVariant.available) ctaBtn.textContent = 'Sold Out';
+      }
+    }
+  };
+
+  /* ── PRICING UPDATE ──────────────────────────────────────────── */
+  GrunsProductSection.prototype._updatePricing = function () {
+    var variant = this.currentVariant
+      || (this.variants.length ? this.variants[0] : null);
+
+    if (!variant) return;
+
+    var basePrice      = variant.price; // cents
+    var comparePrice   = variant.compare_at_price || basePrice;
+    var qty            = this.qty;
+    var qtyDiscount    = qty >= 2 ? 0.95 : 1.0;
+    var subMultiplier  = 1 - (this.discount / 100);
+
+    var oncePrice = Math.round(basePrice * qty * qtyDiscount);
+    var subPrice  = Math.round(basePrice * qty * qtyDiscount * subMultiplier);
+    var oldOnce   = comparePrice * qty;
+    var oldSub    = comparePrice * qty;
+
+    var sid = this.sectionId;
+    var sym = this.currency;
+
+    // Subscribe price
+    var subPriceEl = this.section.querySelector('#gruns-sub-price-' + sid);
+    if (subPriceEl) {
+      subPriceEl.innerHTML = formatMoney(subPrice, sym)
+        + '<span class="gruns-price-freq">/mo</span>';
+    }
+
+    // Subscribe old price
+    var subOldEl = this.section.querySelector('#gruns-sub-old-' + sid);
+    if (subOldEl) subOldEl.textContent = formatMoney(oldSub, sym) + '/mo';
+
+    // One-time price
+    var oncePriceEl = this.section.querySelector('#gruns-once-price-' + sid);
+    if (oncePriceEl) oncePriceEl.textContent = formatMoney(oncePrice, sym);
+
+    // CTA button price display
+    var ctaBtn = this.section.querySelector('#gruns-cta-' + sid);
+    if (ctaBtn && !ctaBtn.disabled) {
+      var displayPrice = this.purchaseType === 'subscription'
+        ? formatMoney(subPrice, sym) + '/mo'
+        : formatMoney(oncePrice, sym);
+      ctaBtn.textContent = 'Start Now — ' + displayPrice;
+    }
+  };
+
+  /* ══════════════════════════════════════════════════════════════
+     BOOT – init each section when DOM is ready
+  ══════════════════════════════════════════════════════════════ */
+  function boot() {
+    document.querySelectorAll('[data-section-type="gruns-product"]').forEach(function (el) {
+      new GrunsProductSection(el);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  /* ── Shopify theme editor live-reload support ──────────────── */
+  document.addEventListener('shopify:section:load', function (e) {
+    var el = e.target.querySelector('[data-section-type="gruns-product"]');
+    if (el) new GrunsProductSection(el);
+  });
+
+})();
+</script>
