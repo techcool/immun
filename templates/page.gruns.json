@@ -801,6 +801,196 @@
         "button_text": "Start Now"
       }
     },
+    "gruns_product_section_fwX7Rk": {
+      "type": "gruns-product-section",
+      "blocks": {
+        "feature_yxjqJV": {
+          "type": "feature",
+          "settings": {
+            "text": "Promotes mental clarity + energy"
+          }
+        },
+        "feature_NYKBQA": {
+          "type": "feature",
+          "settings": {
+            "text": "Supports immunity + stress relief"
+          }
+        },
+        "feature_PUqMUd": {
+          "type": "feature",
+          "settings": {
+            "text": "Supports digestion and gut health"
+          }
+        },
+        "feature_itn9Jm": {
+          "type": "feature",
+          "settings": {
+            "text": "Clinically tested for nutrient absorption"
+          }
+        },
+        "accordion_QYaYEx": {
+          "type": "accordion",
+          "settings": {
+            "title": "Why Grüns?",
+            "content": "<p>Grüns combines 60+ whole-food ingredients — veggies, fruits, adaptogens, mushrooms, and more — into a convenient daily gummy. No chalky powders, no big pills. Just real nutrition in a delicious bite-sized pack.</p>"
+          }
+        },
+        "accordion_fmb4qC": {
+          "type": "accordion",
+          "settings": {
+            "title": "Ingredients & Allergies",
+            "content": "<p>Made with whole vegetables, fruits, vitamins, minerals, adaptogens, herbs, antioxidants, prebiotics, and super mushrooms. Free from major allergens. Third-party tested.</p>"
+          }
+        },
+        "accordion_CmxqRf": {
+          "type": "accordion",
+          "settings": {
+            "title": "Low Sugar vs. Sugar-Free",
+            "content": "<p><strong>Low Sugar</strong> uses a small amount of organic cane sugar. <strong>Sugar-Free</strong> is sweetened with monk fruit and erythritol — ideal for keto lifestyles.</p>"
+          }
+        },
+        "accordion_rTLQEt": {
+          "type": "accordion",
+          "settings": {
+            "title": "Science & Certifications",
+            "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs for 35 substances. HSA/FSA eligible through Truemed.</p>"
+          }
+        },
+        "accordion_CjJybD": {
+          "type": "accordion",
+          "settings": {
+            "title": "Directions",
+            "content": "<p>Take 2 gummies daily with a meal. Each pack contains your daily serving. Not intended for children under 12 without physician guidance.</p>"
+          }
+        },
+        "accordion_tyRxWL": {
+          "type": "accordion",
+          "settings": {
+            "title": "Benefits",
+            "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>"
+          }
+        },
+        "taste_KVDjLz": {
+          "type": "taste",
+          "settings": {
+            "icon": "🌿",
+            "label": "Fresh & Light"
+          }
+        },
+        "taste_wxY4NQ": {
+          "type": "taste",
+          "settings": {
+            "icon": "🍓",
+            "label": "Strawberry"
+          }
+        },
+        "taste_eekm4D": {
+          "type": "taste",
+          "settings": {
+            "icon": "🟢",
+            "label": "Sweet Greens"
+          }
+        },
+        "ingredient_JHC7cf": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "🥦",
+            "label": "Whole Veggies"
+          }
+        },
+        "ingredient_iHPmx3": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "🍇",
+            "label": "Whole Fruits"
+          }
+        },
+        "ingredient_xb4LzD": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "💊",
+            "label": "Vitamins and Minerals"
+          }
+        },
+        "ingredient_m8C6aJ": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "🌱",
+            "label": "Adaptogens"
+          }
+        },
+        "ingredient_X8pT3d": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "🌿",
+            "label": "Herbs"
+          }
+        },
+        "ingredient_MBeNBM": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "🛡️",
+            "label": "Antioxidants"
+          }
+        },
+        "ingredient_MW8HrC": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "🔄",
+            "label": "Prebiotics"
+          }
+        },
+        "ingredient_bNFkJx": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "🍄",
+            "label": "Super Mushrooms"
+          }
+        }
+      },
+      "block_order": [
+        "feature_yxjqJV",
+        "feature_NYKBQA",
+        "feature_PUqMUd",
+        "feature_itn9Jm",
+        "accordion_QYaYEx",
+        "accordion_fmb4qC",
+        "accordion_CmxqRf",
+        "accordion_rTLQEt",
+        "accordion_CjJybD",
+        "accordion_tyRxWL",
+        "taste_KVDjLz",
+        "taste_wxY4NQ",
+        "taste_eekm4D",
+        "ingredient_JHC7cf",
+        "ingredient_iHPmx3",
+        "ingredient_xb4LzD",
+        "ingredient_m8C6aJ",
+        "ingredient_X8pT3d",
+        "ingredient_MBeNBM",
+        "ingredient_MW8HrC",
+        "ingredient_bNFkJx"
+      ],
+      "name": "Grüns Product Section",
+      "settings": {
+        "product": "limited-time-offer-save-up-to-52",
+        "product_title": "Grüns Superfood Gummies",
+        "product_tagline": "60+ potent ingredients to revive whole body vitality in great tasting gummies.",
+        "show_promo_banner": true,
+        "promo_text": "🔥 Limited Time Offer – Save Up To 52% on Your First Order! 🔥",
+        "page_headline": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!",
+        "badge_text": "3rd-Party Tested",
+        "show_offer_ribbon": true,
+        "offer_ribbon_text": "LIMITED TIME OFFER: SAVE UP TO 52%",
+        "nutrition_label_url": "",
+        "tested_text": "<p>Tested by Light Labs in <strong>FEB 2026</strong><br/>35 substances tested for quality</p>",
+        "show_reviews": true,
+        "review_score": "4.8/5.0",
+        "review_count": "85,000",
+        "customer_count": "1M+ Customers",
+        "subscribe_discount": 49
+      }
+    },
     "faq_accordion_mCWKYg": {
       "type": "faq-accordion",
       "blocks": {
@@ -1128,6 +1318,7 @@
     "cta_nutrient_BLbx8W",
     "product_gruns_style_HgKKhL",
     "gruns_offer_product_nAMpaA",
+    "gruns_product_section_fwX7Rk",
     "faq_accordion_mCWKYg",
     "custom_footer_gruns_fqp9Jn"
   ]
