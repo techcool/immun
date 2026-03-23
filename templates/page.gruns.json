@@ -971,6 +971,7 @@
         "ingredient_MW8HrC",
         "ingredient_bNFkJx"
       ],
+      "disabled": true,
       "name": "Grüns Product Section",
       "settings": {
         "product": "limited-time-offer-save-up-to-52",
