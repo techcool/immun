@@ -47,9 +47,17 @@
         <div class="gruns-thumbs" role="list">
           {% if product.images.size > 0 %}
             {% for image in product.images limit: 6 %}
+              {%- assign image_variant_ids = '' -%}
+              {%- for variant in product.variants -%}
+                {%- if variant.featured_image and variant.featured_image.id == image.id -%}
+                  {%- assign image_variant_ids = image_variant_ids | append: variant.id | append: ',' -%}
+                {%- endif -%}
+              {%- endfor -%}
             <button
               class="gruns-thumb{% if forloop.first %} active{% endif %}"
               data-index="{{ forloop.index0 }}"
+              data-image-id="{{ image.id }}"
+              data-variant-ids="{{ image_variant_ids }}"
               aria-label="View image {{ forloop.index }}"
               role="listitem"
             >
@@ -58,7 +66,7 @@
             {% endfor %}
           {% else %}
             {% for i in (1..6) %}
-            <button class="gruns-thumb{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}" role="listitem">
+            <button class="gruns-thumb{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}" data-variant-ids="" role="listitem">
               {{ 'product-' | append: i | placeholder_svg_tag: 'gruns-thumb-svg' }}
             </button>
             {% endfor %}
@@ -76,7 +84,18 @@
           <div class="gruns-main-image-inner" id="gruns-main-image-{{ section.id }}">
             {% if product.images.size > 0 %}
               {% for image in product.images limit: 6 %}
-              <div class="gruns-slide{% if forloop.first %} active{% endif %}" data-slide="{{ forloop.index0 }}">
+                {%- assign slide_variant_ids = '' -%}
+                {%- for variant in product.variants -%}
+                  {%- if variant.featured_image and variant.featured_image.id == image.id -%}
+                    {%- assign slide_variant_ids = slide_variant_ids | append: variant.id | append: ',' -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              <div
+                class="gruns-slide{% if forloop.first %} active{% endif %}"
+                data-slide="{{ forloop.index0 }}"
+                data-image-id="{{ image.id }}"
+                data-variant-ids="{{ slide_variant_ids }}"
+              >
                 {{ image | image_url: width: 800 | image_tag:
                     loading: 'lazy',
                     alt: image.alt | default: product.title,
@@ -85,7 +104,7 @@
               </div>
               {% endfor %}
             {% else %}
-              <div class="gruns-slide active" data-slide="0">
+              <div class="gruns-slide active" data-slide="0" data-variant-ids="">
                 {{ 'product-1' | placeholder_svg_tag: 'gruns-product-img' }}
               </div>
             {% endif %}
@@ -375,18 +394,7 @@
     variantsJson: {{ product.variants | json }},
     subscribeDiscount: {{ section.settings.subscribe_discount }},
     currencySymbol: '{{ cart.currency.symbol }}',
-    variantImages: {
-      {%- for variant in product.variants -%}
-        {%- if variant.featured_image -%}
-          "{{ variant.id }}": {
-            "src": "{{ variant.featured_image | image_url: width: 800 }}",
-            "thumb": "{{ variant.featured_image | image_url: width: 120 }}",
-            "alt": {{ variant.featured_image.alt | default: variant.title | json }},
-            "position": {{ variant.featured_image.position | minus: 1 }}
-          }{%- unless forloop.last -%},{%- endunless -%}
-        {%- endif -%}
-      {%- endfor -%}
-    }
+    variantImages: {}
   };
 </script>
 
@@ -618,6 +626,8 @@
   ]
 }
 {% endschema %}
+
+
 
 <script>
     
