@@ -256,7 +256,7 @@ span.faq-title{
     font-weight: 600;
     margin-bottom: 0;
 }
-.testimonial-btn{
+.testimonial-btn, .nutrition-btn{
   display:inline-block;
   background:#0b7a43;
   color:#fff;
@@ -272,7 +272,7 @@ span.faq-title{
   font-weight: 600;
 }
 
-.testimonial-btn:hover{
+.testimonial-btn:hover, .nutrition-btn:hover{
     box-shadow: 1px 1px 0px 0px #000000;
     transform: translate3d(5px, 5px, 0);
     background-color: var(--dk-green);
