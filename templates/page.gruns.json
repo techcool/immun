@@ -971,13 +971,12 @@
         "ingredient_MW8HrC",
         "ingredient_bNFkJx"
       ],
+      "disabled": true,
       "name": "Grüns Product Section",
       "settings": {
         "product": "limited-time-offer-save-up-to-52",
         "product_title": "Grüns Superfood Gummies",
         "product_tagline": "60+ potent ingredients to revive whole body vitality in great tasting gummies.",
-        "show_promo_banner": true,
-        "promo_text": "🔥 Limited Time Offer – Save Up To 52% on Your First Order! 🔥",
         "page_headline": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!",
         "badge_text": "3rd-Party Tested",
         "show_offer_ribbon": true,
