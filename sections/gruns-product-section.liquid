@@ -1,0 +1,607 @@
+{% comment %}
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  Grüns Superfood Gummies – Custom Product Section           ║
+  ║  File: sections/gruns-product-section.liquid                ║
+  ║  Drop this in your theme's /sections/ folder                ║
+  ╚══════════════════════════════════════════════════════════════╝
+{% endcomment %}
+
+{% assign product = all_products[section.settings.product] | default: product %}
+
+{{ 'gruns-product-section.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.show_promo_banner %}
+<div class="gruns-promo-banner" role="banner">
+  {{ section.settings.promo_text }}
+</div>
+{% endif %}
+
+<section
+  class="gruns-product-section"
+  id="gruns-product-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="gruns-product"
+>
+
+  {% if section.settings.page_headline != blank %}
+  <h1 class="gruns-page-headline">
+    {{ section.settings.page_headline }}
+  </h1>
+  {% endif %}
+
+  {% if section.settings.badge_text != blank %}
+  <div class="gruns-badge-wrap">
+    <span class="gruns-badge">{{ section.settings.badge_text }}</span>
+  </div>
+  {% endif %}
+
+  <div class="gruns-product-grid">
+
+    <!-- ══════════════════════════════════════════
+         LEFT: GALLERY
+    ════════════════════════════════════════════ -->
+    <div class="gruns-gallery-col">
+      <div class="gruns-gallery">
+
+        <!-- Thumbnails -->
+        <div class="gruns-thumbs" role="list">
+          {% if product.images.size > 0 %}
+            {% for image in product.images limit: 6 %}
+            <button
+              class="gruns-thumb{% if forloop.first %} active{% endif %}"
+              data-index="{{ forloop.index0 }}"
+              aria-label="View image {{ forloop.index }}"
+              role="listitem"
+            >
+              {{ image | image_url: width: 120 | image_tag: loading: 'lazy', alt: image.alt | default: product.title }}
+            </button>
+            {% endfor %}
+          {% else %}
+            {% for i in (1..6) %}
+            <button class="gruns-thumb{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}" role="listitem">
+              {{ 'product-' | append: i | placeholder_svg_tag: 'gruns-thumb-svg' }}
+            </button>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <!-- Main Image -->
+        <div class="gruns-main-image-wrap">
+          {% if section.settings.show_offer_ribbon %}
+          <div class="gruns-offer-ribbon" aria-label="{{ section.settings.offer_ribbon_text }}">
+            🔥 {{ section.settings.offer_ribbon_text }} 🔥
+          </div>
+          {% endif %}
+
+          <div class="gruns-main-image-inner" id="gruns-main-image-{{ section.id }}">
+            {% if product.images.size > 0 %}
+              {% for image in product.images limit: 6 %}
+              <div class="gruns-slide{% if forloop.first %} active{% endif %}" data-slide="{{ forloop.index0 }}">
+                {{ image | image_url: width: 800 | image_tag:
+                    loading: 'lazy',
+                    alt: image.alt | default: product.title,
+                    class: 'gruns-product-img'
+                }}
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="gruns-slide active" data-slide="0">
+                {{ 'product-1' | placeholder_svg_tag: 'gruns-product-img' }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+      </div><!-- /.gruns-gallery -->
+
+      <!-- Nutrition Button -->
+      {% if section.settings.nutrition_label_url != blank %}
+      <a href="{{ section.settings.nutrition_label_url }}" class="gruns-nutrition-btn" target="_blank" rel="noopener">
+        View Nutrition Label
+      </a>
+      {% endif %}
+
+      <!-- Tested Badge -->
+      {% if section.settings.tested_text != blank %}
+      <div class="gruns-tested-badge">
+        <span class="gruns-tested-icon" aria-hidden="true">✔️</span>
+        <div>{{ section.settings.tested_text }}</div>
+      </div>
+      {% endif %}
+
+    </div><!-- /.gruns-gallery-col -->
+
+
+    <!-- ══════════════════════════════════════════
+         RIGHT: PRODUCT DETAILS
+    ════════════════════════════════════════════ -->
+    <div class="gruns-details-col">
+
+      <!-- Stars / Reviews -->
+      {% if section.settings.show_reviews %}
+      <div class="gruns-stars-row">
+        <span class="gruns-stars" aria-label="4.8 out of 5 stars">★★★★★</span>
+        <strong>{{ section.settings.review_score }}</strong>
+        <span>({{ section.settings.review_count }}) · {{ section.settings.customer_count }}</span>
+      </div>
+      {% endif %}
+
+      <!-- Title & Tagline -->
+      <h2 class="gruns-product-title">{{ product.title | default: section.settings.product_title }}</h2>
+      <p class="gruns-product-tagline">{{ section.settings.product_tagline }}</p>
+
+      <!-- Feature bullets -->
+      {% if section.blocks.size > 0 %}
+      <ul class="gruns-feature-list">
+        {% for block in section.blocks %}
+          {% if block.type == 'feature' %}
+          <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <hr class="gruns-divider">
+
+      <!-- ── VARIANT / OPTIONS ───────────────────────── -->
+      {% if product.has_only_default_variant == false %}
+        {% for option in product.options_with_values %}
+        <div class="gruns-option-group" data-option-index="{{ forloop.index0 }}">
+          <div class="gruns-option-label">{{ option.name }}</div>
+          <div class="gruns-toggle-group" role="group" aria-label="{{ option.name }}">
+            {% for value in option.values %}
+            {% assign is_selected = false %}
+            {% if option.selected_value == value %}
+              {% assign is_selected = true %}
+            {% endif %}
+            <button
+              class="gruns-toggle-btn{% if is_selected %} active{% endif %}"
+              data-option="{{ forloop.parentloop.index0 }}"
+              data-value="{{ value | escape }}"
+              aria-pressed="{{ is_selected }}"
+            >
+              {{ value }}
+            </button>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <!-- Static Sugar toggle (fallback when no variants) -->
+        <div class="gruns-option-group">
+          <div class="gruns-option-label">Select Sugar Level</div>
+          <div class="gruns-toggle-group" role="group" aria-label="Sugar Level">
+            <button class="gruns-toggle-btn active" data-option="sugar" data-value="low">Low Sugar</button>
+            <button class="gruns-toggle-btn" data-option="sugar" data-value="free">Sugar-Free</button>
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Adults Qty -->
+      <div class="gruns-option-group">
+        <div class="gruns-adults-row">
+          <div class="gruns-option-label">How many Adults?</div>
+          <span class="gruns-save-pill">🏷 Buy 2 Save 5%</span>
+        </div>
+        <div class="gruns-qty-toggle" id="gruns-qty-{{ section.id }}" role="group" aria-label="Number of adults">
+          <button class="gruns-qty-btn active" data-qty="1" aria-pressed="true">1</button>
+          <button class="gruns-qty-btn" data-qty="2" aria-pressed="false">2</button>
+        </div>
+      </div>
+
+      <hr class="gruns-divider">
+
+      <!-- ── PURCHASE OPTIONS ────────────────────────── -->
+      <div class="gruns-autoship-label">Autoship and Save:</div>
+
+      <div
+        class="gruns-purchase-card active"
+        id="gruns-card-sub-{{ section.id }}"
+        data-type="subscription"
+        role="radio"
+        aria-checked="true"
+        tabindex="0"
+      >
+        <div class="gruns-popular-tag">Most Popular · Get {{ section.settings.subscribe_discount }}% Off</div>
+        <div class="gruns-card-top">
+          <div class="gruns-card-title-row">
+            <div class="gruns-radio-dot active" aria-hidden="true"></div>
+            <div class="gruns-card-title">Subscribe &amp; Save</div>
+          </div>
+          <div class="gruns-card-price">
+            <div class="gruns-price-main" id="gruns-sub-price-{{ section.id }}">
+              {{ product.selected_or_first_available_variant.price | times: 0.51 | money }}<span class="gruns-price-freq">/mo</span>
+            </div>
+            <span class="gruns-price-sub">
+              <span class="gruns-price-old" id="gruns-sub-old-{{ section.id }}">
+                {{ product.selected_or_first_available_variant.price | money }}
+              </span> · $1.46/day
+            </span>
+          </div>
+        </div>
+        <div class="gruns-card-desc">28 packs each 4 weeks</div>
+        <ul class="gruns-card-perks">
+          <li>FAST &amp; FREE Shipping</li>
+          <li>Pause Or Cancel Any Time</li>
+          <li>30-Day Guarantee</li>
+        </ul>
+      </div>
+
+      <div
+        class="gruns-purchase-card"
+        id="gruns-card-once-{{ section.id }}"
+        data-type="onetime"
+        role="radio"
+        aria-checked="false"
+        tabindex="0"
+      >
+        <div class="gruns-card-top">
+          <div class="gruns-card-title-row">
+            <div class="gruns-radio-dot" aria-hidden="true"></div>
+            <div class="gruns-card-title">One Time Purchase</div>
+          </div>
+          <div class="gruns-card-price">
+            <div class="gruns-price-main" id="gruns-once-price-{{ section.id }}">
+              {{ product.selected_or_first_available_variant.price | money }}
+            </div>
+            <span class="gruns-price-sub">
+              <span class="gruns-price-old">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+              · $1.94/day
+            </span>
+          </div>
+        </div>
+        <div class="gruns-card-desc">28 packs delivered once</div>
+      </div>
+
+      <!-- ── ADD TO CART ─────────────────────────────── -->
+      {%- form 'product', product, id: 'gruns-product-form-' | append: section.id, class: 'gruns-product-form', novalidate: 'novalidate' -%}
+        <input type="hidden" name="id" id="gruns-variant-id-{{ section.id }}"
+               value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" id="gruns-quantity-{{ section.id }}" value="1">
+
+        <button
+          type="submit"
+          name="add"
+          class="gruns-cta-btn"
+          id="gruns-cta-{{ section.id }}"
+          {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+          aria-label="Add to cart"
+        >
+          {% if product.selected_or_first_available_variant.available %}
+            Start Now
+          {% else %}
+            Sold Out
+          {% endif %}
+        </button>
+      {%- endform -%}
+
+      <div class="gruns-discount-pill">
+        <span>✅</span> Limited Time Discount Auto-Applied
+      </div>
+
+      <!-- Trust Icons -->
+      <div class="gruns-trust-row">
+        <div class="gruns-trust-item">
+          <div class="gruns-trust-icon" aria-hidden="true">✔️</div>
+          <div class="gruns-trust-text">30-day guarantee</div>
+        </div>
+        <div class="gruns-trust-item">
+          <div class="gruns-trust-icon" aria-hidden="true">🔬</div>
+          <div class="gruns-trust-text">Clinically and 3rd party tested</div>
+        </div>
+        <div class="gruns-trust-item">
+          <div class="gruns-trust-icon" aria-hidden="true">💳</div>
+          <div class="gruns-trust-text">HSA/FSA eligible with Truemed</div>
+        </div>
+      </div>
+
+      <!-- ── ACCORDION ──────────────────────────────── -->
+      <div class="gruns-accordion" role="list">
+        {% for block in section.blocks %}
+          {% if block.type == 'accordion' %}
+          <div class="gruns-acc-item" {{ block.shopify_attributes }} role="listitem">
+            <button
+              class="gruns-acc-header"
+              aria-expanded="false"
+              aria-controls="gruns-acc-body-{{ block.id }}"
+            >
+              {{ block.settings.title }}
+              <span class="gruns-acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div
+              class="gruns-acc-body"
+              id="gruns-acc-body-{{ block.id }}"
+              role="region"
+            >
+              <div class="gruns-acc-body-inner">
+                {{ block.settings.content }}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div><!-- /.gruns-details-col -->
+  </div><!-- /.gruns-product-grid -->
+
+
+  <!-- ══════════════════════════════════════════
+       TASTE & PACKED SECTION
+  ════════════════════════════════════════════ -->
+  {% assign taste_blocks = section.blocks | where: 'type', 'taste' %}
+  {% assign packed_blocks = section.blocks | where: 'type', 'ingredient' %}
+
+  {% if taste_blocks.size > 0 or packed_blocks.size > 0 %}
+  <div class="gruns-extra-section">
+
+    {% if taste_blocks.size > 0 %}
+    <h3 class="gruns-extra-heading">Tastes Like</h3>
+    <div class="gruns-taste-row">
+      {% for block in taste_blocks %}
+      <div class="gruns-taste-item" {{ block.shopify_attributes }}>
+        <div class="gruns-taste-icon">{{ block.settings.icon }}</div>
+        <span>{{ block.settings.label }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if packed_blocks.size > 0 %}
+    <h3 class="gruns-extra-heading">Packed With</h3>
+    <div class="gruns-packed-row">
+      {% for block in packed_blocks %}
+      <div class="gruns-packed-item" {{ block.shopify_attributes }}>
+        <span class="gruns-packed-icon">{{ block.settings.icon }}</span>
+        {{ block.settings.label }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+  {% endif %}
+
+</section>
+
+<script src="{{ 'gruns-product-section.js' | asset_url }}" defer></script>
+
+<script>
+  // Pass Liquid data to JS
+  window.GrunsProduct_{{ section.id | replace: '-', '_' }} = {
+    sectionId: '{{ section.id }}',
+    productHandle: '{{ product.handle }}',
+    variantsJson: {{ product.variants | json }},
+    subscribeDiscount: {{ section.settings.subscribe_discount }},
+    currencySymbol: '{{ cart.currency.symbol }}'
+  };
+</script>
+
+
+{% schema %}
+{
+  "name": "Grüns Product Section",
+  "tag": "section",
+  "class": "gruns-section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product Title (fallback)",
+      "default": "Grüns Superfood Gummies"
+    },
+    {
+      "type": "textarea",
+      "id": "product_tagline",
+      "label": "Product Tagline",
+      "default": "60+ potent ingredients to revive whole body vitality in great tasting gummies."
+    },
+    {
+      "type": "header",
+      "content": "Promo Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_promo_banner",
+      "label": "Show promo banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo Banner Text",
+      "default": "🔥 Limited Time Offer – Save Up To 52% on Your First Order! 🔥"
+    },
+    {
+      "type": "header",
+      "content": "Headlines & Badges"
+    },
+    {
+      "type": "textarea",
+      "id": "page_headline",
+      "label": "Page Headline",
+      "default": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "3rd-Party Tested"
+    },
+    {
+      "type": "header",
+      "content": "Image / Gallery"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_offer_ribbon",
+      "label": "Show offer ribbon on image",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "offer_ribbon_text",
+      "label": "Offer Ribbon Text",
+      "default": "LIMITED TIME OFFER: SAVE UP TO 52%"
+    },
+    {
+      "type": "url",
+      "id": "nutrition_label_url",
+      "label": "Nutrition Label URL (PDF or page)"
+    },
+    {
+      "type": "richtext",
+      "id": "tested_text",
+      "label": "Tested Badge Text",
+      "default": "<p>Tested by Light Labs in <strong>FEB 2026</strong><br>35 substances tested for quality</p>"
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Show review stars",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "review_score",
+      "label": "Review Score",
+      "default": "4.8/5.0"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review Count",
+      "default": "85,000"
+    },
+    {
+      "type": "text",
+      "id": "customer_count",
+      "label": "Customer Count",
+      "default": "1M+ Customers"
+    },
+    {
+      "type": "header",
+      "content": "Pricing"
+    },
+    {
+      "type": "range",
+      "id": "subscribe_discount",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "%",
+      "label": "Subscribe & Save Discount",
+      "default": 49
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Bullet",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature text",
+          "default": "Promotes mental clarity + energy"
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "FAQ Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Why Grüns?"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Answer",
+          "default": "<p>Grüns combines 60+ whole-food ingredients into a convenient daily gummy.</p>"
+        }
+      ]
+    },
+    {
+      "type": "taste",
+      "name": "Taste Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji Icon",
+          "default": "🍓"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Strawberry"
+        }
+      ]
+    },
+    {
+      "type": "ingredient",
+      "name": "Packed With Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji Icon",
+          "default": "🥦"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Whole Veggies"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grüns Product Section",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "Promotes mental clarity + energy" } },
+        { "type": "feature", "settings": { "text": "Supports immunity + stress relief" } },
+        { "type": "feature", "settings": { "text": "Supports digestion and gut health" } },
+        { "type": "feature", "settings": { "text": "Clinically tested for nutrient absorption" } },
+        { "type": "accordion", "settings": { "title": "Why Grüns?", "content": "<p>Grüns combines 60+ whole-food ingredients — veggies, fruits, adaptogens, mushrooms, and more — into a convenient daily gummy. No chalky powders, no big pills. Just real nutrition in a delicious bite-sized pack.</p>" } },
+        { "type": "accordion", "settings": { "title": "Ingredients & Allergies", "content": "<p>Made with whole vegetables, fruits, vitamins, minerals, adaptogens, herbs, antioxidants, prebiotics, and super mushrooms. Free from major allergens. Third-party tested.</p>" } },
+        { "type": "accordion", "settings": { "title": "Low Sugar vs. Sugar-Free", "content": "<p><strong>Low Sugar</strong> uses a small amount of organic cane sugar. <strong>Sugar-Free</strong> is sweetened with monk fruit and erythritol — ideal for keto lifestyles.</p>" } },
+        { "type": "accordion", "settings": { "title": "Science & Certifications", "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs for 35 substances. HSA/FSA eligible through Truemed.</p>" } },
+        { "type": "accordion", "settings": { "title": "Directions", "content": "<p>Take 2 gummies daily with a meal. Each pack contains your daily serving. Not intended for children under 12 without physician guidance.</p>" } },
+        { "type": "accordion", "settings": { "title": "Benefits", "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>" } },
+        { "type": "taste", "settings": { "icon": "🌿", "label": "Fresh & Light" } },
+        { "type": "taste", "settings": { "icon": "🍓", "label": "Strawberry" } },
+        { "type": "taste", "settings": { "icon": "🟢", "label": "Sweet Greens" } },
+        { "type": "ingredient", "settings": { "icon": "🥦", "label": "Whole Veggies" } },
+        { "type": "ingredient", "settings": { "icon": "🍇", "label": "Whole Fruits" } },
+        { "type": "ingredient", "settings": { "icon": "💊", "label": "Vitamins and Minerals" } },
+        { "type": "ingredient", "settings": { "icon": "🌱", "label": "Adaptogens" } },
+        { "type": "ingredient", "settings": { "icon": "🌿", "label": "Herbs" } },
+        { "type": "ingredient", "settings": { "icon": "🛡️", "label": "Antioxidants" } },
+        { "type": "ingredient", "settings": { "icon": "🔄", "label": "Prebiotics" } },
+        { "type": "ingredient", "settings": { "icon": "🍄", "label": "Super Mushrooms" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
