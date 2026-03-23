@@ -254,7 +254,8 @@
       </div>
 
       <!-- ── ADD TO CART ─────────────────────────────── -->
-      {%- form 'product', product, id: 'gruns-product-form-' | append: section.id, class: 'gruns-product-form', novalidate: 'novalidate' -%}
+      {%- assign gruns_form_id = 'gruns-product-form-' | append: section.id -%}
+      {%- form 'product', product, id: gruns_form_id, class: 'gruns-product-form', novalidate: 'novalidate' -%}
         <input type="hidden" name="id" id="gruns-variant-id-{{ section.id }}"
                value="{{ product.selected_or_first_available_variant.id }}">
         <input type="hidden" name="quantity" id="gruns-quantity-{{ section.id }}" value="1">
@@ -605,7 +606,6 @@
   ]
 }
 {% endschema %}
-
 
 <script>
     /* ═══════════════════════════════════════════════════════════════
