@@ -122,14 +122,19 @@
       </div>
       {% endif %}
 
-      <!-- Title -->
+      <!-- Title & Tagline -->
       <h2 class="gruns-product-title">{{ product.title | default: section.settings.product_title }}</h2>
+      <p class="gruns-product-tagline">{{ section.settings.product_tagline }}</p>
 
-      <!-- Product Description -->
-      {% if product.description != blank %}
-      <div class="gruns-product-description">
-        {{ product.description }}
-      </div>
+      <!-- Feature bullets -->
+      {% if section.blocks.size > 0 %}
+      <ul class="gruns-feature-list">
+        {% for block in section.blocks %}
+          {% if block.type == 'feature' %}
+          <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
       {% endif %}
 
       <hr class="gruns-divider">
@@ -410,6 +415,12 @@
       "default": "Grüns Superfood Gummies"
     },
     {
+      "type": "textarea",
+      "id": "product_tagline",
+      "label": "Product Tagline",
+      "default": "60+ potent ingredients to revive whole body vitality in great tasting gummies."
+    },
+    {
       "type": "header",
       "content": "Headlines & Badges"
     },
@@ -497,6 +508,18 @@
   ],
   "blocks": [
     {
+      "type": "feature",
+      "name": "Feature Bullet",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature text",
+          "default": "Promotes mental clarity + energy"
+        }
+      ]
+    },
+    {
       "type": "accordion",
       "name": "FAQ Accordion",
       "settings": [
@@ -555,6 +578,10 @@
     {
       "name": "Grüns Product Section",
       "blocks": [
+        { "type": "feature", "settings": { "text": "Promotes mental clarity + energy" } },
+        { "type": "feature", "settings": { "text": "Supports immunity + stress relief" } },
+        { "type": "feature", "settings": { "text": "Supports digestion and gut health" } },
+        { "type": "feature", "settings": { "text": "Clinically tested for nutrient absorption" } },
         { "type": "accordion", "settings": { "title": "Why Grüns?", "content": "<p>Grüns combines 60+ whole-food ingredients — veggies, fruits, adaptogens, mushrooms, and more — into a convenient daily gummy. No chalky powders, no big pills. Just real nutrition in a delicious bite-sized pack.</p>" } },
         { "type": "accordion", "settings": { "title": "Ingredients & Allergies", "content": "<p>Made with whole vegetables, fruits, vitamins, minerals, adaptogens, herbs, antioxidants, prebiotics, and super mushrooms. Free from major allergens. Third-party tested.</p>" } },
         { "type": "accordion", "settings": { "title": "Low Sugar vs. Sugar-Free", "content": "<p><strong>Low Sugar</strong> uses a small amount of organic cane sugar. <strong>Sugar-Free</strong> is sweetened with monk fruit and erythritol — ideal for keto lifestyles.</p>" } },
@@ -577,9 +604,6 @@
   ]
 }
 {% endschema %}
-
-
-
 
 <script>
     
