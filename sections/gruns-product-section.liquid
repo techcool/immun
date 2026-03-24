@@ -1134,15 +1134,15 @@
 .gruns-product-tagline { font-size: .9rem; color: var(--g-muted); line-height: 1.6; }
 
 /* ── FEATURE LIST ────────────────────────────────────────────── */
-.gruns-feature-list { list-style: none; display: flex; flex-direction: column; gap: 5px; padding: 0; margin: 0; }
-.gruns-feature-list li {
+.gruns-feature-list, .features-list { list-style: none; display: flex; flex-direction: column; gap: 5px; padding: 0; margin: 0; }
+.gruns-feature-list li, .features-list li {
   font-size: .85rem;
   color: var(--g-text);
   display: flex;
   align-items: flex-start;
   gap: 7px;
 }
-.gruns-feature-list li::before { content: '✓'; color: var(--g-green-mid); font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+.gruns-feature-list li::before, .features-list li::before { content: '✓'; color: var(--g-green-mid); font-weight: 900; flex-shrink: 0; margin-top: 1px; }
 
 /* ── DIVIDER ─────────────────────────────────────────────────── */
 .gruns-divider { border: none; border-top: 1px solid var(--g-border); margin: 0; }
