@@ -945,8 +945,8 @@
       ],
       "name": "Grüns Product Section",
       "settings": {
-        "product": "immun",
-        "product_title": "Grüns Superfood Gummies",
+        "product": "limited-time-offer-save-up-to-52",
+        "product_title": "",
         "page_headline": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!",
         "badge_text": "3rd-Party Tested",
         "show_offer_ribbon": true,
@@ -957,7 +957,7 @@
         "review_score": "4.8/5.0",
         "review_count": "85,000",
         "customer_count": "1M+ Customers",
-        "subscribe_discount": 49
+        "subscribe_discount": 50
       }
     },
     "faq_accordion_mCWKYg": {
