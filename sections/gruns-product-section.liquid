@@ -2,7 +2,6 @@
   ╔══════════════════════════════════════════════════════════════╗
   ║  Grüns Superfood Gummies – Custom Product Section           ║
   ║  File: sections/gruns-product-section.liquid                ║
-  ║  Drop this in your theme's /sections/ folder                ║
   ╚══════════════════════════════════════════════════════════════╝
 {% endcomment %}
 
@@ -10,8 +9,25 @@
 
 {{ 'gruns-product-section.css' | asset_url | stylesheet_tag }}
 
+{%- style -%}
+  #gruns-product-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  @media screen and (max-width: 750px) {
+    #gruns-product-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | divided_by: 2 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 2 }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign custom_classes = section.settings.custom_classes | strip
+-%}
+
 <section
-  class="gruns-product-section common-container"
+  class="gruns-product-section common-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} gruns-full-width{% endif %}{% if custom_classes != blank %} {{ custom_classes }}{% endif %}"
   id="gruns-product-{{ section.id }}"
   data-section-id="{{ section.id }}"
   data-section-type="gruns-product"
@@ -32,13 +48,10 @@
 
   <div class="gruns-product-grid">
 
-    <!-- ══════════════════════════════════════════
-         LEFT: GALLERY
-    ════════════════════════════════════════════ -->
+    <!-- LEFT: GALLERY -->
     <div class="gruns-gallery-col">
       <div class="gruns-gallery">
 
-        <!-- Thumbnails -->
         <div class="gruns-thumbs" role="list">
           {% if product.images.size > 0 %}
             {% for image in product.images limit: 6 %}
@@ -60,15 +73,13 @@
           {% endif %}
         </div>
 
-        <!-- Main Image -->
         <div class="gruns-main-image-wrap">
           {% if section.settings.show_offer_ribbon %}
           <div class="gruns-offer-ribbon" aria-label="{{ section.settings.offer_ribbon_text }}">
-            🔥 {{ section.settings.offer_ribbon_text }} 🔥
+            {{ section.settings.offer_ribbon_icon }} {{ section.settings.offer_ribbon_text }} {{ section.settings.offer_ribbon_icon }}
           </div>
           {% endif %}
 
-          
           <div class="gruns-main-image-inner" id="gruns-main-image-{{ section.id }}">
             {% if product.images.size > 0 %}
               {% for image in product.images limit: 6 %}
@@ -88,55 +99,52 @@
           </div>
         </div>
 
-      </div><!-- /.gruns-gallery -->
+      </div>
 
-      <!-- Nutrition Button -->
       {% if section.settings.nutrition_label_url != blank %}
       <a href="{{ section.settings.nutrition_label_url }}" class="gruns-nutrition-btn" target="_blank" rel="noopener">
-        View Nutrition Label
+        {{ section.settings.nutrition_label_text }}
       </a>
       {% endif %}
 
-      <!-- Tested Badge -->
       {% if section.settings.tested_text != blank %}
       <div class="gruns-tested-badge">
-        <span class="gruns-tested-icon" aria-hidden="true">✔️</span>
+        <span class="gruns-tested-icon" aria-hidden="true">
+          {% if section.settings.tested_icon_image != blank %}
+            {{ section.settings.tested_icon_image | image_url: width: 48 | image_tag: loading: 'lazy', alt: '', class: 'gruns-tested-img' }}
+          {% else %}
+            {{ section.settings.tested_icon }}
+          {% endif %}
+        </span>
         <div>{{ section.settings.tested_text }}</div>
       </div>
       {% endif %}
 
     </div>
-    <!-- /.gruns-gallery-col -->
 
 
-    <!-- ══════════════════════════════════════════
-         RIGHT: PRODUCT DETAILS
-    ════════════════════════════════════════════ -->
+    <!-- RIGHT: PRODUCT DETAILS -->
     <div class="gruns-details-col">
 
-      <!-- Stars / Reviews -->
       {% if section.settings.show_reviews %}
       <div class="gruns-stars-row">
-        <span class="gruns-stars" aria-label="4.8 out of 5 stars">★★★★★</span>
+        <span class="gruns-stars" aria-label="{{ section.settings.review_score }} stars">{{ section.settings.star_icons }}</span>
         <strong>{{ section.settings.review_score }}</strong>
         <span>({{ section.settings.review_count }}) · {{ section.settings.customer_count }}</span>
       </div>
       {% endif %}
 
-      <!-- Title -->
       <h2 class="gruns-product-title">{{ product.title | default: section.settings.product_title }}</h2>
 
-      <!-- Product Description -->
       {% if product.description != blank %}
       <div class="gruns-product-description">
         {{ product.description }}
       </div>
       {% endif %}
 
-      
       <hr class="gruns-divider">
 
-      <!-- ── VARIANT / OPTIONS ───────────────────────── -->
+      <!-- VARIANT OPTIONS -->
       {% if product.has_only_default_variant == false %}
         {% for option in product.options_with_values %}
         <div class="gruns-option-group" data-option-index="{{ forloop.index0 }}">
@@ -144,9 +152,7 @@
           <div class="gruns-toggle-group" role="group" aria-label="{{ option.name }}">
             {% for value in option.values %}
             {% assign is_selected = false %}
-            {% if option.selected_value == value %}
-              {% assign is_selected = true %}
-            {% endif %}
+            {% if option.selected_value == value %}{% assign is_selected = true %}{% endif %}
             <button
               class="gruns-toggle-btn{% if is_selected %} active{% endif %}"
               data-option="{{ forloop.parentloop.index0 }}"
@@ -160,32 +166,38 @@
         </div>
         {% endfor %}
       {% else %}
-        <!-- Static Sugar toggle (fallback when no variants) -->
         <div class="gruns-option-group">
-          <div class="gruns-option-label">Select Sugar Level</div>
-          <div class="gruns-toggle-group" role="group" aria-label="Sugar Level">
-            <button class="gruns-toggle-btn active" data-option="sugar" data-value="low">Low Sugar</button>
-            <button class="gruns-toggle-btn" data-option="sugar" data-value="free">Sugar-Free</button>
+          <div class="gruns-option-label">{{ section.settings.variant_fallback_label }}</div>
+          <div class="gruns-toggle-group" role="group" aria-label="{{ section.settings.variant_fallback_label }}">
+            <button class="gruns-toggle-btn active" data-option="sugar" data-value="low" aria-pressed="true">{{ section.settings.variant_option1_label }}</button>
+            <button class="gruns-toggle-btn" data-option="sugar" data-value="free" aria-pressed="false">{{ section.settings.variant_option2_label }}</button>
           </div>
         </div>
       {% endif %}
 
-      <!-- Adults Qty -->
+      <!-- QTY -->
       <div class="gruns-option-group">
         <div class="gruns-adults-row">
-          <div class="gruns-option-label">How many Adults?</div>
-          <span class="gruns-save-pill">🏷 Buy 2 Save 5%</span>
+          <div class="gruns-option-label">{{ section.settings.qty_label }}</div>
+          <span class="gruns-save-pill">{{ section.settings.qty_save_icon }} {{ section.settings.qty_save_text }}</span>
         </div>
-        <div class="gruns-qty-toggle" id="gruns-qty-{{ section.id }}" role="group" aria-label="Number of adults">
-          <button class="gruns-qty-btn active" data-qty="1" aria-pressed="true">1</button>
-          <button class="gruns-qty-btn" data-qty="2" aria-pressed="false">2</button>
+        <div class="gruns-qty-toggle" id="gruns-qty-{{ section.id }}" role="group" aria-label="{{ section.settings.qty_label }}">
+          <button class="gruns-qty-btn active" data-qty="1" aria-pressed="true">{{ section.settings.qty_btn1_label }}</button>
+          <button class="gruns-qty-btn" data-qty="2" aria-pressed="false">{{ section.settings.qty_btn2_label }}</button>
         </div>
       </div>
 
       <hr class="gruns-divider">
 
-      <!-- ── PURCHASE OPTIONS ────────────────────────── -->
-      <div class="gruns-autoship-label">Autoship and Save:</div>
+      <!-- PURCHASE OPTIONS -->
+      <div class="gruns-autoship-label">{{ section.settings.autoship_label }}</div>
+
+      <!-- ═══════════════════════════════════════════════════════
+           Subscribe & Save Card
+           Perks: blocks of type "sub_perk" (limit 5)
+           Fallback: settings sub_perk_1 … sub_perk_5
+      ════════════════════════════════════════════════════════ -->
+      {%- assign sub_perk_blocks = section.blocks | where: 'type', 'sub_perk' -%}
 
       <div
         class="gruns-purchase-card active"
@@ -195,30 +207,60 @@
         aria-checked="true"
         tabindex="0"
       >
-        <div class="gruns-popular-tag">Most Popular · Get {{ section.settings.subscribe_discount }}% Off</div>
+        <div class="gruns-popular-tag">{{ section.settings.sub_popular_prefix }} · {{ section.settings.sub_popular_suffix_prefix }} {{ section.settings.subscribe_discount }}% {{ section.settings.sub_popular_suffix_postfix }}</div>
         <div class="gruns-card-top">
           <div class="gruns-card-title-row">
             <div class="gruns-radio-dot active" aria-hidden="true"></div>
-            <div class="gruns-card-title">Subscribe &amp; Save</div>
+            <div class="gruns-card-title">{{ section.settings.sub_card_title }}</div>
           </div>
           <div class="gruns-card-price">
             <div class="gruns-price-main" id="gruns-sub-price-{{ section.id }}">
-              {{ product.selected_or_first_available_variant.price | times: 0.51 | money }}<span class="gruns-price-freq">/mo</span>
+              {{ product.selected_or_first_available_variant.price | times: 0.51 | money }}<span class="gruns-price-freq">{{ section.settings.price_freq_suffix }}</span>
             </div>
             <span class="gruns-price-sub">
               <span class="gruns-price-old" id="gruns-sub-old-{{ section.id }}">
                 {{ product.selected_or_first_available_variant.price | money }}
-              </span> · $1.46/day
+              </span>
+              · <span id="gruns-sub-day-{{ section.id }}">₹0.00{{ section.settings.per_day_suffix }}</span>
             </span>
           </div>
         </div>
-        <div class="gruns-card-desc">28 packs each 4 weeks</div>
+        <div class="gruns-card-desc">{{ section.settings.sub_card_desc }}</div>
+
+        {% if sub_perk_blocks.size > 0 %}
         <ul class="gruns-card-perks">
-          <li>FAST &amp; FREE Shipping</li>
-          <li>Pause Or Cancel Any Time</li>
-          <li>30-Day Guarantee</li>
+          {% for block in sub_perk_blocks %}
+            {% if block.settings.text != blank %}
+            <li {{ block.shopify_attributes }}>
+              <span class="gruns-perk-icon{% unless block.settings.icon_image != blank or block.settings.icon_emoji != blank %} gruns-perk-icon--check{% endunless %}" aria-hidden="true">
+                {%- if block.settings.icon_image != blank -%}
+                  <span class="gruns-perk-icon--img">{{- block.settings.icon_image | image_url: width: 32 | image_tag: loading: 'lazy', alt: '' -}}</span>
+                {%- elsif block.settings.icon_emoji != blank -%}
+                  {{ block.settings.icon_emoji }}
+                {%- endif -%}
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+            {% endif %}
+          {% endfor %}
         </ul>
+        {% else %}
+        <ul class="gruns-card-perks">
+          {% if section.settings.sub_perk_1 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--check" aria-hidden="true"></span><span>{{ section.settings.sub_perk_1 }}</span></li>{% endif %}
+          {% if section.settings.sub_perk_2 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--check" aria-hidden="true"></span><span>{{ section.settings.sub_perk_2 }}</span></li>{% endif %}
+          {% if section.settings.sub_perk_3 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--check" aria-hidden="true"></span><span>{{ section.settings.sub_perk_3 }}</span></li>{% endif %}
+          {% if section.settings.sub_perk_4 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--check" aria-hidden="true"></span><span>{{ section.settings.sub_perk_4 }}</span></li>{% endif %}
+          {% if section.settings.sub_perk_5 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--check" aria-hidden="true"></span><span>{{ section.settings.sub_perk_5 }}</span></li>{% endif %}
+        </ul>
+        {% endif %}
       </div>
+
+      <!-- ═══════════════════════════════════════════════════════
+           One Time Purchase Card
+           Perks: blocks of type "once_perk" (limit 5)
+           Fallback: settings once_perk_1 … once_perk_5
+      ════════════════════════════════════════════════════════ -->
+      {%- assign once_perk_blocks = section.blocks | where: 'type', 'once_perk' -%}
 
       <div
         class="gruns-purchase-card"
@@ -231,22 +273,51 @@
         <div class="gruns-card-top">
           <div class="gruns-card-title-row">
             <div class="gruns-radio-dot" aria-hidden="true"></div>
-            <div class="gruns-card-title">One Time Purchase</div>
+            <div class="gruns-card-title">{{ section.settings.once_card_title }}</div>
           </div>
           <div class="gruns-card-price">
             <div class="gruns-price-main" id="gruns-once-price-{{ section.id }}">
               {{ product.selected_or_first_available_variant.price | money }}
             </div>
             <span class="gruns-price-sub">
-              <span class="gruns-price-old">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
-              · $1.94/day
+              <span class="gruns-price-old" id="gruns-once-old-{{ section.id }}">
+                {{ product.selected_or_first_available_variant.compare_at_price | money }}
+              </span>
+              · <span id="gruns-once-day-{{ section.id }}">₹0.00{{ section.settings.per_day_suffix }}</span>
             </span>
           </div>
         </div>
-        <div class="gruns-card-desc">28 packs delivered once</div>
+        <div class="gruns-card-desc">{{ section.settings.once_card_desc }}</div>
+
+        {% if once_perk_blocks.size > 0 %}
+        <ul class="gruns-card-perks gruns-card-perks--negative">
+          {% for block in once_perk_blocks %}
+            {% if block.settings.text != blank %}
+            <li {{ block.shopify_attributes }}>
+              <span class="gruns-perk-icon{% unless block.settings.icon_image != blank or block.settings.icon_emoji != blank %} gruns-perk-icon--cross{% endunless %}" aria-hidden="true">
+                {%- if block.settings.icon_image != blank -%}
+                  <span class="gruns-perk-icon--img">{{- block.settings.icon_image | image_url: width: 32 | image_tag: loading: 'lazy', alt: '' -}}</span>
+                {%- elsif block.settings.icon_emoji != blank -%}
+                  {{ block.settings.icon_emoji }}
+                {%- endif -%}
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        {% else %}
+        <ul class="gruns-card-perks gruns-card-perks--negative">
+          {% if section.settings.once_perk_1 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--cross" aria-hidden="true"></span><span>{{ section.settings.once_perk_1 }}</span></li>{% endif %}
+          {% if section.settings.once_perk_2 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--cross" aria-hidden="true"></span><span>{{ section.settings.once_perk_2 }}</span></li>{% endif %}
+          {% if section.settings.once_perk_3 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--cross" aria-hidden="true"></span><span>{{ section.settings.once_perk_3 }}</span></li>{% endif %}
+          {% if section.settings.once_perk_4 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--cross" aria-hidden="true"></span><span>{{ section.settings.once_perk_4 }}</span></li>{% endif %}
+          {% if section.settings.once_perk_5 != blank %}<li><span class="gruns-perk-icon gruns-perk-icon--cross" aria-hidden="true"></span><span>{{ section.settings.once_perk_5 }}</span></li>{% endif %}
+        </ul>
+        {% endif %}
       </div>
 
-      <!-- ── ADD TO CART ─────────────────────────────── -->
+      <!-- ADD TO CART -->
       {%- assign gruns_form_id = 'gruns-product-form-' | append: section.id -%}
       {%- form 'product', product, id: gruns_form_id, class: 'gruns-product-form', novalidate: 'novalidate' -%}
         <input type="hidden" name="id" id="gruns-variant-id-{{ section.id }}"
@@ -262,34 +333,71 @@
           aria-label="Add to cart"
         >
           {% if product.selected_or_first_available_variant.available %}
-            Start Now
+            {{ section.settings.cta_available_text }}
           {% else %}
-            Sold Out
+            {{ section.settings.cta_soldout_text }}
           {% endif %}
         </button>
       {%- endform -%}
 
+      {% if section.settings.discount_pill_text != blank %}
       <div class="gruns-discount-pill">
-        <span>✅</span> Limited Time Discount Auto-Applied
+        <span>{{ section.settings.discount_pill_icon }}</span> {{ section.settings.discount_pill_text }}
       </div>
+      {% endif %}
 
-      <!-- Trust Icons -->
+      <!-- ═══════════════════════════════════════════════════════
+           Trust Icons — up to 3
+           image_picker takes priority over emoji per item
+      ════════════════════════════════════════════════════════ -->
       <div class="gruns-trust-row">
+
+        {% if section.settings.trust_1_text != blank %}
         <div class="gruns-trust-item">
-          <div class="gruns-trust-icon" aria-hidden="true">✔️</div>
-          <div class="gruns-trust-text">30-day guarantee</div>
+          <div class="gruns-trust-icon" aria-hidden="true">
+            {% if section.settings.trust_1_image != blank %}
+              {{ section.settings.trust_1_image | image_url: width: 56 | image_tag: loading: 'lazy', alt: '', class: 'gruns-trust-img' }}
+            {% elsif section.settings.trust_1_icon != blank %}
+              {{ section.settings.trust_1_icon }}
+            {% endif %}
+          </div>
+          <div class="gruns-trust-text">{{ section.settings.trust_1_text }}</div>
         </div>
+        {% endif %}
+
+        {% if section.settings.trust_2_text != blank %}
         <div class="gruns-trust-item">
-          <div class="gruns-trust-icon" aria-hidden="true">🔬</div>
-          <div class="gruns-trust-text">Clinically and 3rd party tested</div>
+          <div class="gruns-trust-icon" aria-hidden="true">
+            {% if section.settings.trust_2_image != blank %}
+              {{ section.settings.trust_2_image | image_url: width: 56 | image_tag: loading: 'lazy', alt: '', class: 'gruns-trust-img' }}
+            {% elsif section.settings.trust_2_icon != blank %}
+              {{ section.settings.trust_2_icon }}
+            {% endif %}
+          </div>
+          <div class="gruns-trust-text">{{ section.settings.trust_2_text }}</div>
         </div>
+        {% endif %}
+
+        {% if section.settings.trust_3_text != blank %}
         <div class="gruns-trust-item">
-          <div class="gruns-trust-icon" aria-hidden="true">💳</div>
-          <div class="gruns-trust-text">HSA/FSA eligible with Truemed</div>
+          <div class="gruns-trust-icon" aria-hidden="true">
+            {% if section.settings.trust_3_image != blank %}
+              {{ section.settings.trust_3_image | image_url: width: 56 | image_tag: loading: 'lazy', alt: '', class: 'gruns-trust-img' }}
+            {% elsif section.settings.trust_3_icon != blank %}
+              {{ section.settings.trust_3_icon }}
+            {% endif %}
+          </div>
+          <div class="gruns-trust-text">{{ section.settings.trust_3_text }}</div>
         </div>
+        {% endif %}
+
       </div>
 
-      <!-- ── ACCORDION ──────────────────────────────── -->
+      <!-- ═══════════════════════════════════════════════════════
+           ACCORDION
+           Header icon: image_picker first, then emoji
+           Body: optional acc_image with position control
+      ════════════════════════════════════════════════════════ -->
       <div class="gruns-accordion" role="list">
         {% for block in section.blocks %}
           {% if block.type == 'accordion' %}
@@ -299,16 +407,42 @@
               aria-expanded="false"
               aria-controls="gruns-acc-body-{{ block.id }}"
             >
-              {{ block.settings.title }}
-              <span class="gruns-acc-icon" aria-hidden="true">+</span>
+              {% if block.settings.icon_image != blank %}
+                <span class="gruns-acc-header-icon gruns-acc-header-icon--img" aria-hidden="true">
+                  {{- block.settings.icon_image | image_url: width: 40 | image_tag: loading: 'lazy', alt: '' -}}
+                </span>
+              {% elsif block.settings.icon_emoji != blank %}
+                <span class="gruns-acc-header-icon" aria-hidden="true">{{ block.settings.icon_emoji }}</span>
+              {% endif %}
+              <span class="gruns-acc-header-title">{{ block.settings.title }}</span>
+              <span class="gruns-acc-icon" aria-hidden="true">{{ section.settings.accordion_open_icon }}</span>
             </button>
             <div
               class="gruns-acc-body"
               id="gruns-acc-body-{{ block.id }}"
               role="region"
             >
-              <div class="gruns-acc-body-inner">
-                {{ block.settings.content }}
+              <div
+                class="gruns-acc-body-inner{% if block.settings.acc_image != blank %} gruns-acc-has-image{% endif %}"
+                {% if block.settings.acc_image != blank %}data-img-pos="{{ block.settings.image_position | default: 'left' }}"{% endif %}
+              >
+                {% if block.settings.acc_image != blank %}
+                <div class="gruns-acc-image-wrap">
+                  {{
+                    block.settings.acc_image
+                    | image_url: width: 600
+                    | image_tag:
+                        loading: 'lazy',
+                        alt: block.settings.acc_image.alt | default: block.settings.title,
+                        class: 'gruns-acc-image',
+                        widths: '300, 400, 600',
+                        sizes: '(max-width: 640px) 100vw, 260px'
+                  }}
+                </div>
+                {% endif %}
+                <div class="gruns-acc-text-wrap">
+                  {{ block.settings.content }}
+                </div>
               </div>
             </div>
           </div>
@@ -316,50 +450,54 @@
         {% endfor %}
       </div>
 
-      <!-- ══════════════════════════════════════════
-       TASTE & PACKED SECTION
-  ════════════════════════════════════════════ -->
-  {% assign taste_blocks = section.blocks | where: 'type', 'taste' %}
-  {% assign packed_blocks = section.blocks | where: 'type', 'ingredient' %}
+      <!-- TASTE & PACKED -->
+      {% assign taste_blocks  = section.blocks | where: 'type', 'taste' %}
+      {% assign packed_blocks = section.blocks | where: 'type', 'ingredient' %}
 
-  {% if taste_blocks.size > 0 or packed_blocks.size > 0 %}
-  <div class="gruns-extra-section">
+      {% if taste_blocks.size > 0 or packed_blocks.size > 0 %}
+      <div class="gruns-extra-section">
 
-    {% if taste_blocks.size > 0 %}
-    <h3 class="gruns-extra-heading">Tastes Like</h3>
-    <div class="gruns-taste-row">
-      {% for block in taste_blocks %}
-      <div class="gruns-taste-item" {{ block.shopify_attributes }}>
-        <div class="gruns-taste-icon">{{ block.settings.icon }}</div>
-        <span>{{ block.settings.label }}</span>
+        {% if taste_blocks.size > 0 %}
+        <h3 class="gruns-extra-heading">{{ section.settings.taste_heading }}</h3>
+        <div class="gruns-taste-row">
+          {% for block in taste_blocks %}
+          <div class="gruns-taste-item" {{ block.shopify_attributes }}>
+            <div class="gruns-taste-icon">
+              {% if block.settings.icon_image != blank %}
+                {{ block.settings.icon_image | image_url: width: 80 | image_tag: loading: 'lazy', alt: block.settings.label | default: '', class: 'gruns-taste-img' }}
+              {% else %}
+                {{ block.settings.icon }}
+              {% endif %}
+            </div>
+            <span>{{ block.settings.label }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if packed_blocks.size > 0 %}
+        <h3 class="gruns-extra-heading">{{ section.settings.packed_heading }}</h3>
+        <div class="gruns-packed-row">
+          {% for block in packed_blocks %}
+          <div class="gruns-packed-item" {{ block.shopify_attributes }}>
+            <span class="gruns-packed-icon">
+              {% if block.settings.icon_image != blank %}
+                {{ block.settings.icon_image | image_url: width: 48 | image_tag: loading: 'lazy', alt: block.settings.label | default: '', class: 'gruns-packed-img' }}
+              {% else %}
+                {{ block.settings.icon }}
+              {% endif %}
+            </span>
+            {{ block.settings.label }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
       </div>
-      {% endfor %}
-    </div>
-    {% endif %}
+      {% endif %}
 
-    {% if packed_blocks.size > 0 %}
-    <h3 class="gruns-extra-heading">Packed With</h3>
-    <div class="gruns-packed-row">
-      {% for block in packed_blocks %}
-      <div class="gruns-packed-item" {{ block.shopify_attributes }}>
-        <span class="gruns-packed-icon">{{ block.settings.icon }}</span>
-        {{ block.settings.label }}
-      </div>
-      {% endfor %}
     </div>
-    {% endif %}
-
   </div>
-  {% endif %}
-
-
-    </div>
-    <!-- /.gruns-details-col -->
-  </div>
-  <!-- /.gruns-product-grid -->
-
-
-  
 
 </div>
 </section>
@@ -367,20 +505,26 @@
 <script src="{{ 'gruns-product-section.js' | asset_url }}" defer></script>
 
 <script>
-  // Pass Liquid data to JS
   window.GrunsProduct_{{ section.id | replace: '-', '_' }} = {
-    sectionId: '{{ section.id }}',
-    productHandle: '{{ product.handle }}',
-    variantsJson: {{ product.variants | json }},
-    subscribeDiscount: {{ section.settings.subscribe_discount }},
-    currencySymbol: '{{ cart.currency.symbol }}',
+    sectionId:               '{{ section.id }}',
+    productHandle:           '{{ product.handle }}',
+    variantsJson:            {{ product.variants | json }},
+    subscribeDiscount:       {{ section.settings.subscribe_discount }},
+    currencySymbol:          '₹',
+    perDaySuffix:            '{{ section.settings.per_day_suffix | escape }}',
+    priceFreqSuffix:         '{{ section.settings.price_freq_suffix | escape }}',
+    ctaAvailableText:        '{{ section.settings.cta_available_text | escape }}',
+    ctaSoldoutText:          '{{ section.settings.cta_soldout_text | escape }}',
+    subPopularPrefix:        '{{ section.settings.sub_popular_prefix | escape }}',
+    subPopularSuffixPrefix:  '{{ section.settings.sub_popular_suffix_prefix | escape }}',
+    subPopularSuffixPostfix: '{{ section.settings.sub_popular_suffix_postfix | escape }}',
     variantImages: {
       {%- for variant in product.variants -%}
         {%- if variant.featured_image -%}
           "{{ variant.id }}": {
-            "src": "{{ variant.featured_image | image_url: width: 800 }}",
-            "thumb": "{{ variant.featured_image | image_url: width: 120 }}",
-            "alt": {{ variant.featured_image.alt | default: variant.title | json }},
+            "src":      "{{ variant.featured_image | image_url: width: 800 }}",
+            "thumb":    "{{ variant.featured_image | image_url: width: 120 }}",
+            "alt":      {{ variant.featured_image.alt | default: variant.title | json }},
             "position": {{ variant.featured_image.position | minus: 1 }}
           }{%- unless forloop.last -%},{%- endunless -%}
         {%- endif -%}
@@ -389,6 +533,277 @@
   };
 </script>
 
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   gruns-product-section.js  –  assets/gruns-product-section.js
+═══════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  function formatMoney(cents, symbol) {
+    symbol = symbol || '₹';
+    return symbol + (cents / 100).toFixed(2);
+  }
+
+  function GrunsProductSection(sectionEl) {
+    this.section   = sectionEl;
+    this.sectionId = sectionEl.dataset.sectionId;
+    var configKey        = 'GrunsProduct_' + this.sectionId.replace(/-/g, '_');
+    this.config          = window[configKey] || {};
+    this.variants        = this.config.variantsJson || [];
+    this.discount        = parseInt(this.config.subscribeDiscount, 10) || 49;
+    this.currency        = this.config.currencySymbol || '₹';
+    this.perDaySuffix    = this.config.perDaySuffix    || '/day';
+    this.priceFreqSuffix = this.config.priceFreqSuffix || '/mo';
+    this.selectedOptions = {};
+    this.qty             = 1;
+    this.purchaseType    = 'subscription';
+    this._initGallery();
+    this._initVariantToggles();
+    this._initQtyToggle();
+    this._initPurchaseCards();
+    this._initAccordion();
+    this._updatePricing();
+  }
+
+  GrunsProductSection.prototype._initGallery = function () {
+    var self   = this;
+    var thumbs = this.section.querySelectorAll('.gruns-thumb');
+    var slides = this.section.querySelectorAll('.gruns-slide');
+    if (!thumbs.length) return;
+    thumbs.forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        var idx = parseInt(this.dataset.index, 10);
+        thumbs.forEach(function (t) { t.classList.remove('active'); });
+        this.classList.add('active');
+        slides.forEach(function (s) { s.classList.remove('active'); });
+        var target = self.section.querySelector('.gruns-slide[data-slide="' + idx + '"]');
+        if (target) target.classList.add('active');
+      });
+    });
+  };
+
+  GrunsProductSection.prototype._initVariantToggles = function () {
+    var self    = this;
+    var buttons = this.section.querySelectorAll('.gruns-toggle-btn');
+    if (!buttons.length) return;
+    buttons.forEach(function (btn) {
+      if (btn.classList.contains('active') || btn.getAttribute('aria-pressed') === 'true') {
+        self.selectedOptions[btn.dataset.option] = btn.dataset.value;
+      }
+    });
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var optIdx = this.dataset.option;
+        self.section.querySelectorAll('.gruns-toggle-btn[data-option="' + optIdx + '"]')
+          .forEach(function (b) { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+        self.selectedOptions[optIdx] = this.dataset.value;
+        self._matchVariant();
+        self._updatePricing();
+      });
+    });
+  };
+
+  GrunsProductSection.prototype._initQtyToggle = function () {
+    var self    = this;
+    var buttons = this.section.querySelectorAll('.gruns-qty-btn');
+    var pill    = this.section.querySelector('.gruns-save-pill');
+    if (!buttons.length) return;
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+        self.qty = parseInt(this.dataset.qty, 10) || 1;
+        var qtyInput = self.section.querySelector('#gruns-quantity-' + self.sectionId);
+        if (qtyInput) qtyInput.value = self.qty;
+        if (pill) pill.classList.toggle('gruns-save-pill--active', self.qty >= 2);
+        self._updatePricing();
+      });
+    });
+  };
+
+  GrunsProductSection.prototype._initPurchaseCards = function () {
+    var self  = this;
+    var cards = this.section.querySelectorAll('.gruns-purchase-card');
+    if (!cards.length) return;
+    cards.forEach(function (card) {
+      card.addEventListener('click', function () { self._selectCard(this.dataset.type); });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); self._selectCard(this.dataset.type); }
+      });
+    });
+  };
+
+  GrunsProductSection.prototype._selectCard = function (type) {
+    var self = this;
+    this.purchaseType = type;
+    this.section.querySelectorAll('.gruns-purchase-card').forEach(function (card) {
+      var isActive = card.dataset.type === type;
+      card.classList.toggle('active', isActive);
+      card.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      var dot = card.querySelector('.gruns-radio-dot');
+      if (dot) dot.classList.toggle('active', isActive);
+    });
+    self._updatePricing();
+  };
+
+  GrunsProductSection.prototype._initAccordion = function () {
+    var headers = this.section.querySelectorAll('.gruns-acc-header');
+    if (!headers.length) return;
+    headers.forEach(function (header) {
+      header.addEventListener('click', function () {
+        var bodyId = this.getAttribute('aria-controls');
+        var body   = document.getElementById(bodyId);
+        var isOpen = this.getAttribute('aria-expanded') === 'true';
+        headers.forEach(function (h) {
+          h.setAttribute('aria-expanded', 'false');
+          var b = document.getElementById(h.getAttribute('aria-controls'));
+          if (b) b.classList.remove('open');
+        });
+        if (!isOpen) {
+          this.setAttribute('aria-expanded', 'true');
+          if (body) body.classList.add('open');
+        }
+      });
+    });
+  };
+
+  GrunsProductSection.prototype._matchVariant = function () {
+    if (!this.variants.length) return;
+    var self         = this;
+    var optionValues = Object.values(self.selectedOptions);
+    var matched      = null;
+    this.variants.forEach(function (v) {
+      var match = v.options.every(function (opt, idx) {
+        return optionValues[idx] === undefined || opt === optionValues[idx];
+      });
+      if (match) matched = v;
+    });
+    if (matched) {
+      this.currentVariant = matched;
+      var varInput = this.section.querySelector('#gruns-variant-id-' + this.sectionId);
+      if (varInput) varInput.value = matched.id;
+      var ctaBtn = this.section.querySelector('#gruns-cta-' + this.sectionId);
+      if (ctaBtn) {
+        ctaBtn.disabled = !matched.available;
+        if (!matched.available) ctaBtn.textContent = self.config.ctaSoldoutText || 'Sold Out';
+      }
+      this._switchVariantImage(matched);
+    }
+  };
+
+  GrunsProductSection.prototype._switchVariantImage = function (variant) {
+    var variantImages = this.config.variantImages || {};
+    var imgData  = variantImages[variant.id];
+    if (!imgData) return;
+    var slides   = this.section.querySelectorAll('.gruns-slide');
+    var thumbs   = this.section.querySelectorAll('.gruns-thumb');
+    var position = imgData.position;
+    var targetSlide = this.section.querySelector('.gruns-slide[data-slide="' + position + '"]');
+    if (targetSlide) {
+      slides.forEach(function (s) { s.classList.remove('active'); });
+      targetSlide.classList.add('active');
+      thumbs.forEach(function (t) { t.classList.remove('active'); });
+      var th = this.section.querySelector('.gruns-thumb[data-index="' + position + '"]');
+      if (th) th.classList.add('active');
+      return;
+    }
+    var firstSlide = this.section.querySelector('.gruns-slide[data-slide="0"]');
+    if (!firstSlide) return;
+    var existingImg = firstSlide.querySelector('img.gruns-variant-injected');
+    if (existingImg) {
+      existingImg.src = imgData.src; existingImg.alt = imgData.alt;
+    } else {
+      var img = document.createElement('img');
+      img.src = imgData.src; img.alt = imgData.alt;
+      img.className = 'gruns-product-img gruns-variant-injected';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;';
+      firstSlide.style.position = 'relative';
+      firstSlide.appendChild(img);
+    }
+    slides.forEach(function (s) { s.classList.remove('active'); });
+    firstSlide.classList.add('active');
+    var th2 = this.section.querySelector('.gruns-thumb[data-index="0"]');
+    if (th2) {
+      thumbs.forEach(function (t) { t.classList.remove('active'); });
+      th2.classList.add('active');
+      var tImg = th2.querySelector('img');
+      if (tImg) { tImg.src = imgData.thumb; tImg.alt = imgData.alt; }
+    }
+  };
+
+  GrunsProductSection.prototype._updatePricing = function () {
+    var variant = this.currentVariant || (this.variants.length ? this.variants[0] : null);
+    if (!variant) return;
+    var basePrice    = variant.price;
+    var comparePrice = variant.compare_at_price || basePrice;
+    var qty          = this.qty;
+    var sid          = this.sectionId;
+    var sym          = this.currency;
+    var daySuffix    = this.perDaySuffix;
+    var freqSuffix   = this.priceFreqSuffix;
+    var cfg          = this.config;
+    var qtyDiscount    = qty >= 2 ? 0.95 : 1.0;
+    var subDiscountPct = this.discount + (qty >= 2 ? 3 : 0);
+    var subMultiplier  = 1 - (subDiscountPct / 100);
+    var oncePrice = Math.round(basePrice * qty * qtyDiscount);
+    var subPrice  = Math.round(oncePrice * subMultiplier);
+    var oldOnce   = comparePrice * qty;
+    var onceDayPrice = (oncePrice / 100 / 28).toFixed(2);
+    var subDayPrice  = (subPrice  / 100 / 28).toFixed(2);
+
+    var subPriceEl = this.section.querySelector('#gruns-sub-price-' + sid);
+    if (subPriceEl) subPriceEl.innerHTML = formatMoney(subPrice, sym) + '<span class="gruns-price-freq">' + freqSuffix + '</span>';
+    var subOldEl = this.section.querySelector('#gruns-sub-old-' + sid);
+    if (subOldEl) subOldEl.textContent = formatMoney(oldOnce, sym) + freqSuffix;
+    var subDayEl = this.section.querySelector('#gruns-sub-day-' + sid);
+    if (subDayEl) subDayEl.textContent = sym + subDayPrice + daySuffix;
+
+    var popularTag = this.section.querySelector('#gruns-card-sub-' + sid + ' .gruns-popular-tag');
+    if (popularTag) {
+      popularTag.textContent =
+        (cfg.subPopularPrefix || 'Most Popular') + ' · ' +
+        (cfg.subPopularSuffixPrefix || 'Get') + ' ' +
+        subDiscountPct + '% ' +
+        (cfg.subPopularSuffixPostfix || 'Off');
+    }
+
+    var oncePriceEl = this.section.querySelector('#gruns-once-price-' + sid);
+    if (oncePriceEl) oncePriceEl.textContent = formatMoney(oncePrice, sym);
+    var onceOldEl = this.section.querySelector('#gruns-once-old-' + sid);
+    if (onceOldEl) onceOldEl.textContent = formatMoney(oldOnce, sym);
+    var onceDayEl = this.section.querySelector('#gruns-once-day-' + sid);
+    if (onceDayEl) onceDayEl.textContent = sym + onceDayPrice + daySuffix;
+
+    var ctaBtn = this.section.querySelector('#gruns-cta-' + sid);
+    if (ctaBtn && !ctaBtn.disabled) {
+      var displayPrice = this.purchaseType === 'subscription'
+        ? formatMoney(subPrice, sym) + freqSuffix
+        : formatMoney(oncePrice, sym);
+      ctaBtn.textContent = (cfg.ctaAvailableText || 'Start Now') + ' — ' + displayPrice;
+    }
+  };
+
+  function boot() {
+    document.querySelectorAll('[data-section-type="gruns-product"]').forEach(function (el) {
+      new GrunsProductSection(el);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  document.addEventListener('shopify:section:load', function (e) {
+    var el = e.target.querySelector('[data-section-type="gruns-product"]');
+    if (el) new GrunsProductSection(el);
+  });
+
+})();
+</script>
 
 {% schema %}
 {
@@ -396,176 +811,230 @@
   "tag": "section",
   "class": "gruns-section-wrapper",
   "settings": [
-    {
-      "type": "header",
-      "content": "Product"
-    },
-    {
-      "type": "product",
-      "id": "product",
-      "label": "Product"
-    },
+
+    { "type": "header", "content": "── Layout & Spacing ──" },
     {
       "type": "text",
-      "id": "product_title",
-      "label": "Product Title (fallback)",
-      "default": "Grüns Superfood Gummies"
+      "id": "custom_classes",
+      "label": "Custom CSS Classes",
+      "info": "Space-separated class names injected into the <section> tag. e.g. my-hero dark-bg"
     },
     {
-      "type": "header",
-      "content": "Headlines & Badges"
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1" },
+        { "value": "scheme-2", "label": "Scheme 2" },
+        { "value": "scheme-3", "label": "Scheme 3" },
+        { "value": "scheme-4", "label": "Scheme 4" },
+        { "value": "scheme-5", "label": "Scheme 5" }
+      ],
+      "default": "scheme-1",
+      "label": "Color Scheme"
     },
-    {
-      "type": "textarea",
-      "id": "page_headline",
-      "label": "Page Headline",
-      "default": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!"
-    },
-    {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge Text",
-      "default": "3rd-Party Tested"
-    },
-    {
-      "type": "header",
-      "content": "Image / Gallery"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_offer_ribbon",
-      "label": "Show offer ribbon on image",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "offer_ribbon_text",
-      "label": "Offer Ribbon Text",
-      "default": "LIMITED TIME OFFER: SAVE UP TO 52%"
-    },
-    {
-      "type": "url",
-      "id": "nutrition_label_url",
-      "label": "Nutrition Label URL (PDF or page)"
-    },
-    {
-      "type": "richtext",
-      "id": "tested_text",
-      "label": "Tested Badge Text",
-      "default": "<p>Tested by Light Labs in <strong>FEB 2026</strong><br>35 substances tested for quality</p>"
-    },
-    {
-      "type": "header",
-      "content": "Reviews"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_reviews",
-      "label": "Show review stars",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "review_score",
-      "label": "Review Score",
-      "default": "4.8/5.0"
-    },
-    {
-      "type": "text",
-      "id": "review_count",
-      "label": "Review Count",
-      "default": "85,000"
-    },
-    {
-      "type": "text",
-      "id": "customer_count",
-      "label": "Customer Count",
-      "default": "1M+ Customers"
-    },
-    {
-      "type": "header",
-      "content": "Pricing"
-    },
+    { "type": "checkbox", "id": "full_width", "label": "Full Width", "default": false },
+    { "type": "range", "id": "padding_top",    "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Top",    "default": 36 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 36 },
+
+    { "type": "header", "content": "── Product ──" },
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "text", "id": "product_title", "label": "Product Title (fallback)", "default": "Grüns Superfood Gummies" },
+
+    { "type": "header", "content": "── Page Headline & Badge ──" },
+    { "type": "textarea", "id": "page_headline", "label": "Page Headline", "default": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!" },
+    { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "3rd-Party Tested" },
+
+    { "type": "header", "content": "── Gallery / Ribbon ──" },
+    { "type": "checkbox", "id": "show_offer_ribbon", "label": "Show offer ribbon on image", "default": true },
+    { "type": "text", "id": "offer_ribbon_icon", "label": "Ribbon Icon (emoji)", "default": "🔥" },
+    { "type": "text", "id": "offer_ribbon_text", "label": "Offer Ribbon Text", "default": "LIMITED TIME OFFER: SAVE UP TO 52%" },
+
+    { "type": "header", "content": "── Nutrition & Tested Badge ──" },
+    { "type": "url",          "id": "nutrition_label_url",  "label": "Nutrition Label URL" },
+    { "type": "text",         "id": "nutrition_label_text", "label": "Nutrition Button Label", "default": "View Nutrition Label" },
+    { "type": "image_picker", "id": "tested_icon_image",    "label": "Tested Badge Icon — Upload Image", "info": "Overrides emoji if set." },
+    { "type": "text",         "id": "tested_icon",          "label": "Tested Badge Icon — Emoji (fallback)", "default": "✔️" },
+    { "type": "richtext",     "id": "tested_text",          "label": "Tested Badge Text", "default": "<p>Tested by Light Labs in <strong>FEB 2026</strong><br>35 substances tested for quality</p>" },
+
+    { "type": "header", "content": "── Reviews ──" },
+    { "type": "checkbox", "id": "show_reviews",   "label": "Show review stars", "default": true },
+    { "type": "text",     "id": "star_icons",     "label": "Star Icons",        "default": "★★★★★" },
+    { "type": "text",     "id": "review_score",   "label": "Review Score",      "default": "4.8/5.0" },
+    { "type": "text",     "id": "review_count",   "label": "Review Count",      "default": "85,000" },
+    { "type": "text",     "id": "customer_count", "label": "Customer Count",    "default": "1M+ Customers" },
+
+    { "type": "header", "content": "── Variant Fallback ──" },
+    { "type": "text", "id": "variant_fallback_label", "label": "Fallback Option Label",   "default": "Select Sugar Level" },
+    { "type": "text", "id": "variant_option1_label",  "label": "Fallback Option 1 Label", "default": "Low Sugar" },
+    { "type": "text", "id": "variant_option2_label",  "label": "Fallback Option 2 Label", "default": "Sugar-Free" },
+
+    { "type": "header", "content": "── Quantity Selector ──" },
+    { "type": "text", "id": "qty_label",      "label": "Qty Section Label",      "default": "How many Adults?" },
+    { "type": "text", "id": "qty_save_icon",  "label": "Save Pill Icon (emoji)", "default": "🏷" },
+    { "type": "text", "id": "qty_save_text",  "label": "Save Pill Text",         "default": "Buy 2 Save 5%" },
+    { "type": "text", "id": "qty_btn1_label", "label": "Qty Button 1 Label",     "default": "1" },
+    { "type": "text", "id": "qty_btn2_label", "label": "Qty Button 2 Label",     "default": "2" },
+
+    { "type": "header", "content": "── Autoship Label ──" },
+    { "type": "text", "id": "autoship_label", "label": "Autoship Section Label", "default": "Autoship and Save:" },
+
+    { "type": "header", "content": "── Subscribe & Save Card ──" },
+    { "type": "text", "id": "sub_popular_prefix",         "label": "Popular Tag — prefix",      "default": "Most Popular" },
+    { "type": "text", "id": "sub_popular_suffix_prefix",  "label": "Popular Tag — before %",    "default": "Get" },
+    { "type": "text", "id": "sub_popular_suffix_postfix", "label": "Popular Tag — after %",     "default": "Off" },
+    { "type": "text", "id": "sub_card_title",             "label": "Subscribe Card Title",      "default": "Subscribe & Save" },
+    { "type": "text", "id": "price_freq_suffix",          "label": "Price Frequency Suffix",    "default": "/mo" },
+    { "type": "text", "id": "per_day_suffix",             "label": "Per-Day Price Suffix",      "default": "/day" },
+    { "type": "text", "id": "sub_card_desc",              "label": "Subscribe Card Description","default": "28 packs each 4 weeks" },
+    { "type": "paragraph", "content": "Fallback perks — used only when no 'Subscribe Perk' blocks are added below." },
+    { "type": "text", "id": "sub_perk_1", "label": "Fallback Subscribe Perk 1", "default": "FAST & FREE Shipping" },
+    { "type": "text", "id": "sub_perk_2", "label": "Fallback Subscribe Perk 2", "default": "Pause Or Cancel Any Time" },
+    { "type": "text", "id": "sub_perk_3", "label": "Fallback Subscribe Perk 3", "default": "30-Day Guarantee" },
+    { "type": "text", "id": "sub_perk_4", "label": "Fallback Subscribe Perk 4" },
+    { "type": "text", "id": "sub_perk_5", "label": "Fallback Subscribe Perk 5" },
     {
       "type": "range",
       "id": "subscribe_discount",
-      "min": 10,
-      "max": 60,
-      "step": 1,
-      "unit": "%",
-      "label": "Subscribe & Save Discount",
-      "default": 49
-    }
+      "min": 10, "max": 60, "step": 1, "unit": "%",
+      "label": "Subscribe & Save Discount (qty=1)",
+      "default": 49,
+      "info": "qty=2 automatically adds 3% more."
+    },
+
+    { "type": "header", "content": "── One-Time Purchase Card ──" },
+    { "type": "text", "id": "once_card_title", "label": "One-Time Card Title",       "default": "One Time Purchase" },
+    { "type": "text", "id": "once_card_desc",  "label": "One-Time Card Description", "default": "28 packs delivered once" },
+    { "type": "paragraph", "content": "Fallback perks — used only when no 'One-Time Perk' blocks are added below." },
+    { "type": "text", "id": "once_perk_1", "label": "Fallback One-Time Perk 1", "default": "No Free Shipping" },
+    { "type": "text", "id": "once_perk_2", "label": "Fallback One-Time Perk 2", "default": "Discount on first order only" },
+    { "type": "text", "id": "once_perk_3", "label": "Fallback One-Time Perk 3" },
+    { "type": "text", "id": "once_perk_4", "label": "Fallback One-Time Perk 4" },
+    { "type": "text", "id": "once_perk_5", "label": "Fallback One-Time Perk 5" },
+
+    { "type": "header", "content": "── CTA Button ──" },
+    { "type": "text", "id": "cta_available_text", "label": "CTA Button (available)", "default": "Start Now" },
+    { "type": "text", "id": "cta_soldout_text",   "label": "CTA Button (sold out)",  "default": "Sold Out" },
+
+    { "type": "header", "content": "── Discount Pill ──" },
+    { "type": "text", "id": "discount_pill_icon", "label": "Discount Pill Icon (emoji)", "default": "✅" },
+    { "type": "text", "id": "discount_pill_text", "label": "Discount Pill Text",         "default": "Limited Time Discount Auto-Applied" },
+
+    { "type": "header", "content": "── Trust Icon 1 ──" },
+    { "type": "image_picker", "id": "trust_1_image", "label": "Upload Image (overrides emoji)" },
+    { "type": "text",         "id": "trust_1_icon",  "label": "Emoji (fallback)", "default": "✔️" },
+    { "type": "text",         "id": "trust_1_text",  "label": "Trust Text 1",     "default": "30-day guarantee" },
+
+    { "type": "header", "content": "── Trust Icon 2 ──" },
+    { "type": "image_picker", "id": "trust_2_image", "label": "Upload Image (overrides emoji)" },
+    { "type": "text",         "id": "trust_2_icon",  "label": "Emoji (fallback)", "default": "🔬" },
+    { "type": "text",         "id": "trust_2_text",  "label": "Trust Text 2",     "default": "Clinically and 3rd party tested" },
+
+    { "type": "header", "content": "── Trust Icon 3 ──" },
+    { "type": "image_picker", "id": "trust_3_image", "label": "Upload Image (overrides emoji)" },
+    { "type": "text",         "id": "trust_3_icon",  "label": "Emoji (fallback)", "default": "💳" },
+    { "type": "text",         "id": "trust_3_text",  "label": "Trust Text 3",     "default": "HSA/FSA eligible with Truemed" },
+
+    { "type": "header", "content": "── Accordion ──" },
+    { "type": "text", "id": "accordion_open_icon", "label": "Accordion Toggle Icon", "default": "+" },
+
+    { "type": "header", "content": "── Taste & Packed Headings ──" },
+    { "type": "text", "id": "taste_heading",  "label": "Tastes Like Heading", "default": "Tastes Like" },
+    { "type": "text", "id": "packed_heading", "label": "Packed With Heading", "default": "Packed With" }
+
   ],
+
   "blocks": [
+
+    {
+      "type": "sub_perk",
+      "name": "Subscribe Perk",
+      "limit": 5,
+      "settings": [
+        { "type": "image_picker", "id": "icon_image", "label": "Perk Icon — Upload Image", "info": "Overrides emoji if set." },
+        { "type": "text",         "id": "icon_emoji", "label": "Perk Icon — Emoji (fallback)", "default": "✓" },
+        { "type": "text",         "id": "text",        "label": "Perk Text", "default": "FAST & FREE Shipping" }
+      ]
+    },
+
+    {
+      "type": "once_perk",
+      "name": "One-Time Perk",
+      "limit": 5,
+      "settings": [
+        { "type": "image_picker", "id": "icon_image", "label": "Perk Icon — Upload Image", "info": "Overrides emoji if set." },
+        { "type": "text",         "id": "icon_emoji", "label": "Perk Icon — Emoji (fallback)", "default": "✗" },
+        { "type": "text",         "id": "text",        "label": "Perk Text", "default": "No Free Shipping" }
+      ]
+    },
+
     {
       "type": "accordion",
       "name": "FAQ Accordion",
       "settings": [
+        { "type": "image_picker", "id": "icon_image",  "label": "Header Icon — Upload Image", "info": "Overrides emoji if set." },
+        { "type": "text",         "id": "icon_emoji",  "label": "Header Icon — Emoji (fallback)" },
+        { "type": "text",         "id": "title",        "label": "Question", "default": "Why Grüns?" },
+        { "type": "richtext",     "id": "content",      "label": "Answer",   "default": "<p>Grüns combines 60+ whole-food ingredients into a convenient daily gummy.</p>" },
+        { "type": "image_picker", "id": "acc_image",   "label": "Body Image (optional)", "info": "Shown beside the answer when the accordion is open." },
         {
-          "type": "text",
-          "id": "title",
-          "label": "Question",
-          "default": "Why Grüns?"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "Answer",
-          "default": "<p>Grüns combines 60+ whole-food ingredients into a convenient daily gummy.</p>"
+          "type": "select",
+          "id": "image_position",
+          "label": "Image Position",
+          "options": [
+            { "value": "left",   "label": "Left of text" },
+            { "value": "right",  "label": "Right of text" },
+            { "value": "top",    "label": "Above text" },
+            { "value": "bottom", "label": "Below text" }
+          ],
+          "default": "left"
         }
       ]
     },
+
     {
       "type": "taste",
       "name": "Taste Item",
       "settings": [
-        {
-          "type": "text",
-          "id": "icon",
-          "label": "Emoji Icon",
-          "default": "🍓"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Strawberry"
-        }
+        { "type": "image_picker", "id": "icon_image", "label": "Icon — Upload Image", "info": "Overrides emoji if set. Shown inside the circle icon." },
+        { "type": "text",         "id": "icon",        "label": "Icon — Emoji (fallback)", "default": "🍓" },
+        { "type": "text",         "id": "label",        "label": "Label", "default": "Strawberry" }
       ]
     },
+
     {
       "type": "ingredient",
       "name": "Packed With Item",
       "settings": [
-        {
-          "type": "text",
-          "id": "icon",
-          "label": "Emoji Icon",
-          "default": "🥦"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Whole Veggies"
-        }
+        { "type": "image_picker", "id": "icon_image", "label": "Icon — Upload Image", "info": "Overrides emoji if set." },
+        { "type": "text",         "id": "icon",        "label": "Icon — Emoji (fallback)", "default": "🥦" },
+        { "type": "text",         "id": "label",        "label": "Label", "default": "Whole Veggies" }
       ]
     }
+
   ],
+
   "presets": [
     {
       "name": "Grüns Product Section",
       "blocks": [
-        { "type": "accordion", "settings": { "title": "Why Grüns?", "content": "<p>Grüns combines 60+ whole-food ingredients — veggies, fruits, adaptogens, mushrooms, and more — into a convenient daily gummy. No chalky powders, no big pills. Just real nutrition in a delicious bite-sized pack.</p>" } },
-        { "type": "accordion", "settings": { "title": "Ingredients & Allergies", "content": "<p>Made with whole vegetables, fruits, vitamins, minerals, adaptogens, herbs, antioxidants, prebiotics, and super mushrooms. Free from major allergens. Third-party tested.</p>" } },
-        { "type": "accordion", "settings": { "title": "Low Sugar vs. Sugar-Free", "content": "<p><strong>Low Sugar</strong> uses a small amount of organic cane sugar. <strong>Sugar-Free</strong> is sweetened with monk fruit and erythritol — ideal for keto lifestyles.</p>" } },
-        { "type": "accordion", "settings": { "title": "Science & Certifications", "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs for 35 substances. HSA/FSA eligible through Truemed.</p>" } },
-        { "type": "accordion", "settings": { "title": "Directions", "content": "<p>Take 2 gummies daily with a meal. Each pack contains your daily serving. Not intended for children under 12 without physician guidance.</p>" } },
-        { "type": "accordion", "settings": { "title": "Benefits", "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>" } },
-        { "type": "taste", "settings": { "icon": "🌿", "label": "Fresh & Light" } },
-        { "type": "taste", "settings": { "icon": "🍓", "label": "Strawberry" } },
-        { "type": "taste", "settings": { "icon": "🟢", "label": "Sweet Greens" } },
+        { "type": "sub_perk",   "settings": { "icon_emoji": "🚀", "text": "FAST & FREE Shipping" } },
+        { "type": "sub_perk",   "settings": { "icon_emoji": "⏸️", "text": "Pause Or Cancel Any Time" } },
+        { "type": "sub_perk",   "settings": { "icon_emoji": "🛡️", "text": "30-Day Guarantee" } },
+        { "type": "sub_perk",   "settings": { "icon_emoji": "💰", "text": "Lowest Price Guaranteed" } },
+        { "type": "sub_perk",   "settings": { "icon_emoji": "🎁", "text": "Exclusive Member Gifts" } },
+        { "type": "once_perk",  "settings": { "icon_emoji": "🚫", "text": "No Free Shipping" } },
+        { "type": "once_perk",  "settings": { "icon_emoji": "⚡", "text": "Discount on first order only" } },
+        { "type": "once_perk",  "settings": { "icon_emoji": "❌", "text": "No Pause or Cancel Option" } },
+        { "type": "once_perk",  "settings": { "icon_emoji": "💸", "text": "No Loyalty Rewards" } },
+        { "type": "accordion",  "settings": { "title": "Why Grüns?",               "content": "<p>Grüns combines 60+ whole-food ingredients — veggies, fruits, adaptogens, mushrooms, and more — into a convenient daily gummy.</p>" } },
+        { "type": "accordion",  "settings": { "title": "Ingredients & Allergies",  "content": "<p>Made with whole vegetables, fruits, vitamins, minerals, adaptogens, herbs, antioxidants, prebiotics, and super mushrooms.</p>" } },
+        { "type": "accordion",  "settings": { "title": "Low Sugar vs. Sugar-Free", "content": "<p><strong>Low Sugar</strong> uses organic cane sugar. <strong>Sugar-Free</strong> uses monk fruit and erythritol.</p>" } },
+        { "type": "accordion",  "settings": { "title": "Science & Certifications", "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs. HSA/FSA eligible via Truemed.</p>" } },
+        { "type": "accordion",  "settings": { "title": "Directions",               "content": "<p>Take 2 gummies daily with a meal.</p>" } },
+        { "type": "accordion",  "settings": { "title": "Benefits",                 "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>" } },
+        { "type": "taste",      "settings": { "icon": "🌿", "label": "Fresh & Light" } },
+        { "type": "taste",      "settings": { "icon": "🍓", "label": "Strawberry" } },
+        { "type": "taste",      "settings": { "icon": "🟢", "label": "Sweet Greens" } },
         { "type": "ingredient", "settings": { "icon": "🥦", "label": "Whole Veggies" } },
         { "type": "ingredient", "settings": { "icon": "🍇", "label": "Whole Fruits" } },
         { "type": "ingredient", "settings": { "icon": "💊", "label": "Vitamins and Minerals" } },
@@ -581,377 +1050,11 @@
 {% endschema %}
 
 
-
-
-<script>
-    
-    /* ═══════════════════════════════════════════════════════════════
-   gruns-product-section.js
-   Drop in: assets/gruns-product-section.js
-   ═══════════════════════════════════════════════════════════════ */
-
-(function () {
-  'use strict';
-
-  /* ── Utility: format money like Shopify (cents → "$X.XX") ── */
-  function formatMoney(cents, symbol) {
-    symbol = symbol || '$';
-    var amount = (cents / 100).toFixed(2);
-    return symbol + amount;
-  }
-
-  /* ══════════════════════════════════════════════════════════════
-     GrunsProductSection
-     One instance per section on the page.
-  ══════════════════════════════════════════════════════════════ */
-  function GrunsProductSection(sectionEl) {
-    this.section   = sectionEl;
-    this.sectionId = sectionEl.dataset.sectionId;
-
-    // Pull config injected by Liquid
-    var configKey = 'GrunsProduct_' + this.sectionId.replace(/-/g, '_');
-    this.config    = window[configKey] || {};
-    this.variants  = this.config.variantsJson || [];
-    this.discount  = parseInt(this.config.subscribeDiscount, 10) || 49;
-    this.currency  = this.config.currencySymbol || '$';
-
-    // State
-    this.selectedOptions = {};
-    this.qty             = 1;
-    this.purchaseType    = 'subscription'; // 'subscription' | 'onetime'
-
-    this._initGallery();
-    this._initVariantToggles();
-    this._initQtyToggle();
-    this._initPurchaseCards();
-    this._initAccordion();
-    this._updatePricing();
-  }
-
-  /* ── GALLERY ─────────────────────────────────────────────────── */
-  GrunsProductSection.prototype._initGallery = function () {
-    var self     = this;
-    var thumbs   = this.section.querySelectorAll('.gruns-thumb');
-    var slides   = this.section.querySelectorAll('.gruns-slide');
-    if (!thumbs.length) return;
-
-    thumbs.forEach(function (thumb) {
-      thumb.addEventListener('click', function () {
-        var idx = parseInt(this.dataset.index, 10);
-
-        // Active thumb
-        thumbs.forEach(function (t) { t.classList.remove('active'); });
-        this.classList.add('active');
-
-        // Show slide
-        slides.forEach(function (s) { s.classList.remove('active'); });
-        var target = self.section.querySelector('.gruns-slide[data-slide="' + idx + '"]');
-        if (target) target.classList.add('active');
-      });
-    });
-  };
-
-  /* ── VARIANT OPTION TOGGLES ──────────────────────────────────── */
-  GrunsProductSection.prototype._initVariantToggles = function () {
-    var self    = this;
-    var buttons = this.section.querySelectorAll('.gruns-toggle-btn');
-    if (!buttons.length) return;
-
-    // Seed selectedOptions from active buttons
-    buttons.forEach(function (btn) {
-      if (btn.classList.contains('active') || btn.getAttribute('aria-pressed') === 'true') {
-        var optIdx = btn.dataset.option;
-        self.selectedOptions[optIdx] = btn.dataset.value;
-      }
-    });
-
-    buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var optIdx = this.dataset.option;
-        var value  = this.dataset.value;
-
-        // Deactivate siblings
-        self.section.querySelectorAll('.gruns-toggle-btn[data-option="' + optIdx + '"]')
-          .forEach(function (b) {
-            b.classList.remove('active');
-            b.setAttribute('aria-pressed', 'false');
-          });
-
-        this.classList.add('active');
-        this.setAttribute('aria-pressed', 'true');
-        self.selectedOptions[optIdx] = value;
-
-        self._matchVariant();
-        self._updatePricing();
-      });
-    });
-  };
-
-  /* ── QTY TOGGLE ──────────────────────────────────────────────── */
-  GrunsProductSection.prototype._initQtyToggle = function () {
-    var self    = this;
-    var buttons = this.section.querySelectorAll('.gruns-qty-btn');
-    if (!buttons.length) return;
-
-    buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        buttons.forEach(function (b) {
-          b.classList.remove('active');
-          b.setAttribute('aria-pressed', 'false');
-        });
-        this.classList.add('active');
-        this.setAttribute('aria-pressed', 'true');
-        self.qty = parseInt(this.dataset.qty, 10) || 1;
-
-        // Update hidden quantity input
-        var qtyInput = self.section.querySelector('#gruns-quantity-' + self.sectionId);
-        if (qtyInput) qtyInput.value = self.qty;
-
-        self._updatePricing();
-      });
-    });
-  };
-
-  /* ── PURCHASE CARDS ──────────────────────────────────────────── */
-  GrunsProductSection.prototype._initPurchaseCards = function () {
-    var self  = this;
-    var cards = this.section.querySelectorAll('.gruns-purchase-card');
-    if (!cards.length) return;
-
-    cards.forEach(function (card) {
-      // Click
-      card.addEventListener('click', function () {
-        self._selectCard(this.dataset.type);
-      });
-      // Keyboard a11y
-      card.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          self._selectCard(this.dataset.type);
-        }
-      });
-    });
-  };
-
-  GrunsProductSection.prototype._selectCard = function (type) {
-    var self  = this;
-    var cards = this.section.querySelectorAll('.gruns-purchase-card');
-
-    this.purchaseType = type;
-
-    cards.forEach(function (card) {
-      var isActive = card.dataset.type === type;
-      card.classList.toggle('active', isActive);
-      card.setAttribute('aria-checked', isActive ? 'true' : 'false');
-
-      var dot = card.querySelector('.gruns-radio-dot');
-      if (dot) dot.classList.toggle('active', isActive);
-    });
-
-    self._updatePricing();
-  };
-
-  /* ── ACCORDION ───────────────────────────────────────────────── */
-  GrunsProductSection.prototype._initAccordion = function () {
-    var headers = this.section.querySelectorAll('.gruns-acc-header');
-    if (!headers.length) return;
-
-    headers.forEach(function (header) {
-      header.addEventListener('click', function () {
-        var bodyId   = this.getAttribute('aria-controls');
-        var body     = document.getElementById(bodyId);
-        var isOpen   = this.getAttribute('aria-expanded') === 'true';
-
-        // Close all
-        headers.forEach(function (h) {
-          h.setAttribute('aria-expanded', 'false');
-          var bId = h.getAttribute('aria-controls');
-          var b   = document.getElementById(bId);
-          if (b) b.classList.remove('open');
-        });
-
-        // Open clicked (if was closed)
-        if (!isOpen) {
-          this.setAttribute('aria-expanded', 'true');
-          if (body) body.classList.add('open');
-        }
-      });
-    });
-  };
-
-  /* ── VARIANT MATCHING ────────────────────────────────────────── */
-  GrunsProductSection.prototype._matchVariant = function () {
-    if (!this.variants.length) return;
-
-    var self          = this;
-    var optionValues  = Object.values(self.selectedOptions);
-    var matchedVariant = null;
-
-    this.variants.forEach(function (v) {
-      var match = v.options.every(function (opt, idx) {
-        return optionValues[idx] === undefined || opt === optionValues[idx];
-      });
-      if (match) matchedVariant = v;
-    });
-
-    if (matchedVariant) {
-      this.currentVariant = matchedVariant;
-
-      // Update hidden variant ID input
-      var varInput = this.section.querySelector('#gruns-variant-id-' + this.sectionId);
-      if (varInput) varInput.value = matchedVariant.id;
-
-      // Update available state
-      var ctaBtn = this.section.querySelector('#gruns-cta-' + this.sectionId);
-      if (ctaBtn) {
-        ctaBtn.disabled = !matchedVariant.available;
-        if (!matchedVariant.available) ctaBtn.textContent = 'Sold Out';
-      }
-
-      // Switch to variant image
-      this._switchVariantImage(matchedVariant);
-    }
-  };
-
-  /* ── VARIANT IMAGE SWITCHER ──────────────────────────────────── */
-  GrunsProductSection.prototype._switchVariantImage = function (variant) {
-    var variantImages = this.config.variantImages || {};
-    var imgData = variantImages[variant.id];
-    if (!imgData) return;
-
-    var slides = this.section.querySelectorAll('.gruns-slide');
-    var thumbs = this.section.querySelectorAll('.gruns-thumb');
-    var position = imgData.position; // 0-based index matching product.images order
-
-    // ── Try switching by slide position index first ──
-    var targetSlide = this.section.querySelector('.gruns-slide[data-slide="' + position + '"]');
-    if (targetSlide) {
-      slides.forEach(function (s) { s.classList.remove('active'); });
-      targetSlide.classList.add('active');
-
-      // Sync thumbnail highlight
-      thumbs.forEach(function (t) { t.classList.remove('active'); });
-      var targetThumb = this.section.querySelector('.gruns-thumb[data-index="' + position + '"]');
-      if (targetThumb) targetThumb.classList.add('active');
-      return;
-    }
-
-    // ── Fallback: inject a fresh <img> into the first slide ──
-    var firstSlide = this.section.querySelector('.gruns-slide[data-slide="0"]');
-    if (!firstSlide) return;
-
-    var existingImg = firstSlide.querySelector('img.gruns-variant-injected');
-    if (existingImg) {
-      existingImg.src = imgData.src;
-      existingImg.alt = imgData.alt;
-    } else {
-      var img = document.createElement('img');
-      img.src = imgData.src;
-      img.alt = imgData.alt;
-      img.className = 'gruns-product-img gruns-variant-injected';
-      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-
-      // Hide existing placeholder content, show new image
-      firstSlide.style.position = 'relative';
-      img.style.position = 'absolute';
-      img.style.inset = '0';
-      firstSlide.appendChild(img);
-    }
-
-    slides.forEach(function (s) { s.classList.remove('active'); });
-    firstSlide.classList.add('active');
-
-    // Also update the matching thumbnail src if img tag exists
-    var targetThumb = this.section.querySelector('.gruns-thumb[data-index="0"]');
-    if (targetThumb) {
-      thumbs.forEach(function (t) { t.classList.remove('active'); });
-      targetThumb.classList.add('active');
-      var thumbImg = targetThumb.querySelector('img');
-      if (thumbImg) {
-        thumbImg.src = imgData.thumb;
-        thumbImg.alt = imgData.alt;
-      }
-    }
-  };
-
-  /* ── PRICING UPDATE ──────────────────────────────────────────── */
-  GrunsProductSection.prototype._updatePricing = function () {
-    var variant = this.currentVariant
-      || (this.variants.length ? this.variants[0] : null);
-
-    if (!variant) return;
-
-    var basePrice      = variant.price; // cents
-    var comparePrice   = variant.compare_at_price || basePrice;
-    var qty            = this.qty;
-    var qtyDiscount    = qty >= 2 ? 0.95 : 1.0;
-    var subMultiplier  = 1 - (this.discount / 100);
-
-    var oncePrice = Math.round(basePrice * qty * qtyDiscount);
-    var subPrice  = Math.round(basePrice * qty * qtyDiscount * subMultiplier);
-    var oldOnce   = comparePrice * qty;
-    var oldSub    = comparePrice * qty;
-
-    var sid = this.sectionId;
-    var sym = this.currency;
-
-    // Subscribe price
-    var subPriceEl = this.section.querySelector('#gruns-sub-price-' + sid);
-    if (subPriceEl) {
-      subPriceEl.innerHTML = formatMoney(subPrice, sym)
-        + '<span class="gruns-price-freq">/mo</span>';
-    }
-
-    // Subscribe old price
-    var subOldEl = this.section.querySelector('#gruns-sub-old-' + sid);
-    if (subOldEl) subOldEl.textContent = formatMoney(oldSub, sym) + '/mo';
-
-    // One-time price
-    var oncePriceEl = this.section.querySelector('#gruns-once-price-' + sid);
-    if (oncePriceEl) oncePriceEl.textContent = formatMoney(oncePrice, sym);
-
-    // CTA button price display
-    var ctaBtn = this.section.querySelector('#gruns-cta-' + sid);
-    if (ctaBtn && !ctaBtn.disabled) {
-      var displayPrice = this.purchaseType === 'subscription'
-        ? formatMoney(subPrice, sym) + '/mo'
-        : formatMoney(oncePrice, sym);
-      ctaBtn.textContent = 'Start Now — ' + displayPrice;
-    }
-  };
-
-  /* ══════════════════════════════════════════════════════════════
-     BOOT – init each section when DOM is ready
-  ══════════════════════════════════════════════════════════════ */
-  function boot() {
-    document.querySelectorAll('[data-section-type="gruns-product"]').forEach(function (el) {
-      new GrunsProductSection(el);
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
-  }
-
-  /* ── Shopify theme editor live-reload support ──────────────── */
-  document.addEventListener('shopify:section:load', function (e) {
-    var el = e.target.querySelector('[data-section-type="gruns-product"]');
-    if (el) new GrunsProductSection(el);
-  });
-
-})();
-</script>
-
-
 <style>
-    /* ═══════════════════════════════════════════════════════════════
-   gruns-product-section.css
-   Drop in: assets/gruns-product-section.css
-   ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   gruns-product-section.css  –  assets/gruns-product-section.css
+═══════════════════════════════════════════════════════════════ */
 
-/* ── TOKENS ──────────────────────────────────────────────────── */
 :root {
   --g-green-dark:  #1a4a2e;
   --g-green-mid:   #2d6a45;
@@ -969,466 +1072,232 @@
   --g-shadow:      0 4px 24px rgba(30,60,40,.10);
 }
 
-/* ── SECTION ─────────────────────────────────────────────────── */
-.gruns-product-section .page-width{
-  margin: 0 auto;
-  color: var(--g-text);
-}
+.gruns-full-width .page-width { max-width: 100% !important; padding-left: 0; padding-right: 0; }
+.gruns-product-section .page-width { margin: 0 auto; color: var(--g-text); }
 
-/* ── HEADLINE ────────────────────────────────────────────────── */
 .gruns-page-headline {
-  text-align: center;
-  font-family: 'Playfair Display', serif;
+  text-align: center; font-family: 'Playfair Display', serif;
   font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  color: var(--g-green-dark);
-  font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 20px;
+  color: var(--g-green-dark); font-weight: 700; line-height: 1.3; margin-bottom: 20px;
 }
 .gruns-page-headline span { color: var(--g-gold); }
-
-/* ── BADGE ───────────────────────────────────────────────────── */
 .gruns-badge-wrap { text-align: center; margin-bottom: 24px; }
 .gruns-badge {
-  display: inline-block;
-  background: var(--g-gold);
-  color: #fff;
-  font-size: .78rem;
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  padding: 6px 18px;
-  border-radius: 30px;
+  display: inline-block; background: var(--g-gold); color: #fff;
+  font-size: .78rem; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; padding: 6px 18px; border-radius: 30px;
 }
 
-/* ── PRODUCT GRID ─────────────────────────────────────────────── */
-.gruns-product-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: start;
-}
-@media (max-width: 860px) {
-  .gruns-product-grid { grid-template-columns: 1fr; gap: 28px; }
-}
+.gruns-product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+@media (max-width: 860px) { .gruns-product-grid { grid-template-columns: 1fr; gap: 28px; } }
 
-/* ── GALLERY ─────────────────────────────────────────────────── */
 .gruns-gallery { display: flex; gap: 12px; }
-
-.gruns-thumbs {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex-shrink: 0;
-}
+.gruns-thumbs { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
 .gruns-thumb {
-  width: 62px;
-  height: 62px;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  overflow: hidden;
-  cursor: pointer;
-  background: var(--g-cream);
-  display: flex; align-items: center; justify-content: center;
-  padding: 0;
+  width: 62px; height: 62px; border-radius: 8px; border: 2px solid transparent;
+  overflow: hidden; cursor: pointer; background: var(--g-cream);
+  display: flex; align-items: center; justify-content: center; padding: 0;
   transition: border-color .2s, box-shadow .2s;
 }
-.gruns-thumb.active,
-.gruns-thumb:hover  { border-color: var(--g-green-mid); box-shadow: 0 2px 8px rgba(30,60,40,.15); }
-.gruns-thumb img,
-.gruns-thumb svg    { width: 100%; height: 100%; object-fit: cover; display: block; }
-
+.gruns-thumb.active, .gruns-thumb:hover { border-color: var(--g-green-mid); box-shadow: 0 2px 8px rgba(30,60,40,.15); }
+.gruns-thumb img, .gruns-thumb svg { width: 100%; height: 100%; object-fit: cover; display: block; }
 .gruns-main-image-wrap {
-  flex: 1;
-  border-radius: var(--g-radius);
-  overflow: hidden;
+  flex: 1; border-radius: var(--g-radius); overflow: hidden;
   background: linear-gradient(145deg, #d6ead9 0%, #b8d9bf 100%);
-  position: relative;
-  min-height: 340px;
+  position: relative; min-height: 340px;
 }
 .gruns-offer-ribbon {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  background: var(--g-green-dark);
-  color: var(--g-gold);
-  font-size: .75rem;
-  font-weight: 900;
-  letter-spacing: .08em;
-  text-align: center;
-  padding: 8px 12px;
-  text-transform: uppercase;
-  z-index: 2;
+  position: absolute; top: 0; left: 0; right: 0;
+  background: var(--g-green-dark); color: var(--g-gold);
+  font-size: .75rem; font-weight: 900; letter-spacing: .08em;
+  text-align: center; padding: 8px 12px; text-transform: uppercase; z-index: 2;
 }
-.gruns-main-image-inner {
-  width: 100%;
-  height: 100%;
-  min-height: 340px;
-  position: relative;
-}
+.gruns-main-image-inner { width: 100%; height: 100%; min-height: 340px; position: relative; }
 .gruns-slide { display: none; width: 100%; height: 100%; }
 .gruns-slide.active { display: block; }
-.gruns-product-img,
-.gruns-slide svg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* ── NUTRITION / TESTED ───────────────────────────────────────── */
+.gruns-product-img, .gruns-slide svg { width: 100%; height: 100%; object-fit: cover; display: block; }
 .gruns-nutrition-btn {
-  display: block;
-  width: 100%;
-  margin-top: 12px;
-  padding: 12px;
-  background: transparent;
-  border: 2px solid var(--g-green-dark);
-  border-radius: 8px;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 700;
-  font-size: .88rem;
-  color: var(--g-green-dark);
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  transition: background .2s, color .2s;
+  display: block; width: 100%; margin-top: 12px; padding: 12px;
+  background: transparent; border: 2px solid var(--g-green-dark); border-radius: 8px;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: .88rem;
+  color: var(--g-green-dark); cursor: pointer; text-align: center;
+  text-decoration: none; transition: background .2s, color .2s;
 }
 .gruns-nutrition-btn:hover { background: var(--g-green-dark); color: #fff; }
-
 .gruns-tested-badge {
-  margin-top: 12px;
-  background: var(--g-cream);
-  border: 1px solid var(--g-border);
-  border-radius: 8px;
-  padding: 10px 14px;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: .78rem;
-  color: var(--g-muted);
-  line-height: 1.5;
+  margin-top: 12px; background: var(--g-cream); border: 1px solid var(--g-border);
+  border-radius: 8px; padding: 10px 14px; display: flex; align-items: flex-start;
+  gap: 10px; font-size: .78rem; color: var(--g-muted); line-height: 1.5;
 }
-.gruns-tested-icon { font-size: 1.1rem; flex-shrink: 0; }
+.gruns-tested-icon { font-size: 1.1rem; flex-shrink: 0; display: flex; align-items: center; }
+.gruns-tested-img { width: 28px; height: 28px; object-fit: contain; display: block; }
 .gruns-tested-badge strong { color: var(--g-green-dark); }
-.gruns-tested-badge a { color: var(--g-green-mid); font-weight: 700; }
 
-/* ── DETAILS COL ─────────────────────────────────────────────── */
-.gruns-details-col {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* ── STARS ───────────────────────────────────────────────────── */
+.gruns-details-col { display: flex; flex-direction: column; gap: 16px; }
 .gruns-stars-row { display: flex; align-items: center; gap: 6px; font-size: .82rem; color: var(--g-muted); flex-wrap: wrap; }
 .gruns-stars { color: var(--g-star); font-size: 1rem; }
 .gruns-stars-row strong { color: var(--g-text); }
-
-/* ── TITLE ───────────────────────────────────────────────────── */
 .gruns-product-title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
-  color: var(--g-green-dark);
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0;
+  color: var(--g-green-dark); font-weight: 700; line-height: 1.2; margin: 0;
 }
-.gruns-product-tagline { font-size: .9rem; color: var(--g-muted); line-height: 1.6; }
-
-/* ── FEATURE LIST ────────────────────────────────────────────── */
-.gruns-feature-list, .features-list { list-style: none; display: flex; flex-direction: column; gap: 5px; padding: 0; margin: 0; }
-.gruns-feature-list li, .features-list li {
-  font-size: .85rem;
-  color: var(--g-text);
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-}
-.gruns-feature-list li::before, .features-list li::before { content: '✓'; color: var(--g-green-mid); font-weight: 900; flex-shrink: 0; margin-top: 1px; }
-
-/* ── DIVIDER ─────────────────────────────────────────────────── */
 .gruns-divider { border: none; border-top: 1px solid var(--g-border); margin: 0; }
-
-/* ── OPTIONS ─────────────────────────────────────────────────── */
 .gruns-option-group { display: flex; flex-direction: column; gap: 8px; }
 .gruns-option-label { font-weight: 800; font-size: .88rem; color: var(--g-text); }
 .gruns-toggle-group { display: flex; gap: 8px; flex-wrap: wrap; }
 .gruns-toggle-btn {
-  padding: 9px 22px;
-  border-radius: 8px;
-  border: 2px solid var(--g-border);
-  background: #fff;
-  font-family: 'Nunito', sans-serif;
-  font-size: .85rem;
-  font-weight: 700;
-  color: var(--g-muted);
-  cursor: pointer;
+  padding: 9px 22px; border-radius: 8px; border: 2px solid var(--g-border);
+  background: #fff; font-family: 'Nunito', sans-serif; font-size: .85rem;
+  font-weight: 700; color: var(--g-muted); cursor: pointer;
   transition: border-color .2s, color .2s, background .2s;
 }
-.gruns-toggle-btn.active,
-.gruns-toggle-btn[aria-pressed="true"] {
-  border-color: var(--g-green-dark);
-  color: var(--g-green-dark);
-  background: #e8f4ec;
+.gruns-toggle-btn.active, .gruns-toggle-btn[aria-pressed="true"] {
+  border-color: var(--g-green-dark); color: var(--g-green-dark); background: #e8f4ec;
 }
-
-/* ── ADULTS ──────────────────────────────────────────────────── */
 .gruns-adults-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .gruns-save-pill {
-  background: #fff8e1;
-  color: var(--g-gold);
-  font-size: .7rem;
-  font-weight: 800;
-  border-radius: 20px;
-  padding: 3px 10px;
-  border: 1px solid var(--g-gold-light);
+  background: #fff8e1; color: var(--g-gold); font-size: .7rem; font-weight: 800;
+  border-radius: 20px; padding: 3px 10px; border: 1px solid var(--g-gold-light);
+  transition: background .2s, color .2s, border-color .2s;
 }
+.gruns-save-pill--active { background: #e8f4ec; color: var(--g-green-dark); border-color: var(--g-green-mid); }
 .gruns-qty-toggle {
-  display: flex;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 2px solid var(--g-border);
-  width: 100%;
-  max-width: 260px;
+  display: flex; border-radius: 10px; overflow: hidden;
+  border: 2px solid var(--g-border); width: 100%; max-width: 260px;
 }
 .gruns-qty-btn {
-  flex: 1;
-  padding: 11px 0;
-  font-family: 'Nunito', sans-serif;
-  font-size: .88rem;
-  font-weight: 800;
-  color: var(--g-muted);
-  background: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background .2s, color .2s;
+  flex: 1; padding: 11px 0; font-family: 'Nunito', sans-serif;
+  font-size: .88rem; font-weight: 800; color: var(--g-muted);
+  background: #fff; border: none; cursor: pointer; transition: background .2s, color .2s;
 }
-.gruns-qty-btn.active,
-.gruns-qty-btn[aria-pressed="true"] { background: var(--g-green-dark); color: #fff; }
-
-/* ── AUTOSHIP LABEL ──────────────────────────────────────────── */
+.gruns-qty-btn.active, .gruns-qty-btn[aria-pressed="true"] { background: var(--g-green-dark); color: #fff; }
 .gruns-autoship-label { font-weight: 800; font-size: .88rem; color: var(--g-text); }
 
-/* ── PURCHASE CARDS ──────────────────────────────────────────── */
+/* ── Purchase Cards ── */
 .gruns-purchase-card {
-  border: 2px solid var(--g-border);
-  border-radius: var(--g-radius);
-  padding: 14px 16px;
-  background: #fff;
-  cursor: pointer;
-  transition: border-color .2s, background .2s;
-  position: relative;
-  user-select: none;
+  border: 2px solid var(--g-border); border-radius: var(--g-radius);
+  padding: 14px 16px; background: #fff; cursor: pointer;
+  transition: border-color .2s, background .2s; position: relative; user-select: none;
 }
-.gruns-purchase-card.active {
-  border-color: var(--g-green-dark);
-  background: #f0f7f2;
-}
+.gruns-purchase-card.active { border-color: var(--g-green-dark); background: #f0f7f2; }
 .gruns-popular-tag {
-  position: absolute;
-  top: -1px; left: 50%; transform: translateX(-50%);
-  background: var(--g-green-dark);
-  color: #fff;
-  font-size: .65rem;
-  font-weight: 900;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  padding: 3px 14px;
-  border-radius: 0 0 8px 8px;
-  white-space: nowrap;
+  position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  background: var(--g-green-dark); color: #fff;
+  font-size: .65rem; font-weight: 900; letter-spacing: .08em;
+  text-transform: uppercase; padding: 3px 14px; border-radius: 0 0 8px 8px; white-space: nowrap;
 }
-.gruns-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 4px;
-}
+.gruns-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
 .gruns-card-title-row { display: flex; align-items: center; gap: 8px; }
 .gruns-radio-dot {
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  border: 2px solid var(--g-border);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--g-border);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   transition: border-color .2s;
 }
 .gruns-radio-dot.active { border-color: var(--g-green-dark); }
-.gruns-radio-dot.active::after {
-  content: ''; width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--g-green-dark);
-}
+.gruns-radio-dot.active::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--g-green-dark); }
 .gruns-card-title { font-weight: 800; font-size: .9rem; color: var(--g-text); }
 .gruns-card-price { text-align: right; }
 .gruns-price-main { font-size: 1.15rem; font-weight: 900; color: var(--g-green-dark); }
 .gruns-price-freq { font-size: .75rem; font-weight: 700; }
 .gruns-price-sub { font-size: .7rem; color: var(--g-muted); display: block; margin-top: 1px; }
 .gruns-price-old { text-decoration: line-through; color: var(--g-red); }
-.gruns-card-desc { font-size: .75rem; color: var(--g-muted); margin-left: 24px; margin-bottom: 6px; }
-.gruns-card-perks { margin-left: 24px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 3px; }
-.gruns-card-perks li {
-  font-size: .75rem;
-  color: var(--g-green-mid);
-  display: flex; gap: 5px;
+.gruns-card-desc { font-size: .75rem; color: var(--g-muted); margin-left: 0; margin-bottom: 8px; }
+
+/* ── Perks list ── */
+.gruns-card-perks {
+  padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 6px; margin-top: 8px;
 }
-.gruns-card-perks li::before { content: '✓'; font-weight: 900; }
+.gruns-card-perks li {
+  font-size: .78rem; color: var(--g-green-mid);
+  display: flex; align-items: center; gap: 8px; line-height: 1.4;
+}
+.gruns-perk-icon { font-size: .9rem; flex-shrink: 0; display: flex; align-items: center; }
+.gruns-perk-icon--check::before { content: '✓'; font-weight: 900; color: var(--g-green-mid); }
+.gruns-perk-icon--cross::before { content: '✗'; font-weight: 900; color: var(--g-red); }
+.gruns-card-perks--negative li { color: var(--g-muted); }
+.gruns-perk-icon--img img { width: 18px; height: 18px; object-fit: contain; display: block; }
 
-/* ── PRODUCT FORM ────────────────────────────────────────────── */
+/* ── CTA ── */
 .gruns-product-form { margin: 0; }
-
-/* ── CTA BUTTON ──────────────────────────────────────────────── */
 .gruns-cta-btn {
-  display: block;
-  width: 100%;
-  padding: 16px;
-  background: var(--g-green-dark);
-  color: #fff;
-  font-family: 'Nunito', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 900;
-  border: none;
-  border-radius: var(--g-radius);
-  cursor: pointer;
-  letter-spacing: .03em;
+  display: block; width: 100%; padding: 16px;
+  background: var(--g-green-dark); color: #fff;
+  font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 900;
+  border: none; border-radius: var(--g-radius); cursor: pointer; letter-spacing: .03em;
   transition: background .2s, transform .1s, box-shadow .2s;
-  box-shadow: 0 4px 16px rgba(30,70,45,.25);
-  text-align: center;
-  margin-top: 4px;
+  box-shadow: 0 4px 16px rgba(30,70,45,.25); text-align: center; margin-top: 4px;
 }
 .gruns-cta-btn:hover:not(:disabled) { background: var(--g-green-mid); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,70,45,.3); }
 .gruns-cta-btn:active:not(:disabled) { transform: translateY(0); }
 .gruns-cta-btn:disabled { background: #aaa; cursor: not-allowed; box-shadow: none; }
-
-/* ── DISCOUNT PILL ───────────────────────────────────────────── */
 .gruns-discount-pill {
-  background: #fffbe6;
-  border: 1px solid var(--g-gold-light);
-  border-radius: 6px;
-  text-align: center;
-  padding: 8px;
-  font-size: .78rem;
-  font-weight: 700;
-  color: var(--g-gold);
+  background: #fffbe6; border: 1px solid var(--g-gold-light); border-radius: 6px;
+  text-align: center; padding: 8px; font-size: .78rem; font-weight: 700; color: var(--g-gold);
 }
 
-/* ── TRUST ICONS ─────────────────────────────────────────────── */
-.gruns-trust-row {
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.gruns-trust-item {
-  flex: 1;
-  min-width: 80px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-.gruns-trust-icon { font-size: 1.4rem; color: var(--g-green-mid); }
+/* ── Trust icons ── */
+.gruns-trust-row { display: flex; gap: 8px; justify-content: space-between; flex-wrap: wrap; }
+.gruns-trust-item { flex: 1; min-width: 80px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.gruns-trust-icon { font-size: 1.4rem; color: var(--g-green-mid); display: flex; align-items: center; justify-content: center; min-height: 36px; }
+.gruns-trust-img { width: 36px; height: 36px; object-fit: contain; display: block; }
 .gruns-trust-text { font-size: .7rem; color: var(--g-muted); font-weight: 700; line-height: 1.3; }
 
-/* ── ACCORDION ───────────────────────────────────────────────── */
+/* ── Accordion ── */
 .gruns-accordion { display: flex; flex-direction: column; }
 .gruns-acc-item { border-top: 1px solid var(--g-border); }
 .gruns-acc-item:last-child { border-bottom: 1px solid var(--g-border); }
 .gruns-acc-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 0;
-  background: transparent;
-  border: none;
-  font-family: 'Nunito', sans-serif;
-  font-size: .95rem;
-  font-weight: 800;
-  color: var(--g-text);
-  cursor: pointer;
-  text-align: left;
-  gap: 8px;
+  width: 100%; display: flex; align-items: center;
+  padding: 14px 0; background: transparent; border: none;
+  font-family: 'Nunito', sans-serif; font-size: .95rem; font-weight: 800;
+  color: var(--g-text); cursor: pointer; text-align: left; gap: 10px;
 }
-.gruns-acc-icon { font-size: 1.2rem; color: var(--g-green-dark); transition: transform .25s; flex-shrink: 0; }
+.gruns-acc-header-icon { font-size: 1.1rem; flex-shrink: 0; }
+.gruns-acc-header-icon--img { display: flex; align-items: center; flex-shrink: 0; }
+.gruns-acc-header-icon--img img { width: 24px; height: 24px; object-fit: contain; display: block; }
+.gruns-acc-header-title { flex: 1; }
+.gruns-acc-icon { font-size: 1.2rem; color: var(--g-green-dark); transition: transform .25s; flex-shrink: 0; margin-left: auto; }
 .gruns-acc-header[aria-expanded="true"] .gruns-acc-icon { transform: rotate(45deg); }
-.gruns-acc-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height .35s ease;
-}
-.gruns-acc-body.open { max-height: 600px; }
-.gruns-acc-body-inner {
-  font-size: .85rem;
-  color: var(--g-muted);
-  line-height: 1.7;
-  padding-bottom: 14px;
-}
+.gruns-acc-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.gruns-acc-body.open { max-height: 900px; }
+.gruns-acc-body-inner { font-size: .85rem; color: var(--g-muted); line-height: 1.7; padding-bottom: 14px; }
 .gruns-acc-body-inner p { margin: 0 0 8px; }
 .gruns-acc-body-inner p:last-child { margin-bottom: 0; }
+.gruns-acc-body-inner.gruns-acc-has-image { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+.gruns-acc-image-wrap {
+  flex: 0 0 auto; width: 120px; border-radius: 8px; overflow: hidden;
+  background: var(--g-cream); border: 1px solid var(--g-border); align-self: flex-start;
+}
+.gruns-acc-image { width: 100%; height: auto; display: block; object-fit: cover; }
+.gruns-acc-text-wrap { flex: 1; min-width: 140px; }
+.gruns-acc-has-image[data-img-pos="right"]  { flex-direction: row-reverse; }
+.gruns-acc-has-image[data-img-pos="top"]    { flex-direction: column; }
+.gruns-acc-has-image[data-img-pos="top"]    .gruns-acc-image-wrap { width: 100%; }
+.gruns-acc-has-image[data-img-pos="bottom"] { flex-direction: column-reverse; }
+.gruns-acc-has-image[data-img-pos="bottom"] .gruns-acc-image-wrap { width: 100%; }
 
-/* ── EXTRA (TASTE / PACKED) ──────────────────────────────────── */
+/* ── Taste & Packed ── */
 .gruns-extra-section { margin-top: 48px; }
 .gruns-extra-heading {
-  text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  color: var(--g-green-dark);
-  margin-bottom: 18px;
+  text-align: center; font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; color: var(--g-green-dark); margin-bottom: 18px;
 }
-.gruns-taste-row {
-  display: flex;
-  justify-content: center;
-  gap: 28px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-}
-.gruns-taste-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font-size: .82rem;
-  font-weight: 700;
-  color: var(--g-text);
-}
+.gruns-taste-row { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 32px; }
+.gruns-taste-item { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: .82rem; font-weight: 700; color: var(--g-text); }
 .gruns-taste-icon {
-  width: 58px; height: 58px;
-  border-radius: 50%;
-  background: #e8f4ec;
+  width: 58px; height: 58px; border-radius: 50%; background: #e8f4ec;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.8rem;
-  box-shadow: 0 2px 8px rgba(30,60,40,.1);
+  font-size: 1.8rem; box-shadow: 0 2px 8px rgba(30,60,40,.1); overflow: hidden;
 }
-.gruns-packed-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px 24px;
-}
-.gruns-packed-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: .85rem;
-  font-weight: 700;
-  color: var(--g-text);
-  min-width: 155px;
-}
-.gruns-packed-icon { font-size: 1.3rem; }
-.gruns-thumbs{
-    position: relative;
-}
-.gruns-thumbs button.gruns-thumb:nth-of-type(2) {
-    position: absolute;
-    top: 0;
-    z-index: 1;
-}
-.gruns-thumbs button.gruns-thumb.active{
-    z-index: 2;
-}
-/* ── RESPONSIVE ──────────────────────────────────────────────── */
+.gruns-taste-img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
+.gruns-packed-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; }
+.gruns-packed-item { display: flex; align-items: center; gap: 8px; font-size: .85rem; font-weight: 700; color: var(--g-text); min-width: 155px; }
+.gruns-packed-icon { font-size: 1.3rem; display: flex; align-items: center; flex-shrink: 0; }
+.gruns-packed-img { width: 22px; height: 22px; object-fit: contain; display: block; }
+
+/* ── Responsive ── */
 @media (max-width: 640px) {
   .gruns-product-section { padding: 24px 14px 40px; }
   .gruns-gallery { flex-direction: column-reverse; }
@@ -1442,8 +1311,8 @@
   .gruns-qty-toggle { max-width: 100%; }
   .gruns-card-top { flex-direction: column; align-items: flex-start; gap: 4px; }
   .gruns-card-price { text-align: left; }
+  .gruns-acc-image-wrap { width: 90px; }
 }
-
 @media (max-width: 400px) {
   .gruns-stars-row { font-size: .75rem; }
   .gruns-product-title { font-size: 1.35rem; }
