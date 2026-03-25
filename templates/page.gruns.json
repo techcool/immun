@@ -861,7 +861,7 @@
         "taste_KVDjLz": {
           "type": "taste",
           "settings": {
-            "icon": "🌿",
+            "icon": "🍃",
             "label": "Fresh & Light"
           }
         },
@@ -875,14 +875,14 @@
         "taste_eekm4D": {
           "type": "taste",
           "settings": {
-            "icon": "🟢",
+            "icon": "🥬",
             "label": "Sweet Greens"
           }
         },
         "ingredient_JHC7cf": {
           "type": "ingredient",
           "settings": {
-            "icon": "🥦",
+            "icon": "🥬",
             "label": "Whole Veggies"
           }
         },
@@ -903,7 +903,7 @@
         "ingredient_m8C6aJ": {
           "type": "ingredient",
           "settings": {
-            "icon": "🌱",
+            "icon": "🧠",
             "label": "Adaptogens"
           }
         },
@@ -924,7 +924,7 @@
         "ingredient_MW8HrC": {
           "type": "ingredient",
           "settings": {
-            "icon": "🔄",
+            "icon": "🦠",
             "label": "Prebiotics"
           }
         },
