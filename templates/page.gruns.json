@@ -784,21 +784,13 @@
       "block_order": [
         "ingredient_f7G4VB"
       ],
+      "disabled": true,
       "name": "Gruns Style Product",
       "settings": {
         "offer": "LIMITED TIME OFFER",
         "heading": "Limited Time Offer! Save Up To 52%",
         "description": "",
         "button": "Start Now"
-      }
-    },
-    "gruns_offer_product_nAMpaA": {
-      "type": "gruns-offer-product",
-      "name": "Gruns Offer Product",
-      "settings": {
-        "product": "limited-time-offer-save-up-to-52",
-        "offer_text": "LIMITED TIME OFFER",
-        "button_text": "Start Now"
       }
     },
     "gruns_product_section_fwX7Rk": {
@@ -967,7 +959,7 @@
         "product_title": "",
         "page_headline": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!",
         "badge_text": "3rd-Party Tested",
-        "show_offer_ribbon": true,
+        "show_offer_ribbon": false,
         "offer_ribbon_icon": "🔥",
         "offer_ribbon_text": "LIMITED TIME OFFER: SAVE UP TO 52%",
         "nutrition_label_url": "",
@@ -1352,7 +1344,6 @@
     "ambassador_testimonial_8LFQYg",
     "cta_nutrient_BLbx8W",
     "product_gruns_style_HgKKhL",
-    "gruns_offer_product_nAMpaA",
     "gruns_product_section_fwX7Rk",
     "faq_accordion_mCWKYg",
     "custom_footer_gruns_fqp9Jn"
