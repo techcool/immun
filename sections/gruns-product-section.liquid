@@ -1152,6 +1152,17 @@
   gap: 7px;
 }
 .gruns-feature-list li::before, .features-list li::before { content: '✓'; color: var(--g-green-mid); font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+.gruns-thumbs{
+    position: relative;
+}
+.gruns-thumbs button.gruns-thumb:nth-of-type(2) {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+.gruns-thumbs button.gruns-thumb.active{
+    z-index: 2;
+}
 
 .gruns-divider { border: none; border-top: 1px solid var(--g-border); margin: 0; }
 .gruns-option-group { display: flex; flex-direction: column; gap: 8px; }
