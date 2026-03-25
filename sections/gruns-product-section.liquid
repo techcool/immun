@@ -9,8 +9,21 @@
 
 {{ 'gruns-product-section.css' | asset_url | stylesheet_tag }}
 
+{%- style -%}
+  #gruns-product-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  @media screen and (max-width: 750px) {
+    #gruns-product-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | divided_by: 2 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 2 }}px;
+    }
+  }
+{%- endstyle -%}
+
 <section
-  class="gruns-product-section common-container"
+  class="gruns-product-section common-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} gruns-full-width{% endif %}"
   id="gruns-product-{{ section.id }}"
   data-section-id="{{ section.id }}"
   data-section-type="gruns-product"
@@ -288,7 +301,9 @@
         {% endif %}
       </div>
 
-      <!-- ACCORDION -->
+      <!-- ═══════════════════════════════════════════════════════
+           ACCORDION — supports optional image per block
+      ════════════════════════════════════════════════════════ -->
       <div class="gruns-accordion" role="list">
         {% for block in section.blocks %}
           {% if block.type == 'accordion' %}
@@ -298,7 +313,10 @@
               aria-expanded="false"
               aria-controls="gruns-acc-body-{{ block.id }}"
             >
-              {{ block.settings.title }}
+              {% if block.settings.icon != blank %}
+                <span class="gruns-acc-header-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+              {% endif %}
+              <span class="gruns-acc-header-title">{{ block.settings.title }}</span>
               <span class="gruns-acc-icon" aria-hidden="true">{{ section.settings.accordion_open_icon }}</span>
             </button>
             <div
@@ -306,8 +324,28 @@
               id="gruns-acc-body-{{ block.id }}"
               role="region"
             >
-              <div class="gruns-acc-body-inner">
-                {{ block.settings.content }}
+              <div class="gruns-acc-body-inner{% if block.settings.image != blank %} gruns-acc-has-image{% endif %}"{% if block.settings.image != blank %} data-img-pos="{{ block.settings.image_position | default: 'left' }}"{% endif %}>
+
+                {%- comment -%} Optional accordion image {%- endcomment -%}
+                {% if block.settings.image != blank %}
+                <div class="gruns-acc-image-wrap">
+                  {{
+                    block.settings.image
+                    | image_url: width: 600
+                    | image_tag:
+                        loading: 'lazy',
+                        alt: block.settings.image.alt | default: block.settings.title,
+                        class: 'gruns-acc-image',
+                        widths: '300, 400, 600',
+                        sizes: '(max-width: 640px) 100vw, 260px'
+                  }}
+                </div>
+                {% endif %}
+
+                <div class="gruns-acc-text-wrap">
+                  {{ block.settings.content }}
+                </div>
+
               </div>
             </div>
           </div>
@@ -643,7 +681,6 @@
     var onceDayPrice = (oncePrice / 100 / 28).toFixed(2);
     var subDayPrice  = (subPrice  / 100 / 28).toFixed(2);
 
-    // Subscribe card
     var subPriceEl = this.section.querySelector('#gruns-sub-price-' + sid);
     if (subPriceEl) subPriceEl.innerHTML = formatMoney(subPrice, sym) + '<span class="gruns-price-freq">' + freqSuffix + '</span>';
 
@@ -653,7 +690,6 @@
     var subDayEl = this.section.querySelector('#gruns-sub-day-' + sid);
     if (subDayEl) subDayEl.textContent = sym + subDayPrice + daySuffix;
 
-    // Popular tag
     var popularTag = this.section.querySelector('#gruns-card-sub-' + sid + ' .gruns-popular-tag');
     if (popularTag) {
       popularTag.textContent =
@@ -663,7 +699,6 @@
         (cfg.subPopularSuffixPostfix || 'Off');
     }
 
-    // One-time card
     var oncePriceEl = this.section.querySelector('#gruns-once-price-' + sid);
     if (oncePriceEl) oncePriceEl.textContent = formatMoney(oncePrice, sym);
 
@@ -673,7 +708,6 @@
     var onceDayEl = this.section.querySelector('#gruns-once-day-' + sid);
     if (onceDayEl) onceDayEl.textContent = sym + onceDayPrice + daySuffix;
 
-    // CTA button
     var ctaBtn = this.section.querySelector('#gruns-cta-' + sid);
     if (ctaBtn && !ctaBtn.disabled) {
       var displayPrice = this.purchaseType === 'subscription'
@@ -710,6 +744,48 @@
   "tag": "section",
   "class": "gruns-section-wrapper",
   "settings": [
+
+    { "type": "header", "content": "── Layout & Spacing ──" },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1" },
+        { "value": "scheme-2", "label": "Scheme 2" },
+        { "value": "scheme-3", "label": "Scheme 3" },
+        { "value": "scheme-4", "label": "Scheme 4" },
+        { "value": "scheme-5", "label": "Scheme 5" }
+      ],
+      "default": "scheme-1",
+      "label": "Color Scheme",
+      "info": "Uses your theme's color scheme classes."
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    },
 
     { "type": "header", "content": "── Product ──" },
     { "type": "product", "id": "product", "label": "Product" },
@@ -807,8 +883,43 @@
       "type": "accordion",
       "name": "FAQ Accordion",
       "settings": [
-        { "type": "text",     "id": "title",   "label": "Question", "default": "Why Grüns?" },
-        { "type": "richtext", "id": "content", "label": "Answer",   "default": "<p>Grüns combines 60+ whole-food ingredients into a convenient daily gummy.</p>" }
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Header Icon (emoji, optional)",
+          "info": "Optional emoji shown before the question title."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Why Grüns?"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Answer",
+          "default": "<p>Grüns combines 60+ whole-food ingredients into a convenient daily gummy.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Accordion Image (optional)",
+          "info": "If set, an image will appear beside the answer text when the accordion is open."
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image Position",
+          "options": [
+            { "value": "left",  "label": "Left of text" },
+            { "value": "right", "label": "Right of text" },
+            { "value": "top",   "label": "Above text" },
+            { "value": "bottom","label": "Below text" }
+          ],
+          "default": "left",
+          "info": "Only applies when an image is selected above."
+        }
       ]
     },
     {
@@ -879,6 +990,9 @@
   --g-shadow:      0 4px 24px rgba(30,60,40,.10);
 }
 
+/* ── Full-width modifier ── */
+.gruns-full-width .page-width { max-width: 100% !important; padding-left: 0; padding-right: 0; }
+
 .gruns-product-section .page-width { margin: 0 auto; color: var(--g-text); }
 
 .gruns-page-headline {
@@ -911,8 +1025,6 @@
 }
 .gruns-thumb.active, .gruns-thumb:hover { border-color: var(--g-green-mid); box-shadow: 0 2px 8px rgba(30,60,40,.15); }
 .gruns-thumb img, .gruns-thumb svg { width: 100%; height: 100%; object-fit: cover; display: block; }
-.gruns-thumbs button.gruns-thumb:nth-of-type(2) { position: absolute; top: 0; z-index: 1; }
-.gruns-thumbs button.gruns-thumb.active { z-index: 2; }
 
 .gruns-main-image-wrap {
   flex: 1; border-radius: var(--g-radius); overflow: hidden;
@@ -1052,6 +1164,9 @@
 .gruns-trust-icon { font-size: 1.4rem; color: var(--g-green-mid); }
 .gruns-trust-text { font-size: .7rem; color: var(--g-muted); font-weight: 700; line-height: 1.3; }
 
+/* ═══════════════════════════════════════════════════════════════
+   ACCORDION — with optional image support
+═══════════════════════════════════════════════════════════════ */
 .gruns-accordion { display: flex; flex-direction: column; }
 .gruns-acc-item { border-top: 1px solid var(--g-border); }
 .gruns-acc-item:last-child { border-bottom: 1px solid var(--g-border); }
@@ -1061,14 +1176,60 @@
   font-family: 'Nunito', sans-serif; font-size: .95rem; font-weight: 800;
   color: var(--g-text); cursor: pointer; text-align: left; gap: 8px;
 }
+.gruns-acc-header-icon { font-size: 1.1rem; flex-shrink: 0; }
+.gruns-acc-header-title { flex: 1; }
 .gruns-acc-icon { font-size: 1.2rem; color: var(--g-green-dark); transition: transform .25s; flex-shrink: 0; }
 .gruns-acc-header[aria-expanded="true"] .gruns-acc-icon { transform: rotate(45deg); }
+
 .gruns-acc-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
-.gruns-acc-body.open { max-height: 600px; }
-.gruns-acc-body-inner { font-size: .85rem; color: var(--g-muted); line-height: 1.7; padding-bottom: 14px; }
+.gruns-acc-body.open { max-height: 900px; }
+
+/* Body inner — default (no image) */
+.gruns-acc-body-inner {
+  font-size: .85rem; color: var(--g-muted); line-height: 1.7; padding-bottom: 14px;
+}
 .gruns-acc-body-inner p { margin: 0 0 8px; }
 .gruns-acc-body-inner p:last-child { margin-bottom: 0; }
 
+/* Body inner — WITH image: side-by-side layout */
+.gruns-acc-body-inner.gruns-acc-has-image {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.gruns-acc-image-wrap {
+  flex: 0 0 auto;
+  width: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--g-cream);
+  border: 1px solid var(--g-border);
+  align-self: flex-start;
+}
+.gruns-acc-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.gruns-acc-text-wrap {
+  flex: 1;
+  min-width: 140px;
+}
+
+/* Position modifiers applied via data-attribute written by Liquid */
+.gruns-acc-has-image[data-img-pos="right"]   { flex-direction: row-reverse; }
+.gruns-acc-has-image[data-img-pos="top"]     { flex-direction: column; }
+.gruns-acc-has-image[data-img-pos="top"]    .gruns-acc-image-wrap { width: 100%; }
+.gruns-acc-has-image[data-img-pos="bottom"]  { flex-direction: column-reverse; }
+.gruns-acc-has-image[data-img-pos="bottom"] .gruns-acc-image-wrap { width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TASTE & PACKED
+═══════════════════════════════════════════════════════════════ */
 .gruns-extra-section { margin-top: 48px; }
 .gruns-extra-heading {
   text-align: center; font-family: 'Playfair Display', serif;
@@ -1085,6 +1246,9 @@
 .gruns-packed-item { display: flex; align-items: center; gap: 8px; font-size: .85rem; font-weight: 700; color: var(--g-text); min-width: 155px; }
 .gruns-packed-icon { font-size: 1.3rem; }
 
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
   .gruns-product-section { padding: 24px 14px 40px; }
   .gruns-gallery { flex-direction: column-reverse; }
@@ -1098,6 +1262,7 @@
   .gruns-qty-toggle { max-width: 100%; }
   .gruns-card-top { flex-direction: column; align-items: flex-start; gap: 4px; }
   .gruns-card-price { text-align: left; }
+  .gruns-acc-image-wrap { width: 90px; }
 }
 @media (max-width: 400px) {
   .gruns-stars-row { font-size: .75rem; }
