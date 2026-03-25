@@ -807,7 +807,7 @@
         "accordion_QYaYEx": {
           "type": "accordion",
           "settings": {
-            "icon": "",
+            "icon_emoji": "",
             "title": "Why Grüns?",
             "content": "<p>It's simple!</p><p><strong>Comprehensive:</strong> Nutrition that works. Grüns replaces handfuls of health products at a fraction of the cost.<br/><br/><strong>Delicious:</strong> A habit that tastes so good, you'll actually want to keep it.<br/><br/><strong>Portable:</strong> Designed to fit whenever and wherever you want your nutrition. Just grab and go.<br/><br/><strong>No Mess, No Stress: </strong>No more gagging on pills, sloshing chalky powders, or cleaning messy counters.</p>",
             "image_position": "left"
@@ -816,7 +816,7 @@
         "accordion_fmb4qC": {
           "type": "accordion",
           "settings": {
-            "icon": "",
+            "icon_emoji": "",
             "title": "Ingredients & Allergies",
             "content": "<p><span style=\"text-decoration:underline\"><strong>Ingredients</strong></span><br/>Grüns contains over 20 vitamins & minerals including Vitamin A, Vitamin B6, Vitamin B12, Vitamin C, Vitamin D3, Vitamin E, Vitamin K2, Biotin, Folate, Niacin, Pantothenic Acid, Vitamin B2, Thiamine, Chromium, Copper, Iodine, Manganese, Molybdenum, Selenium, Zinc, and Iron.</p><p><br/>Grüns also contains dozens of organic and key nutrient ingredients such as whole food fruits, vegetables, super mushrooms, prebiotics, adaptogens, and antioxidants. This long list includes organic alfalfa, organic kale, organic parsley, organic spinach, organic broccoli, organic cabbage, organic spirulina, organic astragalus, organic wheatgrass, organic chlorella, organic oat grass, organic beet, organic barley grass powder (gluten free), organic lemon, organic apple, organic blueberry, organic raspberry, organic strawberry, organic tomato, acai, acerola, amla, cranberry, goji, mangosteen, maqui, pomegranate, shiitake mushroom powder, and inulin.<br/><br/>Grüns are gluten-free, dairy-free, nut-free, vegan, non-GMO, and contain no synthetic sweeteners, no synthetic dyes.</p><p><br/>Lastly, Grüns has a pectin base which is a fruit fiber. No gelatin.<br/><br/><span style=\"text-decoration:underline\"><strong>Allergies</strong></span><br/>Grüns is plant-based and vegan. These gummies are free from gluten, dairy, and nuts. No synthetic sweeteners, no synthetic dyes.</p>",
             "image_position": "left"
@@ -825,37 +825,36 @@
         "accordion_CmxqRf": {
           "type": "accordion",
           "settings": {
-            "icon": "",
+            "icon_emoji": "",
             "title": "Low Sugar vs. Sugar-Free",
             "content": "",
-            "image": "shopify://shop_images/SugarDifferencesGraphic-OGAdults_1.jpg",
             "image_position": "top"
           }
         },
         "accordion_rTLQEt": {
           "type": "accordion",
           "settings": {
-            "icon": "",
+            "icon_emoji": "",
             "title": "Science & Certifications",
-            "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs for 35 substances. HSA/FSA eligible through Truemed.</p>",
+            "content": "<p><span style=\"text-decoration:underline\"><strong>Clinically Tested</strong></span><br/>We put Grüns to the test in 2025 through a gold standard clinical study: randomized, double blind, and placebo controlled. Here were the results—your body absorbs the nutrients. Participants showed meaningful increases in key nutrients, measured in the blood. It’s validation that gummies aren’t just convenient. They’re effective.</p><p><span style=\"text-decoration:underline\"><strong>Third Party Testing</strong></span></p><p>Every lot of our products undergo rigorous testing to ensure quality and purity across label claims, heavy metals, and microbial contaminants. In addition, we regularly conduct testing with Eurofins Scientific, a global leader in laboratory testing, to validate that our gummies meet label claims across 21 vitamins and minerals and surpass quality and safety standards across 99 pesticides, heavy metals, and microbial contaminants.</p><p><span style=\"text-decoration:underline\"><strong>Certifications</strong></span><br/>Manufactured in NSF, GMP, and FDA registered facilities in the U.S. & Canada, and thoroughly tested for heavy metals and contaminants.</p>",
             "image_position": "left"
           }
         },
         "accordion_CjJybD": {
           "type": "accordion",
           "settings": {
-            "icon": "",
+            "icon_emoji": "",
             "title": "Directions",
-            "content": "<p>Take 2 gummies daily with a meal. Each pack contains your daily serving. Not intended for children under 12 without physician guidance.</p>",
+            "content": "<p>Each large pouch of Grüns contains 28 individual packs. Grab a single pack daily and enjoy the small handful of green gummy bears inside for comprehensive nutrition.</p>",
             "image_position": "left"
           }
         },
         "accordion_tyRxWL": {
           "type": "accordion",
           "settings": {
-            "icon": "",
+            "icon_emoji": "",
             "title": "Benefits",
-            "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>",
+            "content": "<p>Grüns supports digestion, immune health, energy metabolism, and normal cognitive function — plus nutrients that help maintain healthy hair, skin, and nails — all in one convenient and delicious daily pack of gummies. Our hope is this tasty daily habit can replace a big shelf in your medicine cabinet.</p>",
             "image_position": "left"
           }
         },
@@ -958,15 +957,16 @@
       ],
       "name": "Grüns Product Section",
       "settings": {
+        "custom_classes": "",
         "color_scheme": "scheme-1",
         "full_width": false,
-        "padding_top": 36,
-        "padding_bottom": 36,
+        "padding_top": 80,
+        "padding_bottom": 80,
         "product": "limited-time-offer-save-up-to-52",
         "product_title": "",
         "page_headline": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!",
         "badge_text": "3rd-Party Tested",
-        "show_offer_ribbon": false,
+        "show_offer_ribbon": true,
         "offer_ribbon_icon": "🔥",
         "offer_ribbon_text": "LIMITED TIME OFFER: SAVE UP TO 52%",
         "nutrition_label_url": "",
@@ -997,11 +997,16 @@
         "sub_perk_1": "FAST & FREE Shipping",
         "sub_perk_2": "Pause Or Cancel Any Time",
         "sub_perk_3": "30-Day Guarantee",
+        "sub_perk_4": "",
+        "sub_perk_5": "",
         "subscribe_discount": 49,
         "once_card_title": "One Time Purchase",
         "once_card_desc": "28 packs delivered once",
         "once_perk_1": "No Free Shipping",
         "once_perk_2": "Discount on first order only",
+        "once_perk_3": "",
+        "once_perk_4": "",
+        "once_perk_5": "",
         "cta_available_text": "Start Now",
         "cta_soldout_text": "Sold Out",
         "discount_pill_icon": "✅",
