@@ -1142,6 +1142,17 @@
   font-size: clamp(1.5rem, 3vw, 2rem);
   color: var(--g-green-dark); font-weight: 700; line-height: 1.2; margin: 0;
 }
+/* ── FEATURE LIST ────────────────────────────────────────────── */
+.gruns-feature-list, .features-list { list-style: none; display: flex; flex-direction: column; gap: 5px; padding: 0; margin: 0; }
+.gruns-feature-list li, .features-list li {
+  font-size: .85rem;
+  color: var(--g-text);
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.gruns-feature-list li::before, .features-list li::before { content: '✓'; color: var(--g-green-mid); font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+
 .gruns-divider { border: none; border-top: 1px solid var(--g-border); margin: 0; }
 .gruns-option-group { display: flex; flex-direction: column; gap: 8px; }
 .gruns-option-label { font-weight: 800; font-size: .88rem; color: var(--g-text); }
