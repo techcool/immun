@@ -808,21 +808,21 @@
           "type": "accordion",
           "settings": {
             "title": "Why Grüns?",
-            "content": "<p>Grüns combines 60+ whole-food ingredients — veggies, fruits, adaptogens, mushrooms, and more — into a convenient daily gummy. No chalky powders, no big pills. Just real nutrition in a delicious bite-sized pack.</p>"
+            "content": "<p>It's simple!</p><p><strong>Comprehensive:</strong> Nutrition that works. Grüns replaces handfuls of health products at a fraction of the cost.<br/><br/><strong>Delicious:</strong> A habit that tastes so good, you'll actually want to keep it.<br/><br/><strong>Portable:</strong> Designed to fit whenever and wherever you want your nutrition. Just grab and go.<br/><br/><strong>No Mess, No Stress: </strong>No more gagging on pills, sloshing chalky powders, or cleaning messy counters.</p>"
           }
         },
         "accordion_fmb4qC": {
           "type": "accordion",
           "settings": {
             "title": "Ingredients & Allergies",
-            "content": "<p>Made with whole vegetables, fruits, vitamins, minerals, adaptogens, herbs, antioxidants, prebiotics, and super mushrooms. Free from major allergens. Third-party tested.</p>"
+            "content": "<p><span style=\"text-decoration:underline\"><strong>Ingredients</strong></span><br/>Grüns contains over 20 vitamins & minerals including Vitamin A, Vitamin B6, Vitamin B12, Vitamin C, Vitamin D3, Vitamin E, Vitamin K2, Biotin, Folate, Niacin, Pantothenic Acid, Vitamin B2, Thiamine, Chromium, Copper, Iodine, Manganese, Molybdenum, Selenium, Zinc, and Iron.</p><p><br/>Grüns also contains dozens of organic and key nutrient ingredients such as whole food fruits, vegetables, super mushrooms, prebiotics, adaptogens, and antioxidants. This long list includes organic alfalfa, organic kale, organic parsley, organic spinach, organic broccoli, organic cabbage, organic spirulina, organic astragalus, organic wheatgrass, organic chlorella, organic oat grass, organic beet, organic barley grass powder (gluten free), organic lemon, organic apple, organic blueberry, organic raspberry, organic strawberry, organic tomato, acai, acerola, amla, cranberry, goji, mangosteen, maqui, pomegranate, shiitake mushroom powder, and inulin.<br/><br/>Grüns are gluten-free, dairy-free, nut-free, vegan, non-GMO, and contain no synthetic sweeteners, no synthetic dyes.</p><p><br/>Lastly, Grüns has a pectin base which is a fruit fiber. No gelatin.<br/><br/><span style=\"text-decoration:underline\"><strong>Allergies</strong></span><br/>Grüns is plant-based and vegan. These gummies are free from gluten, dairy, and nuts. No synthetic sweeteners, no synthetic dyes.</p>"
           }
         },
         "accordion_CmxqRf": {
           "type": "accordion",
           "settings": {
             "title": "Low Sugar vs. Sugar-Free",
-            "content": "<p><strong>Low Sugar</strong> uses a small amount of organic cane sugar. <strong>Sugar-Free</strong> is sweetened with monk fruit and erythritol — ideal for keto lifestyles.</p>"
+            "content": ""
           }
         },
         "accordion_rTLQEt": {
