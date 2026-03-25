@@ -804,30 +804,6 @@
     "gruns_product_section_fwX7Rk": {
       "type": "gruns-product-section",
       "blocks": {
-        "feature_MjCiBY": {
-          "type": "feature",
-          "settings": {
-            "text": "Promotes mental clarity + energy"
-          }
-        },
-        "feature_4gxbP6": {
-          "type": "feature",
-          "settings": {
-            "text": "Promotes mental clarity + energy"
-          }
-        },
-        "feature_jbp3LK": {
-          "type": "feature",
-          "settings": {
-            "text": "Promotes mental clarity + energy"
-          }
-        },
-        "feature_6VKp4w": {
-          "type": "feature",
-          "settings": {
-            "text": "Promotes mental clarity + energy"
-          }
-        },
         "accordion_QYaYEx": {
           "type": "accordion",
           "settings": {
@@ -949,10 +925,6 @@
         }
       },
       "block_order": [
-        "feature_MjCiBY",
-        "feature_4gxbP6",
-        "feature_jbp3LK",
-        "feature_6VKp4w",
         "accordion_QYaYEx",
         "accordion_fmb4qC",
         "accordion_CmxqRf",
@@ -975,7 +947,6 @@
       "settings": {
         "product": "limited-time-offer-save-up-to-52",
         "product_title": "",
-        "product_tagline": "60+ potent ingredients to revive whole body vitality in great tasting gummies.",
         "page_headline": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!",
         "badge_text": "3rd-Party Tested",
         "show_offer_ribbon": true,
@@ -986,7 +957,7 @@
         "review_score": "4.8/5.0",
         "review_count": "85,000",
         "customer_count": "1M+ Customers",
-        "subscribe_discount": 50
+        "subscribe_discount": 49
       }
     },
     "faq_accordion_mCWKYg": {
