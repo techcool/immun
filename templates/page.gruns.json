@@ -950,7 +950,7 @@
       ],
       "name": "Grüns Product Section",
       "settings": {
-        "custom_classes": "offer-product-sec",
+        "custom_classes": "offer-product-sec common-container",
         "color_scheme": "scheme-1",
         "full_width": false,
         "padding_top": 80,
