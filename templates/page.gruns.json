@@ -807,43 +807,56 @@
         "accordion_QYaYEx": {
           "type": "accordion",
           "settings": {
+            "icon": "",
             "title": "Why Grüns?",
-            "content": "<p>It's simple!</p><p><strong>Comprehensive:</strong> Nutrition that works. Grüns replaces handfuls of health products at a fraction of the cost.<br/><br/><strong>Delicious:</strong> A habit that tastes so good, you'll actually want to keep it.<br/><br/><strong>Portable:</strong> Designed to fit whenever and wherever you want your nutrition. Just grab and go.<br/><br/><strong>No Mess, No Stress: </strong>No more gagging on pills, sloshing chalky powders, or cleaning messy counters.</p>"
+            "content": "<p>It's simple!</p><p><strong>Comprehensive:</strong> Nutrition that works. Grüns replaces handfuls of health products at a fraction of the cost.<br/><br/><strong>Delicious:</strong> A habit that tastes so good, you'll actually want to keep it.<br/><br/><strong>Portable:</strong> Designed to fit whenever and wherever you want your nutrition. Just grab and go.<br/><br/><strong>No Mess, No Stress: </strong>No more gagging on pills, sloshing chalky powders, or cleaning messy counters.</p>",
+            "image_position": "left"
           }
         },
         "accordion_fmb4qC": {
           "type": "accordion",
           "settings": {
+            "icon": "",
             "title": "Ingredients & Allergies",
-            "content": "<p><span style=\"text-decoration:underline\"><strong>Ingredients</strong></span><br/>Grüns contains over 20 vitamins & minerals including Vitamin A, Vitamin B6, Vitamin B12, Vitamin C, Vitamin D3, Vitamin E, Vitamin K2, Biotin, Folate, Niacin, Pantothenic Acid, Vitamin B2, Thiamine, Chromium, Copper, Iodine, Manganese, Molybdenum, Selenium, Zinc, and Iron.</p><p><br/>Grüns also contains dozens of organic and key nutrient ingredients such as whole food fruits, vegetables, super mushrooms, prebiotics, adaptogens, and antioxidants. This long list includes organic alfalfa, organic kale, organic parsley, organic spinach, organic broccoli, organic cabbage, organic spirulina, organic astragalus, organic wheatgrass, organic chlorella, organic oat grass, organic beet, organic barley grass powder (gluten free), organic lemon, organic apple, organic blueberry, organic raspberry, organic strawberry, organic tomato, acai, acerola, amla, cranberry, goji, mangosteen, maqui, pomegranate, shiitake mushroom powder, and inulin.<br/><br/>Grüns are gluten-free, dairy-free, nut-free, vegan, non-GMO, and contain no synthetic sweeteners, no synthetic dyes.</p><p><br/>Lastly, Grüns has a pectin base which is a fruit fiber. No gelatin.<br/><br/><span style=\"text-decoration:underline\"><strong>Allergies</strong></span><br/>Grüns is plant-based and vegan. These gummies are free from gluten, dairy, and nuts. No synthetic sweeteners, no synthetic dyes.</p>"
+            "content": "<p><span style=\"text-decoration:underline\"><strong>Ingredients</strong></span><br/>Grüns contains over 20 vitamins & minerals including Vitamin A, Vitamin B6, Vitamin B12, Vitamin C, Vitamin D3, Vitamin E, Vitamin K2, Biotin, Folate, Niacin, Pantothenic Acid, Vitamin B2, Thiamine, Chromium, Copper, Iodine, Manganese, Molybdenum, Selenium, Zinc, and Iron.</p><p><br/>Grüns also contains dozens of organic and key nutrient ingredients such as whole food fruits, vegetables, super mushrooms, prebiotics, adaptogens, and antioxidants. This long list includes organic alfalfa, organic kale, organic parsley, organic spinach, organic broccoli, organic cabbage, organic spirulina, organic astragalus, organic wheatgrass, organic chlorella, organic oat grass, organic beet, organic barley grass powder (gluten free), organic lemon, organic apple, organic blueberry, organic raspberry, organic strawberry, organic tomato, acai, acerola, amla, cranberry, goji, mangosteen, maqui, pomegranate, shiitake mushroom powder, and inulin.<br/><br/>Grüns are gluten-free, dairy-free, nut-free, vegan, non-GMO, and contain no synthetic sweeteners, no synthetic dyes.</p><p><br/>Lastly, Grüns has a pectin base which is a fruit fiber. No gelatin.<br/><br/><span style=\"text-decoration:underline\"><strong>Allergies</strong></span><br/>Grüns is plant-based and vegan. These gummies are free from gluten, dairy, and nuts. No synthetic sweeteners, no synthetic dyes.</p>",
+            "image_position": "left"
           }
         },
         "accordion_CmxqRf": {
           "type": "accordion",
           "settings": {
+            "icon": "",
             "title": "Low Sugar vs. Sugar-Free",
-            "content": ""
+            "content": "",
+            "image": "shopify://shop_images/SugarDifferencesGraphic-OGAdults_1.jpg",
+            "image_position": "top"
           }
         },
         "accordion_rTLQEt": {
           "type": "accordion",
           "settings": {
+            "icon": "",
             "title": "Science & Certifications",
-            "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs for 35 substances. HSA/FSA eligible through Truemed.</p>"
+            "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs for 35 substances. HSA/FSA eligible through Truemed.</p>",
+            "image_position": "left"
           }
         },
         "accordion_CjJybD": {
           "type": "accordion",
           "settings": {
+            "icon": "",
             "title": "Directions",
-            "content": "<p>Take 2 gummies daily with a meal. Each pack contains your daily serving. Not intended for children under 12 without physician guidance.</p>"
+            "content": "<p>Take 2 gummies daily with a meal. Each pack contains your daily serving. Not intended for children under 12 without physician guidance.</p>",
+            "image_position": "left"
           }
         },
         "accordion_tyRxWL": {
           "type": "accordion",
           "settings": {
+            "icon": "",
             "title": "Benefits",
-            "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>"
+            "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>",
+            "image_position": "left"
           }
         },
         "taste_KVDjLz": {
@@ -945,19 +958,63 @@
       ],
       "name": "Grüns Product Section",
       "settings": {
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
         "product": "limited-time-offer-save-up-to-52",
         "product_title": "",
         "page_headline": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!",
         "badge_text": "3rd-Party Tested",
-        "show_offer_ribbon": true,
+        "show_offer_ribbon": false,
+        "offer_ribbon_icon": "🔥",
         "offer_ribbon_text": "LIMITED TIME OFFER: SAVE UP TO 52%",
         "nutrition_label_url": "",
+        "nutrition_label_text": "View Nutrition Label",
+        "tested_icon": "✔️",
         "tested_text": "<p>Tested by Light Labs in <strong>FEB 2026</strong><br/>35 substances tested for quality</p>",
         "show_reviews": true,
+        "star_icons": "★★★★★",
         "review_score": "4.8/5.0",
         "review_count": "85,000",
         "customer_count": "1M+ Customers",
-        "subscribe_discount": 49
+        "variant_fallback_label": "Select Sugar Level",
+        "variant_option1_label": "Low Sugar",
+        "variant_option2_label": "Sugar-Free",
+        "qty_label": "How many Adults?",
+        "qty_save_icon": "🏷",
+        "qty_save_text": "Buy 2 Save 5%",
+        "qty_btn1_label": "1",
+        "qty_btn2_label": "2",
+        "autoship_label": "Autoship and Save:",
+        "sub_popular_prefix": "Most Popular",
+        "sub_popular_suffix_prefix": "Get",
+        "sub_popular_suffix_postfix": "Off",
+        "sub_card_title": "Subscribe & Save",
+        "price_freq_suffix": "/mo",
+        "per_day_suffix": "/day",
+        "sub_card_desc": "28 packs each 4 weeks",
+        "sub_perk_1": "FAST & FREE Shipping",
+        "sub_perk_2": "Pause Or Cancel Any Time",
+        "sub_perk_3": "30-Day Guarantee",
+        "subscribe_discount": 49,
+        "once_card_title": "One Time Purchase",
+        "once_card_desc": "28 packs delivered once",
+        "once_perk_1": "No Free Shipping",
+        "once_perk_2": "Discount on first order only",
+        "cta_available_text": "Start Now",
+        "cta_soldout_text": "Sold Out",
+        "discount_pill_icon": "✅",
+        "discount_pill_text": "Limited Time Discount Auto-Applied",
+        "trust_1_icon": "✔️",
+        "trust_1_text": "30-day guarantee",
+        "trust_2_icon": "🔬",
+        "trust_2_text": "Clinically and 3rd party tested",
+        "trust_3_icon": "💳",
+        "trust_3_text": "HSA/FSA eligible with Truemed",
+        "accordion_open_icon": "+",
+        "taste_heading": "Tastes Like",
+        "packed_heading": "Packed With"
       }
     },
     "faq_accordion_mCWKYg": {
