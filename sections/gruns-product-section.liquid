@@ -1,584 +1,381 @@
-{% comment %}
-  ╔══════════════════════════════════════════════════════════════╗
-  ║  Grüns Superfood Gummies – Custom Product Section           ║
-  ║  File: sections/gruns-product-section.liquid                ║
-  ║  Drop this in your theme's /sections/ folder                ║
-  ╚══════════════════════════════════════════════════════════════╝
-{% endcomment %}
 
-{% assign product = all_products[section.settings.product] | default: product %}
+/* ═══════════════════════════════════════════════════════════════
+   gruns-product-section.js  (updated)
+   Drop in: assets/gruns-product-section.js
+   ═══════════════════════════════════════════════════════════════ */
 
-{{ 'gruns-product-section.css' | asset_url | stylesheet_tag }}
+(function () {
+  'use strict';
 
-<section
-  class="gruns-product-section common-container"
-  id="gruns-product-{{ section.id }}"
-  data-section-id="{{ section.id }}"
-  data-section-type="gruns-product"
->
-<div class="page-width product-container">
+  /* ── Utility: format money like Shopify (cents → "$X.XX") ── */
+  function formatMoney(cents, symbol) {
+    symbol = symbol || '$';
+    var amount = (cents / 100).toFixed(2);
+    return symbol + amount;
+  }
 
-  {% if section.settings.page_headline != blank %}
-  <h2 class="gruns-page-headline">
-    {{ section.settings.page_headline }}
-  </h2>
-  {% endif %}
+  /* ══════════════════════════════════════════════════════════════
+     GrunsProductSection
+     One instance per section on the page.
+  ══════════════════════════════════════════════════════════════ */
+  function GrunsProductSection(sectionEl) {
+    this.section   = sectionEl;
+    this.sectionId = sectionEl.dataset.sectionId;
 
-  {% if section.settings.badge_text != blank %}
-  <div class="gruns-badge-wrap">
-    <span class="gruns-badge">{{ section.settings.badge_text }}</span>
-  </div>
-  {% endif %}
+    var configKey = 'GrunsProduct_' + this.sectionId.replace(/-/g, '_');
+    this.config   = window[configKey] || {};
+    this.variants = this.config.variantsJson || [];
+    this.discount = parseInt(this.config.subscribeDiscount, 10) || 49;
+    this.currency = this.config.currencySymbol || '$';
 
-  <div class="gruns-product-grid">
+    // State
+    this.selectedOptions = {};
+    this.qty             = 1;
+    this.purchaseType    = 'subscription';
 
-    <!-- ══════════════════════════════════════════
-         LEFT: GALLERY
-    ════════════════════════════════════════════ -->
-    <div class="gruns-gallery-col">
-      <div class="gruns-gallery">
+    this._initGallery();
+    this._initVariantToggles();
+    this._initQtyToggle();
+    this._initPurchaseCards();
+    this._initAccordion();
+    this._updatePricing();
+  }
 
-        <!-- Thumbnails -->
-        <div class="gruns-thumbs" role="list">
-          {% if product.images.size > 0 %}
-            {% for image in product.images limit: 6 %}
-            <button
-              class="gruns-thumb{% if forloop.first %} active{% endif %}"
-              data-index="{{ forloop.index0 }}"
-              aria-label="View image {{ forloop.index }}"
-              role="listitem"
-            >
-              {{ image | image_url: width: 120 | image_tag: loading: 'lazy', alt: image.alt | default: product.title }}
-            </button>
-            {% endfor %}
-          {% else %}
-            {% for i in (1..6) %}
-            <button class="gruns-thumb{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}" role="listitem">
-              {{ 'product-' | append: i | placeholder_svg_tag: 'gruns-thumb-svg' }}
-            </button>
-            {% endfor %}
-          {% endif %}
-        </div>
+  /* ── GALLERY ─────────────────────────────────────────────────── */
+  GrunsProductSection.prototype._initGallery = function () {
+    var self   = this;
+    var thumbs = this.section.querySelectorAll('.gruns-thumb');
+    var slides = this.section.querySelectorAll('.gruns-slide');
+    if (!thumbs.length) return;
 
-        <!-- Main Image -->
-        <div class="gruns-main-image-wrap">
-          {% if section.settings.show_offer_ribbon %}
-          <div class="gruns-offer-ribbon" aria-label="{{ section.settings.offer_ribbon_text }}">
-            🔥 {{ section.settings.offer_ribbon_text }} 🔥
-          </div>
-          {% endif %}
+    thumbs.forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        var idx = parseInt(this.dataset.index, 10);
+        thumbs.forEach(function (t) { t.classList.remove('active'); });
+        this.classList.add('active');
+        slides.forEach(function (s) { s.classList.remove('active'); });
+        var target = self.section.querySelector('.gruns-slide[data-slide="' + idx + '"]');
+        if (target) target.classList.add('active');
+      });
+    });
+  };
 
-          
-          <div class="gruns-main-image-inner" id="gruns-main-image-{{ section.id }}">
-            {% if product.images.size > 0 %}
-              {% for image in product.images limit: 6 %}
-              <div class="gruns-slide{% if forloop.first %} active{% endif %}" data-slide="{{ forloop.index0 }}">
-                {{ image | image_url: width: 800 | image_tag:
-                    loading: 'lazy',
-                    alt: image.alt | default: product.title,
-                    class: 'gruns-product-img'
-                }}
-              </div>
-              {% endfor %}
-            {% else %}
-              <div class="gruns-slide active" data-slide="0">
-                {{ 'product-1' | placeholder_svg_tag: 'gruns-product-img' }}
-              </div>
-            {% endif %}
-          </div>
-        </div>
+  /* ── VARIANT OPTION TOGGLES ──────────────────────────────────── */
+  GrunsProductSection.prototype._initVariantToggles = function () {
+    var self    = this;
+    var buttons = this.section.querySelectorAll('.gruns-toggle-btn');
+    if (!buttons.length) return;
 
-      </div><!-- /.gruns-gallery -->
+    buttons.forEach(function (btn) {
+      if (btn.classList.contains('active') || btn.getAttribute('aria-pressed') === 'true') {
+        var optIdx = btn.dataset.option;
+        self.selectedOptions[optIdx] = btn.dataset.value;
+      }
+    });
 
-      <!-- Nutrition Button -->
-      {% if section.settings.nutrition_label_url != blank %}
-      <a href="{{ section.settings.nutrition_label_url }}" class="gruns-nutrition-btn" target="_blank" rel="noopener">
-        View Nutrition Label
-      </a>
-      {% endif %}
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var optIdx = this.dataset.option;
+        var value  = this.dataset.value;
 
-      <!-- Tested Badge -->
-      {% if section.settings.tested_text != blank %}
-      <div class="gruns-tested-badge">
-        <span class="gruns-tested-icon" aria-hidden="true">✔️</span>
-        <div>{{ section.settings.tested_text }}</div>
-      </div>
-      {% endif %}
+        self.section.querySelectorAll('.gruns-toggle-btn[data-option="' + optIdx + '"]')
+          .forEach(function (b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+          });
 
-    </div>
-    <!-- /.gruns-gallery-col -->
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+        self.selectedOptions[optIdx] = value;
 
+        self._matchVariant();
+        self._updatePricing();
+      });
+    });
+  };
 
-    <!-- ══════════════════════════════════════════
-         RIGHT: PRODUCT DETAILS
-    ════════════════════════════════════════════ -->
-    <div class="gruns-details-col">
+  /* ── QTY TOGGLE ──────────────────────────────────────────────── */
+  GrunsProductSection.prototype._initQtyToggle = function () {
+    var self    = this;
+    var buttons = this.section.querySelectorAll('.gruns-qty-btn');
+    var pill    = this.section.querySelector('.gruns-save-pill');
+    if (!buttons.length) return;
 
-      <!-- Stars / Reviews -->
-      {% if section.settings.show_reviews %}
-      <div class="gruns-stars-row">
-        <span class="gruns-stars" aria-label="4.8 out of 5 stars">★★★★★</span>
-        <strong>{{ section.settings.review_score }}</strong>
-        <span>({{ section.settings.review_count }}) · {{ section.settings.customer_count }}</span>
-      </div>
-      {% endif %}
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+        self.qty = parseInt(this.dataset.qty, 10) || 1;
 
-      <!-- Title -->
-      <h2 class="gruns-product-title">{{ product.title | default: section.settings.product_title }}</h2>
+        // Update hidden quantity input
+        var qtyInput = self.section.querySelector('#gruns-quantity-' + self.sectionId);
+        if (qtyInput) qtyInput.value = self.qty;
 
-      <!-- Product Description -->
-      {% if product.description != blank %}
-      <div class="gruns-product-description">
-        {{ product.description }}
-      </div>
-      {% endif %}
+        // ── "Buy 2 Save 5%" pill: active green when qty=2, greyed when qty=1 ──
+        if (pill) {
+          if (self.qty >= 2) {
+            pill.classList.add('gruns-save-pill--active');
+          } else {
+            pill.classList.remove('gruns-save-pill--active');
+          }
+        }
 
-      
-      <hr class="gruns-divider">
+        self._updatePricing();
+      });
+    });
+  };
 
-      <!-- ── VARIANT / OPTIONS ───────────────────────── -->
-      {% if product.has_only_default_variant == false %}
-        {% for option in product.options_with_values %}
-        <div class="gruns-option-group" data-option-index="{{ forloop.index0 }}">
-          <div class="gruns-option-label">{{ option.name }}</div>
-          <div class="gruns-toggle-group" role="group" aria-label="{{ option.name }}">
-            {% for value in option.values %}
-            {% assign is_selected = false %}
-            {% if option.selected_value == value %}
-              {% assign is_selected = true %}
-            {% endif %}
-            <button
-              class="gruns-toggle-btn{% if is_selected %} active{% endif %}"
-              data-option="{{ forloop.parentloop.index0 }}"
-              data-value="{{ value | escape }}"
-              aria-pressed="{{ is_selected }}"
-            >
-              {{ value }}
-            </button>
-            {% endfor %}
-          </div>
-        </div>
-        {% endfor %}
-      {% else %}
-        <!-- Static Sugar toggle (fallback when no variants) -->
-        <div class="gruns-option-group">
-          <div class="gruns-option-label">Select Sugar Level</div>
-          <div class="gruns-toggle-group" role="group" aria-label="Sugar Level">
-            <button class="gruns-toggle-btn active" data-option="sugar" data-value="low">Low Sugar</button>
-            <button class="gruns-toggle-btn" data-option="sugar" data-value="free">Sugar-Free</button>
-          </div>
-        </div>
-      {% endif %}
+  /* ── PURCHASE CARDS ──────────────────────────────────────────── */
+  GrunsProductSection.prototype._initPurchaseCards = function () {
+    var self  = this;
+    var cards = this.section.querySelectorAll('.gruns-purchase-card');
+    if (!cards.length) return;
 
-      <!-- Adults Qty -->
-      <div class="gruns-option-group">
-        <div class="gruns-adults-row">
-          <div class="gruns-option-label">How many Adults?</div>
-          <span class="gruns-save-pill">🏷 Buy 2 Save 5%</span>
-        </div>
-        <div class="gruns-qty-toggle" id="gruns-qty-{{ section.id }}" role="group" aria-label="Number of adults">
-          <button class="gruns-qty-btn active" data-qty="1" aria-pressed="true">1</button>
-          <button class="gruns-qty-btn" data-qty="2" aria-pressed="false">2</button>
-        </div>
-      </div>
+    cards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        self._selectCard(this.dataset.type);
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          self._selectCard(this.dataset.type);
+        }
+      });
+    });
+  };
 
-      <hr class="gruns-divider">
+  GrunsProductSection.prototype._selectCard = function (type) {
+    var self  = this;
+    var cards = this.section.querySelectorAll('.gruns-purchase-card');
 
-      <!-- ── PURCHASE OPTIONS ────────────────────────── -->
-      <div class="gruns-autoship-label">Autoship and Save:</div>
+    this.purchaseType = type;
 
-      <div
-        class="gruns-purchase-card active"
-        id="gruns-card-sub-{{ section.id }}"
-        data-type="subscription"
-        role="radio"
-        aria-checked="true"
-        tabindex="0"
-      >
-        <div class="gruns-popular-tag">Most Popular · Get {{ section.settings.subscribe_discount }}% Off</div>
-        <div class="gruns-card-top">
-          <div class="gruns-card-title-row">
-            <div class="gruns-radio-dot active" aria-hidden="true"></div>
-            <div class="gruns-card-title">Subscribe &amp; Save</div>
-          </div>
-          <div class="gruns-card-price">
-            <div class="gruns-price-main" id="gruns-sub-price-{{ section.id }}">
-              {{ product.selected_or_first_available_variant.price | times: 0.51 | money }}<span class="gruns-price-freq">/mo</span>
-            </div>
-            <span class="gruns-price-sub">
-              <span class="gruns-price-old" id="gruns-sub-old-{{ section.id }}">
-                {{ product.selected_or_first_available_variant.price | money }}
-              </span> · $1.46/day
-            </span>
-          </div>
-        </div>
-        <div class="gruns-card-desc">28 packs each 4 weeks</div>
-        <ul class="gruns-card-perks">
-          <li>FAST &amp; FREE Shipping</li>
-          <li>Pause Or Cancel Any Time</li>
-          <li>30-Day Guarantee</li>
-        </ul>
-      </div>
+    cards.forEach(function (card) {
+      var isActive = card.dataset.type === type;
+      card.classList.toggle('active', isActive);
+      card.setAttribute('aria-checked', isActive ? 'true' : 'false');
 
-      <div
-        class="gruns-purchase-card"
-        id="gruns-card-once-{{ section.id }}"
-        data-type="onetime"
-        role="radio"
-        aria-checked="false"
-        tabindex="0"
-      >
-        <div class="gruns-card-top">
-          <div class="gruns-card-title-row">
-            <div class="gruns-radio-dot" aria-hidden="true"></div>
-            <div class="gruns-card-title">One Time Purchase</div>
-          </div>
-          <div class="gruns-card-price">
-            <div class="gruns-price-main" id="gruns-once-price-{{ section.id }}">
-              {{ product.selected_or_first_available_variant.price | money }}
-            </div>
-            <span class="gruns-price-sub">
-              <span class="gruns-price-old">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
-              · $1.94/day
-            </span>
-          </div>
-        </div>
-        <div class="gruns-card-desc">28 packs delivered once</div>
-      </div>
+      var dot = card.querySelector('.gruns-radio-dot');
+      if (dot) dot.classList.toggle('active', isActive);
+    });
 
-      <!-- ── ADD TO CART ─────────────────────────────── -->
-      {%- assign gruns_form_id = 'gruns-product-form-' | append: section.id -%}
-      {%- form 'product', product, id: gruns_form_id, class: 'gruns-product-form', novalidate: 'novalidate' -%}
-        <input type="hidden" name="id" id="gruns-variant-id-{{ section.id }}"
-               value="{{ product.selected_or_first_available_variant.id }}">
-        <input type="hidden" name="quantity" id="gruns-quantity-{{ section.id }}" value="1">
+    self._updatePricing();
+  };
 
-        <button
-          type="submit"
-          name="add"
-          class="gruns-cta-btn"
-          id="gruns-cta-{{ section.id }}"
-          {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
-          aria-label="Add to cart"
-        >
-          {% if product.selected_or_first_available_variant.available %}
-            Start Now
-          {% else %}
-            Sold Out
-          {% endif %}
-        </button>
-      {%- endform -%}
+  /* ── ACCORDION ───────────────────────────────────────────────── */
+  GrunsProductSection.prototype._initAccordion = function () {
+    var headers = this.section.querySelectorAll('.gruns-acc-header');
+    if (!headers.length) return;
 
-      <div class="gruns-discount-pill">
-        <span>✅</span> Limited Time Discount Auto-Applied
-      </div>
+    headers.forEach(function (header) {
+      header.addEventListener('click', function () {
+        var bodyId = this.getAttribute('aria-controls');
+        var body   = document.getElementById(bodyId);
+        var isOpen = this.getAttribute('aria-expanded') === 'true';
 
-      <!-- Trust Icons -->
-      <div class="gruns-trust-row">
-        <div class="gruns-trust-item">
-          <div class="gruns-trust-icon" aria-hidden="true">✔️</div>
-          <div class="gruns-trust-text">30-day guarantee</div>
-        </div>
-        <div class="gruns-trust-item">
-          <div class="gruns-trust-icon" aria-hidden="true">🔬</div>
-          <div class="gruns-trust-text">Clinically and 3rd party tested</div>
-        </div>
-        <div class="gruns-trust-item">
-          <div class="gruns-trust-icon" aria-hidden="true">💳</div>
-          <div class="gruns-trust-text">HSA/FSA eligible with Truemed</div>
-        </div>
-      </div>
+        headers.forEach(function (h) {
+          h.setAttribute('aria-expanded', 'false');
+          var bId = h.getAttribute('aria-controls');
+          var b   = document.getElementById(bId);
+          if (b) b.classList.remove('open');
+        });
 
-      <!-- ── ACCORDION ──────────────────────────────── -->
-      <div class="gruns-accordion" role="list">
-        {% for block in section.blocks %}
-          {% if block.type == 'accordion' %}
-          <div class="gruns-acc-item" {{ block.shopify_attributes }} role="listitem">
-            <button
-              class="gruns-acc-header"
-              aria-expanded="false"
-              aria-controls="gruns-acc-body-{{ block.id }}"
-            >
-              {{ block.settings.title }}
-              <span class="gruns-acc-icon" aria-hidden="true">+</span>
-            </button>
-            <div
-              class="gruns-acc-body"
-              id="gruns-acc-body-{{ block.id }}"
-              role="region"
-            >
-              <div class="gruns-acc-body-inner">
-                {{ block.settings.content }}
-              </div>
-            </div>
-          </div>
-          {% endif %}
-        {% endfor %}
-      </div>
+        if (!isOpen) {
+          this.setAttribute('aria-expanded', 'true');
+          if (body) body.classList.add('open');
+        }
+      });
+    });
+  };
 
-      <!-- ══════════════════════════════════════════
-       TASTE & PACKED SECTION
-  ════════════════════════════════════════════ -->
-  {% assign taste_blocks = section.blocks | where: 'type', 'taste' %}
-  {% assign packed_blocks = section.blocks | where: 'type', 'ingredient' %}
+  /* ── VARIANT MATCHING ────────────────────────────────────────── */
+  GrunsProductSection.prototype._matchVariant = function () {
+    if (!this.variants.length) return;
 
-  {% if taste_blocks.size > 0 or packed_blocks.size > 0 %}
-  <div class="gruns-extra-section">
+    var self         = this;
+    var optionValues = Object.values(self.selectedOptions);
+    var matched      = null;
 
-    {% if taste_blocks.size > 0 %}
-    <h3 class="gruns-extra-heading">Tastes Like</h3>
-    <div class="gruns-taste-row">
-      {% for block in taste_blocks %}
-      <div class="gruns-taste-item" {{ block.shopify_attributes }}>
-        <div class="gruns-taste-icon">{{ block.settings.icon }}</div>
-        <span>{{ block.settings.label }}</span>
-      </div>
-      {% endfor %}
-    </div>
-    {% endif %}
+    this.variants.forEach(function (v) {
+      var match = v.options.every(function (opt, idx) {
+        return optionValues[idx] === undefined || opt === optionValues[idx];
+      });
+      if (match) matched = v;
+    });
 
-    {% if packed_blocks.size > 0 %}
-    <h3 class="gruns-extra-heading">Packed With</h3>
-    <div class="gruns-packed-row">
-      {% for block in packed_blocks %}
-      <div class="gruns-packed-item" {{ block.shopify_attributes }}>
-        <span class="gruns-packed-icon">{{ block.settings.icon }}</span>
-        {{ block.settings.label }}
-      </div>
-      {% endfor %}
-    </div>
-    {% endif %}
+    if (matched) {
+      this.currentVariant = matched;
 
-  </div>
-  {% endif %}
+      var varInput = this.section.querySelector('#gruns-variant-id-' + this.sectionId);
+      if (varInput) varInput.value = matched.id;
 
+      var ctaBtn = this.section.querySelector('#gruns-cta-' + this.sectionId);
+      if (ctaBtn) {
+        ctaBtn.disabled = !matched.available;
+        if (!matched.available) ctaBtn.textContent = 'Sold Out';
+      }
 
-    </div>
-    <!-- /.gruns-details-col -->
-  </div>
-  <!-- /.gruns-product-grid -->
-
-
-  
-
-</div>
-</section>
-
-<script src="{{ 'gruns-product-section.js' | asset_url }}" defer></script>
-
-<script>
-  // Pass Liquid data to JS
-  window.GrunsProduct_{{ section.id | replace: '-', '_' }} = {
-    sectionId: '{{ section.id }}',
-    productHandle: '{{ product.handle }}',
-    variantsJson: {{ product.variants | json }},
-    subscribeDiscount: {{ section.settings.subscribe_discount }},
-    currencySymbol: '{{ cart.currency.symbol }}',
-    variantImages: {
-      {%- for variant in product.variants -%}
-        {%- if variant.featured_image -%}
-          "{{ variant.id }}": {
-            "src": "{{ variant.featured_image | image_url: width: 800 }}",
-            "thumb": "{{ variant.featured_image | image_url: width: 120 }}",
-            "alt": {{ variant.featured_image.alt | default: variant.title | json }},
-            "position": {{ variant.featured_image.position | minus: 1 }}
-          }{%- unless forloop.last -%},{%- endunless -%}
-        {%- endif -%}
-      {%- endfor -%}
+      this._switchVariantImage(matched);
     }
   };
-</script>
 
+  /* ── VARIANT IMAGE SWITCHER ──────────────────────────────────── */
+  GrunsProductSection.prototype._switchVariantImage = function (variant) {
+    var variantImages = this.config.variantImages || {};
+    var imgData = variantImages[variant.id];
+    if (!imgData) return;
 
-{% schema %}
-{
-  "name": "Grüns Product Section",
-  "tag": "section",
-  "class": "gruns-section-wrapper",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Product"
-    },
-    {
-      "type": "product",
-      "id": "product",
-      "label": "Product"
-    },
-    {
-      "type": "text",
-      "id": "product_title",
-      "label": "Product Title (fallback)",
-      "default": "Grüns Superfood Gummies"
-    },
-    {
-      "type": "header",
-      "content": "Headlines & Badges"
-    },
-    {
-      "type": "textarea",
-      "id": "page_headline",
-      "label": "Page Headline",
-      "default": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!"
-    },
-    {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge Text",
-      "default": "3rd-Party Tested"
-    },
-    {
-      "type": "header",
-      "content": "Image / Gallery"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_offer_ribbon",
-      "label": "Show offer ribbon on image",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "offer_ribbon_text",
-      "label": "Offer Ribbon Text",
-      "default": "LIMITED TIME OFFER: SAVE UP TO 52%"
-    },
-    {
-      "type": "url",
-      "id": "nutrition_label_url",
-      "label": "Nutrition Label URL (PDF or page)"
-    },
-    {
-      "type": "richtext",
-      "id": "tested_text",
-      "label": "Tested Badge Text",
-      "default": "<p>Tested by Light Labs in <strong>FEB 2026</strong><br>35 substances tested for quality</p>"
-    },
-    {
-      "type": "header",
-      "content": "Reviews"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_reviews",
-      "label": "Show review stars",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "review_score",
-      "label": "Review Score",
-      "default": "4.8/5.0"
-    },
-    {
-      "type": "text",
-      "id": "review_count",
-      "label": "Review Count",
-      "default": "85,000"
-    },
-    {
-      "type": "text",
-      "id": "customer_count",
-      "label": "Customer Count",
-      "default": "1M+ Customers"
-    },
-    {
-      "type": "header",
-      "content": "Pricing"
-    },
-    {
-      "type": "range",
-      "id": "subscribe_discount",
-      "min": 10,
-      "max": 60,
-      "step": 1,
-      "unit": "%",
-      "label": "Subscribe & Save Discount",
-      "default": 49
+    var slides   = this.section.querySelectorAll('.gruns-slide');
+    var thumbs   = this.section.querySelectorAll('.gruns-thumb');
+    var position = imgData.position;
+
+    var targetSlide = this.section.querySelector('.gruns-slide[data-slide="' + position + '"]');
+    if (targetSlide) {
+      slides.forEach(function (s) { s.classList.remove('active'); });
+      targetSlide.classList.add('active');
+      thumbs.forEach(function (t) { t.classList.remove('active'); });
+      var targetThumb = this.section.querySelector('.gruns-thumb[data-index="' + position + '"]');
+      if (targetThumb) targetThumb.classList.add('active');
+      return;
     }
-  ],
-  "blocks": [
-    {
-      "type": "accordion",
-      "name": "FAQ Accordion",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Question",
-          "default": "Why Grüns?"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "Answer",
-          "default": "<p>Grüns combines 60+ whole-food ingredients into a convenient daily gummy.</p>"
-        }
-      ]
-    },
-    {
-      "type": "taste",
-      "name": "Taste Item",
-      "settings": [
-        {
-          "type": "text",
-          "id": "icon",
-          "label": "Emoji Icon",
-          "default": "🍓"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Strawberry"
-        }
-      ]
-    },
-    {
-      "type": "ingredient",
-      "name": "Packed With Item",
-      "settings": [
-        {
-          "type": "text",
-          "id": "icon",
-          "label": "Emoji Icon",
-          "default": "🥦"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Whole Veggies"
-        }
-      ]
+
+    var firstSlide = this.section.querySelector('.gruns-slide[data-slide="0"]');
+    if (!firstSlide) return;
+
+    var existingImg = firstSlide.querySelector('img.gruns-variant-injected');
+    if (existingImg) {
+      existingImg.src = imgData.src;
+      existingImg.alt = imgData.alt;
+    } else {
+      var img = document.createElement('img');
+      img.src = imgData.src;
+      img.alt = imgData.alt;
+      img.className = 'gruns-product-img gruns-variant-injected';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;';
+      firstSlide.style.position = 'relative';
+      firstSlide.appendChild(img);
     }
-  ],
-  "presets": [
-    {
-      "name": "Grüns Product Section",
-      "blocks": [
-        { "type": "accordion", "settings": { "title": "Why Grüns?", "content": "<p>Grüns combines 60+ whole-food ingredients — veggies, fruits, adaptogens, mushrooms, and more — into a convenient daily gummy. No chalky powders, no big pills. Just real nutrition in a delicious bite-sized pack.</p>" } },
-        { "type": "accordion", "settings": { "title": "Ingredients & Allergies", "content": "<p>Made with whole vegetables, fruits, vitamins, minerals, adaptogens, herbs, antioxidants, prebiotics, and super mushrooms. Free from major allergens. Third-party tested.</p>" } },
-        { "type": "accordion", "settings": { "title": "Low Sugar vs. Sugar-Free", "content": "<p><strong>Low Sugar</strong> uses a small amount of organic cane sugar. <strong>Sugar-Free</strong> is sweetened with monk fruit and erythritol — ideal for keto lifestyles.</p>" } },
-        { "type": "accordion", "settings": { "title": "Science & Certifications", "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs for 35 substances. HSA/FSA eligible through Truemed.</p>" } },
-        { "type": "accordion", "settings": { "title": "Directions", "content": "<p>Take 2 gummies daily with a meal. Each pack contains your daily serving. Not intended for children under 12 without physician guidance.</p>" } },
-        { "type": "accordion", "settings": { "title": "Benefits", "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>" } },
-        { "type": "taste", "settings": { "icon": "🌿", "label": "Fresh & Light" } },
-        { "type": "taste", "settings": { "icon": "🍓", "label": "Strawberry" } },
-        { "type": "taste", "settings": { "icon": "🟢", "label": "Sweet Greens" } },
-        { "type": "ingredient", "settings": { "icon": "🥦", "label": "Whole Veggies" } },
-        { "type": "ingredient", "settings": { "icon": "🍇", "label": "Whole Fruits" } },
-        { "type": "ingredient", "settings": { "icon": "💊", "label": "Vitamins and Minerals" } },
-        { "type": "ingredient", "settings": { "icon": "🌱", "label": "Adaptogens" } },
-        { "type": "ingredient", "settings": { "icon": "🌿", "label": "Herbs" } },
-        { "type": "ingredient", "settings": { "icon": "🛡️", "label": "Antioxidants" } },
-        { "type": "ingredient", "settings": { "icon": "🔄", "label": "Prebiotics" } },
-        { "type": "ingredient", "settings": { "icon": "🍄", "label": "Super Mushrooms" } }
-      ]
+
+    slides.forEach(function (s) { s.classList.remove('active'); });
+    firstSlide.classList.add('active');
+
+    var targetThumb2 = this.section.querySelector('.gruns-thumb[data-index="0"]');
+    if (targetThumb2) {
+      thumbs.forEach(function (t) { t.classList.remove('active'); });
+      targetThumb2.classList.add('active');
+      var thumbImg = targetThumb2.querySelector('img');
+      if (thumbImg) { thumbImg.src = imgData.thumb; thumbImg.alt = imgData.alt; }
     }
-  ]
-}
-{% endschema %}
+  };
+
+  /* ── PRICING UPDATE ──────────────────────────────────────────── */
+  /*
+   * Discount logic (matches screenshots):
+   *   qty=1: subscribe discount = base discount (e.g. 49%)  → "GET 49% OFF"
+   *   qty=2: subscribe discount = base discount + 5% qty    → "GET 52% OFF" (≈ combined)
+   *
+   * One-time price:
+   *   qty=1: full variant price (no extra discount)
+   *   qty=2: variant price × 2 × 0.95  (5% qty discount)
+   *
+   * Subscribe price:
+   *   = one-time price × (1 - subscribeDiscount%)
+   *   qty=2 subscribeDiscount = base + 3 (so 49→52, matching screenshots)
+   */
+  GrunsProductSection.prototype._updatePricing = function () {
+    var variant = this.currentVariant
+      || (this.variants.length ? this.variants[0] : null);
+
+    if (!variant) return;
+
+    var basePrice    = variant.price;          // cents
+    var comparePrice = variant.compare_at_price || basePrice;
+    var qty          = this.qty;
+    var sid          = this.sectionId;
+    var sym          = this.currency;
+
+    // qty discount: 5% off when buying 2
+    var qtyDiscount  = qty >= 2 ? 0.95 : 1.0;
+
+    // Effective subscribe discount:
+    //   qty=1 → base (e.g. 49%)
+    //   qty=2 → base + 3pp (e.g. 52%) — combined effect shown in screenshots
+    var subDiscountPct = this.discount + (qty >= 2 ? 3 : 0);
+    var subMultiplier  = 1 - (subDiscountPct / 100);
+
+    var oncePrice = Math.round(basePrice * qty * qtyDiscount);
+    var subPrice  = Math.round(oncePrice * subMultiplier);
+    var oldOnce   = comparePrice * qty;
+
+    // Per-day calculations (28 packs = 28 days)
+    var onceDayPrice = (oncePrice / 100 / 28).toFixed(2);
+    var subDayPrice  = (subPrice  / 100 / 28).toFixed(2);
+
+    // ── Subscribe card ──
+    var subPriceEl = this.section.querySelector('#gruns-sub-price-' + sid);
+    if (subPriceEl) {
+      subPriceEl.innerHTML = formatMoney(subPrice, sym)
+        + '<span class="gruns-price-freq">/mo</span>';
+    }
+
+    var subOldEl = this.section.querySelector('#gruns-sub-old-' + sid);
+    if (subOldEl) subOldEl.textContent = formatMoney(oldOnce, sym) + '/mo';
+
+    // Update subscribe per-day display
+    var subDayEl = this.section.querySelector('#gruns-sub-day-' + sid);
+    if (subDayEl) subDayEl.textContent = '$' + subDayPrice + '/day';
+
+    // ── "Most Popular" tag — show effective discount ──
+    var popularTag = this.section.querySelector('#gruns-card-sub-' + sid + ' .gruns-popular-tag');
+    if (popularTag) {
+      popularTag.textContent = 'Most Popular · Get ' + subDiscountPct + '% Off';
+    }
+
+    // ── One-time card ──
+    var oncePriceEl = this.section.querySelector('#gruns-once-price-' + sid);
+    if (oncePriceEl) oncePriceEl.textContent = formatMoney(oncePrice, sym);
+
+    var onceOldEl = this.section.querySelector('#gruns-once-old-' + sid);
+    if (onceOldEl) onceOldEl.textContent = formatMoney(oldOnce, sym);
+
+    var onceDayEl = this.section.querySelector('#gruns-once-day-' + sid);
+    if (onceDayEl) onceDayEl.textContent = '$' + onceDayPrice + '/day';
+
+    // ── CTA button ──
+    var ctaBtn = this.section.querySelector('#gruns-cta-' + sid);
+    if (ctaBtn && !ctaBtn.disabled) {
+      var displayPrice = this.purchaseType === 'subscription'
+        ? formatMoney(subPrice, sym) + '/mo'
+        : formatMoney(oncePrice, sym);
+      ctaBtn.textContent = 'Start Now — ' + displayPrice;
+    }
+  };
+
+  /* ══════════════════════════════════════════════════════════════
+     BOOT
+  ══════════════════════════════════════════════════════════════ */
+  function boot() {
+    document.querySelectorAll('[data-section-type="gruns-product"]').forEach(function (el) {
+      new GrunsProductSection(el);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  document.addEventListener('shopify:section:load', function (e) {
+    var el = e.target.querySelector('[data-section-type="gruns-product"]');
+    if (el) new GrunsProductSection(el);
+  });
+
+})();
 
 
 
