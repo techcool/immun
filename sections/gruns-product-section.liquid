@@ -195,7 +195,7 @@
               <span class="gruns-price-old" id="gruns-sub-old-{{ section.id }}">
                 {{ product.selected_or_first_available_variant.price | money }}
               </span>
-              · <span id="gruns-sub-day-{{ section.id }}">$1.46/day</span>
+              · <span id="gruns-sub-day-{{ section.id }}">₹1.46/day</span>
             </span>
           </div>
         </div>
@@ -229,7 +229,7 @@
               <span class="gruns-price-old" id="gruns-once-old-{{ section.id }}">
                 {{ product.selected_or_first_available_variant.compare_at_price | money }}
               </span>
-              · <span id="gruns-once-day-{{ section.id }}">$1.94/day</span>
+              · <span id="gruns-once-day-{{ section.id }}">₹1.94/day</span>
             </span>
           </div>
         </div>
@@ -354,113 +354,7 @@
 <script src="{{ 'gruns-product-section.js' | asset_url }}" defer></script>
 
 <script>
-  window.GrunsProduct_{{ section.id | replace: '-', '_' }} = {
-    sectionId: '{{ section.id }}',
-    productHandle: '{{ product.handle }}',
-    variantsJson: {{ product.variants | json }},
-    subscribeDiscount: {{ section.settings.subscribe_discount }},
-    currencySymbol: '{{ cart.currency.symbol }}',
-    variantImages: {
-      {%- for variant in product.variants -%}
-        {%- if variant.featured_image -%}
-          "{{ variant.id }}": {
-            "src": "{{ variant.featured_image | image_url: width: 800 }}",
-            "thumb": "{{ variant.featured_image | image_url: width: 120 }}",
-            "alt": {{ variant.featured_image.alt | default: variant.title | json }},
-            "position": {{ variant.featured_image.position | minus: 1 }}
-          }{%- unless forloop.last -%},{%- endunless -%}
-        {%- endif -%}
-      {%- endfor -%}
-    }
-  };
-</script>
 
-{% schema %}
-{
-  "name": "Grüns Product Section",
-  "tag": "section",
-  "class": "gruns-section-wrapper",
-  "settings": [
-    { "type": "header", "content": "Product" },
-    { "type": "product", "id": "product", "label": "Product" },
-    { "type": "text", "id": "product_title", "label": "Product Title (fallback)", "default": "Grüns Superfood Gummies" },
-    { "type": "header", "content": "Headlines & Badges" },
-    { "type": "textarea", "id": "page_headline", "label": "Page Headline", "default": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!" },
-    { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "3rd-Party Tested" },
-    { "type": "header", "content": "Image / Gallery" },
-    { "type": "checkbox", "id": "show_offer_ribbon", "label": "Show offer ribbon on image", "default": true },
-    { "type": "text", "id": "offer_ribbon_text", "label": "Offer Ribbon Text", "default": "LIMITED TIME OFFER: SAVE UP TO 52%" },
-    { "type": "url", "id": "nutrition_label_url", "label": "Nutrition Label URL (PDF or page)" },
-    { "type": "richtext", "id": "tested_text", "label": "Tested Badge Text", "default": "<p>Tested by Light Labs in <strong>FEB 2026</strong><br>35 substances tested for quality</p>" },
-    { "type": "header", "content": "Reviews" },
-    { "type": "checkbox", "id": "show_reviews", "label": "Show review stars", "default": true },
-    { "type": "text", "id": "review_score", "label": "Review Score", "default": "4.8/5.0" },
-    { "type": "text", "id": "review_count", "label": "Review Count", "default": "85,000" },
-    { "type": "text", "id": "customer_count", "label": "Customer Count", "default": "1M+ Customers" },
-    { "type": "header", "content": "Pricing" },
-    {
-      "type": "range",
-      "id": "subscribe_discount",
-      "min": 10, "max": 60, "step": 1, "unit": "%",
-      "label": "Subscribe & Save Discount (qty=1)",
-      "default": 49,
-      "info": "qty=2 automatically adds 3% more (e.g. 49% → 52%)"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "accordion", "name": "FAQ Accordion",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Question", "default": "Why Grüns?" },
-        { "type": "richtext", "id": "content", "label": "Answer", "default": "<p>Grüns combines 60+ whole-food ingredients into a convenient daily gummy.</p>" }
-      ]
-    },
-    {
-      "type": "taste", "name": "Taste Item",
-      "settings": [
-        { "type": "text", "id": "icon", "label": "Emoji Icon", "default": "🍓" },
-        { "type": "text", "id": "label", "label": "Label", "default": "Strawberry" }
-      ]
-    },
-    {
-      "type": "ingredient", "name": "Packed With Item",
-      "settings": [
-        { "type": "text", "id": "icon", "label": "Emoji Icon", "default": "🥦" },
-        { "type": "text", "id": "label", "label": "Label", "default": "Whole Veggies" }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Grüns Product Section",
-      "blocks": [
-        { "type": "accordion", "settings": { "title": "Why Grüns?", "content": "<p>Grüns combines 60+ whole-food ingredients — veggies, fruits, adaptogens, mushrooms, and more — into a convenient daily gummy.</p>" } },
-        { "type": "accordion", "settings": { "title": "Ingredients & Allergies", "content": "<p>Made with whole vegetables, fruits, vitamins, minerals, adaptogens, herbs, antioxidants, prebiotics, and super mushrooms. Free from major allergens. Third-party tested.</p>" } },
-        { "type": "accordion", "settings": { "title": "Low Sugar vs. Sugar-Free", "content": "<p><strong>Low Sugar</strong> uses a small amount of organic cane sugar. <strong>Sugar-Free</strong> is sweetened with monk fruit and erythritol.</p>" } },
-        { "type": "accordion", "settings": { "title": "Science & Certifications", "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs. HSA/FSA eligible through Truemed.</p>" } },
-        { "type": "accordion", "settings": { "title": "Directions", "content": "<p>Take 2 gummies daily with a meal. Each pack contains your daily serving.</p>" } },
-        { "type": "accordion", "settings": { "title": "Benefits", "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>" } },
-        { "type": "taste", "settings": { "icon": "🌿", "label": "Fresh & Light" } },
-        { "type": "taste", "settings": { "icon": "🍓", "label": "Strawberry" } },
-        { "type": "taste", "settings": { "icon": "🟢", "label": "Sweet Greens" } },
-        { "type": "ingredient", "settings": { "icon": "🥦", "label": "Whole Veggies" } },
-        { "type": "ingredient", "settings": { "icon": "🍇", "label": "Whole Fruits" } },
-        { "type": "ingredient", "settings": { "icon": "💊", "label": "Vitamins and Minerals" } },
-        { "type": "ingredient", "settings": { "icon": "🌱", "label": "Adaptogens" } },
-        { "type": "ingredient", "settings": { "icon": "🌿", "label": "Herbs" } },
-        { "type": "ingredient", "settings": { "icon": "🛡️", "label": "Antioxidants" } },
-        { "type": "ingredient", "settings": { "icon": "🔄", "label": "Prebiotics" } },
-        { "type": "ingredient", "settings": { "icon": "🍄", "label": "Super Mushrooms" } }
-      ]
-    }
-  ]
-}
-{% endschema %}
-
-
-
-<script>
-   
   /* ═══════════════════════════════════════════════════════════════
    gruns-product-section.js  (updated)
    Drop in: assets/gruns-product-section.js
@@ -469,9 +363,9 @@
 (function () {
   'use strict';
 
-  /* ── Utility: format money like Shopify (cents → "$X.XX") ── */
+  /* ── Utility: format money like Shopify (cents → "₹X.XX") ── */
   function formatMoney(cents, symbol) {
-    symbol = symbol || '$';
+    symbol = symbol || '₹';
     var amount = (cents / 100).toFixed(2);
     return symbol + amount;
   }
@@ -488,7 +382,7 @@
     this.config   = window[configKey] || {};
     this.variants = this.config.variantsJson || [];
     this.discount = parseInt(this.config.subscribeDiscount, 10) || 49;
-    this.currency = this.config.currencySymbol || '$';
+    this.currency = this.config.currencySymbol || '₹';
 
     // State
     this.selectedOptions = {};
@@ -789,7 +683,7 @@
 
     // Update subscribe per-day display
     var subDayEl = this.section.querySelector('#gruns-sub-day-' + sid);
-    if (subDayEl) subDayEl.textContent = '$' + subDayPrice + '/day';
+    if (subDayEl) subDayEl.textContent = '₹' + subDayPrice + '/day';
 
     // ── "Most Popular" tag — show effective discount ──
     var popularTag = this.section.querySelector('#gruns-card-sub-' + sid + ' .gruns-popular-tag');
@@ -805,7 +699,7 @@
     if (onceOldEl) onceOldEl.textContent = formatMoney(oldOnce, sym);
 
     var onceDayEl = this.section.querySelector('#gruns-once-day-' + sid);
-    if (onceDayEl) onceDayEl.textContent = '$' + onceDayPrice + '/day';
+    if (onceDayEl) onceDayEl.textContent = '₹' + onceDayPrice + '/day';
 
     // ── CTA button ──
     var ctaBtn = this.section.querySelector('#gruns-cta-' + sid);
@@ -839,6 +733,110 @@
 
 })();
 </script>
+
+<script>
+  window.GrunsProduct_{{ section.id | replace: '-', '_' }} = {
+    sectionId: '{{ section.id }}',
+    productHandle: '{{ product.handle }}',
+    variantsJson: {{ product.variants | json }},
+    subscribeDiscount: {{ section.settings.subscribe_discount }},
+    currencySymbol: '₹',
+    variantImages: {
+      {%- for variant in product.variants -%}
+        {%- if variant.featured_image -%}
+          "{{ variant.id }}": {
+            "src": "{{ variant.featured_image | image_url: width: 800 }}",
+            "thumb": "{{ variant.featured_image | image_url: width: 120 }}",
+            "alt": {{ variant.featured_image.alt | default: variant.title | json }},
+            "position": {{ variant.featured_image.position | minus: 1 }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    }
+  };
+</script>
+
+{% schema %}
+{
+  "name": "Grüns Product Section",
+  "tag": "section",
+  "class": "gruns-section-wrapper",
+  "settings": [
+    { "type": "header", "content": "Product" },
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "text", "id": "product_title", "label": "Product Title (fallback)", "default": "Grüns Superfood Gummies" },
+    { "type": "header", "content": "Headlines & Badges" },
+    { "type": "textarea", "id": "page_headline", "label": "Page Headline", "default": "<span>Limited Time Offer!</span> Save Up To 52% on Your First Order!" },
+    { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "3rd-Party Tested" },
+    { "type": "header", "content": "Image / Gallery" },
+    { "type": "checkbox", "id": "show_offer_ribbon", "label": "Show offer ribbon on image", "default": true },
+    { "type": "text", "id": "offer_ribbon_text", "label": "Offer Ribbon Text", "default": "LIMITED TIME OFFER: SAVE UP TO 52%" },
+    { "type": "url", "id": "nutrition_label_url", "label": "Nutrition Label URL (PDF or page)" },
+    { "type": "richtext", "id": "tested_text", "label": "Tested Badge Text", "default": "<p>Tested by Light Labs in <strong>FEB 2026</strong><br>35 substances tested for quality</p>" },
+    { "type": "header", "content": "Reviews" },
+    { "type": "checkbox", "id": "show_reviews", "label": "Show review stars", "default": true },
+    { "type": "text", "id": "review_score", "label": "Review Score", "default": "4.8/5.0" },
+    { "type": "text", "id": "review_count", "label": "Review Count", "default": "85,000" },
+    { "type": "text", "id": "customer_count", "label": "Customer Count", "default": "1M+ Customers" },
+    { "type": "header", "content": "Pricing" },
+    {
+      "type": "range",
+      "id": "subscribe_discount",
+      "min": 10, "max": 60, "step": 1, "unit": "%",
+      "label": "Subscribe & Save Discount (qty=1)",
+      "default": 49,
+      "info": "qty=2 automatically adds 3% more (e.g. 49% → 52%)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion", "name": "FAQ Accordion",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Question", "default": "Why Grüns?" },
+        { "type": "richtext", "id": "content", "label": "Answer", "default": "<p>Grüns combines 60+ whole-food ingredients into a convenient daily gummy.</p>" }
+      ]
+    },
+    {
+      "type": "taste", "name": "Taste Item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Emoji Icon", "default": "🍓" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Strawberry" }
+      ]
+    },
+    {
+      "type": "ingredient", "name": "Packed With Item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Emoji Icon", "default": "🥦" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Whole Veggies" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grüns Product Section",
+      "blocks": [
+        { "type": "accordion", "settings": { "title": "Why Grüns?", "content": "<p>Grüns combines 60+ whole-food ingredients — veggies, fruits, adaptogens, mushrooms, and more — into a convenient daily gummy.</p>" } },
+        { "type": "accordion", "settings": { "title": "Ingredients & Allergies", "content": "<p>Made with whole vegetables, fruits, vitamins, minerals, adaptogens, herbs, antioxidants, prebiotics, and super mushrooms. Free from major allergens. Third-party tested.</p>" } },
+        { "type": "accordion", "settings": { "title": "Low Sugar vs. Sugar-Free", "content": "<p><strong>Low Sugar</strong> uses a small amount of organic cane sugar. <strong>Sugar-Free</strong> is sweetened with monk fruit and erythritol.</p>" } },
+        { "type": "accordion", "settings": { "title": "Science & Certifications", "content": "<p>Clinically tested for nutrient absorption. Third-party tested by Light Labs. HSA/FSA eligible through Truemed.</p>" } },
+        { "type": "accordion", "settings": { "title": "Directions", "content": "<p>Take 2 gummies daily with a meal. Each pack contains your daily serving.</p>" } },
+        { "type": "accordion", "settings": { "title": "Benefits", "content": "<p>Supports mental clarity, energy, immunity, stress relief, digestion, and gut health.</p>" } },
+        { "type": "taste", "settings": { "icon": "🌿", "label": "Fresh & Light" } },
+        { "type": "taste", "settings": { "icon": "🍓", "label": "Strawberry" } },
+        { "type": "taste", "settings": { "icon": "🟢", "label": "Sweet Greens" } },
+        { "type": "ingredient", "settings": { "icon": "🥦", "label": "Whole Veggies" } },
+        { "type": "ingredient", "settings": { "icon": "🍇", "label": "Whole Fruits" } },
+        { "type": "ingredient", "settings": { "icon": "💊", "label": "Vitamins and Minerals" } },
+        { "type": "ingredient", "settings": { "icon": "🌱", "label": "Adaptogens" } },
+        { "type": "ingredient", "settings": { "icon": "🌿", "label": "Herbs" } },
+        { "type": "ingredient", "settings": { "icon": "🛡️", "label": "Antioxidants" } },
+        { "type": "ingredient", "settings": { "icon": "🔄", "label": "Prebiotics" } },
+        { "type": "ingredient", "settings": { "icon": "🍄", "label": "Super Mushrooms" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
 
 
 <style>
