@@ -594,9 +594,7 @@ button.tab-btn {
     gap:40px;
   }
 
-  .footer-menu-wrap .gruns-links{
-    flex:1 1 calc(50% - 40px);
-  }
+
 }
 @media (max-width: 991px){
 .modern-living-wrapper {
