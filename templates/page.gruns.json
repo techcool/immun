@@ -143,6 +143,7 @@
         "testimonial_RgKN8M",
         "testimonial_czbEdR"
       ],
+      "disabled": true,
       "name": "Testimonial Owl Slider",
       "settings": {
         "custom_class": "gruns-testimonial common-container",
