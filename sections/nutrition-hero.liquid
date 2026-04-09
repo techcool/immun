@@ -52,14 +52,22 @@
           </div>
         {% endif %}
 
-        <div class="nutrition-button-subtext rte">
-          <p>
-            30 Day Guarantee
-            <span class="tooltip">ⓘ<span class="tooltip-text">Return shipping charges not included. See <a href="#" target="_blank" title="Refund Policy">Refund Policy</a>.</span>
-            </span>
-          </p>
+        {% if section.settings.subtext_main != blank %}
+            <div class="nutrition-button-subtext rte">
+              <p>
+                {{ section.settings.subtext_main }}
 
-        </div>
+                {% if section.settings.tooltip_text != blank %}
+                  <span class="tooltip">
+                    ⓘ
+                    <span class="tooltip-text">
+                      {{ section.settings.tooltip_text }}
+                    </span>
+                  </span>
+                {% endif %}
+              </p>
+            </div>
+          {% endif %}
 
       </div>
 
