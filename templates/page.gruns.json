@@ -174,12 +174,20 @@
             "text": "\"A multivitamin that doesn’t taste bad? Count us in.\"",
             "logo": "shopify://shop_images/logo-theskimm_1.png"
           }
+        },
+        "slide_QVXFiG": {
+          "type": "slide",
+          "settings": {
+            "text": "\"In eight years of testing powders, pills, and potions, there's only one that I liked enough to then spend my own money on: Grüns superfood gummies.\"",
+            "logo": "shopify://shop_images/logo-bonappetit_1.png"
+          }
         }
       },
       "block_order": [
         "slide_cV9GKb",
         "slide_fRrXFL",
-        "slide_aHTJj6"
+        "slide_aHTJj6",
+        "slide_QVXFiG"
       ],
       "name": "Testimonial Logo Slider",
       "settings": {}
