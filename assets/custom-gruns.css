@@ -632,5 +632,7 @@ button.tab-btn {
   .footer-menu-wrap{
     gap:30px;
   }
-
+img.small-image-footer {
+    width: 75px;
+}
 }
