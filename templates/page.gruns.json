@@ -157,45 +157,29 @@
         "slide_cV9GKb": {
           "type": "slide",
           "settings": {
-            "text": "A multivitamin that doesn’t taste bad? Count us in.",
-            "logo": "shopify://shop_images/logo-glamour_1.png"
+            "text": "\"In eight years of testing powders, pills, and potions, there's only one that I liked enough to then spend my own money on: Grüns superfood gummies.\"",
+            "logo": "shopify://shop_images/logo-bonappetit_1.png"
           }
         },
         "slide_fRrXFL": {
           "type": "slide",
           "settings": {
-            "text": "A multivitamin that doesn’t taste bad? Count us in.",
-            "logo": "shopify://shop_images/logo-theskimm_1.png"
+            "text": "\"If you know you’re not getting all of the vitamins and nutrients you need from your diet, adding Grüns in is a no-brainer.\"",
+            "logo": "shopify://shop_images/logo-glamour_1.png"
           }
         },
         "slide_aHTJj6": {
           "type": "slide",
           "settings": {
-            "text": "A multivitamin that doesn’t taste bad? Count us in.",
+            "text": "\"A multivitamin that doesn’t taste bad? Count us in.\"",
             "logo": "shopify://shop_images/logo-theskimm_1.png"
-          }
-        },
-        "slide_XG6myx": {
-          "type": "slide",
-          "settings": {
-            "text": "A multivitamin that doesn’t taste bad? Count us in.",
-            "logo": "shopify://shop_images/logo-glamour_1.png"
-          }
-        },
-        "slide_xpARyK": {
-          "type": "slide",
-          "settings": {
-            "text": "A multivitamin that doesn’t taste bad? Count us in.",
-            "logo": "shopify://shop_images/logo-bonappetit_1.png"
           }
         }
       },
       "block_order": [
         "slide_cV9GKb",
         "slide_fRrXFL",
-        "slide_aHTJj6",
-        "slide_XG6myx",
-        "slide_xpARyK"
+        "slide_aHTJj6"
       ],
       "name": "Testimonial Logo Slider",
       "settings": {}
