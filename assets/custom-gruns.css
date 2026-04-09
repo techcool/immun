@@ -576,7 +576,11 @@ button.tab-btn {
   color: #FFFFFF;
   border-color: #007E40;
 }
-
+@media (max-width: 1440px){
+.gruns-grid {
+    gap: 100px;
+}
+}
 @media (max-width: 992px){
   .footer-menu-wrap{
     gap:40px;
