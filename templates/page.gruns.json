@@ -157,24 +157,21 @@
         "slide_aHTJj6": {
           "type": "slide",
           "settings": {
-            "quote": "\"A multivitamin that doesn’t taste bad? Count us in.\"",
-            "subtext": "",
+            "text": "A multivitamin that doesn’t taste bad? Count us in.",
             "logo": "shopify://shop_images/logo-theskimm_1.png"
           }
         },
         "slide_XG6myx": {
           "type": "slide",
           "settings": {
-            "quote": "\"If you know you’re not getting all of the vitamins and nutrients you need from your diet, adding Grüns in is a no-brainer.\"",
-            "subtext": "",
+            "text": "A multivitamin that doesn’t taste bad? Count us in.",
             "logo": "shopify://shop_images/logo-glamour_1.png"
           }
         },
         "slide_xpARyK": {
           "type": "slide",
           "settings": {
-            "quote": "\"In eight years of testing powders, pills, and potions, there's only one that I liked enough to then spend my own money on: Grüns superfood gummies.\"",
-            "subtext": "",
+            "text": "A multivitamin that doesn’t taste bad? Count us in.",
             "logo": "shopify://shop_images/logo-bonappetit_1.png"
           }
         }
@@ -184,20 +181,20 @@
         "slide_XG6myx",
         "slide_xpARyK"
       ],
-      "disabled": true,
       "name": "Testimonial Logo Slider",
-      "settings": {
-        "custom_class": "gruns-testimonials",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "autoplay": true,
-        "speed": 4000
-      }
+      "settings": {}
     },
     "press_carousel_FD9CiY": {
       "type": "press-carousel",
       "blocks": {
         "item_pbrVQ6": {
+          "type": "item",
+          "settings": {
+            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
+            "pub_name": "theSkimm'"
+          }
+        },
+        "item_nDFLzr": {
           "type": "item",
           "settings": {
             "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
@@ -235,6 +232,7 @@
       },
       "block_order": [
         "item_pbrVQ6",
+        "item_nDFLzr",
         "item_EBWkEb",
         "item_XzNGg7",
         "item_BTHVrP",
