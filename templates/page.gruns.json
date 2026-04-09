@@ -254,6 +254,7 @@
         "item_BTHVrP",
         "item_EtFhN7"
       ],
+      "disabled": true,
       "name": "Press Carousel",
       "settings": {
         "padding_top": 40,
