@@ -197,49 +197,64 @@
     "press_carousel_FD9CiY": {
       "type": "press-carousel",
       "blocks": {
-        "press_item_mdMQJq": {
-          "type": "press_item",
-          "settings": {
-            "quote": "\"Of all the gummies, there's only one that I liked enough to recommend — Grüns superfood gummies.\"",
-            "publication_name": "petit"
-          }
-        },
-        "press_item_xGktbe": {
-          "type": "press_item",
+        "item_pbrVQ6": {
+          "type": "item",
           "settings": {
             "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
-            "publication_name": "theSkimm'"
+            "pub_name": "theSkimm'"
           }
         },
-        "press_item_Gw3rpA": {
-          "type": "press_item",
+        "item_EBWkEb": {
+          "type": "item",
           "settings": {
-            "quote": "\"If you know you're not getting all of the nutrients you need, consider adding Grüns.\"",
-            "publication_name": "GLA"
+            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
+            "pub_name": "theSkimm'"
+          }
+        },
+        "item_XzNGg7": {
+          "type": "item",
+          "settings": {
+            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
+            "pub_name": "theSkimm'"
+          }
+        },
+        "item_BTHVrP": {
+          "type": "item",
+          "settings": {
+            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
+            "pub_name": "theSkimm'"
+          }
+        },
+        "item_EtFhN7": {
+          "type": "item",
+          "settings": {
+            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
+            "pub_name": "theSkimm'"
           }
         }
       },
       "block_order": [
-        "press_item_mdMQJq",
-        "press_item_xGktbe",
-        "press_item_Gw3rpA"
+        "item_pbrVQ6",
+        "item_EBWkEb",
+        "item_XzNGg7",
+        "item_BTHVrP",
+        "item_EtFhN7"
       ],
       "name": "Press Carousel",
       "settings": {
         "padding_top": 40,
         "padding_bottom": 40,
-        "background_color": "#ffffff",
+        "bg_color": "#ffffff",
         "quote_color": "#444444",
-        "logo_color": "#111111",
-        "btn_bg_color": "#ffffff",
-        "btn_border_color": "#333333",
-        "btn_icon_color": "#333333",
-        "btn_hover_bg": "#f5f5f5",
-        "btn_hover_border": "#000000",
-        "dot_active_color": "#111111",
-        "dot_inactive_color": "#cccccc",
+        "pub_color": "#111111",
+        "btn_bg": "#ffffff",
+        "btn_border": "#2b2b2b",
+        "btn_fg": "#2b2b2b",
+        "dot_on": "#111111",
+        "dot_off": "#c0c0c0",
         "autoplay": false,
-        "autoplay_speed": 5
+        "autoplay_speed": 5,
+        "section_aria_label": "Press mentions"
       }
     },
     "find_your_favorite_pYqbb9": {
