@@ -30,7 +30,7 @@
 
       </div>
 
-      <!-- NAVIGATION -->
+      <!-- NAV -->
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
 
@@ -45,43 +45,46 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
 <style>
-.testimonial-slider {
+#{{ section_id }} {
   padding: 80px 0;
-  position: relative;
 }
 
-.testimonial-slider .swiper {
+/* 🔥 CRITICAL FIX */
+#{{ section_id }} .page-width,
+#{{ section_id }} .swiper {
   overflow: visible;
 }
 
-/* SLIDE STYLE */
-.testimonial-slide {
+/* SLIDE */
+#{{ section_id }} .testimonial-slide {
   text-align: center;
   opacity: 0.4;
   transform: scale(0.85);
   transition: all 0.4s ease;
 }
 
-/* ACTIVE SLIDE */
-.testimonial-slide.swiper-slide-active {
+/* ACTIVE CENTER */
+#{{ section_id }} .swiper-slide-active {
   opacity: 1;
   transform: scale(1);
 }
 
-.testimonial-text {
+/* TEXT */
+#{{ section_id }} .testimonial-text {
   font-size: 22px;
   line-height: 1.6;
   margin-bottom: 25px;
 }
 
-.testimonial-logo img {
+/* LOGO */
+#{{ section_id }} .testimonial-logo img {
   max-width: 160px;
   margin: 0 auto;
 }
 
 /* NAV BUTTON */
-.swiper-button-prev,
-.swiper-button-next {
+#{{ section_id }} .swiper-button-prev,
+#{{ section_id }} .swiper-button-next {
   width: 48px;
   height: 48px;
   border: 2px solid #1f3d2b;
@@ -91,24 +94,24 @@
   transform: translateY(-50%);
 }
 
-.swiper-button-prev::after,
-.swiper-button-next::after {
+#{{ section_id }} .swiper-button-prev::after,
+#{{ section_id }} .swiper-button-next::after {
   font-size: 16px;
 }
 
 /* DOTS */
-.swiper-pagination-bullet {
+#{{ section_id }} .swiper-pagination-bullet {
   background: #000;
   opacity: 0.3;
 }
 
-.swiper-pagination-bullet-active {
+#{{ section_id }} .swiper-pagination-bullet-active {
   opacity: 1;
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .testimonial-text {
+  #{{ section_id }} .testimonial-text {
     font-size: 16px;
   }
 }
@@ -118,15 +121,21 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const swiper = new Swiper("#{{ section_id }} .testimonial-swiper", {
+function initTestimonialSwiper{{ section.id }}() {
+  const el = document.querySelector("#{{ section_id }} .testimonial-swiper");
+  if (!el) return;
+
+  if (el.swiper) {
+    el.swiper.destroy(true, true);
+  }
+
+  const swiper = new Swiper(el, {
     loop: true,
     centeredSlides: true,
+    speed: 600,
 
     slidesPerView: 1.2,
     spaceBetween: 20,
-
-    speed: 600,
 
     autoplay: {
       delay: 3000,
@@ -156,16 +165,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     on: {
       init: function () {
-        this.update(); // 👈 VERY IMPORTANT
+        this.update();
       }
     }
   });
 
-  // 👇 FIX for Shopify dynamic rendering
   setTimeout(() => {
     swiper.update();
   }, 300);
-});
+}
+
+/* INIT */
+document.addEventListener("DOMContentLoaded", initTestimonialSwiper{{ section.id }});
+
+/* SHOPIFY EDITOR FIX */
+document.addEventListener("shopify:section:load", initTestimonialSwiper{{ section.id }});
 </script>
 
 {% schema %}
