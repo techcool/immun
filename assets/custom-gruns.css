@@ -576,6 +576,47 @@ button.tab-btn {
   color: #FFFFFF;
   border-color: #007E40;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 220px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  padding: 8px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 999;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
 @media (max-width: 1440px){
 .gruns-grid {
     gap: 100px;
