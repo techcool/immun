@@ -194,6 +194,54 @@
         "speed": 4000
       }
     },
+    "press_carousel_FD9CiY": {
+      "type": "press-carousel",
+      "blocks": {
+        "press_item_mdMQJq": {
+          "type": "press_item",
+          "settings": {
+            "quote": "\"Of all the gummies, there's only one that I liked enough to recommend — Grüns superfood gummies.\"",
+            "publication_name": "petit"
+          }
+        },
+        "press_item_xGktbe": {
+          "type": "press_item",
+          "settings": {
+            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
+            "publication_name": "theSkimm'"
+          }
+        },
+        "press_item_Gw3rpA": {
+          "type": "press_item",
+          "settings": {
+            "quote": "\"If you know you're not getting all of the nutrients you need, consider adding Grüns.\"",
+            "publication_name": "GLA"
+          }
+        }
+      },
+      "block_order": [
+        "press_item_mdMQJq",
+        "press_item_xGktbe",
+        "press_item_Gw3rpA"
+      ],
+      "name": "Press Carousel",
+      "settings": {
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "background_color": "#ffffff",
+        "quote_color": "#444444",
+        "logo_color": "#111111",
+        "btn_bg_color": "#ffffff",
+        "btn_border_color": "#333333",
+        "btn_icon_color": "#333333",
+        "btn_hover_bg": "#f5f5f5",
+        "btn_hover_border": "#000000",
+        "dot_active_color": "#111111",
+        "dot_inactive_color": "#cccccc",
+        "autoplay": false,
+        "autoplay_speed": 5
+      }
+    },
     "find_your_favorite_pYqbb9": {
       "type": "find-your-favorite",
       "blocks": {
@@ -1336,6 +1384,7 @@
     "nutrition_hero_wbz9CE",
     "testimonial_owl_slider_6BWQzz",
     "testimonial_logo_slider_JpeDGt",
+    "press_carousel_FD9CiY",
     "find_your_favorite_pYqbb9",
     "health_benefits_FCwzcz",
     "modern_living_stats_URhcL9",
