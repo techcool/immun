@@ -55,9 +55,7 @@
         <div class="nutrition-button-subtext rte">
           <p>
             30 Day Guarantee
-            <span class="tooltip">
-              ⓘ
-              <span class="tooltip-text">Return shipping charges not included. See <a href="#" target="_blank" title="Refund Policy">Refund Policy</a>.</span>
+            <span class="tooltip">ⓘ<span class="tooltip-text">Return shipping charges not included. See <a href="#" target="_blank" title="Refund Policy">Refund Policy</a>.</span>
             </span>
           </p>
 
@@ -78,6 +76,89 @@
 
     </div>
   </div>
+</section>
+
+{% schema %}
+{
+  "name": "Nutrition Hero",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Add custom class"
+    },
+    {
+      "type": "richtext",
+      "id": "rating_text",
+      "label": "Rating description",
+      "default": "<p>4.8 stars from 85,000 reviews | 1,000,000+ members</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You have nutrition gaps, Grüns fills them"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "richtext",
+      "id": "button_subtext",
+      "label": "Button sub text (below button)"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nutrition Hero"
+    }
+  ]
+}
+{% endschema %}
 
   <style>
     #{{ section_id }} {
@@ -168,86 +249,3 @@
       }
     }
   </style>
-</section>
-
-{% schema %}
-{
-  "name": "Nutrition Hero",
-  "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 200,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding top",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 200,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding bottom",
-      "default": 40
-    },
-    {
-      "type": "text",
-      "id": "custom_class",
-      "label": "Add custom class"
-    },
-    {
-      "type": "richtext",
-      "id": "rating_text",
-      "label": "Rating description",
-      "default": "<p>4.8 stars from 85,000 reviews | 1,000,000+ members</p>"
-    },
-    {
-      "type": "textarea",
-      "id": "heading",
-      "label": "Heading",
-      "default": "You have nutrition gaps, Grüns fills them"
-    },
-    {
-      "type": "richtext",
-      "id": "description",
-      "label": "Description"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "Shop now"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button link"
-    },
-    {
-      "type": "richtext",
-      "id": "button_subtext",
-      "label": "Button sub text (below button)"
-    },
-    {
-      "type": "image_picker",
-      "id": "product_image",
-      "label": "Product image"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Nutrition Hero"
-    }
-  ]
-}
-{% endschema %}
