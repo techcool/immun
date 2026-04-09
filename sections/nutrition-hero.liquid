@@ -6,8 +6,10 @@
 >
   <div class="page-width">
     <div class="nutrition-hero__wrapper">
+
       <!-- LEFT CONTENT -->
       <div class="nutrition-hero__content">
+
         {% if section.settings.rating_text != blank %}
           <div class="nutrition-rating">
             <div class="nutrition-stars">
@@ -49,14 +51,14 @@
         {% endif %}
 
         {% if section.settings.subtext_main != blank %}
-          <div class="nutrition-button-subtext rte">
+          <div class="nutrition-button-subtext">
             <p>
               {{ section.settings.subtext_main }}
 
               {% if section.settings.tooltip_text != blank %}
                 <span class="tooltip">
                   ⓘ
-                  <span class="tooltip-text">
+                  <span class="tooltip-text rte">
                     {{ section.settings.tooltip_text }}
                   </span>
                 </span>
@@ -64,6 +66,7 @@
             </p>
           </div>
         {% endif %}
+
       </div>
 
       <!-- RIGHT IMAGE -->
@@ -76,6 +79,7 @@
           >
         {% endif %}
       </div>
+
     </div>
   </div>
 </section>
