@@ -6,13 +6,10 @@
 >
   <div class="page-width">
     <div class="nutrition-hero__wrapper">
-
       <!-- LEFT CONTENT -->
       <div class="nutrition-hero__content">
-
         {% if section.settings.rating_text != blank %}
           <div class="nutrition-rating">
-            
             <div class="nutrition-stars">
               {% for i in (1..5) %}
                 <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
@@ -24,7 +21,6 @@
             <div class="nutrition-rating-text rte">
               {{ section.settings.rating_text }}
             </div>
-
           </div>
         {% endif %}
 
@@ -53,22 +49,21 @@
         {% endif %}
 
         {% if section.settings.subtext_main != blank %}
-            <div class="nutrition-button-subtext rte">
-              <p>
-                {{ section.settings.subtext_main }}
+          <div class="nutrition-button-subtext rte">
+            <p>
+              {{ section.settings.subtext_main }}
 
-                {% if section.settings.tooltip_text != blank %}
-                  <span class="tooltip">
-                    ⓘ
-                    <span class="tooltip-text">
-                      {{ section.settings.tooltip_text }}
-                    </span>
+              {% if section.settings.tooltip_text != blank %}
+                <span class="tooltip">
+                  ⓘ
+                  <span class="tooltip-text">
+                    {{ section.settings.tooltip_text }}
                   </span>
-                {% endif %}
-              </p>
-            </div>
-          {% endif %}
-
+                </span>
+              {% endif %}
+            </p>
+          </div>
+        {% endif %}
       </div>
 
       <!-- RIGHT IMAGE -->
@@ -81,7 +76,6 @@
           >
         {% endif %}
       </div>
-
     </div>
   </div>
 </section>
@@ -158,6 +152,18 @@
       "type": "image_picker",
       "id": "product_image",
       "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "subtext_main",
+      "label": "Subtext main line",
+      "default": "30 Day Guarantee"
+    },
+    {
+      "type": "richtext",
+      "id": "tooltip_text",
+      "label": "Tooltip text",
+      "default": "<p>Return shipping charges not included. See <a href='/policies/refund-policy'>Refund Policy</a>.</p>"
     }
   ],
   "presets": [
@@ -168,92 +174,92 @@
 }
 {% endschema %}
 
-  <style>
+<style>
+  #{{ section_id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 749px) {
     #{{ section_id }} {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     }
+  }
 
-    @media screen and (max-width: 749px) {
-      #{{ section_id }} {
-        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-      }
-    }
+  .nutrition-hero__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+  }
 
+  .nutrition-hero__content {
+    flex: 1;
+    max-width: 600px;
+  }
+
+  .nutrition-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .nutrition-stars {
+    display: flex;
+    gap: 4px;
+    color: #f5b301;
+  }
+
+  .nutrition-rating-text {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .nutrition-heading {
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .nutrition-description {
+    margin-bottom: 25px;
+  }
+
+  .nutrition-btn {
+    margin-top: 10px;
+  }
+
+  .nutrition-button-subtext {
+    margin-top: 12px;
+    font-size: 14px;
+    opacity: 0.85;
+  }
+
+  .nutrition-hero__image {
+    flex: 1;
+  }
+
+  .nutrition-hero__image img {
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+  }
+
+  @media screen and (max-width: 990px) {
     .nutrition-hero__wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 60px;
-    }
-
-    .nutrition-hero__content {
-      flex: 1;
-      max-width: 600px;
-    }
-
-    .nutrition-rating {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .nutrition-stars {
-      display: flex;
-      gap: 4px;
-      color: #f5b301;
-    }
-
-    .nutrition-rating-text {
-      font-size: 14px;
-      font-weight: 600;
+      flex-direction: column;
+      text-align: center;
     }
 
     .nutrition-heading {
-      font-size: 44px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 20px;
+      font-size: 32px;
     }
 
-    .nutrition-description {
-      margin-bottom: 25px;
+    .nutrition-rating {
+      justify-content: center;
     }
-
-    .nutrition-btn {
-      margin-top: 10px;
-    }
-
-    .nutrition-button-subtext {
-      margin-top: 12px;
-      font-size: 14px;
-      opacity: 0.85;
-    }
-
-    .nutrition-hero__image {
-      flex: 1;
-    }
-
-    .nutrition-hero__image img {
-      width: 100%;
-      border-radius: 20px;
-      display: block;
-    }
-
-    @media screen and (max-width: 990px) {
-      .nutrition-hero__wrapper {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .nutrition-heading {
-        font-size: 32px;
-      }
-
-      .nutrition-rating {
-        justify-content: center;
-      }
-    }
-  </style>
+  }
+</style>
