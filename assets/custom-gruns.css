@@ -602,16 +602,15 @@ button.tab-btn {
     border: 1px solid #0b7a43;
     border-style: dashed;
 }
-
-.tooltip-text::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 5px;
-  border-style: solid;
-  border-color: #333 transparent transparent transparent;
+.tooltip-text:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: auto;
+    left: -10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #0b7a43 transparent transparent;
 }
 .tooltip:hover .tooltip-text {
   visibility: visible;
