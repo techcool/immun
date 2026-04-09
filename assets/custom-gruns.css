@@ -571,9 +571,10 @@ button.tab-btn {
     padding: 10px 38px;
 }
 
-.tabs .tab-btn.active{
+.tabs .tab-btn.active, .tabs .tab-btn:hover{
   background-color: #007E40;
   color: #FFFFFF;
+  border-color: #007E40;
 }
 .tabs button.tab-btn:hover{
       background-color: rgba(139, 188, 159, var(--tw-bg-opacity));
