@@ -586,20 +586,21 @@ button.tab-btn {
 }
 
 .tooltip-text {
-  visibility: hidden;
-  width: 220px;
-  background-color: #333;
-  color: #fff;
-  text-align: left;
-  padding: 8px;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 999;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
+    visibility: hidden;
+    width: 220px;
+    background-color: transparent;
+    color: #000;
+    text-align: left;
+    padding: 8px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 999;
+    top: 4px;
+    left: 17px;
+    opacity: 0;
+    transition: opacity .3s;
+    border: 1px solid #0b7a43;
+    border-style: dashed;
 }
 
 .tooltip-text::after {
