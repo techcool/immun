@@ -65,7 +65,12 @@
   width: 100%;
   max-width: 450px;
 }
-
+@media (max-width: 1024px) {
+  .your-health .health-grid {
+    grid-template-columns: 1fr 300px 1fr;
+    gap: 20px;
+}
+}
 @media (max-width: 767px) {
   .your-health .health-grid {
     grid-template-columns: 1fr;
