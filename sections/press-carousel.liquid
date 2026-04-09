@@ -1,0 +1,506 @@
+{% comment %}
+  Press / Media Testimonials Carousel Section
+  Shopify Section — fully responsive, touch-enabled, accessible
+{% endcomment %}
+
+<section
+  class="press-carousel"
+  id="press-carousel-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  aria-label="Press mentions"
+>
+  <div class="press-carousel__track-wrapper">
+    <div class="press-carousel__track" id="pressTrack-{{ section.id }}" role="list">
+      {% for block in section.blocks %}
+        {% if block.type == 'press_item' %}
+          <div
+            class="press-carousel__slide"
+            role="listitem"
+            {{ block.shopify_attributes }}
+          >
+            <blockquote class="press-carousel__quote">
+              {{ block.settings.quote | escape }}
+            </blockquote>
+            <div class="press-carousel__logo-wrap">
+              {% if block.settings.logo != blank %}
+                <img
+                  src="{{ block.settings.logo | img_url: '300x120', crop: 'center' }}"
+                  alt="{{ block.settings.publication_name | escape }}"
+                  class="press-carousel__logo"
+                  loading="lazy"
+                  width="150"
+                  height="60"
+                >
+              {% else %}
+                <span class="press-carousel__logo-text">{{ block.settings.publication_name }}</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if section.blocks.size > 1 %}
+    <button
+      class="press-carousel__btn press-carousel__btn--prev"
+      aria-label="Previous slide"
+      data-dir="-1"
+      data-carousel="{{ section.id }}"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 8 8 12 12 16"/><line x1="16" y1="12" x2="8" y2="12"/></svg>
+    </button>
+    <button
+      class="press-carousel__btn press-carousel__btn--next"
+      aria-label="Next slide"
+      data-dir="1"
+      data-carousel="{{ section.id }}"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    </button>
+
+    <div class="press-carousel__dots" role="tablist" aria-label="Slide navigation">
+      {% for block in section.blocks %}
+        {% if block.type == 'press_item' %}
+          <button
+            class="press-carousel__dot{% if forloop.first %} is-active{% endif %}"
+            role="tab"
+            aria-label="Go to slide {{ forloop.index }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            data-index="{{ forloop.index0 }}"
+            data-carousel="{{ section.id }}"
+          ></button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+<style>
+/* ─── Section wrapper ─── */
+.press-carousel {
+  position: relative;
+  padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  background-color: {{ section.settings.background_color }};
+  overflow: hidden;
+}
+
+/* ─── Track ─── */
+.press-carousel__track-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.press-carousel__track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* ─── Individual slide ─── */
+.press-carousel__slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 80px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .press-carousel__slide {
+    flex: 0 0 33.3333%;
+    min-width: 33.3333%;
+    padding: 0 32px;
+    border-right: 1px solid rgba(0,0,0,0.08);
+  }
+  .press-carousel__slide:last-child {
+    border-right: none;
+  }
+}
+
+/* ─── Quote ─── */
+.press-carousel__quote {
+  margin: 0;
+  font-family: {{ section.settings.quote_font | default: 'Georgia, serif' }};
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-style: italic;
+  color: {{ section.settings.quote_color }};
+  line-height: 1.65;
+  max-width: 340px;
+}
+
+/* ─── Logo ─── */
+.press-carousel__logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.press-carousel__logo {
+  max-width: 140px;
+  max-height: 52px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.press-carousel__logo-text {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+  color: {{ section.settings.logo_color }};
+  letter-spacing: 0.01em;
+}
+
+/* ─── Nav buttons ─── */
+.press-carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid {{ section.settings.btn_border_color }};
+  background: {{ section.settings.btn_bg_color }};
+  color: {{ section.settings.btn_icon_color }};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.press-carousel__btn:hover {
+  background: {{ section.settings.btn_hover_bg }};
+  border-color: {{ section.settings.btn_hover_border }};
+}
+
+.press-carousel__btn--prev { left: 16px; }
+.press-carousel__btn--next { right: 16px; }
+
+@media (min-width: 768px) {
+  .press-carousel__btn--prev { left: 24px; }
+  .press-carousel__btn--next { right: 24px; }
+}
+
+/* ─── Dots ─── */
+.press-carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.press-carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: {{ section.settings.dot_inactive_color }};
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.press-carousel__dot.is-active {
+  background: {{ section.settings.dot_active_color }};
+  transform: scale(1.25);
+}
+
+/* ─── Responsive: show 1 slide on mobile ─── */
+@media (max-width: 767px) {
+  .press-carousel__slide {
+    padding: 0 56px;
+  }
+}
+</style>
+
+<script>
+(function () {
+  const sectionId = '{{ section.id }}';
+  const track = document.getElementById('pressTrack-' + sectionId);
+  if (!track) return;
+
+  const slides = track.querySelectorAll('.press-carousel__slide');
+  const dots   = document.querySelectorAll('.press-carousel__dot[data-carousel="' + sectionId + '"]');
+  const total  = slides.length;
+  let current  = 0;
+  let autoplay;
+
+  function getSlidesPerView() {
+    return window.innerWidth >= 768 ? 3 : 1;
+  }
+
+  function clamp(val) {
+    const perView = getSlidesPerView();
+    const max = Math.max(0, total - perView);
+    return Math.min(Math.max(val, 0), max);
+  }
+
+  function goTo(idx) {
+    const perView = getSlidesPerView();
+    current = clamp(idx);
+    const pct = (100 / perView) * current;
+    track.style.transform = 'translateX(-' + pct + '%)';
+
+    // Dots: highlight the dot at current position
+    dots.forEach(function (d, i) {
+      const active = i === current;
+      d.classList.toggle('is-active', active);
+      d.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+  }
+
+  // Button clicks
+  document.querySelectorAll('.press-carousel__btn[data-carousel="' + sectionId + '"]')
+    .forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        resetAutoplay();
+        goTo(current + parseInt(btn.dataset.dir, 10));
+      });
+    });
+
+  // Dot clicks
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      resetAutoplay();
+      goTo(parseInt(dot.dataset.index, 10));
+    });
+  });
+
+  // Touch / swipe
+  let touchStartX = 0;
+  track.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', function (e) {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      resetAutoplay();
+      goTo(current + (diff > 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
+  // Keyboard
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { resetAutoplay(); goTo(current - 1); }
+    if (e.key === 'ArrowRight') { resetAutoplay(); goTo(current + 1); }
+  });
+
+  // Autoplay
+  function startAutoplay() {
+    if ({{ section.settings.autoplay | json }} !== true) return;
+    autoplay = setInterval(function () {
+      const perView = getSlidesPerView();
+      const max = Math.max(0, total - perView);
+      goTo(current >= max ? 0 : current + 1);
+    }, {{ section.settings.autoplay_speed }} * 1000);
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoplay);
+    startAutoplay();
+  }
+
+  // Recalculate on resize (debounced)
+  let resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { goTo(current); }, 120);
+  });
+
+  // Init
+  goTo(0);
+  startAutoplay();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Press Carousel",
+  "tag": "section",
+  "class": "section-press-carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quote text",
+      "default": "#444444"
+    },
+    {
+      "type": "color",
+      "id": "logo_color",
+      "label": "Publication name (fallback text)",
+      "default": "#111111"
+    },
+    {
+      "type": "header",
+      "content": "Navigation buttons"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_border_color",
+      "label": "Button border",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "btn_icon_color",
+      "label": "Button icon",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_border",
+      "label": "Button hover border",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Dots"
+    },
+    {
+      "type": "color",
+      "id": "dot_active_color",
+      "label": "Active dot",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "dot_inactive_color",
+      "label": "Inactive dot",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay speed",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "press_item",
+      "name": "Press item",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "\"A product worth raving about.\""
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Publication logo"
+        },
+        {
+          "type": "text",
+          "id": "publication_name",
+          "label": "Publication name (if no logo)",
+          "default": "Publication"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Press Carousel",
+      "blocks": [
+        {
+          "type": "press_item",
+          "settings": {
+            "quote": "\"Of all the gummies, there's only one that I liked enough to recommend — Grüns superfood gummies.\"",
+            "publication_name": "petit"
+          }
+        },
+        {
+          "type": "press_item",
+          "settings": {
+            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
+            "publication_name": "theSkimm'"
+          }
+        },
+        {
+          "type": "press_item",
+          "settings": {
+            "quote": "\"If you know you're not getting all of the nutrients you need, consider adding Grüns.\"",
+            "publication_name": "GLA"
+          }
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12
+}
+{% endschema %}
