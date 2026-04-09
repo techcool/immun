@@ -581,6 +581,14 @@ button.tab-btn {
     gap: 100px;
 }
 }
+@media (max-width: 1180px){
+      .gruns-grid {
+        gap: 50px;
+    }
+    .footer-menu-wrap{
+      gap: 50px;
+    }
+}
 @media (max-width: 992px){
   .footer-menu-wrap{
     gap:40px;
