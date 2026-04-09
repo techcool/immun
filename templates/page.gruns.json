@@ -154,6 +154,18 @@
     "testimonial_logo_slider_JpeDGt": {
       "type": "testimonial-logo-slider",
       "blocks": {
+        "slide_cV9GKb": {
+          "type": "slide",
+          "settings": {
+            "text": "A multivitamin that doesn’t taste bad? Count us in."
+          }
+        },
+        "slide_fRrXFL": {
+          "type": "slide",
+          "settings": {
+            "text": "A multivitamin that doesn’t taste bad? Count us in."
+          }
+        },
         "slide_aHTJj6": {
           "type": "slide",
           "settings": {
@@ -177,6 +189,8 @@
         }
       },
       "block_order": [
+        "slide_cV9GKb",
+        "slide_fRrXFL",
         "slide_aHTJj6",
         "slide_XG6myx",
         "slide_xpARyK"
