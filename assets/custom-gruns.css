@@ -612,7 +612,6 @@ button.tab-btn {
   border-style: solid;
   border-color: #333 transparent transparent transparent;
 }
-
 .tooltip:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
