@@ -55,16 +55,22 @@
 
               {% if section.settings.tooltip_text != blank %}
                 <span class="tooltip">
+  ⓘ
+  <span class="tooltip-text rte">
+    {{ section.settings.tooltip_text }}
+  </span>
+</span>
+                {% comment %} <span class="tooltip">
                   ⓘ
-                  <span class="tooltip-text">
+                  <span class="tooltip-text ">
                     {{ section.settings.tooltip_text }}
                   </span>
-                </span>
+                </span> {% endcomment %}
               {% endif %}
             </p>
           </div>
         {% endif %}
-        
+
       </div>
 
       <!-- RIGHT IMAGE -->
