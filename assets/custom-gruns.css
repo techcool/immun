@@ -675,4 +675,18 @@ button.tab-btn {
 img.small-image-footer {
     width: 75px;
 }
+.tooltip-text {
+    top: 26px;
+    left: 0;
+}
+.tooltip-text:after {
+    content: "";
+    position: absolute;
+    top: -11px;
+    right: auto;
+    left: 126px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #0b7a43 transparent;
+}
 }
