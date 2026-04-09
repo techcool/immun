@@ -552,7 +552,7 @@ img.small-image-footer {
 
 /* Each menu column */
 .footer-menu-wrap .gruns-links{
-  flex:1 1 220px;
+  flex:1 1 160px;
 }
 .gruns-toggle-sms, .gruns-toggle-email {
     display: inline-block;
