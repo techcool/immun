@@ -113,45 +113,6 @@
         "tooltip_text": "<p>Return shipping charges not included. See <a href=\"/policies/refund-policy\">Refund Policy</a>. </p>"
       }
     },
-    "testimonial_owl_slider_6BWQzz": {
-      "type": "testimonial-owl-slider",
-      "blocks": {
-        "testimonial_mbdcm3": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "\"In eight years of testing powders, pills, and potions, there's only one that I liked enough to then spend my own money on: Grüns superfood gummies.\"",
-            "logo": "shopify://shop_images/logo-bonappetit_1.png"
-          }
-        },
-        "testimonial_RgKN8M": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "\"If you know you’re not getting all of the vitamins and nutrients you need from your diet, adding Grüns in is a no-brainer.\"",
-            "logo": "shopify://shop_images/logo-glamour_1.png"
-          }
-        },
-        "testimonial_czbEdR": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "\"A multivitamin that doesn’t taste bad? Count us in.\"",
-            "logo": "shopify://shop_images/logo-theskimm_1.png"
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_mbdcm3",
-        "testimonial_RgKN8M",
-        "testimonial_czbEdR"
-      ],
-      "disabled": true,
-      "name": "Testimonial Owl Slider",
-      "settings": {
-        "custom_class": "gruns-testimonial common-container",
-        "bg_color": "#ffffff",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "testimonial_logo_slider_JpeDGt": {
       "type": "testimonial-logo-slider",
       "blocks": {
@@ -208,78 +169,6 @@
       ],
       "name": "Testimonial Logo Slider",
       "settings": {}
-    },
-    "press_carousel_FD9CiY": {
-      "type": "press-carousel",
-      "blocks": {
-        "item_pbrVQ6": {
-          "type": "item",
-          "settings": {
-            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
-            "pub_name": "theSkimm'"
-          }
-        },
-        "item_nDFLzr": {
-          "type": "item",
-          "settings": {
-            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
-            "pub_name": "theSkimm'"
-          }
-        },
-        "item_EBWkEb": {
-          "type": "item",
-          "settings": {
-            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
-            "pub_name": "theSkimm'"
-          }
-        },
-        "item_XzNGg7": {
-          "type": "item",
-          "settings": {
-            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
-            "pub_name": "theSkimm'"
-          }
-        },
-        "item_BTHVrP": {
-          "type": "item",
-          "settings": {
-            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
-            "pub_name": "theSkimm'"
-          }
-        },
-        "item_EtFhN7": {
-          "type": "item",
-          "settings": {
-            "quote": "\"A multivitamin that doesn't taste bad? Count us in.\"",
-            "pub_name": "theSkimm'"
-          }
-        }
-      },
-      "block_order": [
-        "item_pbrVQ6",
-        "item_nDFLzr",
-        "item_EBWkEb",
-        "item_XzNGg7",
-        "item_BTHVrP",
-        "item_EtFhN7"
-      ],
-      "disabled": true,
-      "name": "Press Carousel",
-      "settings": {
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "bg_color": "#ffffff",
-        "quote_color": "#444444",
-        "pub_color": "#111111",
-        "btn_bg": "#ffffff",
-        "btn_border": "#2b2b2b",
-        "btn_fg": "#2b2b2b",
-        "dot_on": "#111111",
-        "dot_off": "#c0c0c0",
-        "autoplay": false,
-        "autoplay_speed": 5,
-        "section_aria_label": "Press mentions"
-      }
     },
     "find_your_favorite_pYqbb9": {
       "type": "find-your-favorite",
@@ -1421,9 +1310,7 @@
     "custom_header_common_hcUmjJ",
     "main",
     "nutrition_hero_wbz9CE",
-    "testimonial_owl_slider_6BWQzz",
     "testimonial_logo_slider_JpeDGt",
-    "press_carousel_FD9CiY",
     "find_your_favorite_pYqbb9",
     "health_benefits_FCwzcz",
     "modern_living_stats_URhcL9",
