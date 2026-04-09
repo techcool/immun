@@ -1,319 +1,296 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+>
 
 {% style %}
+  .section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+    position: relative;
+  }
 
-.section-{{ section.id }} {
-  padding-top: {{ section.settings.padding_top }}px;
-  padding-bottom: {{ section.settings.padding_bottom }}px;
-  background: {{ section.settings.bg_color }};
-  position: relative;
-}
+  /* Container */
 
-/* Container */
+  .gruns-testimonial .page-width {
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+  }
 
-.gruns-testimonial .page-width {
-  margin: auto;
-  overflow: hidden;
-  position: relative;
-}
+  .gruns-testimonial .page-width .owl-stage-outer:after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%);
+    z-index: 1;
+  }
 
-.gruns-testimonial .page-width .owl-stage-outer:after {
-  content: "";
-  position: absolute;
-  width: 50px;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%);
-  z-index: 1;
-}
+  .gruns-testimonial .page-width .owl-stage-outer:before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%);
+    z-index: 2;
+  }
 
-.gruns-testimonial .page-width .owl-stage-outer:before {
-  content: "";
-  position: absolute;
-  width: 50px;
-  height: 100%;
-  top: 0;
-  right: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%);
-  z-index: 2;
-}
+  .gruns-testimonial .owl-stage-outer {
+    overflow: visible;
+  }
 
-.gruns-testimonial .owl-stage-outer {
-  overflow: visible;
-}
+  /* Testimonial Card */
 
-/* Testimonial Card */
+  .gruns-testimonial .testimonial-item {
+    border-radius: 16px;
+    transition: all .4s ease;
+    text-align: center;
+    opacity: .7;
+    transform: scale(.9);
+  }
 
-.gruns-testimonial .testimonial-item {
-  border-radius: 16px;
-  transition: all .4s ease;
-  text-align: center;
-  opacity: .7;
-  transform: scale(.9);
-}
+  /* Quote */
 
-/* Quote */
+  .gruns-testimonial .testimonial-text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 25px;
+    font-style: italic;
+  }
 
-.gruns-testimonial .testimonial-text {
-  font-size: 18px;
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 25px;
-  font-style: italic;
-}
+  /* Logo */
 
-/* Logo */
+  .gruns-testimonial .testimonial-logo img {
+    max-width: 140px;
+    margin: auto;
+  }
 
-.gruns-testimonial .testimonial-logo img {
-  max-width: 140px;
-  margin: auto;
-}
+  /* Owl Item Animation */
 
-/* Owl Item Animation */
+  .gruns-testimonial .owl-item {
+    transition: all .4s ease;
+  }
 
-.gruns-testimonial .owl-item {
-  transition: all .4s ease;
-}
+  .gruns-testimonial .owl-item.active .testimonial-item {
+    opacity: .7;
+    transform: scale(.95);
+  }
 
-.gruns-testimonial .owl-item.active .testimonial-item {
-  opacity: .7;
-  transform: scale(.95);
-}
+  /* Center Active Item */
 
-/* Center Active Item */
+  .gruns-testimonial .owl-item.center .testimonial-item {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 3;
+  }
 
-.gruns-testimonial .owl-item.center .testimonial-item {
-  opacity: 1;
-  transform: scale(1);
-  z-index: 3;
-}
+  /* Navigation */
 
-/* Navigation */
+  .section-{{ section.id }} .owl-nav {
+    position: absolute;
+    top: 30%;
+    z-index: 9;
+    width: 100%;
+  }
 
-.section-{{ section.id }} .owl-nav {
-  position: absolute;
-  top: 30%;
-  z-index: 9;
-  width: 100%;
-}
+  .section-{{ section.id }} .owl-nav button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #0f3d2e !important;
+    background: #fff !important;
+    color: #0f3d2e !important;
+    font-size: 20px;
+    transition: .3s;
+  }
 
-.section-{{ section.id }} .owl-nav button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid #0f3d2e !important;
-  background: #fff !important;
-  color: #0f3d2e !important;
-  font-size: 20px;
-  transition: .3s;
-}
-
-.section-{{ section.id }} .owl-nav button:hover {
-  background: #0f3d2e !important;
-  color: #fff !important;
-}
-
-.section-{{ section.id }} .owl-prev {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.section-{{ section.id }} .owl-next {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-/* Dots */
-
-.section-{{ section.id }} .owl-dots {
-  margin-top: 35px;
-  text-align: center;
-}
-
-.section-{{ section.id }} .owl-dot span {
-  width: 10px;
-  height: 10px;
-  background: #ccc !important;
-}
-
-.section-{{ section.id }} .owl-dot.active span {
-  background: #0f3d2e !important;
-}
-
-/* Responsive */
-
-@media (max-width: 991px) {
-
-  .section-{{ section.id }} .testimonial-item {
-    padding: 35px;
+  .section-{{ section.id }} .owl-nav button:hover {
+    background: #0f3d2e !important;
+    color: #fff !important;
   }
 
   .section-{{ section.id }} .owl-prev {
-    left: -20px;
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 
   .section-{{ section.id }} .owl-next {
-    right: -20px;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
-}
+  /* Dots */
 
-@media (max-width: 600px) {
-
-  .section-{{ section.id }} .testimonial-text {
-    font-size: 16px;
+  .section-{{ section.id }} .owl-dots {
+    margin-top: 35px;
+    text-align: center;
   }
 
-}
+  .section-{{ section.id }} .owl-dot span {
+    width: 10px;
+    height: 10px;
+    background: #ccc !important;
+  }
 
+  .section-{{ section.id }} .owl-dot.active span {
+    background: #0f3d2e !important;
+  }
+
+  /* Responsive */
+
+  @media (max-width: 991px) {
+
+    .section-{{ section.id }} .testimonial-item {
+      padding: 35px;
+    }
+
+    .section-{{ section.id }} .owl-prev {
+      left: -20px;
+    }
+
+    .section-{{ section.id }} .owl-next {
+      right: -20px;
+    }
+
+  }
+
+  @media (max-width: 600px) {
+
+    .section-{{ section.id }} .testimonial-text {
+      font-size: 16px;
+    }
+
+  }
 {% endstyle %}
 
-
 <section class="gruns-testimonial section-{{ section.id }} {{ section.settings.custom_class }}">
+  <div class="page-width">
+    <div class="owl-carousel testimonial-slider-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="testimonial-item">
+          <div class="testimonial-text">
+            {{ block.settings.quote }}
+          </div>
 
-<div class="page-width">
-
-<div class="owl-carousel testimonial-slider-{{ section.id }}">
-
-{% for block in section.blocks %}
-
-<div class="testimonial-item">
-
-<div class="testimonial-text">
-{{ block.settings.quote }}
-</div>
-
-<div class="testimonial-logo">
-{% if block.settings.logo != blank %}
-<img src="{{ block.settings.logo | image_url: width: 300 }}">
-{% endif %}
-</div>
-
-</div>
-
-{% endfor %}
-
-</div>
-
-</div>
-
+          <div class="testimonial-logo">
+            {% if block.settings.logo != blank %}
+              <img src="{{ block.settings.logo | image_url: width: 300 }}">
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 <script>
+  $(document).ready(function () {
+    $('.testimonial-slider-{{ section.id }}').owlCarousel({
+      loop: true,
+      margin: 30,
+      nav: true,
+      dots: false,
+      center: true,
+      items: 1,
+      stagePadding: 400,
 
-$(document).ready(function(){
+      autoplay: false,
+      autoplayTimeout: 4000,
+      smartSpeed: 700,
 
-$('.testimonial-slider-{{ section.id }}').owlCarousel({
+      navText: ['<span>&larr;</span>', '<span>&rarr;</span>'],
 
-loop:true,
-margin:30,
-nav:true,
-dots:false,
-center:true,
-items:1,
-stagePadding:400,
+      responsive: {
+        0: {
+          items: 1,
+          stagePadding: 30,
+        },
 
-autoplay:false,
-autoplayTimeout:4000,
-smartSpeed:700,
+        600: {
+          items: 1,
+          stagePadding: 120,
+        },
 
-navText:[
-'<span>&larr;</span>',
-'<span>&rarr;</span>'
-],
-
-responsive:{
-
-0:{
-items:1,
-stagePadding:30
-},
-
-600:{
-items:1,
-stagePadding:120
-},
-
-1000:{
-items:1,
-stagePadding:400
-}
-
-}
-
-});
-
-});
-
+        1000: {
+          items: 1,
+          stagePadding: 400,
+        },
+      },
+    });
+  });
 </script>
-
 
 {% schema %}
 {
-"name": "Testimonial Owl Slider",
-"settings": [
-{
-"type": "text",
-"id": "custom_class",
-"label": "Custom Class"
-},
-{
-"type": "color",
-"id": "bg_color",
-"label": "Background Color",
-"default": "#f7f7f7"
-},
-{
-"type": "range",
-"id": "padding_top",
-"min": 0,
-"max": 200,
-"step": 10,
-"default": 80,
-"label": "Padding Top"
-},
-{
-"type": "range",
-"id": "padding_bottom",
-"min": 0,
-"max": 200,
-"step": 10,
-"default": 80,
-"label": "Padding Bottom"
-}
-],
+  "name": "Testimonial Owl Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 80,
+      "label": "Padding Top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 80,
+      "label": "Padding Bottom"
+    }
+  ],
 
-"blocks": [
-{
-"type": "testimonial",
-"name": "Testimonial",
-"settings": [
-{
-"type": "textarea",
-"id": "quote",
-"label": "Quote Text"
-},
-{
-"type": "image_picker",
-"id": "logo",
-"label": "Logo"
-}
-]
-}
-],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        }
+      ]
+    }
+  ],
 
-"presets": [
-{
-"name": "Testimonial Owl Slider"
-}
-]
+  "presets": [
+    {
+      "name": "Testimonial Owl Slider"
+    }
+  ]
 }
 {% endschema %}
