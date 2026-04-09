@@ -119,25 +119,28 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  new Swiper("#{{ section_id }} .testimonial-swiper", {
+  const swiper = new Swiper("#{{ section_id }} .testimonial-swiper", {
     loop: true,
     centeredSlides: true,
+
     slidesPerView: 1.2,
     spaceBetween: 20,
+
+    speed: 600,
 
     autoplay: {
       delay: 3000,
       disableOnInteraction: false,
     },
 
-    pagination: {
-      el: "#{{ section_id }} .swiper-pagination",
-      clickable: true,
-    },
-
     navigation: {
       nextEl: "#{{ section_id }} .swiper-button-next",
       prevEl: "#{{ section_id }} .swiper-button-prev",
+    },
+
+    pagination: {
+      el: "#{{ section_id }} .swiper-pagination",
+      clickable: true,
     },
 
     breakpoints: {
@@ -146,11 +149,22 @@ document.addEventListener("DOMContentLoaded", function () {
         spaceBetween: 30,
       },
       1024: {
-        slidesPerView: 2, /* 👈 1 / ½ / ½ */
+        slidesPerView: 2,
         spaceBetween: 60,
+      }
+    },
+
+    on: {
+      init: function () {
+        this.update(); // 👈 VERY IMPORTANT
       }
     }
   });
+
+  // 👇 FIX for Shopify dynamic rendering
+  setTimeout(() => {
+    swiper.update();
+  }, 300);
 });
 </script>
 
