@@ -576,9 +576,6 @@ button.tab-btn {
   color: #FFFFFF;
   border-color: #007E40;
 }
-.tabs button.tab-btn:hover{
-      background-color: rgba(139, 188, 159, var(--tw-bg-opacity));
-}
 
 @media (max-width: 992px){
   .footer-menu-wrap{
