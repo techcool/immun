@@ -93,6 +93,20 @@
     width: calc(50% - 25px);
 }
   }
+@media (max-width: 576px) {
+.your-health .health-features {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 30px;
+      justify-content: center;
+  }
+  .your-health .health-item {
+    text-align: center;
+    width: calc(50% - 15px);
+}
+}
+
+
 {% endstyle %}
 
 <section class="your-health section-{{ section.id }}{% if section.settings.custom_class != blank %} {{ section.settings.custom_class }}{% endif %}">
