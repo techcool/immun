@@ -87,6 +87,52 @@
 }
 
 /* Mobile padding */
+/* Mobile Menu */
+@media (max-width: 991px) {
+
+  .hamburger {
+    display: flex;
+  }
+
+  .custom-header-img__menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100%;
+    background: #fff;
+    flex-direction: column;
+    padding: 80px 20px;
+    transition: 0.3s ease;
+    z-index: 1000;
+  }
+
+  .custom-header-img__menu ul {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .custom-header-img__menu.active {
+    left: 0;
+  }
+
+  /* Overlay */
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 999;
+  }
+
+  .menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 @media (max-width: 768px) {
   .custom-header-img {
     padding-top: {{ section.settings.padding_top_mobile }}px;
