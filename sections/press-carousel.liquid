@@ -61,7 +61,7 @@
         <line x1="8" y1="12" x2="16" y2="12"/>
       </svg>
     </button>
-    
+
 
     <div class="pc__dots" role="tablist">
       {% for block in section.blocks %}
@@ -95,6 +95,7 @@
   /* 66.6667% = 1 full centre slide + ½ visible on each side */
   --pc-slide-w:     66.6667%;
 }
+
 
 @media (max-width: 767px) {
   #pc-{{ section.id }} { --pc-slide-w: 80%; }
