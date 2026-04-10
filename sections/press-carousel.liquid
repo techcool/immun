@@ -106,7 +106,7 @@
   background: var(--pc-bg);
   padding: var(--pc-pt) 0 var(--pc-pb);
   overflow: hidden;
-  
+
 }
 
 /* Viewport clips overflow */
@@ -121,6 +121,7 @@
   will-change: transform;
   margin-left: calc((100% - var(--pc-slide-w)) / 2);
 }
+
 
 /* Slide */
 .pc__slide {
@@ -179,6 +180,7 @@
   line-height: 1;
 }
 
+
 /* Arrow buttons */
 .pc__btn {
   position: absolute;
@@ -209,6 +211,7 @@
   .pc__btn--prev { left: 6px; }
   .pc__btn--next { right: 6px; }
 }
+
 
 /* Dots */
 .pc__dots {
@@ -318,6 +321,10 @@
       activate();
     }
   });
+
+
+
+  
 
   /* Buttons */
   var btnP = document.querySelector('.pc__btn--prev[data-id="' + ID + '"]');
