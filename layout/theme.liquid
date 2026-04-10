@@ -129,11 +129,11 @@
     {% endif %}
 
     <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+     {% comment %}<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script> 
     <script src="https://unpkg.com/gsap@3/dist/ScrollSmoother.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>{% endcomment %}
 
-    <script src="{{ 'custom.js' | asset_url }}" defer></script>
+    {% comment %} <script src="{{ 'custom.js' | asset_url }}" defer></script> {% endcomment %}
   </body>
 </html>
