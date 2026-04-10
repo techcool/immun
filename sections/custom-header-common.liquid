@@ -69,6 +69,23 @@
   padding-right: 40px;
 }
 
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: currentColor;
+  display: block;
+  transition: 0.3s;
+}
+
 /* Mobile padding */
 @media (max-width: 768px) {
   .custom-header-img {
