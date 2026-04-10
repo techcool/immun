@@ -7,7 +7,6 @@
 
 {% assign product = all_products[section.settings.product] | default: product %}
 
-{{ 'gruns-product-section.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   #gruns-product-{{ section.id }} {
@@ -502,7 +501,6 @@
 </div>
 </section>
 
-<script src="{{ 'gruns-product-section.js' | asset_url }}" defer></script>
 
 <script>
   window.GrunsProduct_{{ section.id | replace: '-', '_' }} = {
