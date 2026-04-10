@@ -312,10 +312,10 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("menu:", menu);
   console.log("overlay:", overlay);
 
-  if (!hamburger) {
+  {% comment %} if (!hamburger) {
     console.error("❌ Hamburger not found");
     return;
-  }
+  } {% endcomment %}
 
   hamburger.addEventListener("click", function () {
     console.log("🔥 CLICK WORKING");
