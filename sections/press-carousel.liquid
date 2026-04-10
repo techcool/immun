@@ -45,6 +45,7 @@
     {%- if block.type == 'item' -%}{%- assign block_count = block_count | plus: 1 -%}{%- endif -%}
   {%- endfor -%}
 
+  
   {% if block_count > 1 %}
     <button class="pc__btn pc__btn--prev" aria-label="Previous" data-id="{{ section.id }}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
