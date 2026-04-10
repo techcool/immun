@@ -302,7 +302,7 @@
 {% endschema %}
 
 <script>
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
 
   const hamburger = document.getElementById("hamburgerBtn");
   const menu = document.getElementById("mobileMenu");
@@ -320,24 +320,21 @@
   hamburger.addEventListener("click", function () {
     console.log("🔥 CLICK WORKING");
 
-    menu.classList.toggle("active");
-    overlay.classList.toggle("active");
+    // Hamburger animation
     hamburger.classList.toggle("active");
+
+    // Menu toggle (if exists)
+    if (menu) {
+      menu.classList.toggle("active");
+    }
+
+    // Overlay toggle (if exists)
+    if (overlay) {
+      overlay.classList.toggle("active");
+    }
   });
 
 });
 </script>
 
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-
-  const hamburger = document.getElementById("hamburgerBtn");
-
-  if (hamburger) {
-    hamburger.addEventListener("click", function () {
-      hamburger.classList.toggle("active");
-    });
-  }
-
-});</script>
