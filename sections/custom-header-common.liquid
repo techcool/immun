@@ -300,3 +300,23 @@
   ]
 }
 {% endschema %}
+
+<script>
+  const hamburger = document.getElementById("hamburgerBtn");
+const menu = document.getElementById("mobileMenu");
+const overlay = document.getElementById("menuOverlay");
+
+if (hamburger && menu && overlay) {
+
+  hamburger.addEventListener("click", () => {
+    menu.classList.toggle("active");
+    overlay.classList.toggle("active");
+  });
+
+  overlay.addEventListener("click", () => {
+    menu.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+
+}
+</script>
