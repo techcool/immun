@@ -126,6 +126,7 @@
   }
 {% endstyle %}
 
+
 <section class="product-offer-section">
   {% assign product = section.settings.product %}
 
@@ -177,6 +178,7 @@
         <span>One Time Purchase</span>
         <strong>{{ product.price | money }}</strong>
       </div>
+
 
       <form method="post" action="/cart/add">
         <input
