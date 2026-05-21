@@ -622,6 +622,7 @@ button.tab-btn {
     gap: 100px;
 }
 }
+
 @media (max-width: 1180px){
       .gruns-grid {
         gap: 50px;
