@@ -1543,6 +1543,7 @@
     transition: background .2s, transform .1s, box-shadow .2s;
     box-shadow: 0 4px 16px rgba(30,70,45,.25); text-align: center; margin-top: 4px;
   }
+  
   .gruns-cta-btn:hover:not(:disabled) { background: var(--g-green-mid); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,70,45,.3); }
   .gruns-cta-btn:active:not(:disabled) { transform: translateY(0); }
   .gruns-cta-btn:disabled { background: #aaa; cursor: not-allowed; box-shadow: none; }
@@ -1556,11 +1557,13 @@
   .gruns-trust-item { flex: 1; min-width: 80px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .gruns-trust-icon { font-size: 1.4rem; color: var(--g-green-mid); display: flex; align-items: center; justify-content: center; min-height: 36px; }
   .gruns-trust-img { width: 36px; height: 36px; object-fit: contain; display: block; }
+
   .gruns-trust-text { font-size: 14px; color: var(--dk-green); font-weight: 500; line-height: 1.3; }
 
   /* ── Accordion ── */
   .gruns-accordion { display: flex; flex-direction: column; }
   .gruns-acc-item { border-top: 1px solid var(--g-border); }
+
   .gruns-acc-item:last-child { border-bottom: 1px solid var(--g-border); }
   .gruns-acc-header {
     width: 100%; display: flex; align-items: center;
@@ -1568,7 +1571,7 @@
     font-size: 24px; font-weight: 600;
     color: var(--dk-green); cursor: pointer; text-align: left; gap: 10px;
   }
-  
+
   .gruns-acc-header-icon { font-size: 1.1rem; flex-shrink: 0; }
   .gruns-acc-header-icon--img { display: flex; align-items: center; flex-shrink: 0; }
   .gruns-acc-header-icon--img img { width: 24px; height: 24px; object-fit: contain; display: block; }
