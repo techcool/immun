@@ -42,7 +42,7 @@
   margin-bottom:10px;
   }
 
-  
+
   .variant-buttons{
   display:flex;
   gap:10px;
@@ -58,7 +58,7 @@
   cursor:pointer;
   }
 
-  
+
   .variant-buttons button.active{
   background:#00a6b6;
   color:#fff;
@@ -88,6 +88,9 @@
   cursor:pointer;
   margin-top:10px;
   }
+
+
+
 
   .accordion{
   border-top:1px solid #ddd;
@@ -127,7 +130,6 @@
   }
   }
 {% endstyle %}
-
 
 <section class="product-offer-section">
   {% assign product = section.settings.product %}
@@ -180,7 +182,6 @@
         <span>One Time Purchase</span>
         <strong>{{ product.price | money }}</strong>
       </div>
-
 
       <form method="post" action="/cart/add">
         <input
